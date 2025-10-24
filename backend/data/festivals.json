@@ -1,0 +1,55 @@
+{
+  "last_updated": "2025-10-24T18:00:00Z",
+  "festivals": [
+    {
+      "name": "Ganga Dussehra",
+      "date": "June 9-10, 2025",
+      "location": "Haridwar, Rishikesh",
+      "description": "Celebrates the descent of Goddess Ganga to Earth. Grand Ganga Aarti with thousands of diyas (lamps) floated on the river.",
+      "significance": "Bathing in Ganga on this day is believed to wash away sins.",
+      "crowd_level": "Very High",
+      "activities": ["Ganga Aarti", "Holy dip", "Cultural programs", "Processions"]
+    },
+    {
+      "name": "Maha Shivaratri",
+      "date": "February 26, 2026",
+      "location": "Kedarnath, Haridwar, Rishikesh, Neelkanth Mahadev",
+      "description": "The Great Night of Shiva. Devotees observe fasting and night-long vigil.",
+      "significance": "Celebrates Lord Shiva's cosmic dance and marriage to Parvati.",
+      "crowd_level": "Extreme (Especially at Shiva temples)",
+      "activities": ["Night-long puja", "Abhishekam", "Chanting of Om Namah Shivaya"]
+    },
+    {
+      "name": "Kumbh Mela (Haridwar)",
+      "date": "2026 (Every 12 years)",
+      "location": "Haridwar (Har Ki Pauri)",
+      "description": "World's largest religious gathering. Millions take holy dip at Ganga.",
+      "significance": "Based on Hindu mythology - drops of immortal nectar fell at four locations.",
+      "crowd_level": "Unprecedented (10+ million pilgrims)",
+      "activities": ["Shahi Snan (Royal Bath)", "Akharas processions", "Spiritual discourses"]
+    },
+    {
+      "name": "Nanda Devi Raj Jat",
+      "date": "Every 12 years (Next: 2026)",
+      "location": "Chamoli district - multi-day pilgrimage route",
+      "description": "Ancient pilgrimage to honor Goddess Nanda Devi. 280 km trek over 19 days.",
+      "significance": "UNESCO Intangible Cultural Heritage. Tradition spans over 1,000 years.",
+      "crowd_level": "Moderate (Local participation)",
+      "activities": ["Pilgrimage procession", "Traditional songs and dances", "Homkund Lake ritual"]
+    }
+  ],
+  "upcoming_local_events": [
+    {
+      "event": "Autumn Festival Week",
+      "date": "October 25-31, 2025",
+      "location": "Mussoorie",
+      "description": "Cultural programs, local handicraft exhibition, food festival"
+    },
+    {
+      "event": "International Yoga Festival",
+      "date": "March 1-7, 2026",
+      "location": "Rishikesh (Parmarth Niketan)",
+      "description": "World-renowned yoga teachers, meditation workshops, Ganga Aarti"
+    }
+  ]
+}

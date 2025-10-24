@@ -1,0 +1,109 @@
+{
+  "last_updated": "2025-10-24T18:00:00Z",
+  "contacts": [
+    {
+      "service": "Uttarakhand Emergency (Police)",
+      "number": "100 / 112",
+      "description": "State-wide emergency helpline",
+      "availability": "24/7"
+    },
+    {
+      "service": "Uttarakhand Tourism Helpline",
+      "number": "1364",
+      "description": "Tourist assistance, information, and complaints",
+      "availability": "24/7"
+    },
+    {
+      "service": "Ambulance Service",
+      "number": "108",
+      "description": "Free emergency ambulance service across Uttarakhand",
+      "availability": "24/7"
+    },
+    {
+      "service": "State Disaster Response",
+      "number": "1070",
+      "description": "Disaster management, rescue operations, landslide/earthquake alerts",
+      "availability": "24/7"
+    }
+  ],
+  "medical_facilities": [
+    {
+      "name": "Base Hospital Badrinath",
+      "location": "Badrinath",
+      "type": "Government Hospital",
+      "altitude": "3,300m",
+      "services": ["Emergency care", "Altitude sickness treatment", "Basic surgery"],
+      "contact": "+91-1381-222048",
+      "capacity": "Limited beds, essential facilities"
+    },
+    {
+      "name": "Community Health Centre Gaurikund",
+      "location": "Gaurikund (Base for Kedarnath trek)",
+      "type": "Primary Health Centre",
+      "altitude": "1,982m",
+      "services": ["First aid", "Altitude sickness", "Emergency stabilization"],
+      "contact": "+91-1364-233070",
+      "capacity": "Basic facilities, refer critical cases to Rudraprayag"
+    },
+    {
+      "name": "AIIMS Rishikesh",
+      "location": "Rishikesh",
+      "type": "Premier Medical Institute",
+      "altitude": "340m",
+      "services": ["All specialties", "24x7 Emergency", "Advanced trauma care", "Air ambulance"],
+      "contact": "+91-135-2462050 (Emergency)",
+      "capacity": "750+ beds, state-of-the-art facilities"
+    },
+    {
+      "name": "Himalayan Hospital Jollygrant",
+      "location": "Dehradun (Near airport)",
+      "type": "Private Multi-specialty",
+      "altitude": "470m",
+      "services": ["Emergency", "ICU", "Cardiac care", "Air ambulance coordination"],
+      "contact": "+91-135-2643091",
+      "capacity": "100+ beds"
+    }
+  ],
+  "altitude_sickness_info": {
+    "symptoms": [
+      "Headache",
+      "Nausea or vomiting",
+      "Dizziness",
+      "Fatigue",
+      "Shortness of breath",
+      "Loss of appetite"
+    ],
+    "immediate_action": [
+      "DESCEND to lower altitude immediately",
+      "Rest and avoid physical exertion",
+      "Stay hydrated",
+      "Avoid alcohol",
+      "Seek medical help if symptoms worsen"
+    ],
+    "prevention": [
+      "Ascend gradually (acclimatize)",
+      "Stay hydrated (3-4 liters water/day)",
+      "Avoid alcohol and sleeping pills",
+      "Consult doctor about Diamox (acetazolamide)",
+      "Listen to your body - don't push through symptoms"
+    ],
+    "high_risk_locations": [
+      "Kedarnath (3,583m)",
+      "Badrinath (3,300m)",
+      "Hemkund Sahib (4,632m)",
+      "Valley of Flowers base (3,800m)"
+    ]
+  },
+  "rescue_services": {
+    "helicopter_rescue": {
+      "service": "ITBP Air Wing / State Helicopter Service",
+      "contact": "Dial 112 or contact nearest police station",
+      "note": "Available for critical emergencies, weather dependent"
+    },
+    "trekking_rescue": {
+      "service": "Local rescue teams available at base camps",
+      "locations": ["Kedarnath base", "Gangotri", "Joshimath", "Ghangaria"],
+      "note": "Inform trek operators and local authorities immediately"
+    }
+  }
+}

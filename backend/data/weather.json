@@ -1,0 +1,45 @@
+{
+  "last_updated": "2025-10-24T18:00:00Z",
+  "locations": [
+    {
+      "location": "Badrinath",
+      "temperature": "8°C - 18°C",
+      "condition": "Clear skies, pleasant",
+      "humidity": "45%",
+      "altitude": "3,300m",
+      "recommendation": "Perfect weather for darshan. Carry light woolens.",
+      "best_time": "Early morning 6 AM - 8 AM"
+    },
+    {
+      "location": "Kedarnath",
+      "temperature": "5°C - 15°C",
+      "condition": "Partly cloudy, cool",
+      "humidity": "50%",
+      "altitude": "3,583m",
+      "recommendation": "Slightly chilly. Warm clothes recommended for evening.",
+      "best_time": "Morning 7 AM - 9 AM"
+    },
+    {
+      "location": "Gangotri",
+      "temperature": "6°C - 16°C",
+      "condition": "Sunny with light breeze",
+      "humidity": "40%",
+      "altitude": "3,100m",
+      "recommendation": "Excellent trekking weather. Don't forget sunscreen.",
+      "best_time": "All day, especially sunrise"
+    },
+    {
+      "location": "Rishikesh",
+      "temperature": "22°C - 32°C",
+      "condition": "Warm and humid",
+      "humidity": "65%",
+      "altitude": "340m",
+      "recommendation": "Hot during day. Best for rafting. Stay hydrated.",
+      "best_time": "Evening Ganga Aarti at 6 PM"
+    }
+  ],
+  "forecast": {
+    "next_7_days": "Generally clear with occasional afternoon clouds. No rain expected.",
+    "monsoon_status": "Post-monsoon season. Roads are clear and safe."
+  }
+}
