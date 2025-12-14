@@ -58,7 +58,7 @@ for item in sample_data:
     print(f"  ✓ Added {result.get('chunks_count', 0)} chunks to {result.get('collection', 'unknown')}")
     print()
 
-print("✅ Sample data loaded successfully!")
+print(" Sample data loaded successfully!")
 
 # Verify
 response = requests.get(f"{API_BASE}/content-stats")

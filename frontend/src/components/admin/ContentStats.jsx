@@ -150,9 +150,9 @@ function ContentStats({ ragHealth }) {
                     {new Date(activity.timestamp).toLocaleTimeString()}
                   </div>
                   <div className="flex-1 ml-4 text-gray-900">
-                    {activity.action === 'add_pdf' && `📄 Added PDF: ${activity.file}`}
-                    {activity.action === 'add_webpage' && `🌐 Added webpage: ${activity.url}`}
-                    {activity.action === 'add_text' && `📝 Added text: ${activity.title}`}
+                    {activity.action === 'add_pdf' && ` Added PDF: ${activity.file}`}
+                    {activity.action === 'add_webpage' && `Added webpage: ${activity.url}`}
+                    {activity.action === 'add_text' && ` Added text: ${activity.title}`}
                     {activity.chunks && ` (${activity.chunks} chunks)`}
                   </div>
                 </div>

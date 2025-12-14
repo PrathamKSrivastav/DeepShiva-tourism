@@ -52,10 +52,10 @@ function ChatWindow({ selectedPersona, personaInfo, selectedChat, newChatTrigger
     setSessionId(null)
     
     const welcomeMessages = {
-      local_guide: "Hey there! 👋 I'm your Local Guide. I've been exploring Uttarakhand for years and know all the insider tips. What brings you to Dev Bhoomi? Planning a Char Dham trip, or looking for some adventure?",
-      spiritual_teacher: "🕉️ Namaste, blessed soul. I am honored to guide you through the spiritual essence of these sacred Himalayas. Each temple, each river, each peak here resonates with divine energy. What aspect of this holy land calls to your heart?",
-      trek_companion: "🏔️ Hey adventure buddy! Ready to explore the mountains? I'm here to help you plan treks, check weather, and keep you safe. Whether it's Valley of Flowers or Kedarnath trek - let's gear up! What's your adventure goal?",
-      cultural_expert: "📚 Namaste and welcome! As a Cultural Expert, I'll unveil the rich tapestry of myths, legends, and traditions woven into Uttarakhand's landscape. Every stone here has a story spanning millennia. What cultural aspect would you like to explore?"
+      local_guide: "Hey there! I'm your Local Guide. I've been exploring Uttarakhand for years and know all the insider tips. What brings you to Dev Bhoomi? Planning a Char Dham trip, or looking for some adventure?",
+      spiritual_teacher: " Namaste, blessed soul. I am honored to guide you through the spiritual essence of these sacred Himalayas. Each temple, each river, each peak here resonates with divine energy. What aspect of this holy land calls to your heart?",
+      trek_companion: " Hey adventure buddy! Ready to explore the mountains? I'm here to help you plan treks, check weather, and keep you safe. Whether it's Valley of Flowers or Kedarnath trek - let's gear up! What's your adventure goal?",
+      cultural_expert: " Namaste and welcome! As a Cultural Expert, I'll unveil the rich tapestry of myths, legends, and traditions woven into Uttarakhand's landscape. Every stone here has a story spanning millennia. What cultural aspect would you like to explore?"
     }
     
     setMessages([{
@@ -125,7 +125,7 @@ function ChatWindow({ selectedPersona, personaInfo, selectedChat, newChatTrigger
       
       const errorMessage = {
         id: Date.now() + 1,
-        text: "I apologize, but I'm having trouble connecting right now. Please try again in a moment. 🙏",
+        text: "I apologize, but I'm having trouble connecting right now. Please try again in a moment. ",
         sender: 'bot',
         persona: selectedPersona,
         timestamp: new Date(),
