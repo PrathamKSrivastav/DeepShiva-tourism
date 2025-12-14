@@ -1,23 +1,63 @@
 import { useState, useRef, useEffect } from 'react'
 import MessageBubble from './MessageBubble'
 import { sendChatMessage } from '../api'
+import { useAuth } from '../context/AuthContext'
 
-function ChatWindow({ selectedPersona, personaInfo }) {
+function ChatWindow({ selectedPersona, personaInfo, selectedChat, newChatTrigger, currentSessionId, onSessionCreated }) {
   const [messages, setMessages] = useState([])
   const [inputMessage, setInputMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [sessionId, setSessionId] = useState(currentSessionId)
+  
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  const { isAuthenticated } = useAuth()
+
+  // Update session ID when prop changes
+  useEffect(() => {
+    setSessionId(currentSessionId)
+  }, [currentSessionId])
+
+  // Load selected chat or welcome message
+  useEffect(() => {
+    if (selectedChat) {
+      loadSelectedChat(selectedChat)
+    } else {
+      showWelcomeMessage()
+    }
+  }, [selectedChat, selectedPersona, newChatTrigger])
 
   useEffect(() => {
-    // Welcome message when persona changes
+    scrollToBottom()
+  }, [messages])
+
+  const loadSelectedChat = (chat) => {
+    console.log('📖 Loading chat session:', chat._id)
+    setSessionId(chat._id)
+    
+    const formattedMessages = chat.messages.map((msg, idx) => ({
+      id: `history-${idx}`,
+      text: msg.content,
+      sender: msg.role === 'user' ? 'user' : 'bot',
+      persona: msg.persona || selectedPersona,
+      intent: msg.intent,
+      timestamp: new Date(msg.timestamp)
+    }))
+    
+    setMessages(formattedMessages)
+  }
+
+  const showWelcomeMessage = () => {
+    console.log('👋 Showing welcome message for:', selectedPersona)
+    setSessionId(null)
+    
     const welcomeMessages = {
       local_guide: "Hey there! 👋 I'm your Local Guide. I've been exploring Uttarakhand for years and know all the insider tips. What brings you to Dev Bhoomi? Planning a Char Dham trip, or looking for some adventure?",
       spiritual_teacher: "🕉️ Namaste, blessed soul. I am honored to guide you through the spiritual essence of these sacred Himalayas. Each temple, each river, each peak here resonates with divine energy. What aspect of this holy land calls to your heart?",
       trek_companion: "🏔️ Hey adventure buddy! Ready to explore the mountains? I'm here to help you plan treks, check weather, and keep you safe. Whether it's Valley of Flowers or Kedarnath trek - let's gear up! What's your adventure goal?",
       cultural_expert: "📚 Namaste and welcome! As a Cultural Expert, I'll unveil the rich tapestry of myths, legends, and traditions woven into Uttarakhand's landscape. Every stone here has a story spanning millennia. What cultural aspect would you like to explore?"
     }
-
+    
     setMessages([{
       id: Date.now(),
       text: welcomeMessages[selectedPersona] || welcomeMessages.local_guide,
@@ -25,11 +65,7 @@ function ChatWindow({ selectedPersona, personaInfo }) {
       persona: selectedPersona,
       timestamp: new Date()
     }])
-  }, [selectedPersona])
-
-  useEffect(() => {
-    scrollToBottom()
-  }, [messages])
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -37,8 +73,9 @@ function ChatWindow({ selectedPersona, personaInfo }) {
 
   const handleSendMessage = async (e) => {
     e.preventDefault()
-    
     if (!inputMessage.trim() || isLoading) return
+
+    console.log('📤 Sending message with session:', sessionId)
 
     const userMessage = {
       id: Date.now(),
@@ -52,8 +89,20 @@ function ChatWindow({ selectedPersona, personaInfo }) {
     setIsLoading(true)
 
     try {
-      const response = await sendChatMessage(inputMessage, selectedPersona)
-      
+      // Send message with session ID
+      const response = await sendChatMessage(inputMessage, selectedPersona, {}, sessionId)
+
+      console.log('📥 Response:', response)
+
+      // Update session ID if new session was created
+      if (response.session_id && !sessionId) {
+        console.log('✅ New session created:', response.session_id)
+        setSessionId(response.session_id)
+        if (onSessionCreated) {
+          onSessionCreated(response.session_id)
+        }
+      }
+
       const botMessage = {
         id: Date.now() + 1,
         text: response.response,
@@ -61,12 +110,18 @@ function ChatWindow({ selectedPersona, personaInfo }) {
         persona: response.persona,
         intent: response.intent,
         suggestions: response.suggestions,
-        timestamp: new Date()
+        timestamp: new Date(),
+        chatSaved: response.chat_saved
       }
 
       setMessages(prev => [...prev, botMessage])
+
+      if (isAuthenticated && response.chat_saved) {
+        console.log('✅ Chat saved to session:', response.session_id)
+      }
+
     } catch (error) {
-      console.error('Error sending message:', error)
+      console.error('❌ Error sending message:', error)
       
       const errorMessage = {
         id: Date.now() + 1,
@@ -76,7 +131,7 @@ function ChatWindow({ selectedPersona, personaInfo }) {
         timestamp: new Date(),
         isError: true
       }
-
+      
       setMessages(prev => [...prev, errorMessage])
     } finally {
       setIsLoading(false)
@@ -90,24 +145,25 @@ function ChatWindow({ selectedPersona, personaInfo }) {
   }
 
   return (
-    <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl flex flex-col h-[700px]">
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-[calc(100vh-16rem)]">
       {/* Chat Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-6 rounded-t-2xl">
-        <div className="flex items-center gap-4">
-          <span className="text-5xl">{personaInfo?.avatar || '🧑‍🤝‍🧑'}</span>
-          <div>
-            <h3 className="text-2xl font-heading font-bold">
-              {personaInfo?.name || 'Local Guide'}
-            </h3>
-            <p className="text-sm text-white/90 mt-1">
-              {personaInfo?.description || 'Your guide to Uttarakhand'}
-            </p>
+      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 text-white">
+        <div className="flex items-center space-x-3">
+          <div className="text-3xl">{personaInfo?.icon || '🤖'}</div>
+          <div className="flex-1">
+            <h3 className="font-semibold text-lg">{personaInfo?.name || 'AI Guide'}</h3>
+            <p className="text-sm text-indigo-100">{personaInfo?.description || 'Your guide to Uttarakhand'}</p>
           </div>
+          {sessionId && (
+            <div className="text-xs bg-white/20 px-3 py-1 rounded-full">
+              💾 Session Active
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Messages Container */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4 bg-gradient-to-b from-gray-50 to-white">
+      {/* Messages Area */}
+      <div className="flex-1 overflow-y-auto p-6 space-y-4">
         {messages.map((message) => (
           <MessageBubble
             key={message.id}
@@ -117,45 +173,41 @@ function ChatWindow({ selectedPersona, personaInfo }) {
         ))}
         
         {isLoading && (
-          <div className="flex items-center gap-3 text-gray-500">
-            <div className="flex space-x-2">
-              <div className="w-3 h-3 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-              <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-              <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-            </div>
-            <span className="text-sm italic">
-              {personaInfo?.name || 'Guide'} is thinking...
-            </span>
+          <div className="flex items-center space-x-2 text-gray-500">
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
           </div>
         )}
         
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input Form */}
-      <form onSubmit={handleSendMessage} className="p-6 bg-gray-50 border-t border-gray-200 rounded-b-2xl">
-        <div className="flex gap-3">
+      {/* Input Area */}
+      <div className="border-t border-gray-200 p-4">
+        <form onSubmit={handleSendMessage} className="flex space-x-3">
           <input
             ref={inputRef}
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask about weather, treks, temples, festivals..."
-            className="flex-1 px-6 py-4 border-2 border-gray-300 rounded-full focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 transition-all text-gray-800 placeholder-gray-400"
+            placeholder={`Ask ${personaInfo?.name || 'your guide'} anything...`}
+            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             disabled={isLoading}
           />
           <button
             type="submit"
+            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+              !inputMessage.trim() || isLoading
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-indigo-600 text-white hover:bg-indigo-700'
+            }`}
             disabled={!inputMessage.trim() || isLoading}
-            className="px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-semibold hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95"
           >
-            Send 🚀
+            {isLoading ? '⏳' : '📤'}
           </button>
-        </div>
-        <p className="text-xs text-gray-500 mt-3 text-center">
-          💬 Ask about Char Dham, trekking, weather, festivals, or emergency info
-        </p>
-      </form>
+        </form>
+      </div>
     </div>
   )
 }
