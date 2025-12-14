@@ -29,7 +29,7 @@ function App() {
         {/* Header */}
         <header className="text-center mb-8">
           <h1 className="text-5xl font-heading font-bold text-white mb-3 drop-shadow-lg">
-            🏔️ Deep Shiva
+             Deep Shiva (mock Frontend)
           </h1>
           <p className="text-xl text-white/90 font-medium">
             Your AI Companion for Exploring Uttarakhand - Dev Bhoomi
@@ -82,10 +82,10 @@ function App() {
         {/* Footer */}
         <footer className="mt-8 text-center text-white/70 text-sm">
           <p>
-            Built with ❤️ for travelers & pilgrims exploring Uttarakhand
+            Built with  for travelers & pilgrims exploring Uttarakhand
           </p>
           <p className="mt-1">
-            🙏 Har Har Gange | Om Namah Shivaya 🕉️
+             Har Har Gange | Om Namah Shivaya
           </p>
         </footer>
       </div>
