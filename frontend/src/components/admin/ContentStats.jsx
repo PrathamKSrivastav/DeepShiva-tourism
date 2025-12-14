@@ -87,7 +87,7 @@ function ContentStats({ ragHealth }) {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className="text-sm font-medium text-gray-900 capitalize">
-                        {name.replace('uttarakhand_', '')}
+                        {name.replace('india_', '')}
                       </div>
                     </div>
                   </td>
@@ -95,11 +95,11 @@ function ContentStats({ ragHealth }) {
                     <div className="text-sm text-gray-900">{data.document_count || 0}</div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {name === 'uttarakhand_general' && 'General tourism information'}
-                    {name === 'uttarakhand_spiritual' && 'Spiritual and religious content'}
-                    {name === 'uttarakhand_trekking' && 'Adventure and trekking information'}
-                    {name === 'uttarakhand_cultural' && 'Cultural heritage and traditions'}
-                    {name === 'uttarakhand_government' && 'Official government resources'}
+                    {name === 'india_general' && 'General tourism information'}
+                    {name === 'india_spiritual' && 'Spiritual and religious content'}
+                    {name === 'india_trekking' && 'Adventure and trekking information'}
+                    {name === 'india_cultural' && 'Cultural heritage and traditions'}
+                    {name === 'india_government' && 'Official government resources'}
                   </td>
                 </tr>
               ))}

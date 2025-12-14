@@ -252,7 +252,7 @@ function ContentUpload({ onUploadSuccess }) {
               required
             />
             <p className="mt-1 text-sm text-gray-500">
-              Add official Uttarakhand government websites or verified tourism sources
+              Add official India's government websites or verified tourism sources
             </p>
           </div>
           <button

@@ -92,7 +92,7 @@ function AppContent() {
                   Deep Shiva Tourism
                 </h1>
                 <p className="text-sm text-gray-500">
-                  Your AI Guide to Uttarakhand
+                  Your AI Guide to India
                 </p>
               </div>
             </div>

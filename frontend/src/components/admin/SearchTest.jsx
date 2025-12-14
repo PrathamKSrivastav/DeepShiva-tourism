@@ -8,11 +8,11 @@ function SearchTest() {
   const [maxResults, setMaxResults] = useState(5)
 
   const collections = [
-    'uttarakhand_general',
-    'uttarakhand_spiritual', 
-    'uttarakhand_trekking',
-    'uttarakhand_cultural',
-    'uttarakhand_government'
+    'india_general',
+    'india_spiritual', 
+    'india_trekking',
+    'india_cultural',
+    'india_government'
   ]
 
   const handleSearch = async (e) => {
@@ -97,7 +97,7 @@ function SearchTest() {
                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                   />
                   <label htmlFor={collection} className="ml-2 text-sm text-gray-700 capitalize">
-                    {collection.replace('uttarakhand_', '')}
+                    {collection.replace('india_', '')}
                   </label>
                 </div>
               ))}
@@ -149,7 +149,7 @@ function SearchTest() {
                 {Object.entries(results.results).map(([collection, docs]) => (
                   <div key={collection}>
                     <h4 className="font-medium text-gray-900 mb-3 capitalize">
-                      {collection.replace('uttarakhand_', '')} Collection ({docs.length} results)
+                      {collection.replace('india_', '')} Collection ({docs.length} results)
                     </h4>
                     <div className="space-y-3">
                       {docs.map((doc, index) => (
