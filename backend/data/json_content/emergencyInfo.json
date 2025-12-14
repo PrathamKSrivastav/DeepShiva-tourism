@@ -1,0 +1,151 @@
+{
+  "emergencies": [
+    {
+      "id": "emrg001",
+      "category": "altitude_sickness",
+      "region_specific": "Himalayan regions, high-altitude treks",
+      "recommended_persona_id": "pers005",
+      "quick_version": "High-altitude sickness with headache, nausea - descend immediately if severe.",
+      "description": "Acute Mountain Sickness (AMS) occurs when ascending too quickly. Symptoms: headache, nausea, dizziness, fatigue, shortness of breath, loss of appetite. Can progress to life-threatening HACE or HAPE.",
+      "immediate_steps": ["Stop ascending immediately. Rest at current altitude. Hydrate well with water (avoid alcohol). Take pain reliever for headache (ibuprofen preferred). If symptoms worsen after 24 hours, descend at least 500m. Severe cases: descend immediately regardless of time. Administer oxygen if available. Seek medical help urgently."],
+      "who_to_contact": ["Trek guide or group leader", "Nearest medical facility or army camp", "Emergency helpline: 112", "Himalayan Rescue Association", "Insurance emergency number"],
+      "prevention_tips": "Ascend gradually (max 300-500m per day above 3000m). Acclimatize with rest days. Stay hydrated (3-4 liters daily). Avoid alcohol and sleeping pills. 'Climb high, sleep low' principle. Recognize early symptoms. Carry Diamox (consult doctor). Physical fitness helps but doesn't prevent AMS.",
+      "avoid_common_mistake": "Many continue ascending hoping symptoms will pass - this is dangerous. Early descent at first signs saves lives. Don't be embarrassed to turn back.",
+      "related_sites": ["sp001", "sp005", "sp013", "sp027", "sp028"],
+      "related_treks": ["trek002", "trek003", "trek006", "trek007"]
+    },
+    {
+      "id": "emrg002",
+      "category": "medical_emergency",
+      "region_specific": "All India",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Serious illness/injury - call 112 or 108 immediately.",
+      "description": "Serious illness or injury requiring immediate medical attention. Includes heart attack, stroke, severe infections, serious accidents, or sudden severe symptoms.",
+      "immediate_steps": ["Call emergency 112 or 108 (ambulance). Assess: conscious, breathing, bleeding? Perform CPR if trained and needed. Control severe bleeding with pressure. Don't move person with suspected spinal injury. Keep person warm and calm. Note symptoms and timeline. Locate nearest hospital. Contact travel insurance. Have someone fetch medical history/medications."],
+      "who_to_contact": ["Emergency services: 112 or 108", "Hotel/accommodation staff", "Travel insurance emergency line", "Embassy/consulate (foreign travelers)", "Family/emergency contact"],
+      "prevention_tips": "Carry comprehensive first aid kit. Know your medical conditions and medications. Have travel insurance with medical coverage. Keep emergency numbers saved. Know nearest hospital locations. Carry medical documents. Stay current with vaccinations. Pack sufficient prescription medications. Learn basic first aid. Inform travel companions of medical conditions.",
+      "avoid_common_mistake": "Many hesitate to call ambulance due to cost concerns. In serious emergencies, call immediately - life first, cost later. Insurance usually covers."
+    },
+    {
+      "id": "emrg003",
+      "category": "lost_stranded",
+      "region_specific": "Remote areas, treks, unfamiliar cities",
+      "recommended_persona_id": "pers001",
+      "quick_version": "Lost or separated - stay calm, stay put if on trek, use GPS.",
+      "description": "Separated from group during trek, lost in unfamiliar area, or stranded due to weather, vehicle breakdown, or missed connections.",
+      "immediate_steps": ["Stay calm and don't panic. If on trek, stay where you are if group knows your location - don't wander. If lost in city, find landmark or shop and ask directions. Use phone GPS if signal available. Contact your group/hotel/guide immediately. If no phone signal, move to higher ground or open area. Conserve phone battery. Stay visible if in wilderness. If night approaches, seek shelter. Make yourself heard/seen if search party likely."],
+      "who_to_contact": ["Trek guide/tour operator", "Hotel/accommodation", "Local police: 100", "Emergency helpline: 112", "Family/friends who know your itinerary", "Embassy (foreign travelers)"],
+      "prevention_tips": "Always inform someone of your plans and expected return. Carry offline maps. Download area maps on phone. Keep emergency power bank. Travel in groups when possible. Carry whistle (three blasts = distress signal). Mark trail or remember landmarks. Carry local language phrasebook. Save important numbers offline. Wear bright colors in wilderness.",
+      "avoid_common_mistake": "Panicking and wandering makes rescue harder. If lost on trek and people know your route, staying put is usually best strategy."
+    },
+    {
+      "id": "emrg004",
+      "category": "food_water_poisoning",
+      "region_specific": "All India, especially new regions",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Stomach illness from contaminated food/water - stay hydrated with ORS.",
+      "description": "Gastrointestinal illness from contaminated food or water. Symptoms: nausea, vomiting, diarrhea, stomach cramps, fever. Usually occurs 6-48 hours after consumption.",
+      "immediate_steps": ["Stay hydrated - sip ORS (oral rehydration solution) frequently. Rest and avoid solid food initially. When ready, eat bland foods (rice, banana, toast). Avoid dairy, spicy, or fatty foods. Take anti-diarrheal medication if needed (Loperamide). Monitor for dehydration signs: dark urine, dizziness, dry mouth. Seek doctor if: blood in stool, high fever, severe pain, dehydration symptoms, lasts over 3 days."],
+      "who_to_contact": ["Hotel staff for doctor reference", "Nearby pharmacy for medications", "Medical helpline: 112", "Insurance provider if hospitalization needed"],
+      "prevention_tips": "Drink only bottled or purified water. Avoid ice in drinks. Eat hot, freshly cooked food. Avoid street food if sensitive stomach. Wash hands frequently or use sanitizer. Peel fruits yourself. Avoid raw vegetables unless washed in safe water. Carry water purification tablets. Pack anti-diarrheal and ORS packets. Research restaurant hygiene. Probiotics may help.",
+      "avoid_common_mistake": "Many stop drinking fluids due to vomiting/diarrhea - this worsens dehydration. Small frequent sips of ORS crucial even if vomiting."
+    },
+    {
+      "id": "emrg005",
+      "category": "wildlife_encounter",
+      "region_specific": "Forests, national parks, rural areas",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Dangerous wildlife - stay calm, back away slowly, don't run.",
+      "description": "Unexpected encounter with dangerous wildlife including leopards, elephants, bears, snakes, or monkeys in forests, national parks, or even urban areas.",
+      "immediate_steps": ["Stay calm - don't panic or scream. Slowly back away without turning your back. Don't run - predators chase. Make yourself appear larger (raise arms). For elephants: back away slowly, don't block path. For bears: speak calmly, back away, play dead if attacked. For snakes: freeze, let it pass, don't provoke. For monkeys: don't make eye contact, don't show food, back away. Seek medical help immediately if bitten/injured."],
+      "who_to_contact": ["Forest department/park rangers", "Emergency services: 112", "Wildlife rescue (varies by state - ask locals)", "Nearest hospital if injured", "For snake bites: nearest hospital with anti-venom"],
+      "prevention_tips": "Hire guide in wildlife areas. Stay on marked trails. Travel in groups. Make noise while walking to avoid surprising animals. Don't feed wild animals. Store food properly. Keep distance from animals. Don't approach animals for photos. Wear protective footwear in snake areas. Carry stick/whistle on jungle trails. Evening/dawn are high activity times - extra caution. Respect wildlife space. Follow park rules.",
+      "avoid_common_mistake": "Never approach wildlife for photos, especially mothers with young. Protective mothers are most dangerous. Maintain safe distance always."
+    },
+    {
+      "id": "emrg006",
+      "category": "document_loss_theft",
+      "region_specific": "All India, especially crowded tourist areas",
+      "recommended_persona_id": "pers001",
+      "quick_version": "Lost/stolen documents - file police FIR immediately.",
+      "description": "Loss or theft of passport, visa, ID cards, tickets, or important travel documents. Creates significant travel complications requiring immediate action.",
+      "immediate_steps": ["Report theft to local police immediately - get FIR copy. Contact your embassy/consulate for passport replacement. For Indian ID: contact issuing authority. Cancel credit/debit cards. Access document copies from email/cloud. Contact accommodation to report incident. File insurance claim if covered. For lost passport: apply for emergency certificate or new passport at embassy. Block SIM card if phone stolen. Change online passwords if device stolen."],
+      "who_to_contact": ["Local police station: 100", "Your embassy/consulate", "Bank customer service (for cards)", "Travel insurance provider", "Airline/railway (if tickets lost)", "Accommodation/tour operator"],
+      "prevention_tips": "Keep physical and digital copies separately. Email copies to yourself. Use hotel safe for originals. Carry only copies while sightseeing. Use money belt or hidden pouch. Keep emergency cash separately. Photograph all documents. Save important numbers offline. Travel insurance with document coverage. Register with embassy when traveling abroad. Don't keep all valuables in one place. Be aware in crowded areas.",
+      "avoid_common_mistake": "Many carry passport everywhere - leave in hotel safe and carry photocopy for ID. Original needed only for check-ins and specific situations."
+    },
+    {
+      "id": "emrg007",
+      "category": "natural_disaster",
+      "region_specific": "Himalayan regions (earthquakes, landslides), monsoon areas (floods)",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Earthquake/flood/landslide - DROP/COVER/HOLD for quake, high ground for floods.",
+      "description": "Sudden natural disasters common in Himalayan regions (earthquakes, landslides) and monsoon-affected areas (floods). Requires immediate protective action and situational awareness.",
+      "immediate_steps": ["Earthquake: DROP, COVER, HOLD. Get under sturdy furniture. Stay away from windows. Don't run outside during shaking. After: evacuate carefully, avoid elevators, head to open ground. Floods: Move to higher ground immediately. Don't walk through flowing water. Avoid electrical hazards. Landslide: Move perpendicular to slide direction. Get to higher, stable ground. Don't shelter at hill base. All: Follow local authorities. Keep emergency kit accessible. Stay informed via radio/official channels."],
+      "who_to_contact": ["Emergency services: 112", "NDRF (National Disaster Response Force): 011-26105763", "Local disaster management authority", "Hotel/accommodation for evacuation", "Embassy (foreign travelers)", "Family to inform of safety"],
+      "prevention_tips": "Research disaster risk of destination. Know evacuation routes and shelters. Prepare emergency kit (water, food, first aid, torch, documents, cash). Monitor weather and warnings. Follow local advisories. Avoid landslide-prone routes during heavy rain. Have emergency plan. Keep phone charged. Travel insurance. Register with embassy. Don't ignore warnings. Stay in structurally sound buildings. Know 'safe zones' in earthquake-prone areas. Monsoon treks avoid heavy rain periods.",
+      "avoid_common_mistake": "During earthquake, don't run outside while shaking - falling debris outside more dangerous. Take cover inside until shaking stops, then evacuate."
+    },
+    {
+      "id": "emrg008",
+      "category": "womens_safety",
+      "region_specific": "All India, especially isolated areas",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Harassment/unsafe situation - move to crowded area, call women's helpline 1091.",
+      "description": "Harassment, stalking, inappropriate behavior, or feeling unsafe. Unfortunately a concern for solo women travelers in some areas. Requires awareness and immediate action.",
+      "immediate_steps": ["Trust your instincts. Move to crowded, well-lit area immediately. Enter shop, restaurant, or hotel. Call someone and talk loudly about your location. Use phone to record/photograph if safe to do. Firmly say 'NO' loudly to draw attention. Don't engage with harasser. Contact police if situation escalates. Contact hotel/accommodation. Use safety apps with location sharing. Join other travelers/groups. Take official transport, not isolated options."],
+      "who_to_contact": ["Women's helpline: 1091", "Police: 100 or 112", "Hotel/accommodation staff", "Tour operator/guide", "Travel companions", "Embassy (foreign travelers)", "Family/friends with location sharing"],
+      "prevention_tips": "Dress modestly respecting local culture. Avoid isolated areas, especially after dark. Pre-book accommodation in safe areas (read reviews). Share itinerary and location with trusted contacts. Use location-sharing apps. Travel in groups when possible. Take registered taxis/transportation. Book women-only accommodations if available. Learn local emergency phrases. Carry whistle or personal alarm. Project confidence. Avoid excessive jewelry. Research safe areas beforehand. Trust instincts - if something feels wrong, leave. Join women traveler groups online for advice.",
+      "avoid_common_mistake": "Many worry about being rude or causing scene. Your safety matters more. Be firm, loud, and don't hesitate to draw attention if uncomfortable."
+    },
+    {
+      "id": "emrg009",
+      "category": "heatstroke",
+      "region_specific": "North India plains, deserts (April-June)",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Heatstroke - move to shade, cool body with water, seek medical help immediately.",
+      "description": "Life-threatening condition from prolonged exposure to extreme heat. Common during Indian summer (April-June) in plains and deserts. Symptoms: high body temperature, confusion, rapid pulse, hot dry skin, nausea, headache, loss of consciousness.",
+      "immediate_steps": ["Move person to shade or AC immediately. Call emergency: 112 or 108. Remove excess clothing. Cool body rapidly: wet cloths on neck, armpits, groin. Fan vigorously. If conscious, give cool water to sip (not ice cold). Don't give salt tablets. Monitor consciousness and breathing. Seek medical help immediately - this is life-threatening. Continue cooling until help arrives or temperature drops."],
+      "who_to_contact": ["Emergency services: 112/108 immediately", "Nearest hospital", "Hotel/accommodation", "Travel companions"],
+      "prevention_tips": "Avoid midday sun (11 AM - 4 PM) during summer. Wear light-colored, loose cotton clothing. Wide-brimmed hat and sunglasses. Drink water constantly (3-4 liters daily). Don't wait until thirsty. Avoid alcohol and caffeine. Take frequent breaks in shade. Use sunscreen. Recognize early signs: excessive sweating, weakness, dizziness. Acclimatize gradually to heat. Avoid strenuous activity in peak heat. Visit summer destinations during cooler months. Indoor activities during peak heat.",
+      "avoid_common_mistake": "Many underestimate Indian summer heat. 45°C+ is common in North India May-June. This is dangerous heat requiring serious precautions, not just discomfort."
+    },
+    {
+      "id": "emrg010",
+      "category": "monsoon_floods",
+      "region_specific": "Coastal areas, Northeast, Himalayan foothills (June-September)",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Flash floods - move to higher ground immediately, don't drive through water.",
+      "description": "Sudden flooding during monsoon season. Common in coastal areas, Northeast, and Himalayan foothills. Flash floods can occur within minutes. Dangerous in urban areas with poor drainage and mountain areas with landslide risk.",
+      "immediate_steps": ["Move to higher ground immediately. Don't wait for instructions. Abandon vehicle if in rising water. Don't drive through flood water (even shallow). Don't walk through flowing water (15cm can knock you down). Avoid bridges and low-lying areas. Stay away from electrical lines and poles. If trapped in building, go to highest floor. Signal for help if needed. Listen to local authorities. Don't return until declared safe."],
+      "who_to_contact": ["Emergency services: 112", "NDRF: 011-26105763", "Local disaster management", "Hotel/accommodation", "Embassy", "Family"],
+      "prevention_tips": "Monitor weather forecasts during monsoon. Avoid trekking during heavy rain. Book accommodation on higher floors in flood-prone areas. Keep emergency kit ready. Charge devices. Have offline maps. Know evacuation routes. Don't travel to mountain roads during heavy rain (landslide risk). Avoid coastal areas during cyclone warnings. Travel insurance. Follow official warnings. Northeast and Himalayan foothills especially vulnerable. July-August peak monsoon.",
+      "avoid_common_mistake": "Many underestimate flash flood speed. Don't try to cross flowing water - it's more powerful than it looks. Move immediately when warned."
+    },
+    {
+      "id": "emrg011",
+      "category": "snake_bite",
+      "region_specific": "Rural areas, forests, plantations (monsoon season risk increases)",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Snake bite - stay calm, immobilize limb, rush to hospital with anti-venom.",
+      "description": "India has several venomous snakes. Most bites occur during monsoon in rural areas, fields, forests. Not all snake bites are venomous, but all require immediate medical attention. Symptoms vary by snake type.",
+      "immediate_steps": ["Stay calm - panic increases venom spread. Note snake appearance (for anti-venom identification) but don't try to catch it. Immobilize bitten limb below heart level. Remove jewelry/tight clothing near bite. Wash bite gently with soap and water. Cover with clean cloth. Rush to nearest hospital with anti-venom immediately. Don't: cut wound, suck venom, apply tourniquet, apply ice, give alcohol. Transport victim lying down if possible. Monitor breathing - provide CPR if needed."],
+      "who_to_contact": ["Emergency services: 112/108", "Nearest hospital with anti-venom stock", "Forest department (if in wilderness)", "Local guides who know nearest medical facility"],
+      "prevention_tips": "Wear boots and long pants in rural/forest areas. Use torch at night. Check shoes before wearing. Avoid tall grass. Use stick to rustle ahead on trails. Don't put hands in holes or under rocks. Monsoon increases snake activity. Sleep on cots, not ground. Keep surroundings clean. Most snakes not aggressive - give them space. Learn to identify common venomous snakes (cobra, krait, viper, saw-scaled viper). Carry first aid kit. Know nearest hospital location.",
+      "avoid_common_mistake": "Traditional methods (cutting, sucking venom, tourniquets) are dangerous and ineffective. Only treatment is anti-venom at hospital. Time is critical - rush to hospital immediately.",
+      "related_sites": ["Wilderness areas, all rural treks", "sp010"]
+    },
+    {
+      "id": "emrg012",
+      "category": "road_accident",
+      "region_specific": "All India, especially highways and mountain roads",
+      "recommended_persona_id": "pers005",
+      "quick_version": "Road accident - call 108 ambulance, don't move injured unless danger, note details.",
+      "description": "India has high road accident rates. Accidents can occur on highways, mountain roads, or urban areas. Knowing proper response can save lives.",
+      "immediate_steps": ["Ensure safety - move to safe location if possible. Call 108 (ambulance) and 100 (police) immediately. Don't move seriously injured persons (spinal injury risk) unless immediate danger. Control bleeding with pressure. Cover injured to maintain body temperature. Check consciousness and breathing. Provide CPR if trained and needed. Note vehicle numbers, witnesses, time. Take photos if possible. Don't leave accident scene. Cooperate with authorities. Exchange insurance details. Get police report for insurance claim."],
+      "who_to_contact": ["Ambulance: 108", "Police: 100", "Insurance company emergency line", "Family/emergency contacts", "Embassy if foreigners involved"],
+      "prevention_tips": "Wear seatbelts always. Don't drink and drive. Avoid night driving on highways (trucks, animals). Be extra cautious on mountain roads. Defensive driving essential. Helmets mandatory for bikes. Avoid overloaded vehicles. Regular vehicle maintenance. Don't use phone while driving. Be alert for pedestrians, animals, erratic drivers. Hire experienced drivers for long journeys. Travel insurance with accident coverage.",
+      "avoid_common_mistake": "Good Samaritan Law protects those helping accident victims - you won't face legal trouble for helping. Many don't help due to legal fears."
+    }
+  ]
+}

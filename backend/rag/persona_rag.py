@@ -266,18 +266,15 @@ class PersonaRAG:
             retriever_stats = await self.retriever.get_retrieval_stats()
             
             # Get vector store stats
-            vector_stats = self.vector_store.get_collection_stats()
+            vector_stats = self.vector_store.get_all_stats()
             
             # Calculate total documents
-            total_docs = sum(
-                stats.get('document_count', 0) 
-                for stats in vector_stats.values()
-            )
+            total_docs = vector_stats.get('total_documents', 0)
             
             health_status = {
                 "status": "healthy" if total_docs > 0 else "no_data",
                 "total_documents": total_docs,
-                "collections": vector_stats,
+                "collections": vector_stats.get('collections', {}),
                 "persona_configs": list(self.persona_configs.keys()),
                 "retriever_stats": retriever_stats,
                 "rag_enabled": total_docs > 0
@@ -287,6 +284,8 @@ class PersonaRAG:
             
         except Exception as e:
             logger.error(f"Error getting RAG health status: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())  # Add full traceback
             return {
                 "status": "error",
                 "error": str(e),
