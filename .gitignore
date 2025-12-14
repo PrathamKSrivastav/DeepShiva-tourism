@@ -315,7 +315,7 @@ docker-compose.override.yml
 # ============================================================================
 
 # Pre-trained models (if locally cached)
-models/
+
 *.model
 *.pkl
 *.joblib
