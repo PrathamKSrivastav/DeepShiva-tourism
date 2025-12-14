@@ -20,3 +20,10 @@ tiktoken==0.5.2  # Token counting
 
 # pip install sentence-transformers==2.3.1
 # pip install huggingface-hub==0.20.3
+motor
+pymongo
+python-jose[cryptography] 
+passlib 
+google-auth 
+google-auth-oauthlib 
+google-auth-httplib2
