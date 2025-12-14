@@ -8,17 +8,17 @@ INTENT_KEYWORDS: Dict[str, List[str]] = {
         "forecast", "sunny", "cloudy", "snow", "monsoon"
     ],
     "itinerary": [
-        "itinerary", "plan", "trip", "visit", "route", "days", "schedule",
-        "travel plan", "char dham", "pilgrimage", "tour", "journey"
+        "itinerary", "plan", "trip", "visit", "route", "days",
+        "travel plan", "pilgrimage", "tour", "journey"
     ],
     "spiritual": [
-        "spiritual", "temple", "prayer", "deity", "god", "goddess",
-        "ritual", "puja", "meditation", "sacred", "holy", "divine",
-        "significance", "legend", "mythology", "shiva", "vishnu"
+        "spiritual", "prayer", "worship", "faith",
+        "meditation", "sacred", "holy", "pilgrimage",
+        "religion", "belief", "tradition"
     ],
     "trekking": [
-        "trek", "hike", "mountain", "climbing", "adventure", "peak",
-        "trail", "valley of flowers", "roopkund", "expedition", "altitude"
+        "trek", "hike", "mountain", "adventure", "trail",
+        "expedition", "altitude"
     ],
     "emergency": [
         "emergency", "hospital", "doctor", "medical", "help", "urgent",
@@ -87,11 +87,11 @@ def extract_location(message: str) -> str:
         Extracted location or empty string
     """
     locations = [
-        "badrinath", "kedarnath", "gangotri", "yamunotri",
-        "rishikesh", "haridwar", "dehradun", "nainital",
-        "mussoorie", "auli", "chopta", "joshimath",
-        "valley of flowers", "hemkund sahib", "roopkund"
+        "delhi", "varanasi", "ayodhya", "mathura", "ujjain",
+        "mumbai", "chennai", "kolkata", "bengaluru",
+        "kedarnath", "badrinath"
     ]
+
     
     message_lower = message.lower()
     

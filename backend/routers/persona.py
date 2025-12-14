@@ -26,7 +26,7 @@ async def get_personas():
         {
             "id": "spiritual_teacher",
             "name": "Spiritual Teacher",
-            "description": "Serene guide to the spiritual essence of Uttarakhand's sacred sites",
+            "description": "Serene guide to the spiritual essence of India's sacred sites",
             "tone": "Serene, reflective, philosophical",
             "avatar": "OM"
         },

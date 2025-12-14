@@ -164,16 +164,34 @@ class GroqService:
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any]) -> str:
         """Build persona-specific system message enhanced with RAG context"""
         
-        base_context = """You are an expert AI tourism guide for Uttarakhand, India - also known as Dev Bhoomi (Land of Gods). 
+        base_context = """You are a PAN-INDIA AI knowledge assistant for travel, culture, spirituality, festivals,emergencies, and local insights across India.
         
-        Uttarakhand is famous for:
-        - Char Dham pilgrimage sites (Kedarnath, Badrinath, Gangotri, Yamunotri)
-        - Adventure trekking (Valley of Flowers, Roopkund, Kedarkantha)
-        - Spiritual destinations (Rishikesh, Haridwar)
-        - Hill stations (Mussoorie, Nainital, Auli)
-        - Rich cultural heritage and mythology
+        CORE RULES:
+            - Do NOT assume a state, city, or region unless explicitly mentioned by the user
+            or clearly present in retrieved context.
+            - If information is region-specific, clearly mention the region.
+            - If multiple regions apply, respond at a national level.
 
-        Current date: October 2025. Char Dham season is ending soon (closes by Diwali).
+        GEOGRAPHY HANDLING:
+            - Use PAN-India perspective by default.
+            - Narrow down to a state/city ONLY if:
+                (a) the user specifies it, or
+                (b) retrieved context clearly anchors it.
+
+        RESPONSE STYLE:
+            - Default responses must be SHORT (3-6 bullet points or a short paragraph).
+            - Expand ONLY if the user explicitly asks for "details", "explain", or "in depth".
+
+        FACTUAL GUARDRAILS:
+            - Prefer retrieved (RAG) context over general knowledge.
+            - Do not invent festivals, dates, locations, or practices.
+            - If unsure, say so clearly.
+
+        PERSONA RULE:
+            - Stay strictly within the assigned persona.
+            - If another persona would answer better, politely suggest switching.
+
+        Current date: {context.get("current_date", "today")}.
         
         IMPORTANT: Keep responses under 800 words, conversational, and informative.
         """
@@ -183,7 +201,7 @@ class GroqService:
             base_context += f"""
         
         ADDITIONAL CONTEXT FROM RELIABLE SOURCES:
-        I have access to verified information from {rag_context.get('source_count', 0)} reliable sources including official Uttarakhand government documents and verified tourism resources. Use this information to provide accurate, up-to-date responses.
+        I have access to verified information from {rag_context.get('source_count', 0)} reliable sources including official Indian government documents and verified tourism resources. Use this information to provide accurate, up-to-date responses.
         
         {rag_context.get('formatted_context', '')}
         """
@@ -221,7 +239,7 @@ class GroqService:
             "cultural_expert": """
             You are a CULTURAL EXPERT and mythological storyteller - scholarly yet engaging.
             - Share rich historical context, legends, and cultural stories
-            - Reference ancient texts, Puranas, Mahabharata connections
+            - Reference historical texts and traditions ONLY when relevant.Do not assume a religious framework unless specified.
             - Explain cultural significance behind places and rituals
             - Use storytelling elements: "Legend says...", "In ancient times..."
             - Be informative but captivating, like a museum guide
@@ -235,7 +253,7 @@ class GroqService:
         """Build the complete user message with context"""
         context_info = ""
         if intent in ["weather", "crowd", "festival", "emergency"]:
-            context_info = f"\n\nUser's query seems related to {intent}. Use current information for Uttarakhand."
+            context_info = f"\n\nUser's query seems related to {intent}. Use current information for India."
         
         user_message = f"""
         User Query: {message}
@@ -244,7 +262,7 @@ class GroqService:
         {context_info}
         
         Please respond as the {persona.replace('_', ' ').title()} persona. 
-        Focus on Uttarakhand-specific information and use any available source context naturally.
+        Focus on India-specific information and use any available source context naturally.
         """
         
         return user_message
@@ -273,35 +291,22 @@ class GroqService:
         
         base_suggestions = {
             "weather": [
-                "What's the best time to visit Kedarnath?",
-                "Current crowd levels at Char Dham sites?", 
-                "Monsoon season precautions"
+                "Best time to visit different regions of India?",
+                "How does monsoon affect travel in India?"
             ],
             "itinerary": [
-                "How many days needed for Char Dham?",
-                "Best route for first-time visitors",
-                "Budget planning for pilgrimage"
+                "How many days are ideal for a multi-city trip in India?",
+                "Best travel routes for first-time visitors"
             ],
             "spiritual": [
-                "Temple opening/closing times",
-                "Significance of Ganga Aarti", 
-                "Meditation spots in Rishikesh"
-            ],
-            "trekking": [
-                "Essential trekking gear list",
-                "Valley of Flowers trek difficulty",
-                "High altitude safety tips"
-            ],
-            "emergency": [
-                "Altitude sickness precautions",
-                "Nearest medical facilities",
-                "Emergency evacuation procedures"
+                "Major pilgrimage traditions across India",
+                "Famous spiritual destinations by region"
             ],
             "general": [
-                "Plan my Uttarakhand adventure",
-                "Best spiritual destinations",
-                "Local food recommendations"
+                "Plan a trip across India",
+                "Explore India's cultural diversity"
             ]
+
         }
         
         suggestions = base_suggestions.get(intent, base_suggestions["general"]).copy()

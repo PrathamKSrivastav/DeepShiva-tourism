@@ -42,7 +42,7 @@ class DocumentProcessor:
             "cultural": [
                 "culture", "tradition", "festival", "folk", "heritage", "history",
                 "legend", "mythology", "custom", "ritual", "art", "dance",
-                "ganga dussehra", "kumbh mela", "uttarakhand culture"
+                "ganga dussehra", "kumbh mela", "indian culture"
             ],
             "government": [
                 "government", "policy", "regulation", "official", "permit",
