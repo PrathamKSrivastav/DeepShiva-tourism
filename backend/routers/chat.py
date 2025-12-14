@@ -9,7 +9,7 @@ from utils.intents import classify_intent
 from utils.persona_templates import generate_response as generate_local_response
 from utils.connection_checker import check_internet_connection
 from utils.database import get_database
-from routers.auth import get_current_user
+from middleware.auth import get_current_user  # Optional auth - allows guests
 from bson import ObjectId
 
 # Setup logging
