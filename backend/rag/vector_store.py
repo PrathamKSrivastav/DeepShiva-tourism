@@ -64,7 +64,7 @@ class VectorStoreManager:
         
         collections = {}
         for name, config in collection_configs.items():
-            full_name = f"uttarakhand_{name}"
+            full_name = f"india_{name}"
             try:
                 collections[name] = self.client.get_or_create_collection(
                     name=full_name,
@@ -89,7 +89,7 @@ class VectorStoreManager:
         Args:
             documents: List of document texts
             metadatas: List of metadata dicts
-            collection_name: Target collection (without 'uttarakhand_' prefix)
+            collection_name: Target collection (without 'india_' prefix)
             ids: Optional list of document IDs
         
         Returns:
@@ -328,7 +328,7 @@ class VectorStoreManager:
             return {
                 "collection_name": collection_name,
                 "document_count": count,
-                "full_name": f"uttarakhand_{collection_name}"
+                "full_name": f"india_{collection_name}"
             }
             
         except Exception as e:
@@ -355,7 +355,7 @@ class VectorStoreManager:
     def delete_collection(self, collection_name: str) -> bool:
         """Delete a collection"""
         try:
-            full_name = f"uttarakhand_{collection_name}"
+            full_name = f"india_{collection_name}"
             self.client.delete_collection(name=full_name)
             if collection_name in self.collections:
                 del self.collections[collection_name]
@@ -370,7 +370,7 @@ class VectorStoreManager:
         try:
             self.delete_collection(collection_name)
             # Recreate
-            full_name = f"uttarakhand_{collection_name}"
+            full_name = f"india_{collection_name}"
             self.collections[collection_name] = self.client.create_collection(
                 name=full_name
             )
