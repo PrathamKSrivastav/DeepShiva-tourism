@@ -1,38 +1,31 @@
-function PersonaSelector({ personas, selectedPersona, onPersonaChange }) {
+function PersonaSelector({ personas, selectedPersona, onSelectPersona }) {
   return (
     <div className="space-y-3">
       {personas.map((persona) => (
         <button
           key={persona.id}
-          onClick={() => onPersonaChange(persona.id)}
-          className={`w-full text-left p-4 rounded-xl transition-all border-2 ${
+          onClick={() => onSelectPersona(persona.id)}
+          className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
             selectedPersona === persona.id
-              ? 'bg-gradient-to-r from-indigo-100 to-purple-100 border-indigo-400 shadow-lg transform scale-105'
-              : 'bg-white border-gray-200 hover:border-indigo-300 hover:shadow-md'
+              ? 'border-indigo-600 bg-indigo-50 shadow-md'
+              : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
           }`}
         >
-          <div className="flex items-start gap-3">
-            <span className="text-3xl">{persona.avatar}</span>
+          <div className="flex items-start space-x-3">
+            <div className="text-2xl">{persona.icon}</div>
             <div className="flex-1">
-              <h3 className={`font-semibold text-base ${
-                selectedPersona === persona.id ? 'text-indigo-700' : 'text-gray-800'
-              }`}>
-                {persona.name}
-              </h3>
-              <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+              <div className="font-semibold text-gray-900">{persona.name}</div>
+              <div className="text-xs text-gray-600 mt-1">
                 {persona.description}
-              </p>
-              <p className="text-[10px] text-gray-500 mt-2 italic">
+              </div>
+              <div className="text-xs text-gray-500 mt-1">
                 Tone: {persona.tone}
-              </p>
+              </div>
             </div>
+            {selectedPersona === persona.id && (
+              <div className="text-indigo-600">✓</div>
+            )}
           </div>
-          
-          {selectedPersona === persona.id && (
-            <div className="mt-3 flex items-center justify-center gap-2 text-indigo-600 text-sm font-medium">
-              <span>✓ Active</span>
-            </div>
-          )}
         </button>
       ))}
     </div>
