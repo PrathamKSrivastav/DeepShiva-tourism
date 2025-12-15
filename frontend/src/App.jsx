@@ -61,9 +61,12 @@ function AppContent() {
     }
   };
 
+  const [refreshTrigger, setRefreshTrigger] = useState(0); // ADD THIS
+
   const handleSessionCreated = (sessionId) => {
-    console.log("📝 Session created from chat:", sessionId);
+    console.log("✅ New session created:", sessionId);
     setCurrentSessionId(sessionId);
+    setRefreshTrigger((prev) => prev + 1); // Trigger sidebar refresh
   };
 
   const selectedPersonaInfo = personas.find((p) => p.id === selectedPersona);
@@ -91,9 +94,7 @@ function AppContent() {
                 <h1 className="text-2xl font-bold text-gray-900">
                   Deep Shiva Tourism
                 </h1>
-                <p className="text-sm text-gray-500">
-                  Your AI Guide to India
-                </p>
+                <p className="text-sm text-gray-500">Your AI Guide to India</p>
               </div>
             </div>
 
@@ -213,13 +214,13 @@ function AppContent() {
       </main>
 
       {/* Chat History Sidebar */}
-      <ChatHistorySidebar
+       <ChatHistorySidebar
         currentPersona={selectedPersona}
         onSelectChat={handleSelectChat}
         onNewChat={handleNewChat}
         isOpen={sidebarOpen}
         onToggle={() => setSidebarOpen(!sidebarOpen)}
-        currentSessionId={currentSessionId}
+        refreshTrigger={refreshTrigger} // ADD THIS
       />
 
       {/* Overlay for mobile */}

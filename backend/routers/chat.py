@@ -104,16 +104,32 @@ async def get_all_chat_sessions(
     Get all chat sessions (notebooks) for user
     """
     try:
+        logger.info("=" * 50)
+        logger.info("📥 GET /chat/sessions called")
+        
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
         
-        db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        logger.info(f"🔐 User: {current_user.get('email')}")
+        
+        db = get_database()  # This line is failing
+        logger.info(f"✅ Database instance obtained")
+        
+        user_id_value = current_user.get("_id") or current_user.get("id")
+        logger.info(f"🔍 User ID: {user_id_value}")
+        
+        # Convert to ObjectId if string
+        if isinstance(user_id_value, str):
+            user_id = ObjectId(user_id_value)
+        else:
+            user_id = user_id_value
         
         # Build query
         query = {"user_id": user_id}
         if persona:
             query["persona"] = persona
+        
+        logger.info(f"📊 Query: {query}")
         
         # Fetch sessions
         sessions = await db.chats.find(query).sort("updated_at", -1).limit(limit).to_list(length=limit)
@@ -132,7 +148,9 @@ async def get_all_chat_sessions(
         
     except Exception as e:
         logger.error(f"❌ Error fetching sessions: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+        logger.error(f"❌ Error type: {type(e).__name__}")
+        logger.exception("Full traceback:")  # This prints full stack trace
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
 
 @router.get("/chat/sessions/{session_id}")

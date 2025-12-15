@@ -8,6 +8,7 @@ function ChatHistorySidebar({
   onNewChat,
   isOpen,
   onToggle,
+  refreshTrigger, // ADD THIS LINE
 }) {
   const [chatSessions, setChatSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ function ChatHistorySidebar({
     if (isAuthenticated) {
       loadChatHistory();
     }
-  }, [isAuthenticated, currentPersona]);
+  }, [isAuthenticated, currentPersona, refreshTrigger]);
 
   const loadChatHistory = async () => {
     setLoading(true);
