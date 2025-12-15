@@ -74,7 +74,7 @@ function ChatHistorySidebar({
     }
   };
 
-  const handleNewChat = () => {
+  const handleNewChat = async () => {
     setSelectedChatId(null);
     onNewChat();
     if (!isDesktop) onToggle();
