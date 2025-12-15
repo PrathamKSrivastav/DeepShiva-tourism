@@ -63,7 +63,7 @@ async def check_groq_api_health(api_key: str, timeout: int = 5) -> bool:
         }
         
         test_payload = {
-            "model": "llama-3.3-70b-versatile",
+            "model": "llama-3.1-8b-instant",
             "messages": [{"role": "user", "content": "test"}],
             "max_tokens": 5
         }
