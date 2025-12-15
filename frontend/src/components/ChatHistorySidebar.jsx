@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getChatHistory, deleteChat } from "../api";
+import { getChatHistory, deleteChat, createNewChatSession } from "../api";
 import { useAuth } from "../context/AuthContext";
 
 function ChatHistorySidebar({
@@ -56,9 +56,23 @@ function ChatHistorySidebar({
     }
   };
 
-  const handleNewChat = () => {
+  const handleNewChat = async () => {
     setSelectedChatId(null);
-    onNewChat();
+
+    // Create new session in database if authenticated
+    if (isAuthenticated) {
+      try {
+        const newSession = await createNewChatSession(currentPersona);
+        console.log("✅ New session created:", newSession.session_id);
+        onNewChat(newSession.session_id);
+        await loadChatHistory(); // Refresh sidebar
+      } catch (error) {
+        console.error("❌ Error creating new session:", error);
+        onNewChat(); // Fallback
+      }
+    } else {
+      onNewChat(); // Guest mode
+    }
   };
 
   const formatDate = (dateString) => {

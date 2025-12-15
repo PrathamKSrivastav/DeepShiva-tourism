@@ -120,7 +120,8 @@ async def get_all_chat_sessions(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+
         
         # Build query
         query = {"user_id": user_id}
@@ -237,7 +238,8 @@ async def delete_chat_session(
         
         db = get_database()
         # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
-        user_id = current_user.get("_id") or current_user.get("id")
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+
 
         
         result = await db.chats.delete_one({
@@ -457,18 +459,16 @@ async def _get_conversation_history(
     current_user: dict,
     limit: int = 4
 ) -> List[Dict[str, str]]:
-    """
-    Fetch last N messages from session for conversation context
-    Returns list in format: [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
-    """
+    """..."""
     try:
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = str(current_user.get("_id") or current_user.get("id"))  # ← Keep as STRING
         
         session = await db.chats.find_one({
             "_id": ObjectId(session_id),
-            "user_id": user_id
+            "user_id": user_id  # ← Now matches!
         })
+
         
         if not session or "messages" not in session:
             return []

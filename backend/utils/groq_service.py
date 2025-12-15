@@ -85,18 +85,23 @@ class GroqService:
         message: str,
         persona: str,
         intent: str,
-        context: Dict[str, Any],
-        tool_context: Optional[Dict[str, Any]],
+        context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
+        tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
         conversation_history: Optional[List[Dict[str, Any]]] = None
     ) -> Tuple[str, List[str]]:
+
+
         """
         Generate response using Groq API with RAG enhancement and conversation history
         """
         if not self.client:
             raise Exception("Groq API client not initialized")
+    
+        # Ensure context is not None
+        context = context or {}  # ← ADD THIS LINE
 
         # Enhance query with RAG context
-        rag_context = await self._get_rag_context(message, persona, intent, context)
+        rag_context = await self._get_rag_context(message, persona, intent, context or {})
 
         # Build persona-specific system message with RAG
         system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
