@@ -24,8 +24,9 @@ function ChatHistorySidebar({
   const loadChatHistory = async () => {
     setLoading(true);
     try {
-      const response = await getChatHistory(currentPersona, 50);
-      setChatSessions(response.sessions || []); // Changed from .chats to .sessions
+      // Pass null to get chats from ALL personas, not just current one
+      const response = await getChatHistory(null, 50);
+      setChatSessions(response.sessions || []);
     } catch (error) {
       console.error("Error loading chat history:", error);
     } finally {

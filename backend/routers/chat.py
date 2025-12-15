@@ -269,38 +269,47 @@ async def chat(
     logger.info(f"🎭 Persona: {request.persona}")
     logger.info(f"🆔 Session ID: {request.session_id}")
     logger.info(f"🔐 Authenticated: {current_user is not None}")
-    
+
     start_time = asyncio.get_event_loop().time()
     chat_saved = False
     session_id = request.session_id
-    
+
     try:
         # Classify intent
         intent = classify_intent(request.message)
-        
+
         # Check connectivity
         if request.force_offline:
             return await _generate_local_response(request, intent, start_time, forced=True)
-        
+
         is_online = await check_internet_connection()
         if not is_online:
             return await _generate_local_response(request, intent, start_time)
-        
-        # Get AI response
+
+        # NEW: Fetch conversation history for context
+        conversation_history = []
+        if session_id and current_user:
+            try:
+                conversation_history = await _get_conversation_history(session_id, current_user, limit=4)
+                logger.info(f"📜 Loaded {len(conversation_history)} previous messages for context")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not load conversation history: {str(e)}")
+
+        # Get AI response with conversation history
         try:
             logger.info("🤖 Calling Groq API...")
             response_text, suggestions = await groq_service.generate_persona_response(
                 message=request.message,
                 persona=request.persona,
                 intent=intent,
-                context=request.context or {}
+                context=request.context or {},
+                conversation_history=conversation_history  # ADD THIS
             )
-            
+
             logger.info(f"✅ Groq response received ({len(response_text)} chars)")
-            
             end_time = asyncio.get_event_loop().time()
             response_time = int((end_time - start_time) * 1000)
-            
+
             # Get RAG info
             rag_info = None
             if request.use_rag and hasattr(groq_service, 'persona_rag') and groq_service.persona_rag:
@@ -315,9 +324,9 @@ async def chat(
                         }
                 except Exception as e:
                     logger.warning(f"Error getting RAG info: {str(e)}")
-            
+
             response_source = "groq_with_rag" if (rag_info and rag_info.get("rag_used")) else "groq"
-            
+
             # Save to session if authenticated
             if current_user:
                 logger.info("💾 Saving to chat session...")
@@ -330,13 +339,11 @@ async def chat(
                         intent=intent,
                         session_id=session_id
                     )
-                    
                     if chat_saved:
                         logger.info(f"✅ Saved to session: {session_id}")
-                        
                 except Exception as e:
                     logger.error(f"❌ Error saving: {str(e)}")
-            
+
             return ChatResponse(
                 response=response_text,
                 persona=request.persona,
@@ -349,14 +356,54 @@ async def chat(
                 chat_saved=chat_saved,
                 session_id=session_id
             )
-            
+
         except Exception as groq_error:
             logger.warning(f"Groq API failed: {str(groq_error)[:100]}")
             return await _generate_local_response(request, intent, start_time, api_error=True)
-    
+
     except Exception as e:
         logger.error(f"Critical error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# NEW FUNCTION: Get conversation history
+async def _get_conversation_history(
+    session_id: str,
+    current_user: dict,
+    limit: int = 4
+) -> List[Dict[str, str]]:
+    """
+    Fetch last N messages from session for conversation context
+    Returns list in format: [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
+    """
+    try:
+        db = get_database()
+        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session or "messages" not in session:
+            return []
+        
+        # Get last N messages (limit * 2 because we have user+bot pairs)
+        messages = session["messages"][-(limit * 2):] if len(session["messages"]) > limit * 2 else session["messages"]
+        
+        # Convert to Groq format
+        conversation_history = []
+        for msg in messages:
+            conversation_history.append({
+                "role": msg["role"],  # "user" or "assistant"
+                "content": msg["content"]
+            })
+        
+        return conversation_history
+        
+    except Exception as e:
+        logger.error(f"❌ Error fetching conversation history: {str(e)}")
+        return []
 
 
 async def save_to_session(
