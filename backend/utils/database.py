@@ -1,36 +1,60 @@
-from motor.motor_asyncio import AsyncIOMotorClient
-from config import settings
 import logging
+from pymongo import MongoClient
+from pymongo.errors import ServerSelectionTimeoutError
 
 logger = logging.getLogger(__name__)
 
-class Database:
-    client: AsyncIOMotorClient = None
+# ======================
+# DB CONSTANTS (FIRST)
+# ======================
 
-db = Database()
+MONGO_URI = "mongodb://localhost:27017"
+_DB_NAME = "deepshiva_tourism"
 
-async def connect_to_mongo():
-    """Connect to MongoDB"""
+DB_MODE = "offline"   # "online" | "offline"
+DB_CLIENT = None      # pymongo database handle OR None
+
+
+# ======================
+# INITIALIZER
+# ======================
+
+def init_database():
+    """
+    Attempts MongoDB connection.
+    Fails gracefully into offline mode.
+    """
+    global DB_CLIENT, DB_MODE
+
     try:
-        db.client = AsyncIOMotorClient(settings.MONGODB_URI)
-        # Test connection
-        await db.client.admin.command('ping')
-        logger.info(f"✅ Connected to MongoDB: {settings.DATABASE_NAME}")
-    except Exception as e:
-        logger.error(f"❌ Could not connect to MongoDB: {str(e)}")
-        raise e
+        client = MongoClient(
+            MONGO_URI,
+            serverSelectionTimeoutMS=3000
+        )
+        client.admin.command("ping")
 
-async def close_mongo_connection():
-    """Close MongoDB connection"""
-    if db.client:
-        db.client.close()
-        logger.info("🔌 Closed MongoDB connection")
+        DB_CLIENT = client[_DB_NAME]
+        DB_MODE = "online"
+
+        logger.info("🟢 Connected to MongoDB")
+
+    except ServerSelectionTimeoutError:
+        DB_CLIENT = None
+        DB_MODE = "offline"
+
+        logger.warning("🔴 MongoDB unavailable — offline DB active")
+
+    return DB_CLIENT
+
+
+# ======================
+# ACCESSOR
+# ======================
 
 def get_database():
-    """Get database instance"""
-    # FIX: Add validation
-    if db.client is None:
-        logger.error("❌ Database client is None - connection not initialized!")
-        raise RuntimeError("Database connection not initialized. Call connect_to_mongo() first.")
-    
-    return db.client[settings.DATABASE_NAME]
+    """
+    Unified DB accessor.
+    Online → MongoDB
+    Offline → handled upstream by offline DB shim
+    """
+    return DB_CLIENT

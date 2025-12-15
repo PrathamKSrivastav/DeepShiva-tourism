@@ -1,95 +1,133 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from routers import chat, persona, mock_data, rag_admin, auth
+# backend/main.py
+
 import os
-from dotenv import load_dotenv
-from utils.database import connect_to_mongo, close_mongo_connection
-from config import settings
+import asyncio
 import logging
 
-# Setup logging
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+
+from routers import chat, persona, mock_data, rag_admin, auth
+from config import settings
+from utils.database import init_database
+from utils.mongo_watcher import MongoWatcher
+
+# -------------------------------------------------------------------
+# LOGGING
+# -------------------------------------------------------------------
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Load environment variables
+# -------------------------------------------------------------------
+# ENV
+# -------------------------------------------------------------------
+
 load_dotenv()
+
+# -------------------------------------------------------------------
+# APP
+# -------------------------------------------------------------------
 
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
-    description="Multi-persona AI chatbot with RAG, Groq API + Google OAuth authentication",
+    description="Offline-first RAG + Local LLM + MongoDB resilience",
     version=settings.API_VERSION
 )
 
-# CORS middleware for frontend communication
+# -------------------------------------------------------------------
+# CORS
+# -------------------------------------------------------------------
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173", 
+        "http://localhost:5173",
         "http://localhost:3000",
-        settings.FRONTEND_URL
+        settings.FRONTEND_URL,
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Event handlers
+# -------------------------------------------------------------------
+# STARTUP
+# -------------------------------------------------------------------
+
 @app.on_event("startup")
 async def startup_event():
-    """Initialize services on startup"""
+    """
+    Offline-first startup.
+    MongoDB failure does NOT prevent boot.
+    """
     logger.info("🚀 Starting Deep Shiva Tourism API...")
-    try:
-        await connect_to_mongo()
-        logger.info("✅ All services initialized successfully")
-    except Exception as e:
-        logger.error(f"❌ Startup error: {str(e)}")
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Cleanup on shutdown"""
-    logger.info("🛑 Shutting down Deep Shiva Tourism API...")
-    await close_mongo_connection()
-    logger.info("✅ Cleanup completed")
+    # 1️⃣ Attempt MongoDB connection (non-fatal)
+    init_database()
 
-# Register routers
+    # 2️⃣ Start watcher to reattach MongoDB when it comes back
+    watcher = MongoWatcher(
+        uri=settings.MONGODB_URI,
+        db_name="deepshiva_tourism"
+    )
+
+    asyncio.create_task(watcher.wait_until_available())
+
+    logger.info("✅ Startup sequence complete")
+
+# -------------------------------------------------------------------
+# ROUTERS
+# -------------------------------------------------------------------
+
 app.include_router(auth.router, prefix="/api", tags=["authentication"])
 app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(persona.router, prefix="/api", tags=["personas"])
 app.include_router(mock_data.router, prefix="/api/mock", tags=["mock-data"])
 app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
 
+# -------------------------------------------------------------------
+# ROOT
+# -------------------------------------------------------------------
+
 @app.get("/")
 async def root():
     return {
-        "message": "Welcome to Deep Shiva RAG-Enhanced AI",
-        "version": settings.API_VERSION,
-        "features": [
-            "RAG-Enhanced Responses",
-            "Groq API Integration",
-            "Google OAuth Authentication",
-            "User Chat History",
-            "Offline Fallback",
-            "Multi-Persona Chat",
-            "Content Management",
-            "Admin Interface"
-        ],
+        "service": "Deep Shiva Tourism API",
+        "mode": "offline-first",
         "docs": "/docs",
-        "admin_endpoints": "/api/rag/*",
-        "auth_endpoints": "/api/auth/*"
+        "features": [
+            "Local GGUF LLM",
+            "Offline MongoDB Shim",
+            "Online MongoDB Hot-Swap",
+            "RAG Retrieval",
+            "Persona Routing",
+        ],
     }
+
+# -------------------------------------------------------------------
+# HEALTH
+# -------------------------------------------------------------------
 
 @app.get("/health")
 async def health_check():
     return {
         "status": "healthy",
-        "service": "Deep Shiva RAG-Enhanced API",
-        "groq_configured": bool(os.getenv("GROQ_API_KEY")),
-        "mongodb_configured": bool(settings.MONGODB_URI),
-        "google_oauth_configured": bool(settings.GOOGLE_CLIENT_ID),
-        "rag_enabled": True,
-        "version": settings.API_VERSION
+        "mongodb_uri_set": bool(settings.MONGODB_URI),
+        "groq_key_present": bool(os.getenv("GROQ_API_KEY")),
+        "version": settings.API_VERSION,
     }
+
+# -------------------------------------------------------------------
+# DEV ENTRY
+# -------------------------------------------------------------------
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=8000,
+        reload=True
+    )

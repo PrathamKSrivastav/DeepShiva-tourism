@@ -388,3 +388,4 @@ local_settings.py
 # LOCAL GGUF MODELS (DO NOT COMMIT)
 # ============================
 backend/localmodel/*.gguf
+backend/data/offline_db/
