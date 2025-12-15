@@ -76,27 +76,31 @@ def classify_intent(message: str) -> str:
     
     return "general"
 
-def extract_location(message: str) -> str:
-    """
-    Extract location names from user message
-    
-    Args:
-        message: User's input message
-        
-    Returns:
-        Extracted location or empty string
-    """
-    locations = [
-        "delhi", "varanasi", "ayodhya", "mathura", "ujjain",
-        "mumbai", "chennai", "kolkata", "bengaluru",
-        "kedarnath", "badrinath"
-    ]
+import re
 
-    
-    message_lower = message.lower()
-    
-    for location in locations:
-        if location in message_lower:
-            return location.title()
-    
-    return ""
+STOP_WORDS = {
+    "today", "tomorrow", "week", "next week",
+    "weather", "temperature", "forecast",
+    "climate", "conditions", "current", "currently", "now"  # <--- ADD THESE
+}
+
+
+def extract_location(message: str) -> str | None:
+    msg = message.lower()
+
+    # Remove time words
+    for w in STOP_WORDS:
+        msg = msg.replace(w, "")
+
+    # Remove punctuation
+    msg = re.sub(r"[^\w\s]", "", msg)
+
+    # Common Indian cities / proper nouns heuristic
+    tokens = msg.split()
+    tokens = [t for t in tokens if len(t) > 2]
+
+    if not tokens:
+        return None
+
+    # Return the LAST meaningful token group
+    return " ".join(tokens[-2:]).title()

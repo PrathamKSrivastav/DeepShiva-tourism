@@ -12,8 +12,15 @@ from utils.database import get_database
 from middleware.auth import get_current_user  # Optional auth - allows guests
 from bson import ObjectId
 
+from tools.tool_router import decide_tools
+from tools.geocoding_tool import geocode_location
+from tools.weather_tool import get_weather
+
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
@@ -65,7 +72,9 @@ async def create_new_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         # Create new session
         new_session = {
@@ -110,19 +119,8 @@ async def get_all_chat_sessions(
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
         
-        logger.info(f"🔐 User: {current_user.get('email')}")
-        
-        db = get_database()  # This line is failing
-        logger.info(f"✅ Database instance obtained")
-        
-        user_id_value = current_user.get("_id") or current_user.get("id")
-        logger.info(f"🔍 User ID: {user_id_value}")
-        
-        # Convert to ObjectId if string
-        if isinstance(user_id_value, str):
-            user_id = ObjectId(user_id_value)
-        else:
-            user_id = user_id_value
+        db = get_database()
+        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
         
         # Build query
         query = {"user_id": user_id}
@@ -148,9 +146,7 @@ async def get_all_chat_sessions(
         
     except Exception as e:
         logger.error(f"❌ Error fetching sessions: {str(e)}")
-        logger.error(f"❌ Error type: {type(e).__name__}")
-        logger.exception("Full traceback:")  # This prints full stack trace
-        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @router.get("/chat/sessions/{session_id}")
@@ -166,7 +162,9 @@ async def get_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         # Fetch session
         session = await db.chats.find_one({
@@ -184,7 +182,9 @@ async def get_chat_session(
         return session
         
     except Exception as e:
-        logger.error(f"❌ Error fetching session: {str(e)}")
+        # logger.error(f"❌ Error fetching session: {str(e)}")
+        logger.exception("❌ Error fetching sessions")
+
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -202,7 +202,9 @@ async def update_session_title(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         result = await db.chats.update_one(
             {"_id": ObjectId(session_id), "user_id": user_id},
@@ -234,7 +236,9 @@ async def delete_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         result = await db.chats.delete_one({
             "_id": ObjectId(session_id),
@@ -269,38 +273,128 @@ async def chat(
     logger.info(f"🎭 Persona: {request.persona}")
     logger.info(f"🆔 Session ID: {request.session_id}")
     logger.info(f"🔐 Authenticated: {current_user is not None}")
-    
+
     start_time = asyncio.get_event_loop().time()
     chat_saved = False
     session_id = request.session_id
-    
+
     try:
         # Classify intent
         intent = classify_intent(request.message)
+        tools_used = decide_tools(
+             request.persona,
+             intent,
+             request.message
+         )
+        if intent == "weather" and "geocoding" not in tools_used:
+            tools_used.append("geocoding")
+
+        tool_context: Dict[str, Any] = {}
         
+        # --------------------------------------------------
+        # TOOL ORCHESTRATION — STEP 1 (GEOCODING)
+        # --------------------------------------------------
+        location_data = None
+        if "geocoding" in tools_used or intent == "weather":  # <--- CHANGED: Force geocoding for weather intent
+            from utils.intents import extract_location
+            raw_location = extract_location(request.message)
+            
+            if raw_location:
+                # 🧹 ROBUST CLEANING LOGIC START
+                clean_query = raw_location.lower().strip()
+                
+                # Extended list of words to remove
+                BAD_WORDS = [
+                    "current", "currently", "today", "tomorrow", "week", "next",
+                    "weather", "temperature", "forecast", "climate", "now",
+                    "rain", "snow", "sunny", "wind", " in ", " at ", " near "
+                ]
+                
+                for w in BAD_WORDS:
+                    clean_query = clean_query.replace(w, " ").strip()
+                
+                if clean_query.startswith("the "):
+                    clean_query = clean_query[4:].strip()
+                    
+                clean_query = " ".join(clean_query.split()) # Remove double spaces
+                # 🧹 ROBUST CLEANING LOGIC END
+                
+                logger.info(f"📍 Geocoding Cleaned: '{raw_location}' -> '{clean_query}'")
+                
+                if len(clean_query) > 2:
+                    location_data = await geocode_location(clean_query)
+
+            if location_data:
+                tool_context["location"] = location_data
+                logger.info(f"🗺️ Geocoding Success: {location_data.get('place_name')}")
+            else:
+                logger.warning(f"⚠️ Geocoding failed for query: '{raw_location}'")
+
+
+        # --------------------------------------------------
+        # WEATHER TOOL
+        # --------------------------------------------------
+
+        if "weather" in tools_used and "location" in tool_context:
+            loc = tool_context["location"]
+
+            try:
+                weather_data = await get_weather(
+                    latitude=float(loc["latitude"]),
+                    longitude=float(loc["longitude"])
+                )
+
+                if weather_data:
+                    tool_context["weather"] = weather_data
+                    logger.info("🌦️ Weather data retrieved using Open-Meteo")
+
+            except Exception as e:
+                logger.warning(f"Weather API failed: {e}")
+
+
         # Check connectivity
         if request.force_offline:
             return await _generate_local_response(request, intent, start_time, forced=True)
-        
+
         is_online = await check_internet_connection()
         if not is_online:
             return await _generate_local_response(request, intent, start_time)
-        
-        # Get AI response
+
+        # NEW: Fetch conversation history for context
+        conversation_history = []
+        if session_id and current_user:
+            try:
+                conversation_history = await _get_conversation_history(session_id, current_user, limit=4)
+                logger.info(f"📜 Loaded {len(conversation_history)} previous messages for context")
+            except Exception as e:
+                logger.warning(f"⚠️ Could not load conversation history: {str(e)}")
+
+        # Get AI response with conversation history
         try:
+            # ------------ something that can be changed
+            if intent == "weather" and "weather" not in tool_context:
+                logger.warning("⚠️ Weather intent but tool data missing")
+                return await _generate_local_response(
+                    request,
+                    intent,
+                    start_time,
+                    api_error=True
+                )
             logger.info("🤖 Calling Groq API...")
+            logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
             response_text, suggestions = await groq_service.generate_persona_response(
                 message=request.message,
                 persona=request.persona,
                 intent=intent,
-                context=request.context or {}
+                context=request.context,
+                conversation_history=conversation_history,  # ADD THIS
+                tool_context=tool_context
             )
-            
+
             logger.info(f"✅ Groq response received ({len(response_text)} chars)")
-            
             end_time = asyncio.get_event_loop().time()
             response_time = int((end_time - start_time) * 1000)
-            
+
             # Get RAG info
             rag_info = None
             if request.use_rag and hasattr(groq_service, 'persona_rag') and groq_service.persona_rag:
@@ -315,9 +409,9 @@ async def chat(
                         }
                 except Exception as e:
                     logger.warning(f"Error getting RAG info: {str(e)}")
-            
+
             response_source = "groq_with_rag" if (rag_info and rag_info.get("rag_used")) else "groq"
-            
+
             # Save to session if authenticated
             if current_user:
                 logger.info("💾 Saving to chat session...")
@@ -330,13 +424,11 @@ async def chat(
                         intent=intent,
                         session_id=session_id
                     )
-                    
                     if chat_saved:
                         logger.info(f"✅ Saved to session: {session_id}")
-                        
                 except Exception as e:
                     logger.error(f"❌ Error saving: {str(e)}")
-            
+
             return ChatResponse(
                 response=response_text,
                 persona=request.persona,
@@ -349,14 +441,54 @@ async def chat(
                 chat_saved=chat_saved,
                 session_id=session_id
             )
-            
+
         except Exception as groq_error:
             logger.warning(f"Groq API failed: {str(groq_error)[:100]}")
             return await _generate_local_response(request, intent, start_time, api_error=True)
-    
+
     except Exception as e:
         logger.error(f"Critical error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# NEW FUNCTION: Get conversation history
+async def _get_conversation_history(
+    session_id: str,
+    current_user: dict,
+    limit: int = 4
+) -> List[Dict[str, str]]:
+    """
+    Fetch last N messages from session for conversation context
+    Returns list in format: [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]
+    """
+    try:
+        db = get_database()
+        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session or "messages" not in session:
+            return []
+        
+        # Get last N messages (limit * 2 because we have user+bot pairs)
+        messages = session["messages"][-(limit * 2):] if len(session["messages"]) > limit * 2 else session["messages"]
+        
+        # Convert to Groq format
+        conversation_history = []
+        for msg in messages:
+            conversation_history.append({
+                "role": msg["role"],  # "user" or "assistant"
+                "content": msg["content"]
+            })
+        
+        return conversation_history
+        
+    except Exception as e:
+        logger.error(f"❌ Error fetching conversation history: {str(e)}")
+        return []
 
 
 async def save_to_session(
@@ -373,7 +505,9 @@ async def save_to_session(
     """
     try:
         db = get_database()
-        user_id = ObjectId(user_id) if isinstance(user_id, str) else user_id
+        # user_id = ObjectId(user_id) if isinstance(user_id, str) else user_id
+        user_id = str(user_id)
+
         
         # Prepare messages
         user_msg = {
