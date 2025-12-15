@@ -48,7 +48,7 @@ class GroqService:
             self.persona_rag = None
     
     async def health_check(self) -> bool:
-        return True
+        # return True
         """Check if Groq API is accessible"""
         if not self.client:
             return False
@@ -174,6 +174,16 @@ class GroqService:
             or clearly present in retrieved context.
             - If information is region-specific, clearly mention the region.
             - If multiple regions apply, respond at a national level.
+        
+            You may receive structured tool data such as location and weather.
+
+            STRICT RULES:
+            - If tool data is present, it is the single source of truth.
+            - NEVER say you lack real-time data when tool data exists.
+            - Summarize tool data naturally for users.
+            - Do NOT repeat raw numbers unless helpful.
+            - Add practical advice when appropriate.
+
 
         GEOGRAPHY HANDLING:
             - Use PAN-India perspective by default.

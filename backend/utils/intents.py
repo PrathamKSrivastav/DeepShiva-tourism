@@ -81,8 +81,9 @@ import re
 STOP_WORDS = {
     "today", "tomorrow", "week", "next week",
     "weather", "temperature", "forecast",
-    "climate", "conditions"
+    "climate", "conditions", "current", "currently", "now"  # <--- ADD THESE
 }
+
 
 def extract_location(message: str) -> str | None:
     msg = message.lower()

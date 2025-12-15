@@ -77,11 +77,15 @@ async def geocode_with_nominatim(query: str) -> Optional[Dict]:
 
 
 async def geocode_location(query: str) -> Optional[Dict]:
-    """
-    Try India Location Hub first, then fallback to Nominatim.
-    """
-    result = await geocode_with_india_hub(query)
-    if result:
-        return result
+    try:
+        result = await geocode_with_india_hub(query)
+        if result:
+            return result
+    except Exception:
+        pass
 
-    return await geocode_with_nominatim(query)
+    try:
+        return await geocode_with_nominatim(query)
+    except Exception:
+        return None
+

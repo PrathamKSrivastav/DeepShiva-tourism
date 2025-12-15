@@ -285,28 +285,50 @@ async def chat(
              intent,
              request.message
          )
+        if intent == "weather" and "geocoding" not in tools_used:
+            tools_used.append("geocoding")
+
         tool_context: Dict[str, Any] = {}
+        
         # --------------------------------------------------
         # TOOL ORCHESTRATION — STEP 1 (GEOCODING)
         # --------------------------------------------------
         location_data = None
-        if "geocoding" in tools_used:
+        if "geocoding" in tools_used or intent == "weather":  # <--- CHANGED: Force geocoding for weather intent
             from utils.intents import extract_location
+            raw_location = extract_location(request.message)
+            
+            if raw_location:
+                # 🧹 ROBUST CLEANING LOGIC START
+                clean_query = raw_location.lower().strip()
+                
+                # Extended list of words to remove
+                BAD_WORDS = [
+                    "current", "currently", "today", "tomorrow", "week", "next",
+                    "weather", "temperature", "forecast", "climate", "now",
+                    "rain", "snow", "sunny", "wind", " in ", " at ", " near "
+                ]
+                
+                for w in BAD_WORDS:
+                    clean_query = clean_query.replace(w, " ").strip()
+                
+                if clean_query.startswith("the "):
+                    clean_query = clean_query[4:].strip()
+                    
+                clean_query = " ".join(clean_query.split()) # Remove double spaces
+                # 🧹 ROBUST CLEANING LOGIC END
+                
+                logger.info(f"📍 Geocoding Cleaned: '{raw_location}' -> '{clean_query}'")
+                
+                if len(clean_query) > 2:
+                    location_data = await geocode_location(clean_query)
 
-            location_query = extract_location(request.message)
+            if location_data:
+                tool_context["location"] = location_data
+                logger.info(f"🗺️ Geocoding Success: {location_data.get('place_name')}")
+            else:
+                logger.warning(f"⚠️ Geocoding failed for query: '{raw_location}'")
 
-            if location_query:
-                location_data = await geocode_location(location_query)
-
-                if location_data:
-                    tool_context["location"] = location_data
-
-                    logger.info(
-                        f"🗺️ Geocoding used: "
-                        f"{location_data.get('place_name')} | "
-                        f"{location_data.get('city')}, {location_data.get('state')} "
-                        f"({location_data.get('latitude')}, {location_data.get('longitude')})"
-                    )
 
         # --------------------------------------------------
         # WEATHER TOOL
@@ -328,37 +350,6 @@ async def chat(
             except Exception as e:
                 logger.warning(f"Weather API failed: {e}")
 
-        # --------------------------------------------------
-        # SHORT-CIRCUIT: TOOL-ONLY WEATHER RESPONSE
-        # --------------------------------------------------
-        # if "weather" in tool_context and "location" in tool_context:
-        #     w = tool_context["weather"]
-        #     loc = tool_context["location"]
-
-        #     response_text = (
-        #         f"📍 **Weather forecast for {loc.get('place_name')} (next 7 days):**\n\n"
-        #         f"- 🌡️ Max temp: {min(w['temp_max'])}°C – {max(w['temp_max'])}°C\n"
-        #         f"- 🌡️ Min temp: {min(w['temp_min'])}°C – {max(w['temp_min'])}°C\n"
-        #         f"- 🌧️ Rainfall: {sum(w['precipitation'])} mm (total)\n"
-        #         f"- 💨 Wind speed: up to {max(w['wind_speed'])} km/h\n\n"
-        #         f"This forecast is based on **live Open-Meteo data**."
-        #     )
-
-        #     end_time = asyncio.get_event_loop().time()
-        #     response_time = int((end_time - start_time) * 1000)
-
-        #     return ChatResponse(
-        #         response=response_text,
-        #         persona=request.persona,
-        #         intent=intent,
-        #         suggestions=["Best time to visit?", "Is it safe to travel?"],
-        #         response_source="tool_weather",
-        #         response_time_ms=response_time,
-        #         is_offline_mode=False,
-        #         rag_info={"rag_used": False},
-        #         chat_saved=False,
-        #         session_id=session_id
-        #     )
 
         # Check connectivity
         if request.force_offline:
@@ -370,6 +361,15 @@ async def chat(
         
         # Get AI response
         try:
+            # ------------ something that can be changed
+            if intent == "weather" and "weather" not in tool_context:
+                logger.warning("⚠️ Weather intent but tool data missing")
+                return await _generate_local_response(
+                    request,
+                    intent,
+                    start_time,
+                    api_error=True
+                )
             logger.info("🤖 Calling Groq API...")
             logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
             response_text, suggestions = await groq_service.generate_persona_response(
@@ -377,7 +377,7 @@ async def chat(
                 persona=request.persona,
                 intent=intent,
                 context=request.context,
-                tool_context=tool_context or {}
+                tool_context=tool_context
             )
             
             logger.info(f"✅ Groq response received ({len(response_text)} chars)")
