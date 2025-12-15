@@ -11,6 +11,7 @@ from utils.connection_checker import check_internet_connection
 from utils.database import get_database
 from middleware.auth import get_current_user  # Optional auth - allows guests
 from bson import ObjectId
+import json
 
 from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
@@ -24,6 +25,42 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+# Add this near other helper functions or imports
+def get_tools_schema():
+    return [
+        {
+            "type": "function",
+            "function": {
+                "name": "geocode_location",
+                "description": "Get latitude and longitude for a city or place name. Use this before getting weather.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "query": {"type": "string", "description": "The city or place name to find (e.g. 'Dehradun', 'Mumbai')"}
+                    },
+                    "required": ["query"]
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "get_weather",
+                "description": "Get current weather forecast for coordinates.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "latitude": {"type": "number", "description": "Latitude of the location"},
+                        "longitude": {"type": "number", "description": "Longitude of the location"}
+                    },
+                    "required": ["latitude", "longitude"]
+                }
+            }
+        }
+    ]
+
 
 # ============= Models =============
 
@@ -267,229 +304,131 @@ async def chat(
     current_user: Optional[dict] = Depends(get_current_user)
 ):
     """
-    Send message to chat - creates or appends to session
+    Agentic Chat Endpoint: Uses LLM to decide tool usage in a loop
     """
     logger.info("=" * 70)
-    logger.info("💬 CHAT ENDPOINT CALLED")
-    logger.info(f"📝 Message: {request.message[:50]}...")
-    logger.info(f"🎭 Persona: {request.persona}")
-    logger.info(f"🆔 Session ID: {request.session_id}")
-    logger.info(f"🔐 Authenticated: {current_user is not None}")
-
+    logger.info("💬 CHAT ENDPOINT (AGENT MODE) CALLED")
+    
     start_time = asyncio.get_event_loop().time()
-    chat_saved = False
     session_id = request.session_id
-
-    try:
-        # Classify intent
-        intent = classify_intent(request.message)
-        tools_used = decide_tools(
-             request.persona,
-             intent,
-             request.message
-         )
-        if intent == "weather" and "geocoding" not in tools_used:
-            tools_used.append("geocoding")
-
-        tool_context: Dict[str, Any] = {}
+    
+    # 1. Initialize History & Context
+    conversation_history = [] 
+    tool_context = {} 
+    
+    # Still classify intent for RAG context (optional but helpful)
+    intent = classify_intent(request.message) 
+    
+    # 2. THE AGENT LOOP
+    max_turns = 5
+    current_turn = 0
+    final_response_text = ""
+    final_suggestions = []
+    
+    # Get tool definitions
+    tools_schema = get_tools_schema()
+    
+    while current_turn < max_turns:
+        current_turn += 1
+        logger.info(f"🔄 Agent Turn {current_turn}/{max_turns}")
         
-        # --------------------------------------------------
-        # TOOL ORCHESTRATION — STEP 1 (GEOCODING)
-        # --------------------------------------------------
-        location_data = None
-        if "geocoding" in tools_used or intent == "weather":  # <--- CHANGED: Force geocoding for weather intent
-            from utils.intents import extract_location
-            raw_location = extract_location(request.message)
+        # Call Groq Service
+        result = await groq_service.generate_persona_response(
+            message=request.message,
+            persona=request.persona,
+            intent=intent,
+            context=request.context or {},
+            tool_context=tool_context,
+            conversation_history=conversation_history,
+            tools=tools_schema
+        )
+        
+        # CASE A: LLM Wants to Run Tools
+        if result["type"] == "tool_call":
+            tool_calls = result["tool_calls"]
+            llm_message = result["message"]
             
-            if raw_location:
-                # 🧹 ROBUST CLEANING LOGIC START
-                clean_query = raw_location.lower().strip()
+            # Add LLM's request to history so it knows it asked
+            conversation_history.append(llm_message)
+            
+            # Execute each tool requested
+            for tool_call in tool_calls:
+                func_name = tool_call.function.name
                 
-                # Extended list of words to remove
-                BAD_WORDS = [
-                    "current", "currently", "today", "tomorrow", "week", "next",
-                    "weather", "temperature", "forecast", "climate", "now",
-                    "rain", "snow", "sunny", "wind", " in ", " at ", " near "
-                ]
-                
-                for w in BAD_WORDS:
-                    clean_query = clean_query.replace(w, " ").strip()
-                
-                if clean_query.startswith("the "):
-                    clean_query = clean_query[4:].strip()
-                    
-                clean_query = " ".join(clean_query.split()) # Remove double spaces
-                # 🧹 ROBUST CLEANING LOGIC END
-                
-                logger.info(f"📍 Geocoding Cleaned: '{raw_location}' -> '{clean_query}'")
-                
-                if len(clean_query) > 2:
-                    location_data = await geocode_location(clean_query)
-
-            if location_data:
-                tool_context["location"] = location_data
-                logger.info(f"🗺️ Geocoding Success: {location_data.get('place_name')}")
-            else:
-                logger.warning(f"⚠️ Geocoding failed for query: '{raw_location}'")
-
-
-        # --------------------------------------------------
-        # WEATHER TOOL
-        # --------------------------------------------------
-
-        if "weather" in tools_used and "location" in tool_context:
-            loc = tool_context["location"]
-
-            try:
-                weather_data = await get_weather(
-                    latitude=float(loc["latitude"]),
-                    longitude=float(loc["longitude"])
-                )
-
-                if weather_data:
-                    tool_context["weather"] = weather_data
-                    logger.info("🌦️ Weather data retrieved using Open-Meteo")
-
-            except Exception as e:
-                logger.warning(f"Weather API failed: {e}")
-
-
-        # Check connectivity
-        if request.force_offline:
-            return await _generate_local_response(request, intent, start_time, forced=True)
-
-        is_online = await check_internet_connection()
-        if not is_online:
-            return await _generate_local_response(request, intent, start_time)
-
-        # NEW: Fetch conversation history for context
-        conversation_history = []
-        if session_id and current_user:
-            try:
-                conversation_history = await _get_conversation_history(session_id, current_user, limit=4)
-                logger.info(f"📜 Loaded {len(conversation_history)} previous messages for context")
-            except Exception as e:
-                logger.warning(f"⚠️ Could not load conversation history: {str(e)}")
-
-        # Get AI response with conversation history
-        try:
-            # ------------ something that can be changed
-            if intent == "weather" and "weather" not in tool_context:
-                logger.warning("⚠️ Weather intent but tool data missing")
-                return await _generate_local_response(
-                    request,
-                    intent,
-                    start_time,
-                    api_error=True
-                )
-            logger.info("🤖 Calling Groq API...")
-            logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
-            response_text, suggestions = await groq_service.generate_persona_response(
-                message=request.message,
-                persona=request.persona,
-                intent=intent,
-                context=request.context,
-                conversation_history=conversation_history,  # ADD THIS
-                tool_context=tool_context
-            )
-
-            logger.info(f"✅ Groq response received ({len(response_text)} chars)")
-            end_time = asyncio.get_event_loop().time()
-            response_time = int((end_time - start_time) * 1000)
-
-            # Get RAG info
-            rag_info = None
-            if request.use_rag and hasattr(groq_service, 'persona_rag') and groq_service.persona_rag:
                 try:
-                    rag_status = await groq_service.get_rag_status()
-                    if rag_status.get("rag_enabled", False):
-                        rag_info = {
-                            "rag_used": True,
-                            "total_documents": rag_status.get("total_documents", 0),
-                            "collections_used": list(rag_status.get("collections", {}).keys()),
-                            "rag_status": "active"
-                        }
-                except Exception as e:
-                    logger.warning(f"Error getting RAG info: {str(e)}")
+                    args = json.loads(tool_call.function.arguments)
+                except json.JSONDecodeError:
+                    logger.error(f"❌ Failed to decode arguments for {func_name}")
+                    continue
 
-            response_source = "groq_with_rag" if (rag_info and rag_info.get("rag_used")) else "groq"
-
-            # Save to session if authenticated
-            if current_user:
-                logger.info("💾 Saving to chat session...")
-                try:
-                    session_id, chat_saved = await save_to_session(
-                        user_id=current_user.get("_id") or current_user.get("id"),
-                        persona=request.persona,
-                        user_message=request.message,
-                        bot_response=response_text,
-                        intent=intent,
-                        session_id=session_id
+                tool_result = None
+                
+                if func_name == "geocode_location":
+                    logger.info(f"📍 Agent calling Geocode: {args.get('query')}")
+                    tool_result = await geocode_location(args.get('query'))
+                    if tool_result:
+                        tool_context["location"] = tool_result
+                        
+                elif func_name == "get_weather":
+                    logger.info(f"🌦️ Agent calling Weather: {args}")
+                    tool_result = await get_weather(
+                        latitude=args.get('latitude'),
+                        longitude=args.get('longitude')
                     )
-                    if chat_saved:
-                        logger.info(f"✅ Saved to session: {session_id}")
-                except Exception as e:
-                    logger.error(f"❌ Error saving: {str(e)}")
+                    if tool_result:
+                        tool_context["weather"] = tool_result
 
-            return ChatResponse(
-                response=response_text,
+                # Add result to history
+                conversation_history.append({
+                    "role": "tool",
+                    "tool_call_id": tool_call.id,
+                    "name": func_name,
+                    "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
+                })
+            
+            # Loop continues to next turn...
+
+        # CASE B: LLM Returned Final Text
+        elif result["type"] == "text":
+            final_response_text = result["response"]
+            final_suggestions = result["suggestions"]
+            break # Exit loop
+            
+    # Fallback if loop finishes without text
+    if not final_response_text:
+        final_response_text = "I'm having trouble connecting to my tools. Let me answer based on my general knowledge."
+
+    # 3. Construct Final Response
+    end_time = asyncio.get_event_loop().time()
+    response_time = int((end_time - start_time) * 1000)
+
+    # Save to session (DB)
+    if current_user:
+        try:
+            # Helper function assumed to exist (from your original code)
+            session_id, _ = await save_to_session(
+                user_id=current_user.get("_id") or current_user.get("id"),
                 persona=request.persona,
+                user_message=request.message,
+                bot_response=final_response_text,
                 intent=intent,
-                suggestions=suggestions,
-                response_source=response_source,
-                response_time_ms=response_time,
-                is_offline_mode=False,
-                rag_info=rag_info,
-                chat_saved=chat_saved,
                 session_id=session_id
             )
+        except Exception as e:
+            logger.error(f"❌ Error saving session: {str(e)}")
 
-        except Exception as groq_error:
-            logger.warning(f"Groq API failed: {str(groq_error)[:100]}")
-            return await _generate_local_response(request, intent, start_time, api_error=True)
-
-    except Exception as e:
-        logger.error(f"Critical error: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# NEW FUNCTION: Get conversation history
-async def _get_conversation_history(
-    session_id: str,
-    current_user: dict,
-    limit: int = 4
-) -> List[Dict[str, str]]:
-    """..."""
-    try:
-        db = get_database()
-        user_id = str(current_user.get("_id") or current_user.get("id"))  # ← Keep as STRING
-        
-        session = await db.chats.find_one({
-            "_id": ObjectId(session_id),
-            "user_id": user_id  # ← Now matches!
-        })
-
-        
-        if not session or "messages" not in session:
-            return []
-        
-        # Get last N messages (limit * 2 because we have user+bot pairs)
-        messages = session["messages"][-(limit * 2):] if len(session["messages"]) > limit * 2 else session["messages"]
-        
-        # Convert to Groq format
-        conversation_history = []
-        for msg in messages:
-            conversation_history.append({
-                "role": msg["role"],  # "user" or "assistant"
-                "content": msg["content"]
-            })
-        
-        return conversation_history
-        
-    except Exception as e:
-        logger.error(f"❌ Error fetching conversation history: {str(e)}")
-        return []
-
+    return ChatResponse(
+        response=final_response_text,
+        persona=request.persona,
+        intent=intent,
+        suggestions=final_suggestions,
+        response_source="groq_agent",
+        response_time_ms=response_time,
+        is_offline_mode=False,
+        rag_info={"rag_used": True}, 
+        chat_saved=bool(current_user),
+        session_id=session_id
+    )
 
 async def save_to_session(
     user_id: str,

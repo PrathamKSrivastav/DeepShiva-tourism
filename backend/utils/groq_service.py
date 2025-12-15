@@ -87,7 +87,8 @@ class GroqService:
         intent: str,
         context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
         tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
-        conversation_history: Optional[List[Dict[str, Any]]] = None
+        conversation_history: Optional[List[Dict[str, Any]]] = None,
+        tools: Optional[List[Dict[str, Any]]] = None
     ) -> Tuple[str, List[str]]:
 
 
@@ -122,12 +123,21 @@ class GroqService:
                 # Add current user message
                 messages.append({"role": "user", "content": user_message})
                 
-                return self.client.chat.completions.create(
-                    model=self.model_name,
-                    messages=messages,
-                    max_tokens=self.max_tokens,
-                    temperature=self.temperature,
-                )
+                # Prepare API arguments
+                kwargs = {
+                    "model": self.model_name,
+                    "messages": messages,
+                    "max_tokens": self.max_tokens,
+                    "temperature": self.temperature,
+                }
+                
+                # Add tools if provided
+                if tools:
+                    kwargs["tools"] = tools
+                    kwargs["tool_choice"] = "auto"
+                
+                return self.client.chat.completions.create(**kwargs)
+
 
             loop = asyncio.get_event_loop()
             response = await asyncio.wait_for(
@@ -135,7 +145,19 @@ class GroqService:
                 timeout=self.timeout
             )
 
-            response_text = response.choices[0].message.content
+            message_response = response.choices[0].message
+            
+            # CHECK FOR TOOL CALLS
+            if message_response.tool_calls:
+                logger.info(f"🛠️ LLM requested {len(message_response.tool_calls)} tool calls")
+                return {
+                    "type": "tool_call",
+                    "tool_calls": message_response.tool_calls,
+                    "message": message_response  # Return full message object for history
+                }
+
+            # STANDARD TEXT RESPONSE
+            response_text = message_response.content
 
             # Enhance response with RAG citations if available
             if rag_context.get("has_rag_context", False):
@@ -143,8 +165,13 @@ class GroqService:
 
             # Generate contextual suggestions
             suggestions = await self._generate_suggestions_with_rag(message, persona, intent, rag_context)
+            
+            return {
+                "type": "text",
+                "response": response_text,
+                "suggestions": suggestions
+            }
 
-            return response_text, suggestions
 
         except asyncio.TimeoutError:
             raise Exception("Groq API request timed out")
@@ -181,47 +208,30 @@ class GroqService:
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any], tool_context: Dict[str, Any]) -> str:
         """Build persona-specific system message enhanced with RAG context"""
         
-        base_context = """You are a PAN-INDIA AI knowledge assistant for travel, culture, spirituality, festivals,emergencies, and local insights across India.
-        
+        base_context = """You are a PAN-INDIA AI knowledge assistant for travel, culture, spirituality, and local insights across India. You have access to two tools: `geocode_location` and `get_weather`.
+
+        PRIORITY & CONFLICT RESOLUTION:
+        1.  **Live Tools First**: For any dynamic query (e.g., "weather", "climate", "temperature", "current status"), you MUST use tools. Tool data is always more current and accurate than RAG context.
+        2.  **RAG Context Second**: Use RAG for static, historical, or general knowledge (e.g., itineraries, culture, history).
+        3.  **Conflict Rule**: Even if the RAG context contains general weather information (like "it is cold in winter"), you MUST STILL call the `get_weather` tool for a live forecast. Do not let RAG context prevent you from using tools for live data.
+
+        TOOL USAGE RULES:
+        - If the user asks for "current", "today's", or "now" weather, you MUST use `geocode_location` first, then `get_weather`.
+        - Do NOT guess or hallucinate weather data.
+        - If you need a location's coordinates, call `geocode_location`.
+        - Do NOT output tool calls as text (like <function...>); use the proper tool call structure.
+
         CORE RULES:
-            - Do NOT assume a state, city, or region unless explicitly mentioned by the user
-            or clearly present in retrieved context.
-            - If information is region-specific, clearly mention the region.
-            - If multiple regions apply, respond at a national level.
-        
-            You may receive structured tool data such as location and weather.
-
-            STRICT RULES:
-            - If tool data is present, it is the single source of truth.
-            - NEVER say you lack real-time data when tool data exists.
-            - Summarize tool data naturally for users.
-            - Do NOT repeat raw numbers unless helpful.
-            - Add practical advice when appropriate.
-
-
-        GEOGRAPHY HANDLING:
-            - Use PAN-India perspective by default.
-            - Narrow down to a state/city ONLY if:
-                (a) the user specifies it, or
-                (b) retrieved context clearly anchors it.
+        - Do NOT assume a state, city, or region unless explicitly mentioned.
+        - If tool data is present, it is the single source of truth. Summarize it naturally.
 
         RESPONSE STYLE:
-            - Default responses must be SHORT (3-6 bullet points or a short paragraph).
-            - Expand ONLY if the user explicitly asks for "details", "explain", or "in depth".
-
-        FACTUAL GUARDRAILS:
-            - Prefer retrieved (RAG) context over general knowledge.
-            - Do not invent festivals, dates, locations, or practices.
-            - If unsure, say so clearly.
-
-        PERSONA RULE:
-            - Stay strictly within the assigned persona.
-            - If another persona would answer better, politely suggest switching.
+        - Default responses must be SHORT (3-6 bullet points or a short paragraph).
 
         Current date: {date.today().isoformat()}.
-        
         IMPORTANT: Keep responses under 800 words, conversational, and informative.
         """
+
         
         # Add RAG context if available
         if rag_context.get("has_rag_context", False):

@@ -18,26 +18,26 @@ class SmartRetriever:
             "local_guide": {
                 "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government", "cultural", "festivals", "cuisines", "treks"],  # ← MOVED cultural HERE
                 "secondary_collections": ["trekking", "eco_tips", "wellness"],
-                "max_results": 6,
-                "relevance_threshold": 0.5
+                "max_results": 3,
+                "relevance_threshold": 0.8
             },
             "spiritual_teacher": {
                 "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],  # ← Already has cultural ✅
                 "secondary_collections": ["crowd_patterns", "general"],
-                "max_results": 8,
-                "relevance_threshold": 0.5
+                "max_results": 4,
+                "relevance_threshold": 0.8
             },
             "trek_companion": {
                 "primary_collections": ["treks", "emergency_info", "spiritual_sites", "trekking", "government", "cultural"],  # ← ADD cultural
                 "secondary_collections": ["homestays", "eco_tips", "general"],
-                "max_results": 5,
-                "relevance_threshold": 0.5
+                "max_results": 3,
+                "relevance_threshold": 0.8
             },
             "cultural_expert": {
                 "primary_collections": ["festivals", "spiritual_sites", "cuisines", "cultural", "spiritual"],  # ← Already has cultural ✅
                 "secondary_collections": ["crowd_patterns", "homestays", "general", "government"],
-                "max_results": 10,
-                "relevance_threshold": 0.5
+                "max_results": 6,
+                "relevance_threshold": 0.8
             }
         }
 
