@@ -9,6 +9,7 @@ function ChatHistorySidebar({
   isOpen,
   onToggle,
   refreshTrigger,
+  darkMode,
 }) {
   const [chatSessions, setChatSessions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,7 +38,14 @@ function ChatHistorySidebar({
     setLoading(true);
     try {
       const res = await getChatHistory(currentPersona, 50);
-      setChatSessions(res.sessions || []);
+      const sessions = res.sessions || [];
+      setChatSessions(sessions);
+
+      // Auto-select the most recent chat (newest first)
+      if (sessions.length > 0) {
+        setSelectedChatId(sessions[0]._id);
+        onSelectChat(sessions[0]);
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -51,19 +59,19 @@ function ChatHistorySidebar({
     if (!isDesktop) onToggle();
   };
 
-  const handleSaveTitle = async (chatId) => {
-    if (!newTitle.trim()) {
-      setRenamingChatId(null);
-      return;
-    }
+  const handleDeleteChat = async (chatId, e) => {
+    e.stopPropagation();
+    if (!confirm("Delete this conversation?")) return;
+
     try {
-      await updateSessionTitle(chatId, newTitle);
-      setChatSessions((prev) =>
-        prev.map((c) => (c._id === chatId ? { ...c, title: newTitle } : c))
-      );
-      setRenamingChatId(null);
+      await deleteChat(chatId);
+      setChatSessions((prev) => prev.filter((c) => c._id !== chatId));
+      if (selectedChatId === chatId) {
+        setSelectedChatId(null);
+      }
     } catch (error) {
-      console.error("Error updating title:", error);
+      console.error("Error deleting chat:", error);
+      alert("Failed to delete conversation");
     }
   };
 
@@ -73,15 +81,48 @@ function ChatHistorySidebar({
     if (!isDesktop) onToggle();
   };
 
+  const handleSaveTitle = async (chatId) => {
+    try {
+      await updateSessionTitle(chatId, newTitle);
+      setChatSessions((prev) =>
+        prev.map((c) => (c._id === chatId ? { ...c, title: newTitle } : c))
+      );
+      setRenamingChatId(null);
+    } catch (error) {
+      console.error("Error updating title:", error);
+      alert("Failed to update title");
+    }
+  };
+
   const SidebarContent = () => (
-    <div className="h-full flex flex-col bg-white/50 backdrop-blur-xl border-r border-white/20">
-      {/* Header */}
-      <div className="p-5 border-b border-white/20 flex items-center justify-between">
-        <h2 className="font-semibold text-gray-800 tracking-tight">History</h2>
+    <div
+      className={`h-full flex flex-col ${
+        darkMode
+          ? "bg-gray-800 border-gray-700"
+          : "bg-white/40 backdrop-blur-xl border-white/20"
+      } border-r`}
+    >
+      {/* Glass Header */}
+      <div
+        className={`p-5 flex items-center justify-between ${
+          darkMode ? "border-gray-700" : "border-white/20"
+        } border-b`}
+      >
+        <h2
+          className={`font-semibold tracking-tight ${
+            darkMode ? "text-white" : "text-gray-800"
+          }`}
+        >
+          Your Journeys
+        </h2>
         {!isDesktop && (
           <button
             onClick={onToggle}
-            className="text-gray-500 p-1 hover:bg-black/5 rounded-full"
+            className={`p-1 rounded-full transition-colors ${
+              darkMode
+                ? "text-gray-400 hover:bg-gray-700"
+                : "text-gray-500 hover:bg-black/5"
+            }`}
           >
             ✕
           </button>
@@ -92,20 +133,24 @@ function ChatHistorySidebar({
       <div className="p-4">
         <button
           onClick={handleNewChat}
-          className="w-full py-2.5 px-4 bg-gray-900 text-white rounded-xl shadow-lg shadow-gray-200/50 hover:bg-gray-800 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 font-medium text-sm flex items-center justify-center gap-2"
+          className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium text-sm flex items-center justify-center gap-2"
         >
-          <span>+</span> Start New Chat
+          <span className="text-lg leading-none">+</span> Start New Chat
         </button>
       </div>
 
       {/* Chat List */}
-      <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-1">
+      <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : chatSessions.length === 0 ? (
-          <div className="text-center text-gray-400 py-10 text-sm">
+          <div
+            className={`text-center py-10 text-sm ${
+              darkMode ? "text-gray-500" : "text-gray-400"
+            }`}
+          >
             No past conversations
           </div>
         ) : (
@@ -113,13 +158,27 @@ function ChatHistorySidebar({
             <div
               key={chat._id}
               onClick={() => handleSelectChat(chat)}
-              className={`group relative rounded-lg px-3 py-2.5 cursor-pointer transition-all duration-200 border border-transparent
-                ${
-                  selectedChatId === chat._id
-                    ? "bg-white/80 shadow-sm border-white/40"
-                    : "hover:bg-white/40"
-                }`}
+              className={`group relative rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 border-2 ${
+                selectedChatId === chat._id
+                  ? darkMode
+                    ? "bg-indigo-900/50 border-indigo-500 shadow-md shadow-indigo-500/30"
+                    : "bg-indigo-100 border-indigo-500 shadow-md shadow-indigo-200/50"
+                  : darkMode
+                  ? "bg-gray-700/30 border-transparent hover:bg-gray-700/50 hover:border-gray-600"
+                  : "bg-white/30 border-transparent hover:bg-white/50 hover:border-white/30"
+              }`}
             >
+              {/* Active Indicator Line */}
+              {selectedChatId === chat._id && (
+                <div
+                  className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full ${
+                    darkMode
+                      ? "bg-gradient-to-b from-indigo-400 to-indigo-600"
+                      : "bg-gradient-to-b from-indigo-400 to-indigo-600"
+                  }`}
+                />
+              )}
+
               {renamingChatId === chat._id ? (
                 <input
                   type="text"
@@ -130,21 +189,31 @@ function ChatHistorySidebar({
                     e.key === "Enter" && handleSaveTitle(chat._id)
                   }
                   autoFocus
-                  className="w-full bg-white border border-indigo-300 rounded px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-indigo-500/30 border border-indigo-300 ${
+                    darkMode ? "bg-gray-700 text-white" : "bg-white/80"
+                  }`}
                 />
               ) : (
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pl-3">
                   <div className="flex-1 min-w-0 pr-2">
                     <p
                       className={`text-sm font-medium truncate ${
                         selectedChatId === chat._id
-                          ? "text-gray-900"
+                          ? darkMode
+                            ? "text-white"
+                            : "text-indigo-900"
+                          : darkMode
+                          ? "text-gray-200"
                           : "text-gray-700"
                       }`}
                     >
                       {chat.title || "New Conversation"}
                     </p>
-                    <p className="text-[10px] text-gray-400 mt-0.5 truncate">
+                    <p
+                      className={`text-[10px] mt-0.5 truncate ${
+                        darkMode ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
                       {new Date(chat.updated_at).toLocaleDateString()} •{" "}
                       {chat.persona || "Guide"}
                     </p>
@@ -162,16 +231,24 @@ function ChatHistorySidebar({
                         setRenamingChatId(chat._id);
                         setNewTitle(chat.title || "");
                       }}
-                      className="p-1 hover:bg-indigo-50 text-gray-400 hover:text-indigo-600 rounded"
+                      className={`p-1 rounded transition-colors ${
+                        darkMode
+                          ? "text-gray-500 hover:bg-indigo-900/50 hover:text-indigo-300"
+                          : "text-gray-400 hover:bg-indigo-50 hover:text-indigo-600"
+                      }`}
                     >
                       ✎
                     </button>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        deleteChat(chat._id);
+                        handleDeleteChat(chat._id, e);
                       }}
-                      className="p-1 hover:bg-red-50 text-gray-400 hover:text-red-600 rounded"
+                      className={`p-1 rounded transition-colors ${
+                        darkMode
+                          ? "text-gray-500 hover:bg-red-900/50 hover:text-red-300"
+                          : "text-gray-400 hover:bg-red-50 hover:text-red-600"
+                      }`}
                     >
                       🗑
                     </button>
@@ -188,7 +265,7 @@ function ChatHistorySidebar({
   /* Desktop View */
   if (isDesktop) {
     return (
-      <aside className="w-72 h-full flex-shrink-0">
+      <aside className="w-72 h-full flex-shrink-0 relative z-10">
         <SidebarContent />
       </aside>
     );
@@ -198,9 +275,13 @@ function ChatHistorySidebar({
   return (
     <>
       <div
-        className={`fixed inset-0 z-40 bg-gray-900/20 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
+        style={{
+          backgroundColor: isOpen ? "rgba(0, 0, 0, 0.4)" : "transparent",
+          backdropFilter: isOpen ? "blur(4px)" : "none",
+        }}
         onClick={onToggle}
       />
       <div
