@@ -417,3 +417,28 @@ class GroqService:
         except Exception as e:
             logger.error(f"Error getting RAG status: {str(e)}")
             return {"rag_enabled": False, "status": "error", "error": str(e)}
+
+
+
+    async def _raw_generate(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        conversation_history=None
+    ):
+        messages = [{"role": "system", "content": system_prompt}]
+
+        if conversation_history:
+            messages.extend(conversation_history)
+
+        messages.append({"role": "user", "content": user_prompt})
+
+        response = self.client.chat.completions.create(
+            model=self.model_name,
+            messages=messages,
+            temperature=0.3,
+            max_tokens=512
+        )
+
+        return response.choices[0].message.content, []
+    

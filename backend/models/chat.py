@@ -1,36 +1,31 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime
 
+
 class ChatMessage(BaseModel):
-    role: str  # "user" or "assistant"
+    role: str                  # "user" | "assistant"
     content: str
     timestamp: datetime
     persona: Optional[str] = None
     intent: Optional[str] = None
 
-class ChatCreate(BaseModel):
-    user_id: str
-    persona: str
-    message: ChatMessage
 
-class Chat(BaseModel):
-    id: str = Field(alias="_id")
+class ChatRequest(BaseModel):
     user_id: str
-    persona: str
-    messages: List[ChatMessage] = []
+    persona: Optional[str] = None
+    message: str
+    use_rag: bool = True
+    force_offline: bool = False
+    history: List[Dict[str, str]] = []
     context: Dict[str, Any] = {}
-    created_at: datetime
-    updated_at: datetime
-    
-    class Config:
-        populate_by_name = True
+
 
 class ChatResponse(BaseModel):
-    id: str
-    user_id: str
-    persona: str
-    messages: List[ChatMessage]
-    context: Dict[str, Any]
-    created_at: datetime
-    updated_at: datetime
+    response: str
+    persona: Optional[str]
+    intent: str
+    response_source: str        # "groq" | "local"
+    is_offline_mode: bool
+    rag_used: bool
+    sources: List[Dict[str, Any]] = []

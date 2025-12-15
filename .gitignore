@@ -381,3 +381,10 @@ local_settings.py
 # !requirements.txt
 # !package.json
 # !README.md
+
+
+
+# ============================
+# LOCAL GGUF MODELS (DO NOT COMMIT)
+# ============================
+backend/localmodel/*.gguf
