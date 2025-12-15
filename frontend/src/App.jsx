@@ -6,7 +6,7 @@ import PersonaSelector from "./components/PersonaSelector";
 import LoginButton from "./components/LoginButton";
 import UserDropdown from "./components/UserDropdown";
 import ChatHistorySidebar from "./components/ChatHistorySidebar";
-import { fetchPersonas, createNewChatSession } from "./api";
+import { fetchPersonas } from "./api";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -14,10 +14,9 @@ function AppContent() {
   const [personas, setPersonas] = useState([]);
   const [selectedPersona, setSelectedPersona] = useState("local_guide");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [personaSelectorOpen, setPersonaSelectorOpen] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true); // default to polished dark
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -25,60 +24,56 @@ function AppContent() {
   }, []);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    if (darkMode) document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
   }, [darkMode]);
 
   return (
     <div
       className={`h-screen flex flex-col ${
         darkMode
-          ? "bg-gray-900"
-          : "bg-gradient-to-br from-blue-50 to-indigo-100"
+          ? "bg-dark-bg text-slate-100"
+          : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
       }`}
     >
       {/* Header */}
       <header
-        className={`h-16 ${
-          darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
-        } border-b flex items-center px-6 justify-between flex-shrink-0`}
+        className={`h-16 border-b flex items-center px-6 justify-between flex-shrink-0 ${
+          darkMode
+            ? "bg-dark-surface border-dark-border"
+            : "bg-white border-gray-200"
+        }`}
       >
         <button
-          className={`lg:hidden px-3 py-1 border rounded ${
+          className={`lg:hidden px-3 py-1 rounded-md transition ${
             darkMode
-              ? "border-gray-600 text-gray-300"
-              : "border-gray-300 text-gray-700"
+              ? "border-dark-border text-slate-200 bg-dark-elev hover:bg-dark-elev/80"
+              : "border-gray-300 text-gray-700 bg-white/60"
           }`}
           onClick={() => setSidebarOpen(true)}
         >
           History
         </button>
-        <h1
-          className={`font-bold text-lg ${
-            darkMode ? "text-white" : "text-gray-900"
-          }`}
-        >
+
+        <h1 className="font-heading font-semibold text-lg tracking-tight">
           Deep Shiva Tourism
         </h1>
 
         <div className="flex items-center gap-4">
           {/* Dark Mode Toggle */}
           <button
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-2 rounded-lg transition-colors ${
+            onClick={() => setDarkMode((v) => !v)}
+            className={`p-2 rounded-lg transition-colors ring-1 ${
               darkMode
-                ? "bg-gray-700 text-yellow-400 hover:bg-gray-600"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                ? "bg-dark-elev ring-dark-border text-yellow-300 hover:bg-dark-elev/90"
+                : "bg-white/80 ring-gray-200 text-gray-700 hover:bg-white"
             }`}
             title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {darkMode ? "☀️" : "🌙"}
           </button>
 
-          {!isAuthenticated && <LoginButton />}
+          {!isAuthenticated && <LoginButton darkMode={darkMode} />}
           {isAuthenticated && <UserDropdown darkMode={darkMode} />}
         </div>
       </header>
@@ -87,7 +82,7 @@ function AppContent() {
       <main className="flex-1 overflow-hidden">
         <div
           className={`h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6 ${
-            darkMode ? "bg-gray-900" : ""
+            darkMode ? "" : ""
           }`}
         >
           <div className="flex gap-4 lg:gap-6 h-full">
@@ -109,8 +104,6 @@ function AppContent() {
                 selectedChat={selectedChat}
                 personas={personas}
                 onPersonaChange={setSelectedPersona}
-                personaSelectorOpen={personaSelectorOpen}
-                onPersonaSelectorToggle={setPersonaSelectorOpen}
                 onNewChatCreated={() => setRefreshTrigger((prev) => prev + 1)}
                 darkMode={darkMode}
               />
@@ -120,7 +113,7 @@ function AppContent() {
             <div
               className={`hidden lg:block w-80 xl:w-96 flex-shrink-0 ${
                 darkMode
-                  ? "bg-gray-800 rounded-lg shadow-lg p-4 overflow-y-auto"
+                  ? "bg-dark-surface rounded-lg shadow-lg p-4 overflow-y-auto border border-dark-border"
                   : "bg-white rounded-lg shadow-lg p-4 overflow-y-auto"
               }`}
             >

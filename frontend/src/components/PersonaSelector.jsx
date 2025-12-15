@@ -9,7 +9,7 @@ function PersonaSelector({
   return (
     <div
       className={`flex flex-col space-y-3 h-full overflow-y-auto no-scrollbar p-1 ${
-        darkMode ? "text-white" : "text-gray-800"
+        darkMode ? "text-slate-100" : "text-gray-800"
       }`}
     >
       {personas.map((persona) => {
@@ -23,21 +23,17 @@ function PersonaSelector({
               ${
                 isSelected
                   ? darkMode
-                    ? "bg-gray-700 shadow-lg shadow-indigo-500/20 ring-1 ring-indigo-400/50"
-                    : "bg-white/80 shadow-lg shadow-fuchsia-500/10 ring-1 ring-fuchsia-500/30 scale-[1.02]"
+                    ? "bg-dark-elev shadow-[0_8px_24px_rgba(99,102,241,0.06)] ring-1 ring-accent-indigo/30 scale-[1.02]"
+                    : "bg-white/90 shadow-lg ring-1 ring-fuchsia-200 scale-[1.02]"
                   : darkMode
-                  ? "bg-gray-800 hover:bg-gray-700 hover:shadow-sm border border-gray-600"
-                  : "bg-white/30 hover:bg-white/50 hover:shadow-sm border border-white/20"
+                  ? "bg-dark-surface hover:bg-dark-elev/70 border border-dark-border"
+                  : "bg-white/30 hover:bg-white/50 border border-white/20"
               } backdrop-blur-md`}
           >
             {/* Active Indicator Strip */}
             {isSelected && (
               <div
-                className={`absolute left-0 top-3 bottom-3 w-1 ${
-                  darkMode
-                    ? "bg-gradient-to-b from-indigo-400 to-indigo-600"
-                    : "bg-gradient-to-b from-fuchsia-400 to-purple-500"
-                } rounded-r-full`}
+                className={`absolute left-0 top-3 bottom-3 w-1 rounded-r-full bg-gradient-to-b from-accent-indigo to-accent-fuchsia`}
               />
             )}
 
@@ -45,12 +41,8 @@ function PersonaSelector({
               <div
                 className={`flex-shrink-0 text-2xl p-2 rounded-xl transition-colors ${
                   isSelected
-                    ? darkMode
-                      ? "bg-indigo-900/50"
-                      : "bg-fuchsia-50"
-                    : darkMode
-                    ? "bg-transparent group-hover:bg-gray-700"
-                    : "bg-transparent group-hover:bg-white/40"
+                    ? "bg-gradient-to-tr from-accent-indigo/20 to-accent-fuchsia/10"
+                    : "bg-transparent group-hover:bg-dark-elev/60"
                 }`}
               >
                 {persona.icon}
@@ -58,13 +50,13 @@ function PersonaSelector({
 
               <div className="flex-1 min-w-0 pt-1">
                 <div
-                  className={`font-semibold text-sm truncate transition-colors ${
+                  className={`font-semibold text-sm truncate ${
                     isSelected
                       ? darkMode
                         ? "text-white"
                         : "text-fuchsia-900"
                       : darkMode
-                      ? "text-gray-200"
+                      ? "text-slate-100"
                       : "text-gray-800"
                   }`}
                 >
@@ -72,7 +64,7 @@ function PersonaSelector({
                 </div>
                 <div
                   className={`text-xs mt-0.5 line-clamp-2 leading-relaxed ${
-                    darkMode ? "text-gray-400" : "text-gray-500"
+                    darkMode ? "text-dark-muted" : "text-gray-500"
                   }`}
                 >
                   {persona.description}
@@ -84,11 +76,11 @@ function PersonaSelector({
                     className={`text-[10px] px-2 py-0.5 rounded-full border ${
                       isSelected
                         ? darkMode
-                          ? "bg-indigo-900/50 text-indigo-200 border-indigo-500"
-                          : "bg-fuchsia-100/50 text-fuchsia-700 border-fuchsia-200"
+                          ? "bg-dark-elev text-accent-indigo border-accent-indigo/30"
+                          : "bg-fuchsia-100/60 text-fuchsia-700 border-fuchsia-200"
                         : darkMode
-                        ? "bg-gray-700 text-gray-400 border-gray-600"
-                        : "bg-gray-100/50 text-gray-500 border-gray-200"
+                        ? "bg-dark-surface text-dark-muted border-dark-border"
+                        : "bg-gray-100 text-gray-600 border-gray-200"
                     }`}
                   >
                     {persona.tone}

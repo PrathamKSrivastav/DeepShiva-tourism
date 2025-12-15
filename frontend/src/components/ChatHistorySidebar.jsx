@@ -41,7 +41,6 @@ function ChatHistorySidebar({
       const sessions = res.sessions || [];
       setChatSessions(sessions);
 
-      // Auto-select the most recent chat (newest first)
       if (sessions.length > 0) {
         setSelectedChatId(sessions[0]._id);
         onSelectChat(sessions[0]);
@@ -98,19 +97,19 @@ function ChatHistorySidebar({
     <div
       className={`h-full flex flex-col ${
         darkMode
-          ? "bg-gray-800 border-gray-700"
+          ? "bg-dark-surface border-r border-dark-border"
           : "bg-white/40 backdrop-blur-xl border-white/20"
-      } border-r`}
+      }`}
     >
       {/* Glass Header */}
       <div
-        className={`p-5 flex items-center justify-between ${
-          darkMode ? "border-gray-700" : "border-white/20"
-        } border-b`}
+        className={`p-5 flex items-center justify-between border-b ${
+          darkMode ? "border-dark-border" : "border-white/20"
+        }`}
       >
         <h2
           className={`font-semibold tracking-tight ${
-            darkMode ? "text-white" : "text-gray-800"
+            darkMode ? "text-slate-100" : "text-gray-800"
           }`}
         >
           Your Journeys
@@ -120,7 +119,7 @@ function ChatHistorySidebar({
             onClick={onToggle}
             className={`p-1 rounded-full transition-colors ${
               darkMode
-                ? "text-gray-400 hover:bg-gray-700"
+                ? "text-gray-400 hover:bg-dark-elev/60"
                 : "text-gray-500 hover:bg-black/5"
             }`}
           >
@@ -133,7 +132,11 @@ function ChatHistorySidebar({
       <div className="p-4">
         <button
           onClick={handleNewChat}
-          className="w-full py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium text-sm flex items-center justify-center gap-2"
+          className={`w-full py-2.5 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition ${
+            darkMode
+              ? "bg-gradient-to-r from-accent-indigo to-accent-fuchsia text-white shadow-md hover:from-accent-indigo/95 hover:to-accent-fuchsia/95"
+              : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md"
+          }`}
         >
           <span className="text-lg leading-none">+</span> Start New Chat
         </button>
@@ -143,12 +146,19 @@ function ChatHistorySidebar({
       <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
         {loading ? (
           <div className="flex justify-center py-10">
-            <div className="w-5 h-5 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin" />
+            <div
+              className="w-6 h-6 border-2 rounded-full animate-spin"
+              style={{
+                borderColor: "transparent",
+                borderTopColor: darkMode ? undefined : "#6366F1",
+                borderLeftColor: darkMode ? "#6366F1" : undefined,
+              }}
+            />
           </div>
         ) : chatSessions.length === 0 ? (
           <div
             className={`text-center py-10 text-sm ${
-              darkMode ? "text-gray-500" : "text-gray-400"
+              darkMode ? "text-dark-muted" : "text-gray-400"
             }`}
           >
             No past conversations
@@ -161,22 +171,16 @@ function ChatHistorySidebar({
               className={`group relative rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 border-2 ${
                 selectedChatId === chat._id
                   ? darkMode
-                    ? "bg-indigo-900/50 border-indigo-500 shadow-md shadow-indigo-500/30"
-                    : "bg-indigo-100 border-indigo-500 shadow-md shadow-indigo-200/50"
+                    ? "bg-gradient-to-r from-accent-indigo/12 to-accent-fuchsia/8 border-accent-indigo shadow-[0_8px_24px_rgba(99,102,241,0.06)]"
+                    : "bg-indigo-100 border-indigo-500 shadow-md"
                   : darkMode
-                  ? "bg-gray-700/30 border-transparent hover:bg-gray-700/50 hover:border-gray-600"
+                  ? "bg-dark-surface/40 border-transparent hover:bg-dark-elev/60 hover:border-dark-border"
                   : "bg-white/30 border-transparent hover:bg-white/50 hover:border-white/30"
               }`}
             >
               {/* Active Indicator Line */}
               {selectedChatId === chat._id && (
-                <div
-                  className={`absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full ${
-                    darkMode
-                      ? "bg-gradient-to-b from-indigo-400 to-indigo-600"
-                      : "bg-gradient-to-b from-indigo-400 to-indigo-600"
-                  }`}
-                />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-gradient-to-b from-accent-indigo to-accent-fuchsia" />
               )}
 
               {renamingChatId === chat._id ? (
@@ -189,8 +193,10 @@ function ChatHistorySidebar({
                     e.key === "Enter" && handleSaveTitle(chat._id)
                   }
                   autoFocus
-                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-indigo-500/30 border border-indigo-300 ${
-                    darkMode ? "bg-gray-700 text-white" : "bg-white/80"
+                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-accent-indigo/30 border ${
+                    darkMode
+                      ? "bg-dark-elev text-slate-100 border-dark-border"
+                      : "bg-white/80"
                   }`}
                 />
               ) : (
@@ -203,7 +209,7 @@ function ChatHistorySidebar({
                             ? "text-white"
                             : "text-indigo-900"
                           : darkMode
-                          ? "text-gray-200"
+                          ? "text-slate-100"
                           : "text-gray-700"
                       }`}
                     >
@@ -211,7 +217,7 @@ function ChatHistorySidebar({
                     </p>
                     <p
                       className={`text-[10px] mt-0.5 truncate ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
+                        darkMode ? "text-dark-muted" : "text-gray-500"
                       }`}
                     >
                       {new Date(chat.updated_at).toLocaleDateString()} •{" "}
@@ -233,7 +239,7 @@ function ChatHistorySidebar({
                       }}
                       className={`p-1 rounded transition-colors ${
                         darkMode
-                          ? "text-gray-500 hover:bg-indigo-900/50 hover:text-indigo-300"
+                          ? "text-dark-muted hover:bg-dark-elev/50 hover:text-accent-fuchsia"
                           : "text-gray-400 hover:bg-indigo-50 hover:text-indigo-600"
                       }`}
                     >
@@ -246,7 +252,7 @@ function ChatHistorySidebar({
                       }}
                       className={`p-1 rounded transition-colors ${
                         darkMode
-                          ? "text-gray-500 hover:bg-red-900/50 hover:text-red-300"
+                          ? "text-dark-muted hover:bg-red-900/40 hover:text-rose-300"
                           : "text-gray-400 hover:bg-red-50 hover:text-red-600"
                       }`}
                     >

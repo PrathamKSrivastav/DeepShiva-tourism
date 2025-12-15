@@ -139,22 +139,25 @@ function ChatWindow({
     personas.find((p) => p.id === id)?.icon || "🎭";
 
   return (
-    <div
-      className={`flex flex-col h-full ${
-        darkMode
-          ? "bg-gray-800 backdrop-blur-3xl rounded-3xl border border-gray-700 shadow-2xl"
-          : "bg-white/40 backdrop-blur-3xl rounded-3xl border border-white/40 shadow-2xl"
-      } overflow-hidden relative z-10`}
-    >
+   <div
+  className={`flex flex-col h-full ${
+    darkMode
+      ? "bg-dark-surface rounded-3xl border border-dark-border shadow-xl"
+      : "bg-white/40 rounded-3xl border border-white/40 shadow-2xl"
+  } overflow-hidden relative z-10`}
+>
+  
+
+      {/* Decorative Atmospheric Light */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-gradient-to-b from-white/30 to-transparent blur-3xl pointer-events-none z-0" />
 
       {/* Chat Messages Area */}
       <div
-        className={`flex-1 overflow-y-auto no-scrollbar p-4 md:p-8 space-y-4 z-10 ${
-          darkMode ? "text-white" : "text-gray-900"
+        className={`flex-1 overflow-y-auto no-scrollbar p-4 md:p-6 space-y-4 z-10 ${
+          darkMode ? "text-slate-100" : "text-gray-900"
         }`}
       >
-        <div className="pt-2"></div>
+        <div className="pt-2" />
 
         {messages.map((msg) => (
           <MessageBubble
@@ -169,20 +172,13 @@ function ChatWindow({
         ))}
 
         {isLoading && (
-          <div className="flex items-center gap-2 p-4 text-indigo-900/50 text-sm animate-pulse">
-            <div
-              className="w-2 h-2 bg-fuchsia-500 rounded-full animate-bounce"
-              style={{ animationDelay: "0s" }}
-            />
-            <div
-              className="w-2 h-2 bg-fuchsia-500 rounded-full animate-bounce"
-              style={{ animationDelay: "0.15s" }}
-            />
-            <div
-              className="w-2 h-2 bg-fuchsia-500 rounded-full animate-bounce"
-              style={{ animationDelay: "0.3s" }}
-            />
-            <span className="ml-2 font-medium tracking-wide">
+          <div className="flex items-center gap-3 p-4 text-sm">
+            <div className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-accent-fuchsia/90 animate-pulse inline-block" />
+              <span className="w-2 h-2 rounded-full bg-accent-indigo/90 animate-pulse inline-block ml-1" />
+              <span className="w-2 h-2 rounded-full bg-accent-rose/85 animate-pulse inline-block ml-1" />
+            </div>
+            <span className="ml-3 text-dark-muted text-sm">
               Consulting the universe...
             </span>
           </div>
@@ -194,9 +190,9 @@ function ChatWindow({
       <div
         className={`p-4 md:p-6 z-20 ${
           darkMode
-            ? "bg-gray-800/50 border-gray-700"
-            : "bg-white/40 border-gray-200"
-        } border-t`}
+            ? "bg-dark-elev/80 border-t border-dark-border"
+            : "bg-white/50 border-t border-white/20"
+        }`}
       >
         <form
           onSubmit={handleSendMessage}
@@ -207,61 +203,14 @@ function ChatWindow({
             <button
               type="button"
               onClick={() => onPersonaSelectorToggle?.(!personaSelectorOpen)}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform active:scale-95 text-xl shadow-lg ${
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform active:scale-95 text-xl shadow-md ${
                 darkMode
-                  ? "bg-gray-700/70 backdrop-blur-xl border border-gray-600 shadow-indigo-500/10 text-white"
-                  : "bg-white/70 backdrop-blur-xl border border-white/60 shadow-indigo-500/10"
+                  ? "bg-dark-elev border border-dark-border text-slate-100"
+                  : "bg-white/80 border border-white/60"
               }`}
             >
               {getPersonaIcon(selectedPersona)}
             </button>
-
-            {/* Mobile Persona Popover */}
-            {personaSelectorOpen && (
-              <div
-                className={`absolute bottom-full left-0 mb-4 w-72 rounded-2xl shadow-2xl border p-2 z-50 animate-enter origin-bottom-left ${
-                  darkMode
-                    ? "bg-gray-700/80 backdrop-blur-2xl border-gray-600"
-                    : "bg-white/80 backdrop-blur-2xl border-white/50"
-                }`}
-              >
-                {personas.map((persona) => (
-                  <button
-                    key={persona.id}
-                    type="button"
-                    onClick={() => {
-                      onPersonaChange?.(persona.id);
-                      onPersonaSelectorToggle?.(false);
-                    }}
-                    className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left ${
-                      selectedPersona === persona.id
-                        ? darkMode
-                          ? "bg-indigo-900/50 text-white"
-                          : "bg-fuchsia-50 text-fuchsia-900"
-                        : darkMode
-                        ? "hover:bg-gray-600 text-gray-200"
-                        : "hover:bg-white/50 text-gray-700"
-                    }`}
-                  >
-                    <span className="text-xl">{persona.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-semibold text-sm">
-                        {persona.name}
-                      </div>
-                    </div>
-                    {selectedPersona === persona.id && (
-                      <span
-                        className={
-                          darkMode ? "text-indigo-400" : "text-fuchsia-600"
-                        }
-                      >
-                        ✓
-                      </span>
-                    )}
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           {/* Text Input */}
@@ -271,10 +220,10 @@ function ChatWindow({
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             placeholder="Ask about temples, treks, or legends..."
-            className={`flex-1 pl-6 pr-14 py-4 rounded-full shadow-xl shadow-indigo-900/5 focus:outline-none focus:ring-2 transition-all duration-300 ${
+            className={`flex-1 pl-6 pr-14 py-4 rounded-full shadow-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
               darkMode
-                ? "bg-gray-700/60 backdrop-blur-xl border border-gray-600 hover:bg-gray-700/80 focus:bg-gray-700/90 focus:ring-indigo-500/30 text-white placeholder-gray-400"
-                : "bg-white/60 hover:bg-white/80 focus:bg-white/90 backdrop-blur-xl border border-white/50 focus:ring-fuchsia-400/30 text-gray-800 placeholder-gray-500"
+                ? "bg-dark-elev border border-dark-border hover:bg-dark-elev/95 focus:bg-dark-elev/95 focus:ring-accent-indigo/30 text-slate-100 placeholder-dark-muted"
+                : "bg-white/60 hover:bg-white/80 focus:bg-white/90 border border-white/40 focus:ring-fuchsia-400/30 text-gray-800 placeholder-gray-500"
             }`}
             disabled={isLoading}
           />
@@ -283,7 +232,15 @@ function ChatWindow({
           <button
             type="submit"
             disabled={isLoading || !inputMessage.trim()}
-            className="absolute right-2 top-2 bottom-2 w-10 h-10 bg-gradient-to-r from-red-600 to-fuchsia-600 hover:from-red-500 hover:to-fuchsia-500 text-white rounded-full flex items-center justify-center transition-all disabled:opacity-50 disabled:grayscale shadow-md transform active:scale-90 hover:shadow-lg"
+            className="absolute right-2 top-2 bottom-2 w-10 h-10 rounded-full flex items-center justify-center transition-transform disabled:opacity-50"
+            style={{
+              background: darkMode
+                ? "linear-gradient(90deg, rgba(99,102,241,1) 0%, rgba(217,70,239,1) 55%)"
+                : undefined,
+              boxShadow: darkMode
+                ? "0 6px 20px rgba(99,102,241,0.12), 0 2px 8px rgba(217,70,239,0.06)"
+                : undefined,
+            }}
           >
             <svg
               width="18"
@@ -294,6 +251,7 @@ function ChatWindow({
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
+              className="text-white"
             >
               <line x1="22" y1="2" x2="11" y2="13"></line>
               <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
