@@ -417,3 +417,36 @@ class GroqService:
         except Exception as e:
             logger.error(f"Error getting RAG status: {str(e)}")
             return {"rag_enabled": False, "status": "error", "error": str(e)}
+        
+    async def _raw_generate(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        conversation_history: Optional[List[Dict[str, str]]] = None
+    ) -> Tuple[str, List[str]]:
+        """
+        Raw generation method for LLMEngine fallback compatibility
+        """
+        if not self.client:
+            raise Exception("Groq API client not initialized")
+        
+        def sync_request():
+            messages = [{"role": "system", "content": system_prompt}]
+            if conversation_history:
+                messages.extend(conversation_history)
+            messages.append({"role": "user", "content": user_prompt})
+            
+            return self.client.chat.completions.create(
+                model=self.model_name,
+                messages=messages,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens
+            )
+        
+        loop = asyncio.get_event_loop()
+        response = await asyncio.wait_for(
+            loop.run_in_executor(None, sync_request),
+            timeout=self.timeout
+        )
+        
+        return response.choices[0].message.content, []

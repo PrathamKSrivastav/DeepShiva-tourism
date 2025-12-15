@@ -381,3 +381,5 @@ local_settings.py
 # !requirements.txt
 # !package.json
 # !README.md
+
+backend/localmodel/*.gguf

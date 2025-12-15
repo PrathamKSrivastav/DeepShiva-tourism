@@ -17,6 +17,9 @@ from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
 
+from localmodel.llm_engine import LLMEngine
+
+
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -60,6 +63,50 @@ def get_tools_schema():
             }
         }
     ]
+    
+def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
+    """
+    Simplified system prompt for offline GGUF model
+    - No tool references
+    - Strict anti-hallucination rules
+    - Simpler instructions
+    """
+    
+    # Base instructions for offline mode
+    base_prompt = """You are a helpful tourism assistant for India.
+
+CRITICAL RULES:
+1. You do NOT have access to real-time data (weather, current events, prices)
+2. If asked about current/live information, clearly state: "I don't have access to real-time data. Please check online sources for current information."
+3. Do NOT invent specific numbers, dates, temperatures, or prices
+4. Do NOT generate code or tool usage examples
+5. Only use information from the provided CONTEXT below
+6. Keep responses SHORT (2-4 sentences maximum)
+7. Be honest when you don't know something
+
+"""
+    
+    # Add RAG context if available
+    if rag_context.get("has_rag_context"):
+        base_prompt += f"""
+    VERIFIED CONTEXT (use ONLY this information):
+    {rag_context.get('formatted_context', '')[:1500]}
+
+    """
+    
+    # Add persona-specific tone (simplified)
+    persona_tones = {
+        "local_guide": "Respond in a friendly, casual tone. Share practical travel tips.",
+        "spiritual_teacher": "Respond in a calm, reverent tone. Focus on spiritual significance.",
+        "trek_companion": "Respond in an energetic, safety-focused tone. Emphasize preparation.",
+        "cultural_expert": "Respond in an informative, storytelling tone. Share cultural insights."
+    }
+    
+    tone = persona_tones.get(persona, persona_tones["local_guide"])
+    base_prompt += f"\nTONE: {tone}\n"
+    
+    return base_prompt
+
 
 
 # ============= Models =============
@@ -93,6 +140,7 @@ class UpdateSessionRequest(BaseModel):
 
 # Initialize Groq service
 groq_service = GroqService()
+llm_engine = LLMEngine()
 
 # ============= Chat Session Management =============
 
@@ -304,109 +352,191 @@ async def chat(
     current_user: Optional[dict] = Depends(get_current_user)
 ):
     """
-    Agentic Chat Endpoint: Uses LLM to decide tool usage in a loop
+    Agentic Chat Endpoint with Offline Fallback:
+    1. Try Groq with tools (your original agent loop)
+    2. If Groq fails → fallback to local LLM (no tools)
     """
-    logger.info("=" * 70)
-    logger.info("💬 CHAT ENDPOINT (AGENT MODE) CALLED")
-    
+    logger.info("==" * 35)
+    logger.info("💬 CHAT ENDPOINT (AGENT MODE WITH FALLBACK) CALLED")
     start_time = asyncio.get_event_loop().time()
     session_id = request.session_id
     
-    # 1. Initialize History & Context
-    conversation_history = [] 
-    tool_context = {} 
+    # Initialize
+    conversation_history = []
+    tool_context = {}
+    intent = classify_intent(request.message)
     
-    # Still classify intent for RAG context (optional but helpful)
-    intent = classify_intent(request.message) 
+    # Fetch conversation history
+    if session_id and current_user:
+        try:
+            conversation_history = await _get_conversation_history(
+                session_id, current_user, limit=4
+            )
+            logger.info(f"📜 Loaded {len(conversation_history)} messages for context")
+        except Exception as e:
+            logger.warning(f"⚠️ Could not load history: {str(e)}")
     
-    # 2. THE AGENT LOOP
-    max_turns = 5
-    current_turn = 0
+    # Get RAG context
+    rag_context = {"has_rag_context": False}
+    if request.use_rag and groq_service.persona_rag:
+        try:
+            rag_context = await groq_service._get_rag_context(
+                request.message, request.persona, intent, request.context or {}
+            )
+        except Exception as e:
+            logger.warning(f"⚠️ RAG failed: {str(e)}")
+    
+    # ==========================================
+    # TRY GROQ WITH AGENTIC TOOLS FIRST
+    # ==========================================
+    use_local_fallback = request.force_offline
     final_response_text = ""
     final_suggestions = []
+    response_source = "groq"
     
-    # Get tool definitions
-    tools_schema = get_tools_schema()
-    
-    while current_turn < max_turns:
-        current_turn += 1
-        logger.info(f"🔄 Agent Turn {current_turn}/{max_turns}")
-        
-        # Call Groq Service
-        result = await groq_service.generate_persona_response(
-            message=request.message,
-            persona=request.persona,
-            intent=intent,
-            context=request.context or {},
-            tool_context=tool_context,
-            conversation_history=conversation_history,
-            tools=tools_schema
-        )
-        
-        # CASE A: LLM Wants to Run Tools
-        if result["type"] == "tool_call":
-            tool_calls = result["tool_calls"]
-            llm_message = result["message"]
-            
-            # Add LLM's request to history so it knows it asked
-            conversation_history.append(llm_message)
-            
-            # Execute each tool requested
-            for tool_call in tool_calls:
-                func_name = tool_call.function.name
+    if not use_local_fallback:
+        try:
+            # Check if Groq is available
+            if not await groq_service.health_check():
+                logger.warning("⚠️ Groq health check failed, switching to local")
+                use_local_fallback = True
+            else:
+                # ==========================================
+                # YOUR ORIGINAL AGENT LOOP WITH TOOLS
+                # ==========================================
+                max_turns = 5
+                current_turn = 0
+                tools_schema = get_tools_schema()
                 
-                try:
-                    args = json.loads(tool_call.function.arguments)
-                except json.JSONDecodeError:
-                    logger.error(f"❌ Failed to decode arguments for {func_name}")
-                    continue
-
-                tool_result = None
-                
-                if func_name == "geocode_location":
-                    logger.info(f"📍 Agent calling Geocode: {args.get('query')}")
-                    tool_result = await geocode_location(args.get('query'))
-                    if tool_result:
-                        tool_context["location"] = tool_result
-                        
-                elif func_name == "get_weather":
-                    logger.info(f"🌦️ Agent calling Weather: {args}")
-                    tool_result = await get_weather(
-                        latitude=args.get('latitude'),
-                        longitude=args.get('longitude')
+                while current_turn < max_turns:
+                    current_turn += 1
+                    logger.info(f"🔄 Agent Turn {current_turn}/{max_turns}")
+                    
+                    # Call Groq with tools
+                    result = await groq_service.generate_persona_response(
+                        message=request.message,
+                        persona=request.persona,
+                        intent=intent,
+                        context=request.context or {},
+                        tool_context=tool_context,
+                        conversation_history=conversation_history,
+                        tools=tools_schema
                     )
-                    if tool_result:
-                        tool_context["weather"] = tool_result
-
-                # Add result to history
-                conversation_history.append({
-                    "role": "tool",
-                    "tool_call_id": tool_call.id,
-                    "name": func_name,
-                    "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
-                })
+                    
+                    # CASE A: LLM wants to call tools
+                    if result["type"] == "tool_call":
+                        tool_calls = result["tool_calls"]
+                        llm_message = result["message"]
+                        
+                        # Add LLM's message to history
+                        conversation_history.append({
+                            "role": "assistant",
+                            "content": llm_message.content or "",
+                            "tool_calls": [
+                                {
+                                    "id": tc.id,
+                                    "type": "function",
+                                    "function": {
+                                        "name": tc.function.name,
+                                        "arguments": tc.function.arguments
+                                    }
+                                } for tc in tool_calls
+                            ]
+                        })
+                        
+                        # Execute each tool
+                        for tool_call in tool_calls:
+                            func_name = tool_call.function.name
+                            try:
+                                args = json.loads(tool_call.function.arguments)
+                            except json.JSONDecodeError:
+                                logger.error(f"❌ Failed to decode args for {func_name}")
+                                continue
+                            
+                            tool_result = None
+                            if func_name == "geocode_location":
+                                logger.info(f"📍 Calling Geocode: {args.get('query')}")
+                                tool_result = await geocode_location(args.get('query'))
+                                if tool_result:
+                                    tool_context["location"] = tool_result
+                            
+                            elif func_name == "get_weather":
+                                logger.info(f"🌦️ Calling Weather: {args}")
+                                tool_result = await get_weather(
+                                    latitude=args.get('latitude'),
+                                    longitude=args.get('longitude')
+                                )
+                                if tool_result:
+                                    tool_context["weather"] = tool_result
+                            
+                            # Add tool result to history
+                            conversation_history.append({
+                                "role": "tool",
+                                "tool_call_id": tool_call.id,
+                                "name": func_name,
+                                "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
+                            })
+                        
+                        # Continue loop to get LLM's final response
+                        continue
+                    
+                    # CASE B: LLM returned final text response
+                    elif result["type"] == "text":
+                        final_response_text = result["response"]
+                        final_suggestions = result["suggestions"]
+                        response_source = "groq"
+                        break
+                
+                # If loop finished without text, provide fallback
+                if not final_response_text:
+                    final_response_text = "I'm having trouble processing your request with tools. Let me try a different approach."
+                    use_local_fallback = True
+        
+        except Exception as e:
+            logger.error(f"❌ Groq agent failed: {str(e)}")
+            use_local_fallback = True
+    
+    # ==========================================
+    # FALLBACK TO LOCAL LLM (NO TOOLS)
+    # ==========================================
+    if use_local_fallback:
+        logger.warning("⚠️ Using local LLM fallback (no tools available)")
+        try:
+            system_prompt = build_offline_system_prompt(
+            persona=request.persona,
+            rag_context=rag_context
+        )
             
-            # Loop continues to next turn...
-
-        # CASE B: LLM Returned Final Text
-        elif result["type"] == "text":
-            final_response_text = result["response"]
-            final_suggestions = result["suggestions"]
-            break # Exit loop
+            final_response_text, response_source = await llm_engine.generate(
+                system_prompt=system_prompt,
+                user_prompt=request.message,
+                conversation_history=[],  # Local model doesn't handle history well
+                force_offline=True
+            )
             
-    # Fallback if loop finishes without text
-    if not final_response_text:
-        final_response_text = "I'm having trouble connecting to my tools. Let me answer based on my general knowledge."
-
-    # 3. Construct Final Response
+            final_suggestions = []  # Local model doesn't generate suggestions
+            response_source = "local"
+            
+        except Exception as e:
+            logger.error(f"❌ Local LLM also failed: {str(e)}")
+            final_response_text = (
+                "I apologize, but I'm currently experiencing technical difficulties "
+                "with both my online and offline systems. Please try again in a moment."
+            )
+            final_suggestions = []
+            response_source = "error"
+    
+    # ==========================================
+    # FINALIZE RESPONSE
+    # ==========================================
     end_time = asyncio.get_event_loop().time()
     response_time = int((end_time - start_time) * 1000)
-
-    # Save to session (DB)
+    
+    # Save to session if authenticated
+    chat_saved = False
     if current_user:
         try:
-            # Helper function assumed to exist (from your original code)
-            session_id, _ = await save_to_session(
+            session_id, chat_saved = await save_to_session(
                 user_id=current_user.get("_id") or current_user.get("id"),
                 persona=request.persona,
                 user_message=request.message,
@@ -414,21 +544,52 @@ async def chat(
                 intent=intent,
                 session_id=session_id
             )
+            if chat_saved:
+                logger.info(f"✅ Saved to session: {session_id}")
         except Exception as e:
-            logger.error(f"❌ Error saving session: {str(e)}")
-
+            logger.error(f"❌ Save failed: {str(e)}")
+    
     return ChatResponse(
         response=final_response_text,
         persona=request.persona,
         intent=intent,
         suggestions=final_suggestions,
-        response_source="groq_agent",
+        response_source=response_source,
         response_time_ms=response_time,
-        is_offline_mode=False,
-        rag_info={"rag_used": True}, 
-        chat_saved=bool(current_user),
+        is_offline_mode=(response_source == "local"),
+        rag_info={"rag_used": rag_context.get("has_rag_context", False)},
+        chat_saved=chat_saved,
         session_id=session_id
     )
+    
+async def _get_conversation_history(
+    session_id: str,
+    current_user: dict,
+    limit: int = 4
+) -> List[Dict[str, str]]:
+    """Fetch conversation history from session"""
+    try:
+        db = get_database()
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+        
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session or "messages" not in session:
+            return []
+        
+        messages = session["messages"][-(limit * 2):] if len(session["messages"]) > limit * 2 else session["messages"]
+        
+        return [
+            {"role": msg["role"], "content": msg["content"]}
+            for msg in messages
+        ]
+    except Exception as e:
+        logger.error(f"❌ Error fetching history: {str(e)}")
+        return []
+
 
 async def save_to_session(
     user_id: str,
@@ -438,17 +599,11 @@ async def save_to_session(
     intent: str,
     session_id: Optional[str] = None
 ) -> tuple[str, bool]:
-    """
-    Save message to chat session
-    Returns: (session_id, success)
-    """
+    """Save message to chat session"""
     try:
         db = get_database()
-        # user_id = ObjectId(user_id) if isinstance(user_id, str) else user_id
         user_id = str(user_id)
-
         
-        # Prepare messages
         user_msg = {
             "role": "user",
             "content": user_message,
@@ -463,9 +618,7 @@ async def save_to_session(
             "persona": persona
         }
         
-        # If session_id provided, append to existing
         if session_id:
-            logger.info(f"📤 Appending to session: {session_id}")
             result = await db.chats.update_one(
                 {"_id": ObjectId(session_id), "user_id": user_id},
                 {
@@ -475,15 +628,10 @@ async def save_to_session(
             )
             
             if result.modified_count > 0:
-                logger.info("✅ Appended to existing session")
                 return session_id, True
-            else:
-                logger.warning("⚠️ Session not found, creating new")
         
         # Create new session
-        # Generate title from first message
         title = user_message[:50] + "..." if len(user_message) > 50 else user_message
-        
         new_session = {
             "user_id": user_id,
             "persona": persona,
@@ -494,15 +642,11 @@ async def save_to_session(
         }
         
         result = await db.chats.insert_one(new_session)
-        new_session_id = str(result.inserted_id)
-        
-        logger.info(f"✅ Created new session: {new_session_id}")
-        return new_session_id, True
+        return str(result.inserted_id), True
         
     except Exception as e:
         logger.error(f"❌ Save failed: {str(e)}")
         return None, False
-
 
 # ============= Helper Functions =============
 
@@ -576,7 +720,7 @@ async def delete_chat(
 
 @router.get("/connection-status")
 async def connection_status():
-    """Check connectivity"""
+    """Check connectivity and service status"""
     internet_status = await check_internet_connection()
     groq_status = await groq_service.health_check()
     
@@ -587,9 +731,13 @@ async def connection_status():
         except Exception as e:
             logger.error(f"Error getting RAG status: {str(e)}")
     
+    # Check if local model is loaded
+    local_model_status = llm_engine.is_model_loaded()
+    
     return {
         "internet_connected": internet_status,
         "groq_api_available": groq_status,
+        "local_model_loaded": local_model_status,  # ← NEW
         "rag_enabled": rag_status.get("rag_enabled", False),
         "rag_total_documents": rag_status.get("total_documents", 0)
     }

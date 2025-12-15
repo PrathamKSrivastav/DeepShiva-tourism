@@ -43,3 +43,5 @@
     google-auth
     google-auth-oauthlib
     google-auth-httplib2
+
+    llama-cpp-python==0.2.90
