@@ -65,7 +65,9 @@ async def create_new_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         # Create new session
         new_session = {
@@ -108,7 +110,9 @@ async def get_all_chat_sessions(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         # Build query
         query = {"user_id": user_id}
@@ -131,7 +135,9 @@ async def get_all_chat_sessions(
         }
         
     except Exception as e:
-        logger.error(f"❌ Error fetching sessions: {str(e)}")
+        # logger.error(f"❌ Error fetching sessions: {str(e)}")
+        logger.exception("❌ Error fetching sessions")
+
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -148,7 +154,9 @@ async def get_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         # Fetch session
         session = await db.chats.find_one({
@@ -166,7 +174,9 @@ async def get_chat_session(
         return session
         
     except Exception as e:
-        logger.error(f"❌ Error fetching session: {str(e)}")
+        # logger.error(f"❌ Error fetching session: {str(e)}")
+        logger.exception("❌ Error fetching sessions")
+
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -184,7 +194,9 @@ async def update_session_title(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         result = await db.chats.update_one(
             {"_id": ObjectId(session_id), "user_id": user_id},
@@ -216,7 +228,9 @@ async def delete_chat_session(
             raise HTTPException(status_code=401, detail="Authentication required")
         
         db = get_database()
-        user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
+        user_id = current_user.get("_id") or current_user.get("id")
+
         
         result = await db.chats.delete_one({
             "_id": ObjectId(session_id),
@@ -355,7 +369,9 @@ async def save_to_session(
     """
     try:
         db = get_database()
-        user_id = ObjectId(user_id) if isinstance(user_id, str) else user_id
+        # user_id = ObjectId(user_id) if isinstance(user_id, str) else user_id
+        user_id = str(user_id)
+
         
         # Prepare messages
         user_msg = {
