@@ -7,13 +7,21 @@ as the content manager takes the working directory and that might result in crea
 import asyncio
 import logging
 import sys
+import json
+import hashlib
 from pathlib import Path
+import os
+from dotenv import load_dotenv 
 
 # ------------------------------------------------------------------
 # Resolve backend root safely
 # ------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
+
+load_dotenv()
+
+INGESTION_LOCK_FILE = BASE_DIR/ "data" / ".ingestion_lock.json"
 
 from rag.vector_store import VectorStoreManager
 from rag.content_manager import ContentManager
@@ -65,15 +73,43 @@ async def main():
     # ------------------------------------------------------------------
     # Initialize components (reuse existing DB)
     # ------------------------------------------------------------------
+    
+    # Get Qdrant credentials from environment
+    qdrant_host = os.getenv("QDRANT_HOST")
+    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+    qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
+    
     vector_store = VectorStoreManager(
-        persist_directory=str(VECTOR_DB_DIR)
+        persist_directory=str(VECTOR_DB_DIR),
+        embedding_model_name="all-MiniLM-L6-v2",
+        qdrant_host=qdrant_host,
+        qdrant_api_key=qdrant_api_key,
+        qdrant_dim=qdrant_dim
     )
+    
+    # Check Qdrant availability
+    if vector_store._cloud_available():
+        logger.info("✅ Qdrant Cloud connected - data will be uploaded to cloud")
+    else:
+        logger.warning("⚠️  Qdrant not available - data will only be stored in local ChromaDB")
+    
+
     content_manager = ContentManager(vector_store)
 
     # ------------------------------------------------------------------
     # Discover JSON files
     # ------------------------------------------------------------------
-    json_files = list(JSON_SOURCE_DIR.glob("*.json"))
+    ingestion_lock = load_ingestion_lock()
+
+    json_files = []
+    skipped_files = []
+
+    for f in JSON_SOURCE_DIR.glob("*.json"):
+        current_hash = file_hash(f)
+        if ingestion_lock.get(f.name) == current_hash:
+            skipped_files.append(f)
+        else:
+            json_files.append(f)
 
     logger.info(f"\n📂 JSON source directory: {JSON_SOURCE_DIR}")
     logger.info(f"📄 Found {len(json_files)} JSON files")
@@ -84,6 +120,16 @@ async def main():
 
     for f in json_files:
         logger.info(f"   • {f.name} ({f.stat().st_size / 1024:.1f} KB)")
+
+    logger.info(f"📄 Files to ingest : {len(json_files)}")
+    logger.info(f"⏭️ Files skipped   : {len(skipped_files)}")
+
+    for f in skipped_files:
+        logger.info(f"   ⏭️ {f.name} (already ingested)")
+
+    if not json_files:
+        logger.info("✅ No new or changed files detected. Exiting.")
+        return
 
     # ------------------------------------------------------------------
     # Confirmation
@@ -101,7 +147,7 @@ async def main():
 
     results = await content_manager.batch_ingest_all_json(
         json_directory=JSON_SOURCE_DIR,
-        managed=True  # Uses existing rag_content/json_files
+        managed=True,  # Uses existing rag_content/json_files
     )
 
     # ------------------------------------------------------------------
@@ -149,6 +195,23 @@ async def main():
 
     logger.info("\n✨ Existing RAG system successfully updated")
     logger.info("=" * 70)
+
+def file_hash(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for chunk in iter(lambda: f.read(8192), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def load_ingestion_lock() -> dict:
+    if INGESTION_LOCK_FILE.exists():
+        return json.loads(INGESTION_LOCK_FILE.read_text())
+    return {}
+
+
+def save_ingestion_lock(lock_data: dict):
+    INGESTION_LOCK_FILE.write_text(json.dumps(lock_data, indent=2))
 
 
 # ------------------------------------------------------------------

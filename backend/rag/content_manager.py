@@ -324,7 +324,7 @@ class ContentManager:
             doc_ids = self.vector_store.add_json_documents(
                 documents=chunks,
                 metadatas=metadata_list,
-                entity_type=entity_type
+                collection_name=entity_type
             )
             
             # Count unique entities
