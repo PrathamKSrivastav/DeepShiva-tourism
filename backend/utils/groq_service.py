@@ -86,7 +86,8 @@ class GroqService:
         persona: str,
         intent: str,
         context: Dict[str, Any],
-        tool_context: Optional[Dict[str, Any]]
+        tool_context: Optional[Dict[str, Any]],
+        conversation_history: Optional[List[Dict[str, Any]]] = None
     ) -> Tuple[str, List[str]]:
         """
         Generate response using Groq API with RAG enhancement and conversation history
