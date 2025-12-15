@@ -12,8 +12,15 @@ from utils.database import get_database
 from middleware.auth import get_current_user  # Optional auth - allows guests
 from bson import ObjectId
 
+from tools.tool_router import decide_tools
+from tools.geocoding_tool import geocode_location
+from tools.weather_tool import get_weather
+
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
@@ -274,6 +281,76 @@ async def chat(
     try:
         # Classify intent
         intent = classify_intent(request.message)
+        tools_used = decide_tools(
+             request.persona,
+             intent,
+             request.message
+         )
+        if intent == "weather" and "geocoding" not in tools_used:
+            tools_used.append("geocoding")
+
+        tool_context: Dict[str, Any] = {}
+        
+        # --------------------------------------------------
+        # TOOL ORCHESTRATION — STEP 1 (GEOCODING)
+        # --------------------------------------------------
+        location_data = None
+        if "geocoding" in tools_used or intent == "weather":  # <--- CHANGED: Force geocoding for weather intent
+            from utils.intents import extract_location
+            raw_location = extract_location(request.message)
+            
+            if raw_location:
+                # 🧹 ROBUST CLEANING LOGIC START
+                clean_query = raw_location.lower().strip()
+                
+                # Extended list of words to remove
+                BAD_WORDS = [
+                    "current", "currently", "today", "tomorrow", "week", "next",
+                    "weather", "temperature", "forecast", "climate", "now",
+                    "rain", "snow", "sunny", "wind", " in ", " at ", " near "
+                ]
+                
+                for w in BAD_WORDS:
+                    clean_query = clean_query.replace(w, " ").strip()
+                
+                if clean_query.startswith("the "):
+                    clean_query = clean_query[4:].strip()
+                    
+                clean_query = " ".join(clean_query.split()) # Remove double spaces
+                # 🧹 ROBUST CLEANING LOGIC END
+                
+                logger.info(f"📍 Geocoding Cleaned: '{raw_location}' -> '{clean_query}'")
+                
+                if len(clean_query) > 2:
+                    location_data = await geocode_location(clean_query)
+
+            if location_data:
+                tool_context["location"] = location_data
+                logger.info(f"🗺️ Geocoding Success: {location_data.get('place_name')}")
+            else:
+                logger.warning(f"⚠️ Geocoding failed for query: '{raw_location}'")
+
+
+        # --------------------------------------------------
+        # WEATHER TOOL
+        # --------------------------------------------------
+
+        if "weather" in tools_used and "location" in tool_context:
+            loc = tool_context["location"]
+
+            try:
+                weather_data = await get_weather(
+                    latitude=float(loc["latitude"]),
+                    longitude=float(loc["longitude"])
+                )
+
+                if weather_data:
+                    tool_context["weather"] = weather_data
+                    logger.info("🌦️ Weather data retrieved using Open-Meteo")
+
+            except Exception as e:
+                logger.warning(f"Weather API failed: {e}")
+
 
         # Check connectivity
         if request.force_offline:
@@ -294,13 +371,24 @@ async def chat(
 
         # Get AI response with conversation history
         try:
+            # ------------ something that can be changed
+            if intent == "weather" and "weather" not in tool_context:
+                logger.warning("⚠️ Weather intent but tool data missing")
+                return await _generate_local_response(
+                    request,
+                    intent,
+                    start_time,
+                    api_error=True
+                )
             logger.info("🤖 Calling Groq API...")
+            logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
             response_text, suggestions = await groq_service.generate_persona_response(
                 message=request.message,
                 persona=request.persona,
                 intent=intent,
-                context=request.context or {},
-                conversation_history=conversation_history  # ADD THIS
+                context=request.context,
+                conversation_history=conversation_history,  # ADD THIS
+                tool_context=tool_context
             )
 
             logger.info(f"✅ Groq response received ({len(response_text)} chars)")
