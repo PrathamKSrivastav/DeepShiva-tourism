@@ -16,30 +16,31 @@ class SmartRetriever:
         # Now includes JSON entity collections
         self.persona_strategies = {
             "local_guide": {
-                "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government"],
-                "secondary_collections": ["festivals", "cuisines", "treks", "trekking", "cultural"],
+                "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government", "cultural", "festivals", "cuisines", "treks"],  # ← MOVED cultural HERE
+                "secondary_collections": ["trekking", "eco_tips", "wellness"],
                 "max_results": 6,
-                "relevance_threshold": 0.7
+                "relevance_threshold": 0.5
             },
             "spiritual_teacher": {
-                "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],
+                "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],  # ← Already has cultural ✅
                 "secondary_collections": ["crowd_patterns", "general"],
                 "max_results": 8,
-                "relevance_threshold": 0.6
+                "relevance_threshold": 0.5
             },
             "trek_companion": {
-                "primary_collections": ["treks", "emergency_info", "spiritual_sites", "trekking", "government"],
+                "primary_collections": ["treks", "emergency_info", "spiritual_sites", "trekking", "government", "cultural"],  # ← ADD cultural
                 "secondary_collections": ["homestays", "eco_tips", "general"],
                 "max_results": 5,
-                "relevance_threshold": 0.8
+                "relevance_threshold": 0.5
             },
             "cultural_expert": {
-                "primary_collections": ["festivals", "spiritual_sites", "cuisines", "cultural", "spiritual"],
+                "primary_collections": ["festivals", "spiritual_sites", "cuisines", "cultural", "spiritual"],  # ← Already has cultural ✅
                 "secondary_collections": ["crowd_patterns", "homestays", "general", "government"],
                 "max_results": 10,
                 "relevance_threshold": 0.5
             }
         }
+
         
         # ==================== UPDATED INTENT COLLECTIONS ====================
         # Mapped to include JSON collections

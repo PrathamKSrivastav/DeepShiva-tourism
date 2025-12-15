@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 class Database:
     client: AsyncIOMotorClient = None
-    
+
 db = Database()
 
 async def connect_to_mongo():
@@ -28,4 +28,9 @@ async def close_mongo_connection():
 
 def get_database():
     """Get database instance"""
+    # FIX: Add validation
+    if db.client is None:
+        logger.error("❌ Database client is None - connection not initialized!")
+        raise RuntimeError("Database connection not initialized. Call connect_to_mongo() first.")
+    
     return db.client[settings.DATABASE_NAME]

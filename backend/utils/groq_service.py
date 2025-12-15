@@ -79,56 +79,65 @@ class GroqService:
         return await loop.run_in_executor(None, sync_request)
     
     async def generate_persona_response(
-        self, 
-        message: str, 
-        persona: str, 
+        self,
+        message: str,
+        persona: str,
         intent: str,
-        context: Dict[str, Any]
+        context: Dict[str, Any],
+        conversation_history: Optional[List[Dict[str, str]]] = None  # ADD THIS
     ) -> Tuple[str, List[str]]:
         """
-        Generate response using Groq API with RAG enhancement
+        Generate response using Groq API with RAG enhancement and conversation history
         """
         if not self.client:
             raise Exception("Groq API client not initialized")
-        
+
         # Enhance query with RAG context
         rag_context = await self._get_rag_context(message, persona, intent, context)
-        
+
         # Build persona-specific system message with RAG
         system_message = self._build_system_message_with_rag(persona, intent, rag_context)
-        
+
         # Create the user message
         user_message = self._build_user_message(message, persona, intent, context)
-        
+
         try:
             def sync_request():
+                # Build messages array with conversation history
+                messages = [{"role": "system", "content": system_message}]
+                
+                # ADD CONVERSATION HISTORY (last 4 messages)
+                if conversation_history:
+                    logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
+                    messages.extend(conversation_history)
+                
+                # Add current user message
+                messages.append({"role": "user", "content": user_message})
+                
                 return self.client.chat.completions.create(
                     model=self.model_name,
-                    messages=[
-                        {"role": "system", "content": system_message},
-                        {"role": "user", "content": user_message}
-                    ],
+                    messages=messages,
                     max_tokens=self.max_tokens,
                     temperature=self.temperature,
                 )
-            
+
             loop = asyncio.get_event_loop()
             response = await asyncio.wait_for(
                 loop.run_in_executor(None, sync_request),
                 timeout=self.timeout
             )
-            
+
             response_text = response.choices[0].message.content
-            
+
             # Enhance response with RAG citations if available
             if rag_context.get("has_rag_context", False):
                 response_text = self._add_rag_citations(response_text, rag_context)
-            
+
             # Generate contextual suggestions
             suggestions = await self._generate_suggestions_with_rag(message, persona, intent, rag_context)
-            
+
             return response_text, suggestions
-            
+
         except asyncio.TimeoutError:
             raise Exception("Groq API request timed out")
         except Exception as e:
