@@ -19,19 +19,19 @@ class SmartRetriever:
                 "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government"],
                 "secondary_collections": ["festivals", "cuisines", "treks", "trekking", "cultural"],
                 "max_results": 6,
-                "relevance_threshold": 0.7
+                "relevance_threshold": 0.5
             },
             "spiritual_teacher": {
                 "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],
                 "secondary_collections": ["crowd_patterns", "general"],
                 "max_results": 8,
-                "relevance_threshold": 0.6
+                "relevance_threshold": 0.5
             },
             "trek_companion": {
                 "primary_collections": ["treks", "emergency_info", "spiritual_sites", "trekking", "government"],
                 "secondary_collections": ["homestays", "eco_tips", "general"],
                 "max_results": 5,
-                "relevance_threshold": 0.8
+                "relevance_threshold": 0.5
             },
             "cultural_expert": {
                 "primary_collections": ["festivals", "spiritual_sites", "cuisines", "cultural", "spiritual"],

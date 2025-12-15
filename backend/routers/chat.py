@@ -12,8 +12,15 @@ from utils.database import get_database
 from middleware.auth import get_current_user  # Optional auth - allows guests
 from bson import ObjectId
 
+from tools.tool_router import decide_tools
+from tools.geocoding_tool import geocode_location
+from tools.weather_tool import get_weather
+
+
 # Setup logging
 logging.basicConfig(level=logging.INFO)
+# logging.basicConfig(level=logging.WARNING)
+
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
@@ -273,7 +280,86 @@ async def chat(
     try:
         # Classify intent
         intent = classify_intent(request.message)
-        
+        tools_used = decide_tools(
+             request.persona,
+             intent,
+             request.message
+         )
+        tool_context: Dict[str, Any] = {}
+        # --------------------------------------------------
+        # TOOL ORCHESTRATION — STEP 1 (GEOCODING)
+        # --------------------------------------------------
+        location_data = None
+        if "geocoding" in tools_used:
+            from utils.intents import extract_location
+
+            location_query = extract_location(request.message)
+
+            if location_query:
+                location_data = await geocode_location(location_query)
+
+                if location_data:
+                    tool_context["location"] = location_data
+
+                    logger.info(
+                        f"🗺️ Geocoding used: "
+                        f"{location_data.get('place_name')} | "
+                        f"{location_data.get('city')}, {location_data.get('state')} "
+                        f"({location_data.get('latitude')}, {location_data.get('longitude')})"
+                    )
+
+        # --------------------------------------------------
+        # WEATHER TOOL
+        # --------------------------------------------------
+
+        if "weather" in tools_used and "location" in tool_context:
+            loc = tool_context["location"]
+
+            try:
+                weather_data = await get_weather(
+                    latitude=float(loc["latitude"]),
+                    longitude=float(loc["longitude"])
+                )
+
+                if weather_data:
+                    tool_context["weather"] = weather_data
+                    logger.info("🌦️ Weather data retrieved using Open-Meteo")
+
+            except Exception as e:
+                logger.warning(f"Weather API failed: {e}")
+
+        # --------------------------------------------------
+        # SHORT-CIRCUIT: TOOL-ONLY WEATHER RESPONSE
+        # --------------------------------------------------
+        # if "weather" in tool_context and "location" in tool_context:
+        #     w = tool_context["weather"]
+        #     loc = tool_context["location"]
+
+        #     response_text = (
+        #         f"📍 **Weather forecast for {loc.get('place_name')} (next 7 days):**\n\n"
+        #         f"- 🌡️ Max temp: {min(w['temp_max'])}°C – {max(w['temp_max'])}°C\n"
+        #         f"- 🌡️ Min temp: {min(w['temp_min'])}°C – {max(w['temp_min'])}°C\n"
+        #         f"- 🌧️ Rainfall: {sum(w['precipitation'])} mm (total)\n"
+        #         f"- 💨 Wind speed: up to {max(w['wind_speed'])} km/h\n\n"
+        #         f"This forecast is based on **live Open-Meteo data**."
+        #     )
+
+        #     end_time = asyncio.get_event_loop().time()
+        #     response_time = int((end_time - start_time) * 1000)
+
+        #     return ChatResponse(
+        #         response=response_text,
+        #         persona=request.persona,
+        #         intent=intent,
+        #         suggestions=["Best time to visit?", "Is it safe to travel?"],
+        #         response_source="tool_weather",
+        #         response_time_ms=response_time,
+        #         is_offline_mode=False,
+        #         rag_info={"rag_used": False},
+        #         chat_saved=False,
+        #         session_id=session_id
+        #     )
+
         # Check connectivity
         if request.force_offline:
             return await _generate_local_response(request, intent, start_time, forced=True)
@@ -285,11 +371,13 @@ async def chat(
         # Get AI response
         try:
             logger.info("🤖 Calling Groq API...")
+            logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
             response_text, suggestions = await groq_service.generate_persona_response(
                 message=request.message,
                 persona=request.persona,
                 intent=intent,
-                context=request.context or {}
+                context=request.context,
+                tool_context=tool_context or {}
             )
             
             logger.info(f"✅ Groq response received ({len(response_text)} chars)")
