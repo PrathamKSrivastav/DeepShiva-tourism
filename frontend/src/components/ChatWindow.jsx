@@ -10,6 +10,10 @@ function ChatWindow({
   newChatTrigger,
   currentSessionId,
   onSessionCreated,
+  personas = [],
+  onPersonaChange,
+  personaSelectorOpen,
+  onPersonaSelectorToggle,
 }) {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
@@ -20,28 +24,17 @@ function ChatWindow({
   const inputRef = useRef(null);
   const { isAuthenticated } = useAuth();
 
-  // Update session ID when prop changes
-  useEffect(() => {
-    setSessionId(currentSessionId);
-  }, [currentSessionId]);
+  useEffect(() => setSessionId(currentSessionId), [currentSessionId]);
 
-  // Load selected chat or welcome message
   useEffect(() => {
-    if (selectedChat) {
-      loadSelectedChat(selectedChat);
-    } else {
-      showWelcomeMessage();
-    }
+    if (selectedChat) loadSelectedChat(selectedChat);
+    else showWelcomeMessage();
   }, [selectedChat, selectedPersona, newChatTrigger]);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  useEffect(() => scrollToBottom(), [messages]);
 
   const loadSelectedChat = (chat) => {
-    console.log("📖 Loading chat session:", chat._id);
     setSessionId(chat._id);
-
     const formattedMessages = chat.messages.map((msg, idx) => ({
       id: `history-${idx}`,
       text: msg.content,
@@ -50,23 +43,20 @@ function ChatWindow({
       intent: msg.intent,
       timestamp: new Date(msg.timestamp),
     }));
-
     setMessages(formattedMessages);
   };
 
   const showWelcomeMessage = () => {
-    console.log("👋 Showing welcome message for:", selectedPersona);
     setSessionId(null);
-
     const welcomeMessages = {
       local_guide:
-        "Hey there! I'm your Local Guide. I've been exploring India for years and know all the insider tips. What brings you to this Spiritual Hub? Planning a Char Dham trip, or looking for some adventure?",
+        "Hey there! I'm your Local Guide. I know every hidden path in this spiritual hub. Where should we start?",
       spiritual_teacher:
-        " Namaste, blessed soul. I am honored to guide you through the spiritual essence to this incredibly large Spiritual Hub. Each temple, each river, each peak here resonates with divine energy. What aspect of this holy land calls to your heart?",
+        "Namaste. As we walk this sacred land together, what questions burden your heart?",
       trek_companion:
-        " Hey adventure buddy! Ready to explore the mountains? I'm here to help you plan treks, check weather, and keep you safe. Whether it's Valley of Flowers or Kedarnath trek - let's gear up! What's your adventure goal?",
+        "Ready for the mountains? The peaks are calling! Let's check the trails and weather.",
       cultural_expert:
-        " Namaste and welcome! As a Cultural Expert, I'll unveil the rich tapestry of myths, legends, and traditions woven into India's landscape. Every stone here has a story spanning millennia. What cultural aspect would you like to explore?",
+        "Welcome. Every stone here whispers an ancient legend. Which story shall I unveil for you today?",
     };
 
     setMessages([
@@ -88,21 +78,17 @@ function ChatWindow({
     e.preventDefault();
     if (!inputMessage.trim() || isLoading) return;
 
-    console.log("📤 Sending message with session:", sessionId);
-
     const userMessage = {
       id: Date.now(),
       text: inputMessage,
       sender: "user",
       timestamp: new Date(),
     };
-
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
 
     try {
-      // Send message with session ID
       const response = await sendChatMessage(
         inputMessage,
         selectedPersona,
@@ -110,133 +96,169 @@ function ChatWindow({
         sessionId
       );
 
-      console.log("📥 Response:", response);
-
-      // Update session ID if new session was created
       if (response.session_id && !sessionId) {
-        console.log("✅ New session created:", response.session_id);
         setSessionId(response.session_id);
-        if (onSessionCreated) {
-          onSessionCreated(response.session_id);
-        }
+        if (onSessionCreated) onSessionCreated(response.session_id);
       }
 
-      const botMessage = {
-        id: Date.now() + 1,
-        text: response.response,
-        sender: "bot",
-        persona: response.persona,
-        intent: response.intent,
-        suggestions: response.suggestions,
-        timestamp: new Date(),
-        chatSaved: response.chat_saved,
-      };
-
-      setMessages((prev) => [...prev, botMessage]);
-
-      if (response.session_id && !sessionId) {
-        console.log("✅ New session created:", response.session_id);
-        setSessionId(response.session_id);
-        if (onSessionCreated) {
-          onSessionCreated(response.session_id); // This triggers the refresh
-        }
-      }
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          text: response.response,
+          sender: "bot",
+          persona: response.persona,
+          intent: response.intent,
+          suggestions: response.suggestions,
+          timestamp: new Date(),
+          chatSaved: response.chat_saved,
+        },
+      ]);
     } catch (error) {
-      console.error("❌ Error sending message:", error);
-
-      const errorMessage = {
-        id: Date.now() + 1,
-        text: "I apologize, but I'm having trouble connecting right now. Please try again in a moment. ",
-        sender: "bot",
-        persona: selectedPersona,
-        timestamp: new Date(),
-        isError: true,
-      };
-
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now() + 1,
+          text: "I'm having trouble connecting to the spiritual realm right now. Please try again.",
+          sender: "bot",
+          persona: selectedPersona,
+          timestamp: new Date(),
+          isError: true,
+        },
+      ]);
     } finally {
       setIsLoading(false);
       inputRef.current?.focus();
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setInputMessage(suggestion);
-    inputRef.current?.focus();
-  };
+  const getPersonaIcon = (id) =>
+    personas.find((p) => p.id === id)?.icon || "🎭";
 
   return (
-    <div className="bg-white rounded-xl shadow-lg overflow-hidden flex flex-col h-[calc(100vh-16rem)]">
-      {/* Chat Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-4 text-white">
-        <div className="flex items-center space-x-3">
-          <div className="text-3xl">{personaInfo?.icon || "🤖"}</div>
-          <div className="flex-1">
-            <h3 className="font-semibold text-lg">
-              {personaInfo?.name || "AI Guide"}
-            </h3>
-            <p className="text-sm text-indigo-100">
-              {personaInfo?.description || "Your guide to India"}
-            </p>
-          </div>
-          {sessionId && (
-            <div className="text-xs bg-white/20 px-3 py-1 rounded-full">
-              💾 Session Active
-            </div>
-          )}
-        </div>
-      </div>
+    /* Main Container - The "Glass Sheet" */
+    <div className="flex flex-col h-full bg-white/40 backdrop-blur-2xl rounded-3xl border border-white/40 shadow-2xl overflow-hidden relative">
+      {/* Decorative Gradient Blob (Optional Background enhancement) */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/40 to-transparent pointer-events-none z-10" />
 
-      {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
-        {messages.map((message) => (
+      {/* Chat Messages Area */}
+      <div className="flex-1 overflow-y-auto no-scrollbar p-6 space-y-2 z-0">
+        <div className="pt-4 pb-2">
+          {/* Space for content to not start abruptly at top */}
+        </div>
+
+        {messages.map((msg) => (
           <MessageBubble
-            key={message.id}
-            message={message}
-            onSuggestionClick={handleSuggestionClick}
+            key={msg.id}
+            message={msg}
+            onSuggestionClick={(s) => {
+              setInputMessage(s);
+              inputRef.current?.focus();
+            }}
           />
         ))}
 
         {isLoading && (
-          <div className="flex items-center space-x-2 text-gray-500">
-            <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+          <div className="flex items-center gap-2 p-4 text-gray-500 text-sm animate-pulse">
             <div
-              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"
+              style={{ animationDelay: "0s" }}
+            />
+            <div
+              className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"
               style={{ animationDelay: "0.1s" }}
-            ></div>
+            />
             <div
-              className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+              className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce"
               style={{ animationDelay: "0.2s" }}
-            ></div>
+            />
+            <span className="ml-2 font-medium">Consulting the guide...</span>
           </div>
         )}
-
-        <div ref={messagesEndRef} />
+        <div ref={messagesEndRef} className="h-4" />
       </div>
 
-      {/* Input Area */}
-      <div className="border-t border-gray-200 p-4">
-        <form onSubmit={handleSendMessage} className="flex space-x-3">
-          <input
-            ref={inputRef}
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            placeholder={`Ask ${personaInfo?.name || "your guide"} anything...`}
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            disabled={isLoading}
-          />
-          <button
-            type="submit"
-            className={`px-6 py-3 rounded-lg font-medium transition-colors ${
-              !inputMessage.trim() || isLoading
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-indigo-600 text-white hover:bg-indigo-700"
-            }`}
-            disabled={!inputMessage.trim() || isLoading}
-          >
-            {isLoading ? "⏳" : "📤"}
-          </button>
+      {/* Input Area - Floating Capsule */}
+      <div className="p-5 z-20">
+        <form
+          onSubmit={handleSendMessage}
+          className="relative flex items-center gap-2 max-w-4xl mx-auto"
+        >
+          {/* Mobile Persona Switcher */}
+          <div className="lg:hidden relative">
+            <button
+              type="button"
+              onClick={() => onPersonaSelectorToggle?.(!personaSelectorOpen)}
+              className="w-12 h-12 rounded-full bg-white/80 backdrop-blur-xl border border-white/50 text-xl shadow-sm flex items-center justify-center transition-transform active:scale-95"
+            >
+              {getPersonaIcon(selectedPersona)}
+            </button>
+
+            {/* Mobile Persona Popover */}
+            {personaSelectorOpen && (
+              <div className="absolute bottom-full left-0 mb-4 w-72 bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/50 p-2 z-50 animate-enter origin-bottom-left">
+                {personas.map((persona) => (
+                  <button
+                    key={persona.id}
+                    type="button"
+                    onClick={() => {
+                      onPersonaChange?.(persona.id);
+                      onPersonaSelectorToggle?.(false);
+                    }}
+                    className={`w-full flex items-center gap-3 p-3 rounded-xl transition-all text-left ${
+                      selectedPersona === persona.id
+                        ? "bg-indigo-50 text-indigo-900"
+                        : "hover:bg-gray-50 text-gray-700"
+                    }`}
+                  >
+                    <span className="text-xl">{persona.icon}</span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-sm">
+                        {persona.name}
+                      </div>
+                    </div>
+                    {selectedPersona === persona.id && (
+                      <span className="text-indigo-600">✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Input Field Capsule */}
+          <div className="flex-1 relative group">
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              placeholder="Ask about temples, treks, or legends..."
+              className="w-full pl-5 pr-14 py-4 bg-white/70 hover:bg-white/90 focus:bg-white/95 backdrop-blur-xl border border-white/50 rounded-full shadow-lg shadow-indigo-500/5 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 text-gray-800 placeholder-gray-500 transition-all duration-300"
+              disabled={isLoading}
+            />
+
+            {/* Send Button (Inside Capsule) */}
+            <button
+              type="submit"
+              disabled={isLoading || !inputMessage.trim()}
+              className="absolute right-2 top-2 bottom-2 w-10 h-10 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full flex items-center justify-center transition-all disabled:opacity-50 disabled:bg-gray-400 shadow-md transform active:scale-90"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
         </form>
       </div>
     </div>

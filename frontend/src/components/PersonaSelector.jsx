@@ -1,35 +1,69 @@
+import React from "react";
+
 function PersonaSelector({ personas, selectedPersona, onSelectPersona }) {
   return (
-    <div className="space-y-3">
-      {personas.map((persona) => (
-        <button
-          key={persona.id}
-          onClick={() => onSelectPersona(persona.id)}
-          className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-            selectedPersona === persona.id
-              ? 'border-indigo-600 bg-indigo-50 shadow-md'
-              : 'border-gray-200 hover:border-indigo-300 hover:bg-gray-50'
-          }`}
-        >
-          <div className="flex items-start space-x-3">
-            <div className="text-2xl">{persona.icon}</div>
-            <div className="flex-1">
-              <div className="font-semibold text-gray-900">{persona.name}</div>
-              <div className="text-xs text-gray-600 mt-1">
-                {persona.description}
+    <div className="flex flex-col space-y-3 h-full overflow-y-auto no-scrollbar p-1">
+      {personas.map((persona) => {
+        const isSelected = selectedPersona === persona.id;
+
+        return (
+          <button
+            key={persona.id}
+            onClick={() => onSelectPersona(persona.id)}
+            className={`group relative w-full text-left p-4 rounded-xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]
+              ${
+                isSelected
+                  ? "bg-white/80 shadow-md ring-1 ring-indigo-500/30"
+                  : "bg-white/30 hover:bg-white/50 hover:shadow-sm border border-white/20"
+              } backdrop-blur-md`}
+          >
+            {/* Active Indicator Strip */}
+            {isSelected && (
+              <div className="absolute left-0 top-3 bottom-3 w-1 bg-indigo-500 rounded-r-full" />
+            )}
+
+            <div className="flex items-start gap-3">
+              <div
+                className={`flex-shrink-0 text-2xl p-2 rounded-lg transition-colors ${
+                  isSelected
+                    ? "bg-indigo-50"
+                    : "bg-transparent group-hover:bg-white/40"
+                }`}
+              >
+                {persona.icon}
               </div>
-              <div className="text-xs text-gray-500 mt-1">
-                Tone: {persona.tone}
+
+              <div className="flex-1 min-w-0 pt-1">
+                <div
+                  className={`font-semibold text-sm truncate transition-colors ${
+                    isSelected ? "text-indigo-900" : "text-gray-800"
+                  }`}
+                >
+                  {persona.name}
+                </div>
+                <div className="text-xs text-gray-500 mt-0.5 line-clamp-2 leading-relaxed">
+                  {persona.description}
+                </div>
+
+                {/* Tone Tag */}
+                <div className="mt-2 flex">
+                  <span
+                    className={`text-[10px] px-2 py-0.5 rounded-full border ${
+                      isSelected
+                        ? "bg-indigo-100/50 text-indigo-700 border-indigo-200"
+                        : "bg-gray-100/50 text-gray-500 border-gray-200"
+                    }`}
+                  >
+                    {persona.tone}
+                  </span>
+                </div>
               </div>
             </div>
-            {selectedPersona === persona.id && (
-              <div className="text-indigo-600">✓</div>
-            )}
-          </div>
-        </button>
-      ))}
+          </button>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default PersonaSelector
+export default PersonaSelector;

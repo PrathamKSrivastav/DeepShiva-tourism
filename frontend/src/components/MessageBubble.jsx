@@ -1,56 +1,72 @@
+import React from "react";
+
 function MessageBubble({ message, onSuggestionClick }) {
-  const isUser = message.sender === 'user'
-  
+  const isUser = message.sender === "user";
+
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-      <div className={`max-w-[75%] ${isUser ? 'order-2' : 'order-1'}`}>
+    <div
+      className={`flex w-full ${
+        isUser ? "justify-end" : "justify-start"
+      } mb-6 animate-enter`}
+    >
+      <div
+        className={`max-w-[85%] md:max-w-[70%] flex flex-col ${
+          isUser ? "items-end" : "items-start"
+        }`}
+      >
+        {/* Persona Label (Optional, good for group context) */}
+        {!isUser && message.persona && (
+          <span className="text-[10px] uppercase tracking-wider text-gray-400 mb-1 ml-2 font-semibold">
+            {message.persona.replace("_", " ")}
+          </span>
+        )}
+
         {/* Message Bubble */}
         <div
-          className={`px-6 py-4 rounded-2xl shadow-md ${
-            isUser
-              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-br-none'
-              : message.isError
-              ? 'bg-red-100 text-red-800 rounded-bl-none border border-red-300'
-              : 'bg-white text-gray-800 rounded-bl-none border border-gray-200'
-          }`}
+          className={`relative px-5 py-3.5 text-[15px] leading-relaxed shadow-sm backdrop-blur-md border 
+            ${
+              isUser
+                ? "bg-gradient-to-br from-indigo-600 to-indigo-500 text-white rounded-2xl rounded-br-sm border-indigo-400/20"
+                : message.isError
+                ? "bg-red-50/80 text-red-800 rounded-2xl rounded-bl-sm border-red-200"
+                : "bg-white/70 text-gray-800 rounded-2xl rounded-bl-sm border-white/50"
+            }`}
         >
-          <p className="text-[15px] leading-relaxed whitespace-pre-wrap">
-            {message.text}
-          </p>
-          
-          {/* Timestamp */}
-          <p className={`text-xs mt-2 ${
-            isUser ? 'text-white/70' : 'text-gray-500'
-          }`}>
-            {message.timestamp.toLocaleTimeString('en-US', {
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
-          </p>
+          <p className="whitespace-pre-wrap font-normal">{message.text}</p>
         </div>
 
-        {/* Suggestions (only for bot messages) */}
+        {/* Timestamp */}
+        <span
+          className={`text-[10px] mt-1.5 px-1 font-medium ${
+            isUser ? "text-gray-400" : "text-gray-400"
+          }`}
+        >
+          {message.timestamp.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })}
+        </span>
+
+        {/* Suggestions */}
         {!isUser && message.suggestions && message.suggestions.length > 0 && (
-          <div className="mt-3 space-y-2">
-            <p className="text-xs text-gray-500 font-medium px-2">
-              💡 You might also ask:
-            </p>
-            <div className="flex flex-wrap gap-2">
-              {message.suggestions.map((suggestion, index) => (
-                <button
-                  key={index}
-                  onClick={() => onSuggestionClick(suggestion)}
-                  className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-sm rounded-full border border-indigo-200 transition-all hover:shadow-md transform hover:scale-105 active:scale-95"
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
+          <div
+            className="mt-3 flex flex-wrap gap-2 animate-enter"
+            style={{ animationDelay: "0.1s" }}
+          >
+            {message.suggestions.map((suggestion, index) => (
+              <button
+                key={index}
+                onClick={() => onSuggestionClick(suggestion)}
+                className="px-3 py-1.5 bg-white/40 hover:bg-white/80 border border-white/40 text-indigo-700 text-xs font-medium rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-sm backdrop-blur-sm"
+              >
+                ✨ {suggestion}
+              </button>
+            ))}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default MessageBubble
+export default MessageBubble;

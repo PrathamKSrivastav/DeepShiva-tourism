@@ -32,17 +32,17 @@ function UserDropdown() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
       >
-        {user.picture ? (
-          <img
-            src={user.picture}
-            alt={user.name}
-            className="w-8 h-8 rounded-full"
-          />
-        ) : (
-          <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
-            {user.name?.charAt(0).toUpperCase()}
-          </div>
-        )}
+          {user.picture ? (
+            <img
+              src={user.picture}
+              alt={user.name}
+              className="w-8 h-8 rounded-full"
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
+              {user.name?.charAt(0).toUpperCase()}
+            </div>
+          )}
         <span className="text-sm font-medium hidden md:block">{user.name}</span>
         <svg
           className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}

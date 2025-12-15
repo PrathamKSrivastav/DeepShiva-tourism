@@ -147,7 +147,6 @@ export const sendChatMessage = async (
 export const getChatHistory = async (persona = null, limit = 50) => {
   try {
     const params = { limit };
-    if (persona) params.persona = persona;
     const response = await apiClient.get("/chat/sessions", { params }); // Changed from /chat/history
     return response.data;
   } catch (error) {
@@ -184,7 +183,6 @@ export const createNewChatSession = async (persona, title = null) => {
 export const getAllChatSessions = async (persona = null, limit = 50) => {
   try {
     const params = { limit };
-    if (persona) params.persona = persona;
     const response = await apiClient.get("/chat/sessions", { params });
     return response.data;
   } catch (error) {
