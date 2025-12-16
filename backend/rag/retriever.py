@@ -19,7 +19,7 @@ class SmartRetriever:
                 "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government", "cultural", "festivals", "cuisines", "treks"],  # ← MOVED cultural HERE
                 "secondary_collections": ["trekking", "eco_tips", "wellness"],
                 "max_results": 3,
-                "relevance_threshold": 0.2
+                "relevance_threshold": 0.6
             },
             "spiritual_teacher": {
                 "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],  # ← Already has cultural ✅

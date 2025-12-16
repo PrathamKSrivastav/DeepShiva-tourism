@@ -16,6 +16,7 @@ import json
 from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
+from tools.holiday_tool import get_indian_holidays
 
 from localmodel.llm_engine import LLMEngine
 
@@ -59,6 +60,23 @@ def get_tools_schema():
                         "longitude": {"type": "number", "description": "Longitude of the location"}
                     },
                     "required": ["latitude", "longitude"]
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "get_indian_holidays",
+                "description": "Get a list of public holidays and festivals in India for a specific year. Useful for queries about festivals, holidays, or planning dates.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "year": {
+                            "type": "integer", 
+                            "description": "The year to get holidays for (e.g. 2025). Defaults to current year if omitted."
+                        }
+                    },
+                    "required": []
                 }
             }
         }
@@ -376,7 +394,7 @@ async def chat(
         except Exception as e:
             logger.warning(f"⚠️ Could not load history: {str(e)}")
     
-    # Get RAG context
+    # Get RAG context``
     rag_context = {"has_rag_context": False}
     if request.use_rag and groq_service.persona_rag:
         try:
@@ -468,6 +486,30 @@ async def chat(
                                 )
                                 if tool_result:
                                     tool_context["weather"] = tool_result
+
+                            elif func_name == "get_indian_holidays":
+                                year = args.get('year')
+                                logger.info(f"🎉 Calling Holidays for Year: {year}")
+                                
+                                # Call the tool function imported from tools.holiday_tool
+                                holidays_data = await get_indian_holidays(year)
+                                
+                                if not holidays_data:
+                                    tool_result = "No holidays found or API error."
+                                else:
+                                    # Simplify the JSON to save tokens before sending back to LLM
+                                    # Create a concise list of "Date: Holiday Name (Type)"
+                                    simplified_list = []
+                                    for h in holidays_data:
+                                        # Handle potential missing keys gracefully
+                                        d = h.get('date', {}).get('iso', 'Unknown Date')
+                                        n = h.get('name', 'Unknown Name')
+                                        t = h.get('type', ['Unknown'])[0] if h.get('type') else 'Unknown'
+                                        simplified_list.append(f"{d}: {n} ({t})")
+                                    
+                                    # Join first 50 items to avoid token overflow
+                                    tool_result = "\n".join(simplified_list[:50])
+                                    
                             
                             # Add tool result to history
                             conversation_history.append({
