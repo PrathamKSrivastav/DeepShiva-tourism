@@ -768,7 +768,6 @@ async def chat(
         chat_saved=chat_saved,
         session_id=session_id
     )
-
 async def _get_conversation_history(
     session_id: str,
     current_user: dict,

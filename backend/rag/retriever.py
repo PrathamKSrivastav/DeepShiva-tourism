@@ -190,9 +190,20 @@ class SmartRetriever:
                     logger.warning(f"⚠️ Collection {collection_name} not found, skipping")
                     return collection_name, []
                 
-                # ============ ADD DEBUG LOGGING HERE ============
                 collection = self.vector_store.collections[collection_name]
-                doc_count = collection.count()
+                # Get document count (compatible with both DBs)
+                try:
+                # Qdrant requires CountRequest
+                    if hasattr(collection, 'count') and self.vector_store.qdrant_client:
+                        from qdrant_client.models import CountRequest
+                        doc_count = collection.count(CountRequest(exact=True)).count
+                    else:
+                    # ChromaDB
+                        doc_count = collection.count()
+                except Exception as e:
+                    logger.warning(f"⚠️ Could not get count for {collection_name}, skipping count log")
+                    doc_count = "unknown"
+
                 logger.info(f"📊 Collection {collection_name}: {doc_count} documents available")
                 # ================================================
                 

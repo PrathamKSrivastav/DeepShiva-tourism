@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from routers import chat, persona, mock_data, rag_admin, auth
 import os
+from rag.vector_store import VectorStoreManager
 from dotenv import load_dotenv
 from utils.database import connect_to_mongo, close_mongo_connection
 from config import settings
@@ -14,7 +15,22 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-os.environ["ANONYMIZED_TELEMETRY"] = "False"
+qdrant_host = os.getenv("QDRANT_HOST")
+qdrant_api_key = os.getenv("QDRANT_API_KEY")
+qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
+
+vector_store = VectorStoreManager(
+    persist_directory="data/vector_db",
+    embedding_model_name="all-MiniLM-L6-v2",
+    qdrant_host=qdrant_host,
+    qdrant_api_key=qdrant_api_key,
+    qdrant_dim=qdrant_dim
+)
+
+if vector_store._cloud_available():
+    print("✅ Qdrant is reachable")
+else:
+    print("⚠️ Qdrant not reachable, falling back to Chroma")
 
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
@@ -34,6 +50,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/health/qdrant")
+async def qdrant_health():
+    return vector_store.qdrant_health()
 
 # Event handlers
 @app.on_event("startup")
