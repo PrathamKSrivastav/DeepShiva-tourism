@@ -16,7 +16,7 @@ import json
 from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
-from tools.holiday_tool import get_indian_holidays
+from tools.holiday_tool import get_holidays
 from tools.trek_tool import search_treks
 
 from localmodel.llm_engine import LLMEngine
@@ -67,15 +67,24 @@ def get_tools_schema():
         {
             "type": "function",
             "function": {
-                "name": "get_indian_holidays",
-                "description": "Get public holidays for India (or specific country) for a given year/month.",
+                "name": "get_holidays",  # 🟢 FIX 1: Name must match the import
+                "description": "Get public holidays for India. To see the whole year, fetch by QUARTERS (Q1, Q2, Q3, Q4) to avoid data truncation.",
                 "parameters": {
-                    "type": "object", 
+                    "type": "object",
                     "properties": {
-                        "year": {"type": "integer", "description": "Year (e.g. 2025)"},
-                        "month": {"type": "integer", "description": "Month (1-12)"},
-                        "country_code": {"type": "string", "description": "ISO Code (default 'IN')"}
-                    }, 
+                        "year": {
+                            "type": "integer", 
+                            "description": "Year (e.g. 2025). Required."
+                        },
+                        "quarter": {
+                            "type": "integer", 
+                            "description": "Quarter of the year (1=Jan-Mar, 2=Apr-Jun, 3=Jul-Sep, 4=Oct-Dec). Recommended for better visibility."
+                        },
+                        "month": {
+                            "type": "integer", 
+                            "description": "Specific month (1-12). Use only for narrow searches."
+                        }
+                    },
                     "required": ["year"]
                 }
             }
@@ -539,27 +548,44 @@ async def chat(
                                 if tool_result:
                                     tool_context["weather"] = tool_result
 
-                            elif func_name == "get_indian_holidays":
+                            elif func_name == "get_holidays":
                                 year = args.get('year')
-                                logger.info(f"🎉 Calling Holidays for Year: {year}")
+                                month = args.get('month')
+                                quarter = args.get('quarter')
                                 
-                                # Call the tool function imported from tools.holiday_tool
-                                holidays_data = await get_indian_holidays(year)
+                                logger.info(f"🎉 Calling Holidays for: {year} (Q{quarter} / M{month})")
+
+                                # 1. Fetch Data
+                                holidays_data = await get_holidays(year=year, month=month, quarter=quarter)
                                 
+                                # 2. 🟢 ADD FILTERING LOGIC HERE
+                                from datetime import datetime
+                                today_str = datetime.now().strftime("%Y-%m-%d")
+                                current_year = datetime.now().year
+
+                                # If looking at the current year, filter out past dates
+                                if year == current_year:
+                                    holidays_data = [
+                                        h for h in holidays_data 
+                                        if h.get('date', {}).get('iso', '9999-99-99') >= today_str
+                                    ]
+
                                 if not holidays_data:
-                                    tool_result = "No holidays found or API error."
+                                    # 3. 🟢 SMART HINT: If no holidays left in 2025, tell LLM to look at 2026
+                                    if year == current_year:
+                                        tool_result = f"No upcoming holidays remaining in {year}. Please call the tool again for {year + 1} (Quarter 1)."
+                                    else:
+                                        tool_result = "No holidays found for this period."
                                 else:
-                                    # Simplify the JSON to save tokens before sending back to LLM
-                                    # Create a concise list of "Date: Holiday Name (Type)"
+                                    # 4. Format the valid upcoming holidays
                                     simplified_list = []
                                     for h in holidays_data:
-                                        # Handle potential missing keys gracefully
-                                        d = h.get('date', {}).get('iso', 'Unknown Date')
-                                        n = h.get('name', 'Unknown Name')
-                                        t = h.get('type', ['Unknown'])[0] if h.get('type') else 'Unknown'
+                                        d = h.get('date', {}).get('iso', 'Unknown')
+                                        n = h.get('name', 'Unknown')
+                                        t_raw = h.get('type')
+                                        t = t_raw[0] if isinstance(t_raw, list) and t_raw else 'Public'
                                         simplified_list.append(f"{d}: {n} ({t})")
                                     
-                                    # Join first 50 items to avoid token overflow
                                     tool_result = "\n".join(simplified_list[:50])
                                     
                                     

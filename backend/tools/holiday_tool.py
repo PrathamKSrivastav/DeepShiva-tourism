@@ -1,5 +1,4 @@
 # tools/holiday_tool.py
-
 import os
 import json
 import httpx
@@ -7,89 +6,80 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 # --- CONFIGURATION ---
-# Replace with your actual key or load from os.getenv("CALENDARIFIC_API_KEY")
-API_KEY = os.getenv("CALLENDRIFIC_API_KEY")
+API_KEY = os.getenv("CALLENDRIFIC_API_KEY") 
 COUNTRY = "IN"
 CACHE_DIR = "cache"
-
-# Ensure cache directory exists
 os.makedirs(CACHE_DIR, exist_ok=True)
 
-async def get_indian_holidays(year: Optional[int] = None) -> List[Dict]:
+async def _fetch_year_data(year: int) -> List[Dict]:
     """
-    Fetches Indian holidays for a given year.
-    Uses local file caching to minimize API calls (1 call per year).
+    Internal: Fetches full year data (1 API call per year) and caches it.
     """
-    if year is None:
-        year = datetime.now().year
-
     cache_file = os.path.join(CACHE_DIR, f"holidays_{COUNTRY}_{year}.json")
 
-    # 1. Check Cache First (Zero Latency)
+    # 1. Check Cache
     if os.path.exists(cache_file):
         try:
             with open(cache_file, "r", encoding="utf-8") as f:
-                print(f"✅ Loading holidays for {year} from cache.")
                 return json.load(f)
         except Exception as e:
-            print(f"⚠️ Cache read error: {e}. Fetching fresh data.")
+            print(f"⚠️ Cache read error: {e}")
 
-    # 2. Fetch from API if cache missing
+    # 2. Fetch from API
     url = "https://calendarific.com/api/v2/holidays"
-    params = {
-        "api_key": API_KEY,
-        "country": COUNTRY,
-        "year": year
-    }
-
-    print(f"🌏 Fetching holidays for {year} from Calendarific API...")
+    params = {"api_key": API_KEY, "country": COUNTRY, "year": year}
     
+    print(f"🌏 Fetching holidays for {year} from Calendarific API...")
     async with httpx.AsyncClient(timeout=10) as client:
         try:
             response = await client.get(url, params=params)
             response.raise_for_status()
             data = response.json()
-            
-            # Calendarific returns data under data['response']['holidays']
             holidays = data.get("response", {}).get("holidays", [])
             
             if holidays:
-                # Save to cache
                 with open(cache_file, "w", encoding="utf-8") as f:
                     json.dump(holidays, f, indent=4)
-                print(f"✅ Saved {len(holidays)} holidays to cache.")
-                
-            return holidays
-            
-        except httpx.HTTPStatusError as e:
-            print(f"❌ API Error: {e.response.text}")
-            return []
+                return holidays
         except Exception as e:
-            print(f"❌ Connection Error: {e}")
-            return []
+            print(f"❌ API Error: {e}")
+    
+    return []
 
-async def get_upcoming_holiday(days_limit: int = 30) -> str:
+async def get_holidays(year: Optional[int] = None, month: Optional[int] = None, quarter: Optional[int] = None) -> List[Dict]:
     """
-    Helper for the agent to quickly find the next holiday.
-    Returns a human-readable string summary.
+    Main Tool: Returns holidays, optionally filtered by month or quarter.
     """
-    today = datetime.now().date()
-    current_year = today.year
+    if year is None:
+        year = datetime.now().year
+
+    # Always fetch the full year (efficient caching)
+    all_holidays = await _fetch_year_data(year)
     
-    holidays = await get_indian_holidays(current_year)
+    if not all_holidays:
+        return []
+
+    filtered = []
     
-    upcoming = []
-    for h in holidays:
-        # Calendarific dates are in ISO format YYYY-MM-DD
-        h_date_str = h["date"]["iso"]
-        h_date = datetime.fromisoformat(h_date_str).date()
-        
-        if h_date >= today:
-            delta = (h_date - today).days
-            if delta <= days_limit:
-                upcoming.append(f"- {h['name']} on {h_date_str} ({h.get('description', '')[:50]}...)")
+    # Define Month Ranges
+    target_months = []
+    if month:
+        target_months = [month]
+    elif quarter:
+        # Q1: 1-3, Q2: 4-6, Q3: 7-9, Q4: 10-12
+        start_m = (quarter - 1) * 3 + 1
+        target_months = [start_m, start_m + 1, start_m + 2]
     
-    if not upcoming:
-        return "No major holidays found in the next 30 days."
-    
-    return "Upcoming Holidays:\n" + "\n".join(upcoming[:3])
+    # Filter Logic
+    if target_months:
+        for h in all_holidays:
+            try:
+                # Calendarific date is YYYY-MM-DD
+                h_month = int(h["date"]["datetime"]["month"])
+                if h_month in target_months:
+                    filtered.append(h)
+            except:
+                continue
+        return filtered
+
+    return all_holidays
