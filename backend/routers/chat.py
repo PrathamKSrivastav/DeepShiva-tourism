@@ -94,6 +94,38 @@ def get_tools_schema():
         }
     ]
     
+async def execute_tool(func_name: str, args: Dict) -> Optional[Dict]:
+    """
+    Execute a tool by name and return its result
+    Used for both normal and recovered (malformed) tool calls
+    """
+    try:
+        if func_name == "geocode_location":
+            logger.info(f"📍 Calling Geocode: {args.get('query')}")
+            return await geocode_location(args.get('query'))
+        
+        elif func_name == "get_weather":
+            logger.info(f"🌦️ Calling Weather: {args}")
+            return await get_weather(
+                latitude=args.get('latitude'),
+                longitude=args.get('longitude')
+            )
+        
+        elif func_name == "search_treks":
+            logger.info(f"🏔️ Calling Trek Search: {args}")
+            return await search_treks(
+                region=args.get('region'),
+                trek_name=args.get('trek_name')
+            )
+        
+        else:
+            logger.error(f"❌ Unknown tool: {func_name}")
+            return None
+    
+    except Exception as e:
+        logger.error(f"❌ Tool execution failed for {func_name}: {str(e)}")
+        return None
+    
 def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
     """
     Simplified system prompt for offline GGUF model
@@ -520,16 +552,63 @@ async def chat(
                         tool_context=tool_context,
                         conversation_history=conversation_history,
                         tools=tools_schema,
-                        rag_context=rag_context,  # 👈 reuse same RAG for all turns
+                        rag_context=rag_context,
                     )
-
                     
-                    # CASE A: LLM wants to call tools
-                    if result["type"] == "tool_call":
+                    # 🔥 CASE A: Malformed tool call (recovered)
+                    if result.get("type") == "tool_call_malformed":
+                        logger.warning("⚠️ Recovered from malformed function call!")
+                        parsed_call = result["parsed_call"]
+                        
+                        # Create a mock tool_call object
+                        class MockToolCall:
+                            def __init__(self, data):
+                                self.id = data["id"]
+                                self.function = type('obj', (object,), {
+                                    'name': data["function_name"],
+                                    'arguments': json.dumps(data["arguments"])
+                                })()
+                        
+                        mock_call = MockToolCall(parsed_call)
+                        
+                        # Execute the tool directly
+                        func_name = parsed_call["function_name"]
+                        args = parsed_call["arguments"]
+                        
+                        tool_result = await execute_tool(func_name, args)
+                        
+                        # Add to conversation as if it was successful
+                        conversation_history.append({
+                            "role": "assistant",
+                            "content": f"I need to call {func_name} to get the information."
+                        })
+                        
+                        conversation_history.append({
+                            "role": "tool",
+                            "tool_call_id": parsed_call["id"],
+                            "name": func_name,
+                            "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
+                        })
+                        
+                        if tool_result:
+                            if func_name == "get_weather":
+                                tool_context["weather"] = tool_result
+                            elif func_name == "geocode_location":
+                                tool_context["location"] = tool_result
+                            elif func_name == "search_treks":
+                                tool_context["treks"] = tool_result
+                        
+                        # Continue loop for final response
+                        continue
+                    
+                    # 🔥 CASE B: Normal tool calls (ADD THIS - IT'S MISSING!)
+                    elif result.get("type") == "tool_call":
                         tool_calls = result["tool_calls"]
                         llm_message = result["message"]
                         
-                        # Add LLM's message to history
+                        logger.info(f"🛠️ Executing {len(tool_calls)} tool call(s)")
+                        
+                        # Add LLM's tool call request to history
                         conversation_history.append({
                             "role": "assistant",
                             "content": llm_message.content or "",
@@ -554,33 +633,19 @@ async def chat(
                                 logger.error(f"❌ Failed to decode args for {func_name}")
                                 continue
                             
-                            tool_result = None
-                            if func_name == "geocode_location":
-                                logger.info(f"📍 Calling Geocode: {args.get('query')}")
-                                tool_result = await geocode_location(args.get('query'))
-                                if tool_result:
+                            # Execute the tool using helper function
+                            tool_result = await execute_tool(func_name, args)
+                            
+                            # Store results in tool_context
+                            if tool_result:
+                                if func_name == "geocode_location":
                                     tool_context["location"] = tool_result
-                            
-                            elif func_name == "get_weather":
-                                logger.info(f"🌦️ Calling Weather: {args}")
-                                tool_result = await get_weather(
-                                    latitude=args.get('latitude'),
-                                    longitude=args.get('longitude')
-                                )
-                                if tool_result:
+                                elif func_name == "get_weather":
                                     tool_context["weather"] = tool_result
-                                    
-                            elif func_name == "search_treks":
-                                logger.info(f"🏔️ Calling Trek Search: {args}")
-                                tool_result = await search_treks(
-                                    region=args.get('region'),
-                                    trek_name=args.get('trek_name')
-                                )
-                                if tool_result:
+                                elif func_name == "search_treks":
                                     tool_context["treks"] = tool_result
-                                    logger.info(f"✅ Found {tool_result.get('trek_count', 0)} treks")
                             
-                            # Add tool result to history
+                            # Add tool result to conversation history
                             conversation_history.append({
                                 "role": "tool",
                                 "tool_call_id": tool_call.id,
@@ -588,20 +653,21 @@ async def chat(
                                 "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
                             })
                         
-                        # Continue loop to get LLM's final response
+                        # Continue loop to get final response
                         continue
                     
-                    # CASE B: LLM returned final text response
+                    # CASE C: LLM returned final text response
                     elif result["type"] == "text":
                         final_response_text = result["response"]
                         final_suggestions = result["suggestions"]
                         response_source = "groq"
                         break
-                
+
                 # If loop finished without text, provide fallback
                 if not final_response_text:
                     final_response_text = "I'm having trouble processing your request with tools. Let me try a different approach."
                     use_local_fallback = True
+
         
         except Exception as e:
             logger.error(f"❌ Groq agent failed: {str(e)}")

@@ -15,10 +15,11 @@ class GroqService:
         load_dotenv()
         
         self.api_key = os.getenv("GROQ_API_KEY")
-        self.model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+        self.model_name = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
         self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "30")) #10-> 30
+        logger.info(f"🤖 Groq Model: {self.model_name}")
         
         # Initialize RAG components
         self.vector_store = None
@@ -85,103 +86,183 @@ class GroqService:
         message: str,
         persona: str,
         intent: str,
-        context: Optional[Dict[str, Any]] = None,   # Optional with default
-        tool_context: Optional[Dict[str, Any]] = None,   # Optional, kept
+        context: Optional[Dict[str, Any]] = None,
+        tool_context: Optional[Dict[str, Any]] = None,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         tools: Optional[List[Dict[str, Any]]] = None,
         rag_context: Optional[Dict[str, Any]] = None,
-    ) -> Tuple[str, List[str]]:
-        """
-        Generate response using Groq API with (precomputed) RAG enhancement and conversation history.
-        RAG must be computed outside and passed in via rag_context.
-        """
+    ) -> Dict[str, Any]:
+        """Generate response with retry logic for malformed tool calls"""
+        
         if not self.client:
             raise Exception("Groq API client not initialized")
-
-        # Ensure context is not None
+        
         context = context or {}
-
-        # Use precomputed RAG context from caller (no internal RAG call here)
         rag_context = rag_context or {"has_rag_context": False}
-
-        # Build persona-specific system message with RAG
+        
         system_message = self._build_system_message_with_rag(
             persona, intent, rag_context, tool_context
         )
-
-        # Create the user message
         user_message = self._build_user_message(message, persona, intent, context)
-
+        
         try:
             def sync_request():
-                # Build messages array with conversation history
                 messages = [{"role": "system", "content": system_message}]
-
-                # ADD CONVERSATION HISTORY (last 4 messages)
+                
                 if conversation_history:
                     logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
                     messages.extend(conversation_history)
-
-                # Add current user message
+                
                 messages.append({"role": "user", "content": user_message})
-
-                # Prepare API arguments
+                
                 kwargs = {
                     "model": self.model_name,
                     "messages": messages,
                     "max_tokens": self.max_tokens,
                     "temperature": self.temperature,
                 }
-
-                # Add tools if provided
+                
                 if tools:
                     kwargs["tools"] = tools
                     kwargs["tool_choice"] = "auto"
-
+                
                 return self.client.chat.completions.create(**kwargs)
-
+            
             loop = asyncio.get_event_loop()
             response = await asyncio.wait_for(
                 loop.run_in_executor(None, sync_request),
                 timeout=self.timeout
             )
-
+            
             message_response = response.choices[0].message
-
+            
             # CHECK FOR TOOL CALLS
             if message_response.tool_calls:
                 logger.info(f"🛠️ LLM requested {len(message_response.tool_calls)} tool calls")
                 return {
                     "type": "tool_call",
                     "tool_calls": message_response.tool_calls,
-                    "message": message_response,  # Return full message object for history
+                    "message": message_response,
                 }
-
+            
             # STANDARD TEXT RESPONSE
             response_text = message_response.content
-
-            # Enhance response with RAG citations if available
+            
             if rag_context.get("has_rag_context", False):
                 response_text = self._add_rag_citations(response_text, rag_context)
-
-            # Generate contextual suggestions
+            
             suggestions = await self._generate_suggestions_with_rag(
                 message, persona, intent, rag_context
             )
-
+            
             return {
                 "type": "text",
                 "response": response_text,
                 "suggestions": suggestions,
             }
-
+        
         except asyncio.TimeoutError:
             raise Exception("Groq API request timed out")
+        
         except Exception as e:
-            logger.error(f"Groq API error: {str(e)}")
-            raise Exception(f"Groq API failed: {str(e)[:100]}")
+            error_str = str(e)
+            
+            # 🔥 DETECT MALFORMED FUNCTION CALL ERROR
+            if "tool_use_failed" in error_str or "Failed to call a function" in error_str:
+                logger.warning("⚠️ Detected malformed function call, attempting to parse...")
+                
+                # Extract the malformed function call
+                parsed_call = self._parse_malformed_function_call(error_str)
+                
+                if parsed_call:
+                    logger.info(f"✅ Successfully parsed malformed call: {parsed_call['function_name']}")
+                    return {
+                        "type": "tool_call_malformed",
+                        "parsed_call": parsed_call,
+                        "original_error": error_str
+                    }
+            
+            logger.error(f"Groq API error: {error_str}")
+            raise Exception(f"Groq API failed: {error_str[:100]}")
 
-    
+
+    def _parse_malformed_function_call(self, error_message: str) -> Optional[Dict[str, Any]]:
+        """
+        Parse malformed function calls from Groq errors
+        Handles nested calls by extracting the INNER function first
+        """
+        import re
+        import json
+        
+        try:
+            # Extract the failed_generation content
+            match = re.search(r"'failed_generation':\s*'([^']+)'", error_message)
+            if not match:
+                match = re.search(r'"failed_generation":\s*"([^"]+)"', error_message)
+            
+            if not match:
+                logger.warning("❌ Could not find failed_generation in error")
+                return None
+            
+            failed_gen = match.group(1)
+            logger.info(f"📝 Parsing failed generation: {failed_gen}")
+            
+            # PRIORITY 1: Check for NESTED function calls - extract INNER function
+            nested_pattern = r'<function=(\w+)\s*\{[^}]*<function=(\w+)\s*(\{[^}]+\})</function>'
+            nested_match = re.search(nested_pattern, failed_gen)
+            
+            if nested_match:
+                outer_func = nested_match.group(1)
+                inner_func = nested_match.group(2)
+                inner_args = nested_match.group(3)
+                
+                logger.warning(f"🔄 NESTED CALL DETECTED: {outer_func} contains {inner_func}")
+                logger.info(f"✅ Extracting INNER function to call first: {inner_func}")
+                
+                try:
+                    arguments = json.loads(inner_args)
+                    return {
+                        "function_name": inner_func,
+                        "arguments": arguments,
+                        "id": f"call_recovered_{inner_func}",
+                        "is_nested": True,
+                        "outer_function": outer_func  # Remember what comes next
+                    }
+                except json.JSONDecodeError as je:
+                    logger.error(f"❌ Failed to parse nested JSON: {je}")
+                    return None
+            
+            # PRIORITY 2: Simple malformed calls
+            func_pattern = r'<function=(\w+)\s*>?\s*(\{[^}]+\})</function>'
+            func_match = re.search(func_pattern, failed_gen)
+            
+            if not func_match:
+                logger.warning(f"❌ Could not match any function pattern in: {failed_gen}")
+                return None
+            
+            function_name = func_match.group(1)
+            json_args = func_match.group(2)
+            
+            logger.info(f"✅ Extracted function: {function_name}, args: {json_args}")
+            
+            try:
+                arguments = json.loads(json_args)
+            except json.JSONDecodeError as je:
+                logger.error(f"❌ JSON decode error: {je}")
+                logger.error(f"Failed to parse: {json_args}")
+                return None
+            
+            return {
+                "function_name": function_name,
+                "arguments": arguments,
+                "id": f"call_recovered_{function_name}",
+            }
+        
+        except Exception as e:
+            logger.error(f"❌ Error parsing malformed call: {str(e)}")
+            return None
+
+
     async def _get_rag_context(
         self,
         message: str,
