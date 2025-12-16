@@ -28,7 +28,7 @@ class IndianTrekTool:
         
         # Load Kaggle data
         self._load_kaggle_cache()
-    
+
     def _setup_kaggle_credentials(self):
         """Set Kaggle credentials from environment variables"""
         try:
@@ -46,7 +46,7 @@ class IndianTrekTool:
                 logger.error("❌ KAGGLE_USERNAME or KAGGLE_KEY not found in .env")
         except Exception as e:
             logger.error(f"❌ Error loading credentials: {e}")
-    
+
     def _load_kaggle_cache(self):
         """Load Kaggle dataset from cache or download"""
         cache_file = os.path.join(self.cache_dir, "india_treks.csv")
@@ -58,11 +58,11 @@ class IndianTrekTool:
                 logger.info(f"✅ Loaded {len(self.kaggle_data)} treks from cache: {cache_file}")
                 return
             except Exception as e:
-                logger.warning(f"⚠️  Cache read failed: {e}")
+                logger.warning(f"⚠️ Cache read failed: {e}")
         
         # Try downloading fresh
         self._download_kaggle_dataset(cache_file)
-    
+
     def _parse_trek_txt_file(self, filepath: str) -> Optional[Dict]:
         """Parse individual trek .txt file"""
         try:
@@ -118,31 +118,30 @@ class IndianTrekTool:
                 trek_data['Region'] = 'Karnataka'
             elif 'kerala' in content_lower:
                 trek_data['Region'] = 'Kerala'
-            
+                
             return trek_data
             
         except Exception as e:
-            logger.warning(f"⚠️  Failed to parse {filepath}: {e}")
+            logger.warning(f"⚠️ Failed to parse {filepath}: {e}")
             return None
-    
+
     def _download_kaggle_dataset(self, cache_file: str):
         """Download Kaggle dataset and parse text files"""
         try:
             # Check credentials first
             if not os.getenv('KAGGLE_USERNAME') or not os.getenv('KAGGLE_KEY'):
                 logger.error("❌ Cannot download: Kaggle credentials missing")
-                logger.error("   Add KAGGLE_USERNAME and KAGGLE_KEY to your .env file")
+                logger.error("  Add KAGGLE_USERNAME and KAGGLE_KEY to your .env file")
                 return
-            
+
             import kagglehub
-            
-            logger.info("⬇️  Downloading trek dataset from Kaggle...")
+            logger.info("⬇️ Downloading trek dataset from Kaggle...")
             logger.info("   Dataset: iamrahulpatil/250-trek-description")
             
             # Download dataset
             download_path = kagglehub.dataset_download("iamrahulpatil/250-trek-description")
             logger.info(f"📂 Downloaded to: {download_path}")
-            
+
             # Find all .txt files
             txt_files = []
             for root, dirs, files in os.walk(download_path):
@@ -153,7 +152,7 @@ class IndianTrekTool:
             if not txt_files:
                 logger.error(f"❌ No .txt files found in {download_path}")
                 return
-            
+                
             logger.info(f"📄 Found {len(txt_files)} trek text files")
             logger.info("🔄 Parsing trek files...")
             
@@ -182,21 +181,20 @@ class IndianTrekTool:
             
         except ImportError:
             logger.error("❌ kagglehub not installed")
-            logger.error("   Install: pip install kagglehub")
+            logger.error("  Install: pip install kagglehub")
         except Exception as e:
             logger.error(f"❌ Kaggle download failed: {str(e)}")
-            logger.error(f"   Error type: {type(e).__name__}")
+            logger.error(f"  Error type: {type(e).__name__}")
             import traceback
-            logger.error(f"   Traceback:\n{traceback.format_exc()}")
-    
+            logger.error(f"  Traceback:\n{traceback.format_exc()}")
+
     async def search_treks_by_region(self, region: str) -> List[Dict]:
-        """Search treks by Indian region"""
+        """Search treks by Indian region with broad matching"""
         logger.info(f"🗺️  Searching: {region}")
-        
         if self.kaggle_data is None:
             logger.error("❌ Kaggle dataset not loaded - cannot search")
             return []
-        
+
         # Search Kaggle
         results = self._search_kaggle_by_region(region)
         
@@ -206,15 +204,14 @@ class IndianTrekTool:
         
         logger.warning(f"⚠️  No results for {region}")
         return []
-    
+
     async def search_trek_by_name(self, trek_name: str) -> Optional[Dict]:
         """Search for specific trek"""
         logger.info(f"🏔️  Searching: '{trek_name}'")
-        
         if self.kaggle_data is None:
             logger.error("❌ Kaggle dataset not loaded")
             return None
-        
+            
         result = self._search_kaggle_by_name(trek_name)
         
         if result:
@@ -223,7 +220,7 @@ class IndianTrekTool:
         
         logger.warning(f"⚠️  '{trek_name}' not found")
         return None
-    
+
     def _search_kaggle_by_region(self, region: str) -> List[Dict]:
         """Search by region with fallback matching"""
         if self.kaggle_data is None:
@@ -231,27 +228,26 @@ class IndianTrekTool:
         
         region_clean = region.lower().strip()
         
-        # Try exact region match first
-        mask = self.kaggle_data['Region'].astype(str).str.lower().str.contains(region_clean, na=False)
+        # 🟢 BROADER SEARCH: Check Region OR Name OR Description
+        mask = (
+            self.kaggle_data['Region'].astype(str).str.lower().str.contains(region_clean, na=False) |
+            self.kaggle_data['Trek Name'].astype(str).str.lower().str.contains(region_clean, na=False) |
+            self.kaggle_data['Description'].astype(str).str.lower().str.contains(region_clean, na=False)
+        )
+        
         filtered = self.kaggle_data[mask]
         
-        if len(filtered) == 0:
-            # Try keyword matching in all fields
-            logger.info(f"📊 No exact match, trying full-text search...")
-            mask = self.kaggle_data.apply(
-                lambda row: region_clean in str(row).lower(),
-                axis=1
-            )
-            filtered = self.kaggle_data[mask]
-        
-        logger.info(f"📊 Found {len(filtered)} matches")
-        return self._format_kaggle_data(filtered)
-    
+        if len(filtered) > 0:
+            logger.info(f"📊 Found {len(filtered)} matches for '{region}'")
+            return self._format_kaggle_data(filtered)
+            
+        return []
+
     def _search_kaggle_by_name(self, trek_name: str) -> Optional[Dict]:
         """Search by trek name"""
         if self.kaggle_data is None:
             return None
-        
+            
         trek_clean = trek_name.lower().strip()
         
         # Search in Trek Name column
@@ -262,31 +258,31 @@ class IndianTrekTool:
             logger.info(f"✓ Found match")
             formatted = self._format_kaggle_data(results)
             return formatted[0] if formatted else None
-        
+            
         return None
-    
+
     def _format_kaggle_data(self, df: pd.DataFrame) -> List[Dict]:
-        """Format dataframe to dict"""
+        """Format dataframe to dict (Optimized for Tokens)"""
         treks = []
-        df_limited = df.head(15)
+        # 🟢 OPTIMIZATION: Limit to top 5 results to save tokens
+        df_limited = df.head(5)
         
         for _, row in df_limited.iterrows():
             trek_info = {
                 'name': str(row.get('Trek Name', 'Unknown')),
                 'type': 'hiking',
                 'difficulty': str(row.get('Difficulty', 'Unknown')),
-                'description': str(row.get('Description', ''))[:250],
+                # 🟢 OPTIMIZATION: Limit description to 150 chars
+                'description': str(row.get('Description', ''))[:150],
                 'distance': str(row.get('Distance', 'Unknown')),
                 'region': str(row.get('Region', 'Unknown')),
                 'duration': str(row.get('Duration', 'Unknown')),
                 'altitude': str(row.get('Altitude', 'Unknown')),
                 'best_time': str(row.get('Best Time', 'Unknown')),
-                'source': 'India Treks Database (250+ Treks)'
+                'source': 'India Treks Database'
             }
             treks.append(trek_info)
-        
         return treks
-
 
 # Singleton
 _trek_tool = None
@@ -298,10 +294,9 @@ def get_trek_tool() -> IndianTrekTool:
         _trek_tool = IndianTrekTool()
     return _trek_tool
 
-
 async def search_treks(region: Optional[str] = None, trek_name: Optional[str] = None) -> Optional[Dict]:
     """
-    Search Indian treks by region or name
+    Search Indian treks by region or name with smart fallback
     """
     tool = get_trek_tool()
     
@@ -311,29 +306,51 @@ async def search_treks(region: Optional[str] = None, trek_name: Optional[str] = 
             result = await tool.search_trek_by_name(trek_name)
             if result:
                 return {
-                    'trek_found': True,
-                    'trek_count': 1,
+                    'trek_found': True, 
+                    'trek_count': 1, 
                     'treks': [result],
                     'source': 'India Treks Database'
                 }
             return None
-        
+
         # Region search
         if region:
             results = await tool.search_treks_by_region(region)
+            
+            # 🟢 FALLBACK: If "Maharashtra" yields nothing, try "Sahyadri"
+            if not results:
+                region_lower = region.lower()
+                # Common aliases map
+                fallback_map = {
+                    "maharashtra": "Sahyadri",
+                    "mumbai": "Sahyadri", 
+                    "pune": "Sahyadri",
+                    "lonavala": "Sahyadri",
+                    "karnataka": "Western Ghats",
+                    "bangalore": "Western Ghats",
+                    "coorg": "Western Ghats"
+                }
+                
+                if region_lower in fallback_map:
+                    fallback_region = fallback_map[region_lower]
+                    logger.info(f"🔄 Fallback: Searching for '{fallback_region}' instead of '{region}'")
+                    results = await tool.search_treks_by_region(fallback_region)
+
             if results:
                 return {
-                    'trek_found': True,
-                    'trek_count': len(results),
+                    'trek_found': True, 
+                    'trek_count': len(results), 
                     'region': region,
                     'treks': results,
                     'source': 'India Treks Database'
                 }
+            
+            logger.warning(f"⚠️ No treks found for {region}")
             return None
-        
-        logger.warning("⚠️  No region or trek_name provided")
+
+        logger.warning("⚠️ No region or trek_name provided")
         return None
-        
+
     except Exception as e:
         logger.error(f"❌ Search error: {str(e)}")
         return None

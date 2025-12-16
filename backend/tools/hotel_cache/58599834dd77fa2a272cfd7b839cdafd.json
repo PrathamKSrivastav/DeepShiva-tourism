@@ -1,0 +1,43 @@
+{
+  "found": 94,
+  "city": "Delhi",
+  "dates": "2025-12-18 to 2025-12-19",
+  "hotels": [
+    {
+      "name": "The Grand New Delhi",
+      "price": "INR 13056.88",
+      "rating": "7.1/10",
+      "image": "https://static.cupid.travel/hotels/388135099.jpg",
+      "address": "Nelson Mandela Road, Vasant Kunj, Phase II"
+    },
+    {
+      "name": "Trident Gurgaon",
+      "price": "INR 18270.59",
+      "rating": "9.4/10",
+      "image": "https://static.cupid.travel/hotels/31515965.jpg",
+      "address": "443 Udyog Vihar, Phase V"
+    },
+    {
+      "name": "Park Plaza Gurgaon",
+      "price": "INR 8829.9",
+      "rating": "7.9/10",
+      "image": "https://static.cupid.travel/hotels/54431376.jpg",
+      "address": "B-Block, Sushant Lok , Phase-1 ,Sector 43 "
+    },
+    {
+      "name": "Sheraton New Delhi Hotel",
+      "price": "INR 21060.24",
+      "rating": "8.8/10",
+      "image": "https://static.cupid.travel/hotels/612980827.jpg",
+      "address": "District Centre, Saket"
+    },
+    {
+      "name": "Crowne Plaza Hotel Gurgaon by IHG",
+      "price": "INR 9034.04",
+      "rating": "10/10",
+      "image": "https://static.cupid.travel/hotels/ex_w2048h1362x0y3-d4490d2a_z.jpg",
+      "address": "Gurugram, Delhi N.C.R, 122001"
+    }
+  ],
+  "cached_at": "2025-12-17T03:58:20.969525"
+}

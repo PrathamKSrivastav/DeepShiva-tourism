@@ -14,29 +14,29 @@ class PersonaRAG:
         # Persona-specific RAG configurations
         self.persona_configs = {
             "local_guide": {
-                "context_window": 4000,  # chars
-                "max_retrieved_docs": 6,
+                "context_window": 2500,  # 4000 -> 2500
+                "max_retrieved_docs": 4,    # 6->4
                 "prioritize_practical_info": True,
                 "include_source_citations": True,
                 "context_template": "Here's what I know from local sources:\n\n{context}\n\nBased on this information:"
             },
             "spiritual_teacher": {
-                "context_window": 6000,
-                "max_retrieved_docs": 8,
+                "context_window": 3000, # 6000 -> 3000
+                "max_retrieved_docs": 5, #8->5
                 "prioritize_philosophical_content": True,
                 "include_source_citations": False,  # More flowing narrative
                 "context_template": "Drawing from sacred texts and spiritual wisdom:\n\n{context}\n\nIn the light of this knowledge:"
             },
             "trek_companion": {
-                "context_window": 3000,
-                "max_retrieved_docs": 5,
+                "context_window": 2000, # 3000 -> 2000
+                "max_retrieved_docs": 5,    #5->4
                 "prioritize_safety_info": True,
                 "include_source_citations": True,
                 "context_template": "Here's the essential info from reliable sources:\n\n{context}\n\nGiven these facts:"
             },
             "cultural_expert": {
-                "context_window": 8000,  # Needs more context for stories
-                "max_retrieved_docs": 10,
+                "context_window": 3500,  # 8000 -> 3500
+                "max_retrieved_docs": 6, # 10 -> 6
                 "prioritize_historical_content": True,
                 "include_source_citations": True,
                 "context_template": "From historical records and cultural documentation:\n\n{context}\n\nWith this rich heritage in mind:"
