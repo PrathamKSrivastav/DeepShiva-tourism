@@ -329,7 +329,23 @@ class GroqService:
         - Call the tool twice if necessary (once for 2025, once for 2026 Q1).
         """
         # - If today is late in the year (Oct-Dec), "upcoming" means THIS YEAR after today and NEXT YEAR.
+        
+            # ✨ ADD HINGLISH RESPONSE MODE ✨
+        if rag_context.get("response_language") == "hinglish":
+            base_context += """
 
+IMPORTANT: RESPONSE LANGUAGE - HINGLISH
+The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
+- Use simple English words mixed with Hindi
+- Use Roman script (English letters) for Hindi words
+- Examples:
+  * "Aap Kedarnath ja sakte hain. Best time hai May-June."
+  * "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
+  * "Yeh trek difficult hai, proper preparation chahiye."
+- Keep it natural and conversational
+- Use Hindi words that Indian tourists commonly understand
+
+"""
         
         # Add RAG context if available
         if rag_context.get("has_rag_context", False):
