@@ -5,7 +5,36 @@ function PersonaSelector({
   selectedPersona,
   onSelectPersona,
   darkMode,
+  chatSessions = [],
 }) {
+  const handlePersonaClick = (personaId) => {
+    // ✅ Don't trigger if clicking same persona
+    if (selectedPersona === personaId) {
+      console.log(`⏸️ Already on ${personaId}, ignoring click`);
+      return;
+    }
+
+    console.log(`🔄 Switching from ${selectedPersona} to ${personaId}`);
+
+    // Find most recent chat for this persona
+    const personaChats = chatSessions.filter(
+      (chat) => chat.persona === personaId
+    );
+
+    if (personaChats.length > 0) {
+      // Switch to most recent chat for this persona
+      const mostRecentChat = personaChats.sort(
+        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+      )[0];
+      console.log(`📖 Loading existing chat: ${mostRecentChat._id}`);
+      onSelectPersona(personaId, mostRecentChat);
+    } else {
+      // No existing chat, create new one
+      console.log(`✨ No existing chat for ${personaId}, starting fresh`);
+      onSelectPersona(personaId, null);
+    }
+  };
+
   return (
     <div
       className={`flex flex-col space-y-3 h-full overflow-y-auto no-scrollbar p-1 ${
@@ -14,11 +43,14 @@ function PersonaSelector({
     >
       {personas.map((persona) => {
         const isSelected = selectedPersona === persona.id;
+        const personaChatCount = chatSessions.filter(
+          (chat) => chat.persona === persona.id
+        ).length;
 
         return (
           <button
             key={persona.id}
-            onClick={() => onSelectPersona(persona.id)}
+            onClick={() => handlePersonaClick(persona.id)}
             className={`group relative w-full text-left p-4 rounded-2xl transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]
               ${
                 isSelected
@@ -49,18 +81,36 @@ function PersonaSelector({
               </div>
 
               <div className="flex-1 min-w-0 pt-1">
-                <div
-                  className={`font-semibold text-sm truncate ${
-                    isSelected
-                      ? darkMode
-                        ? "text-white"
-                        : "text-fuchsia-900"
-                      : darkMode
-                      ? "text-slate-100"
-                      : "text-gray-800"
-                  }`}
-                >
-                  {persona.name}
+                <div className="flex items-center justify-between gap-2">
+                  <div
+                    className={`font-semibold text-sm truncate ${
+                      isSelected
+                        ? darkMode
+                          ? "text-white"
+                          : "text-fuchsia-900"
+                        : darkMode
+                        ? "text-slate-100"
+                        : "text-gray-800"
+                    }`}
+                  >
+                    {persona.name}
+                  </div>
+                  {/* Chat count badge */}
+                  {personaChatCount > 0 && (
+                    <span
+                      className={`flex-shrink-0 text-[10px] px-1.5 py-0.5 rounded-full ${
+                        isSelected
+                          ? darkMode
+                            ? "bg-accent-indigo/20 text-accent-indigo"
+                            : "bg-fuchsia-100 text-fuchsia-700"
+                          : darkMode
+                          ? "bg-dark-elev text-dark-muted"
+                          : "bg-gray-200 text-gray-600"
+                      }`}
+                    >
+                      {personaChatCount}
+                    </span>
+                  )}
                 </div>
                 <div
                   className={`text-xs mt-0.5 line-clamp-2 leading-relaxed ${

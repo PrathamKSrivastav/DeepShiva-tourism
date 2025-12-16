@@ -73,12 +73,14 @@ function UserDropdown({ darkMode }) {
           }`}
         >
           {/* User Info */}
-          <div className="px-4 py-3 border-b border-gray-200">
+          <div className={`px-4 py-3 border-b ${
+            darkMode ? "border-dark-border" : "border-gray-200"
+          }`}>
             <div className="flex items-center space-x-3">
               {user.picture ? (
                 <img
                   src={user.picture}
-                  alt={user.name}
+                  alt={user.name?.charAt(0).toUpperCase()}
                   className="w-10 h-10 rounded-full"
                 />
               ) : (
@@ -87,55 +89,43 @@ function UserDropdown({ darkMode }) {
                 </div>
               )}
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold text-gray-900 truncate">
+                <p className={`text-sm font-semibold truncate ${
+                  darkMode ? "text-white" : "text-gray-900"
+                }`}>
                   {user.name}
                 </p>
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                <p className={`text-xs truncate ${
+                  darkMode ? "text-dark-muted" : "text-gray-500"
+                }`}>{user.email}</p>
               </div>
             </div>
             {user.role === "admin" && (
               <div className="mt-2">
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                <span className={`inline-flex items-center px-2 py-1 rounded-lg text-xs font-medium ${
+                  darkMode
+                    ? "bg-gradient-to-r from-accent-indigo/20 to-accent-fuchsia/20 text-accent-indigo border border-accent-indigo/30"
+                    : "bg-purple-100 text-purple-800"
+                }`}>
                   👑 Admin
                 </span>
               </div>
             )}
           </div>
 
-          {/* Menu Items */}
-          <div className="py-1">
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                // Navigate to chat history or profile
-              }}
-              className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-            >
-              <span>💬</span>
-              <span>Chat History</span>
-            </button>
-
-            {user.role === "admin" && (
-              <a
-                href="/admin"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
-              >
-                <span>⚙️</span>
-                <span>Admin Panel</span>
-              </a>
-            )}
+  
 
             <button
               onClick={handleLogout}
-              className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center space-x-2 border-t border-gray-200 mt-1"
+              className={`w-full text-left px-4 py-2 text-sm flex items-center space-x-2 border-t mt-1 transition-colors ${
+                darkMode
+                  ? "text-red-400 hover:bg-red-900/20 border-dark-border"
+                  : "text-red-600 hover:bg-red-50 border-gray-200"
+              }`}
             >
               <span>🚪</span>
               <span>Logout</span>
             </button>
-          </div>
-        </div>
+          </div>  
       )}
     </div>
   );

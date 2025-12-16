@@ -12,15 +12,17 @@ const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function AppContent() {
   const [personas, setPersonas] = useState([]);
+  // ✅ Default state: Fresh chat with Local Guide persona
   const [selectedPersona, setSelectedPersona] = useState("local_guide");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState(null); // null = new chat
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [darkMode, setDarkMode] = useState(true); // default to polished dark
+  const [darkMode, setDarkMode] = useState(true);
+  const [chatSessions, setChatSessions] = useState([]);
+  const [currentSessionId, setCurrentSessionId] = useState(null); // null = no session yet
+  const [newChatTrigger, setNewChatTrigger] = useState(Date.now()); // triggers welcome message
+  const [personaSelectorOpen, setPersonaSelectorOpen] = useState(false);
   const { isAuthenticated } = useAuth();
-
-useEffect(() => {
-}, [isAuthenticated]);
 
   useEffect(() => {
     fetchPersonas().then((d) => setPersonas(d.personas));
@@ -31,6 +33,69 @@ useEffect(() => {
     else document.documentElement.classList.remove("dark");
   }, [darkMode]);
 
+  // Clear chat sessions on logout
+  useEffect(() => {
+    const handleLogout = () => {
+      console.log('🧹 Clearing chat sessions on logout');
+      setChatSessions([]);
+      setSelectedChat(null);
+      setCurrentSessionId(null);
+      setNewChatTrigger(Date.now());
+    };
+
+    window.addEventListener('user-logout', handleLogout);
+    
+    return () => {
+      window.removeEventListener('user-logout', handleLogout);
+    };
+  }, []);
+
+ const handlePersonaSwitch = (personaId, existingChat) => {
+   console.log(`🔄 handlePersonaSwitch called:`, {
+     personaId,
+     existingChat: existingChat?._id,
+     currentPersona: selectedPersona,
+   });
+
+   // Always update persona
+   setSelectedPersona(personaId);
+
+   if (existingChat) {
+     // Switch to existing chat
+     console.log(`✅ Loading existing chat: ${existingChat._id}`);
+     setSelectedChat(existingChat);
+     setCurrentSessionId(existingChat._id);
+   } else {
+     // Create new chat
+     console.log(`✨ Starting fresh chat for ${personaId}`);
+     setSelectedChat(null);
+     setCurrentSessionId(null);
+     setNewChatTrigger(Date.now());
+   }
+
+   // Close mobile persona selector if open
+   if (personaSelectorOpen) {
+     setPersonaSelectorOpen(false);
+   }
+ };
+
+ // Handle chat selection from sidebar
+ const handleSelectChatFromSidebar = (chat) => {
+   if (chat) {
+     console.log(`📖 Selected chat from sidebar: ${chat._id}`);
+     setSelectedChat(chat);
+     setCurrentSessionId(chat._id);
+     // ✅ Also update persona if chat is from different persona
+     if (chat.persona !== selectedPersona) {
+       setSelectedPersona(chat.persona);
+     }
+   } else {
+     // Clear selection
+     setSelectedChat(null);
+     setCurrentSessionId(null);
+   }
+ };
+ 
   return (
     <div
       className={`h-screen flex flex-col ${
@@ -92,12 +157,18 @@ useEffect(() => {
             {/* LEFT: History Sidebar */}
             <ChatHistorySidebar
               currentPersona={selectedPersona}
-              onSelectChat={setSelectedChat}
-              onNewChat={() => setSelectedChat(null)}
+              selectedChatId={currentSessionId} // ✅ Pass current selection
+              onSelectChat={handleSelectChatFromSidebar} // ✅ Use new handler
+              onNewChat={() => {
+                setSelectedChat(null);
+                setCurrentSessionId(null);
+                setNewChatTrigger(Date.now());
+              }}
               isOpen={sidebarOpen}
               onToggle={() => setSidebarOpen(false)}
               refreshTrigger={refreshTrigger}
               darkMode={darkMode}
+              onSessionsUpdate={setChatSessions}
             />
 
             {/* CENTER: Chat Window */}
@@ -105,13 +176,17 @@ useEffect(() => {
               <ChatWindow
                 selectedPersona={selectedPersona}
                 selectedChat={selectedChat}
+                currentSessionId={currentSessionId}
+                newChatTrigger={newChatTrigger}
                 personas={personas}
                 onPersonaChange={setSelectedPersona}
+                onSessionCreated={setCurrentSessionId}
                 onNewChatCreated={() => setRefreshTrigger((prev) => prev + 1)}
+                personaSelectorOpen={personaSelectorOpen}
+                onPersonaSelectorToggle={setPersonaSelectorOpen}
                 darkMode={darkMode}
               />
             </div>
-
             {/* RIGHT: Persona Selector */}
             <div
               className={`hidden lg:block w-80 xl:w-96 flex-shrink-0 ${
@@ -123,8 +198,9 @@ useEffect(() => {
               <PersonaSelector
                 personas={personas}
                 selectedPersona={selectedPersona}
-                onSelectPersona={setSelectedPersona}
+                onSelectPersona={handlePersonaSwitch}
                 darkMode={darkMode}
+                chatSessions={chatSessions}
               />
             </div>
           </div>

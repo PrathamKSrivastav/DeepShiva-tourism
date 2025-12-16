@@ -93,7 +93,7 @@ def get_tools_schema():
             }
         }
     ]
-    
+
 async def execute_tool(func_name: str, args: Dict) -> Optional[Dict]:
     """
     Execute a tool by name and return its result
@@ -125,7 +125,7 @@ async def execute_tool(func_name: str, args: Dict) -> Optional[Dict]:
     except Exception as e:
         logger.error(f"❌ Tool execution failed for {func_name}: {str(e)}")
         return None
-    
+
 def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
     """
     Simplified system prompt for offline GGUF model
@@ -179,7 +179,6 @@ CRITICAL RULES:
     base_prompt += f"\nTONE: {tone}\n"
     
     return base_prompt
-
 
 
 # ============= Models =============
@@ -454,7 +453,6 @@ async def export_session_as_pdf(
         logger.error(f"❌ Export error: {str(e)}")
         logger.exception("Full traceback:")
         raise HTTPException(status_code=500, detail=str(e))
-
 
 
 # ============= Chat Endpoint (Updated) =============
@@ -738,7 +736,7 @@ async def chat(
         chat_saved=chat_saved,
         session_id=session_id
     )
-    
+
 async def _get_conversation_history(
     session_id: str,
     current_user: dict,
@@ -889,6 +887,65 @@ async def get_chat_history(
     return await get_all_chat_sessions(persona, limit, current_user)
 
 
+@router.delete("/chat/sessions/{session_id}")
+async def delete_chat_session(
+    session_id: str, current_user: dict = Depends(get_current_user)
+):
+    """
+    Delete a chat session (notebook) and all its messages
+    """
+    try:
+        if not current_user:
+            raise HTTPException(status_code=401, detail="Authentication required")
+
+        logger.info(f"🗑️ Deleting chat session: {session_id}")
+
+        db = get_database()
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+
+        # Verify ownership and delete
+        result = await db.chats.delete_one(
+            {"_id": ObjectId(session_id), "user_id": user_id}
+        )
+
+        if result.deleted_count == 0:
+            logger.warning(f"⚠️ Session not found or unauthorized: {session_id}")
+            raise HTTPException(
+                status_code=404,
+                detail="Session not found or you don't have permission to delete it",
+            )
+
+        logger.info(f"✅ Session deleted successfully: {session_id}")
+
+        # Optional: Clean up related files (PDFs, summaries, etc.)
+        try:
+            temp_dir = "temp_pdfs"
+            if os.path.exists(temp_dir):
+                # Remove any PDFs associated with this session
+                for filename in os.listdir(temp_dir):
+                    if session_id[:8] in filename:
+                        file_path = os.path.join(temp_dir, filename)
+                        os.remove(file_path)
+                        logger.info(f"🧹 Cleaned up temp file: {filename}")
+        except Exception as e:
+            logger.warning(f"⚠️ Cleanup warning (non-critical): {str(e)}")
+
+        return {
+            "success": True,
+            "message": "Chat session deleted successfully",
+            "session_id": session_id,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Error deleting session: {str(e)}")
+        logger.exception("Full traceback:")
+        raise HTTPException(
+            status_code=500, detail=f"Failed to delete session: {str(e)}"
+        )
+
+
 @router.delete("/chat/history/{chat_id}")
 async def delete_chat(
     chat_id: str,
@@ -896,7 +953,6 @@ async def delete_chat(
 ):
     """Legacy endpoint - redirects to session delete"""
     return await delete_chat_session(chat_id, current_user)
-
 
 
 # ============= SUMMARY GENERATION ENDPOINTS (ADD BEFORE STATUS ENDPOINTS) =============
@@ -1083,8 +1139,6 @@ async def download_summary_pdf(
     except Exception as e:
         logger.error(f"❌ Summary PDF download error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-
-
 
 
 # ============= Status Endpoints =============
