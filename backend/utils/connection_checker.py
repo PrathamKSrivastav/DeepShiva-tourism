@@ -63,7 +63,7 @@ async def check_groq_api_health(api_key: str, timeout: int = 5) -> bool:
         }
         
         test_payload = {
-            "model": "openai/gpt-oss-120b",
+            "model": "llama-3.1-8b-instant",
             "messages": [{"role": "user", "content": "test"}],
             "max_tokens": 5
         }
