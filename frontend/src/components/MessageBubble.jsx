@@ -39,16 +39,18 @@ const handleSpeak = () => {
   const utterance = new SpeechSynthesisUtterance(cleanText);
 
   // Configure voice settings - faster and more natural
-  utterance.rate = 1.3; // Slightly faster (was 1.0)
+  utterance.rate = 1.0; // Slightly faster (was 1.0)
   utterance.pitch = 0.7; // Natural pitch
   utterance.volume = 1.0; // Full volume
 
   // Try to find an Indian English voice
   const voices = window.speechSynthesis.getVoices();
 
+  console.log(voices);
+
   const indianVoice = voices.find(
     (voice) =>
-      voice.lang.includes("en-IN") || voice.name.toLowerCase().includes("india")
+      voice.lang.includes("hi-IN") || voice.name.toLowerCase().includes("india")
   );
 
   const naturalVoice = voices.find(
