@@ -21,6 +21,14 @@ from tools.trek_tool import search_treks
 from localmodel.llm_engine import LLMEngine
 
 
+from utils.pdf_generator import ChatPDFGenerator
+import os
+from fastapi.responses import FileResponse
+
+# ADD THESE IMPORTS (after line ~20)
+from utils.summary_generator import get_summary_generator
+from utils.summary_pdf_generator import SummaryPDFGenerator
+
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -341,40 +349,80 @@ async def update_session_title(
         logger.error(f"❌ Error updating title: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
+# ============= PDF Export =============
 
-@router.delete("/chat/sessions/{session_id}")
-async def delete_chat_session(
+@router.get("/chat/sessions/{session_id}/export/pdf")
+async def export_session_as_pdf(
     session_id: str,
     current_user: dict = Depends(get_current_user)
 ):
     """
-    Delete a chat session
+    Export chat session as PDF
+    Returns downloadable PDF file
     """
     try:
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
         
-        db = get_database()
-        # user_id = ObjectId(current_user.get("_id") or current_user.get("id"))
-        user_id = str(current_user.get("_id") or current_user.get("id"))
-
-
+        logger.info(f"📥 Exporting session to PDF: {session_id}")
         
-        result = await db.chats.delete_one({
+        db = get_database()
+        # ✅ FIXED: Use string type to match how sessions are stored
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+        
+        # Fetch session
+        session = await db.chats.find_one({
             "_id": ObjectId(session_id),
-            "user_id": user_id
+            "user_id": user_id  # Now matches the stored string type
         })
         
-        if result.deleted_count == 0:
+        if not session:
+            logger.warning(f"⚠️ Session not found: {session_id}")
+            logger.warning(f"⚠️ Searched for user_id: {user_id}")
             raise HTTPException(status_code=404, detail="Session not found")
         
-        logger.info(f"✅ Session deleted: {session_id}")
+        logger.info(f"✅ Session found with {len(session.get('messages', []))} messages")
         
-        return {"message": "Session deleted"}
+        # Create temp directory if it doesn't exist
+        temp_dir = "temp_pdfs"
+        os.makedirs(temp_dir, exist_ok=True)
         
+        # Generate filename
+        safe_title = session.get("title", "chat").replace(" ", "_")[:30]
+        filename = f"{safe_title}_{session_id[:8]}.pdf"
+        filepath = os.path.join(temp_dir, filename)
+        
+        logger.info(f"📄 Generating PDF: {filepath}")
+        
+        # Generate PDF
+        pdf_generated = ChatPDFGenerator.create_pdf(
+            session_title=session.get("title", "Chat Session"),
+            persona=session.get("persona", "local_guide"),
+            messages=session.get("messages", []),
+            output_path=filepath
+        )
+        
+        if not pdf_generated:
+            logger.error("❌ PDF generation returned False")
+            raise HTTPException(status_code=500, detail="PDF generation failed")
+        
+        logger.info(f"✅ PDF ready for download: {filepath}")
+        
+        # Return file for download
+        return FileResponse(
+            filepath,
+            media_type="application/pdf",
+            filename=filename,
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+        )
+        
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"❌ Error deleting session: {str(e)}")
+        logger.error(f"❌ Export error: {str(e)}")
+        logger.exception("Full traceback:")
         raise HTTPException(status_code=500, detail=str(e))
+
 
 
 # ============= Chat Endpoint (Updated) =============
@@ -782,6 +830,195 @@ async def delete_chat(
 ):
     """Legacy endpoint - redirects to session delete"""
     return await delete_chat_session(chat_id, current_user)
+
+
+
+# ============= SUMMARY GENERATION ENDPOINTS (ADD BEFORE STATUS ENDPOINTS) =============
+
+@router.post("/chat/sessions/{session_id}/summary")
+async def generate_session_summary(
+    session_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Generate AI-powered summary of chat session
+    Uses Groq API to analyze conversation and create insights
+    """
+    try:
+        if not current_user:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        
+        logger.info(f"🤖 Generating summary for session: {session_id}")
+        
+        db = get_database()
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+        
+        # Fetch session
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session:
+            logger.warning(f"⚠️ Session not found: {session_id}")
+            raise HTTPException(status_code=404, detail="Session not found")
+        
+        messages = session.get("messages", [])
+        if len(messages) < 2:
+            raise HTTPException(
+                status_code=400,
+                detail="Not enough messages to generate summary (minimum 2 required)"
+            )
+        
+        logger.info(f"📊 Analyzing {len(messages)} messages")
+        
+        # Generate summary using Groq AI
+        summary_generator = get_summary_generator()
+        summary_data = await summary_generator.generate_summary(
+            messages=messages,
+            session_title=session.get("title", "Untitled Conversation"),
+            persona=session.get("persona", "local_guide")
+        )
+        
+        # Save summary to database
+        await db.chats.update_one(
+            {"_id": ObjectId(session_id)},
+            {
+                "$set": {
+                    "summary": summary_data,
+                    "summary_generated_at": datetime.utcnow(),
+                    "updated_at": datetime.utcnow()
+                }
+            }
+        )
+        
+        logger.info(f"✅ Summary generated and saved for session: {session_id}")
+        
+        return {
+            "success": True,
+            "summary": summary_data,
+            "message": "Summary generated successfully"
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Summary generation error: {str(e)}")
+        logger.exception("Full traceback:")
+        raise HTTPException(status_code=500, detail=f"Summary generation failed: {str(e)}")
+
+
+@router.get("/chat/sessions/{session_id}/summary")
+async def get_session_summary(
+    session_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Get existing summary for a session (without regenerating)
+    """
+    try:
+        if not current_user:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        
+        db = get_database()
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+        
+        # Fetch session
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session:
+            raise HTTPException(status_code=404, detail="Session not found")
+        
+        summary = session.get("summary")
+        if not summary:
+            raise HTTPException(status_code=404, detail="No summary found. Generate one first.")
+        
+        return {
+            "success": True,
+            "summary": summary,
+            "generated_at": session.get("summary_generated_at")
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Error fetching summary: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/chat/sessions/{session_id}/summary/pdf")
+async def download_summary_pdf(
+    session_id: str,
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Download summary as formatted PDF
+    """
+    try:
+        if not current_user:
+            raise HTTPException(status_code=401, detail="Authentication required")
+        
+        logger.info(f"📥 Downloading summary PDF for session: {session_id}")
+        
+        db = get_database()
+        user_id = str(current_user.get("_id") or current_user.get("id"))
+        
+        # Fetch session
+        session = await db.chats.find_one({
+            "_id": ObjectId(session_id),
+            "user_id": user_id
+        })
+        
+        if not session:
+            raise HTTPException(status_code=404, detail="Session not found")
+        
+        summary = session.get("summary")
+        if not summary:
+            raise HTTPException(
+                status_code=404,
+                detail="No summary found. Generate summary first."
+            )
+        
+        # Create temp directory
+        temp_dir = "temp_pdfs"
+        os.makedirs(temp_dir, exist_ok=True)
+        
+        # Generate filename
+        safe_title = session.get("title", "summary").replace(" ", "_")[:30]
+        filename = f"Summary_{safe_title}_{session_id[:8]}.pdf"
+        filepath = os.path.join(temp_dir, filename)
+        
+        logger.info(f"📄 Generating summary PDF: {filepath}")
+        
+        # Generate PDF
+        pdf_generated = SummaryPDFGenerator.create_summary_pdf(
+            summary_data=summary,
+            output_path=filepath
+        )
+        
+        if not pdf_generated:
+            raise HTTPException(status_code=500, detail="PDF generation failed")
+        
+        logger.info(f"✅ Summary PDF ready: {filepath}")
+        
+        # Return file
+        return FileResponse(
+            filepath,
+            media_type="application/pdf",
+            filename=filename,
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+        )
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"❌ Summary PDF download error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 
 
 # ============= Status Endpoints =============

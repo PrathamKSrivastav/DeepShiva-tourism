@@ -48,3 +48,6 @@
 
     pandas>=2.0.0
     kagglehub>=0.2.0
+
+    #for pdf download (yash)
+    reportlab==4.0.9

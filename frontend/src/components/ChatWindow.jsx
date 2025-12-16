@@ -2,6 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import MessageBubble from "./MessageBubble";
 import { sendChatMessage } from "../api";
 import { useAuth } from "../context/AuthContext";
+import PdfExportButton from "./PdfExportButton"; // ← ADDED
+
+import { useSummaryGenerator } from "../hooks/useSummaryGenerator";
+import SummaryModal from "./SummaryModal";
+import SummaryButton from "./SummaryButton";
 
 function ChatWindow({
   selectedPersona,
@@ -21,10 +26,22 @@ function ChatWindow({
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState(currentSessionId);
-
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const { isAuthenticated } = useAuth();
+
+
+  const {
+  isGenerating: isGeneratingSummary,
+  isDownloading: isDownloadingSummary,
+  error: summaryError,
+  summary,
+  generateSummary,
+  downloadSummaryPdf,
+  clearSummary,
+} = useSummaryGenerator();
+
+const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   useEffect(() => setSessionId(currentSessionId), [currentSessionId]);
 
@@ -64,7 +81,8 @@ function ChatWindow({
     setMessages([
       {
         id: Date.now(),
-        text: welcomeMessages[selectedPersona] || welcomeMessages.local_guide,
+        text:
+          welcomeMessages[selectedPersona] || welcomeMessages.local_guide,
         sender: "bot",
         persona: selectedPersona,
         timestamp: new Date(),
@@ -86,6 +104,7 @@ function ChatWindow({
       sender: "user",
       timestamp: new Date(),
     };
+
     setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsLoading(true);
@@ -101,7 +120,7 @@ function ChatWindow({
       if (response.session_id && !sessionId) {
         setSessionId(response.session_id);
         if (onSessionCreated) onSessionCreated(response.session_id);
-        if (onNewChatCreated) onNewChatCreated(); // Refresh sidebar
+        if (onNewChatCreated) onNewChatCreated();
       }
 
       setMessages((prev) => [
@@ -138,127 +157,204 @@ function ChatWindow({
   const getPersonaIcon = (id) =>
     personas.find((p) => p.id === id)?.icon || "🎭";
 
+  const handleGenerateSummary = async () => {
+  if (!sessionId) {
+    alert('No active session to summarize. Start chatting first!');
+    return;
+  }
+
+  if (messages.length < 2) {
+    alert('Need at least 2 messages to generate a summary');
+    return;
+  }
+
+  try {
+    setShowSummaryModal(true);
+    await generateSummary(sessionId);
+  } catch (error) {
+    console.error('Failed to generate summary:', error);
+  }
+};
+
+const handleDownloadSummary = async () => {
+  if (!sessionId) return;
+
+  try {
+    await downloadSummaryPdf(
+      sessionId,
+      selectedChat?.title || 'chat'
+    );
+  } catch (error) {
+    console.error('Failed to download summary PDF:', error);
+  }
+};
+
+const handleCloseSummaryModal = () => {
+  setShowSummaryModal(false);
+  clearSummary();
+};
+
   return (
-   <div
-  className={`flex flex-col h-full ${
-    darkMode
-      ? "bg-dark-surface rounded-3xl border border-dark-border shadow-xl"
-      : "bg-white/40 rounded-3xl border border-white/40 shadow-2xl"
-  } overflow-hidden relative z-10`}
->
-  
-
-      {/* Decorative Atmospheric Light */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-gradient-to-b from-white/30 to-transparent blur-3xl pointer-events-none z-0" />
-
-      {/* Chat Messages Area */}
+    <div
+      className={`flex flex-col h-screen transition-colors ${
+        darkMode ? "bg-gray-900" : "bg-gray-50"
+      }`}
+    >
+      {/* ========== HEADER WITH PDF BUTTON ========== */}
       <div
-        className={`flex-1 overflow-y-auto no-scrollbar p-4 md:p-6 space-y-4 z-10 ${
-          darkMode ? "text-slate-100" : "text-gray-900"
+        className={`border-b shadow-sm px-4 py-3 ${
+          darkMode
+            ? "bg-gray-800 border-gray-700"
+            : "bg-white border-gray-200"
         }`}
       >
-        <div className="pt-2" />
-
-        {messages.map((msg) => (
-          <MessageBubble
-            key={msg.id}
-            message={msg}
-            onSuggestionClick={(s) => {
-              setInputMessage(s);
-              inputRef.current?.focus();
-            }}
-            darkMode={darkMode}
-          />
-        ))}
-
-        {isLoading && (
-          <div className="flex items-center gap-3 p-4 text-sm">
-            <div className="flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-accent-fuchsia/90 animate-pulse inline-block" />
-              <span className="w-2 h-2 rounded-full bg-accent-indigo/90 animate-pulse inline-block ml-1" />
-              <span className="w-2 h-2 rounded-full bg-accent-rose/85 animate-pulse inline-block ml-1" />
+        <div className="flex items-center justify-between">
+          {/* Left Side: Session Title */}
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{getPersonaIcon(selectedPersona)}</span>
+            <div>
+              <h2
+                className={`text-lg font-semibold ${
+                  darkMode ? "text-white" : "text-gray-800"
+                }`}
+              >
+                {selectedChat?.title || "New Conversation"}
+              </h2>
+              <p
+                className={`text-sm ${
+                  darkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
+                {messages.length} messages • {selectedPersona.replace("_", " ")}
+              </p>
             </div>
-            <span className="ml-3 text-dark-muted text-sm">
-              Consulting the universe...
-            </span>
           </div>
-        )}
-        <div ref={messagesEndRef} className="h-2" />
+
+          {/* ✨ RIGHT SIDE: ACTION BUTTONS ✨ */}
+<div className="flex items-center gap-2">
+  {/* PDF Export Button */}
+  {sessionId && selectedChat && (
+    <PdfExportButton
+      sessionId={sessionId}
+      sessionTitle={selectedChat?.title || "Chat"}
+      variant="secondary"
+      darkMode={darkMode}
+    />
+  )}
+  
+  {/* ✨ NEW: AI Summary Button ✨ */}
+  {sessionId && messages.length >= 2 && (
+    <SummaryButton
+      onClick={handleGenerateSummary}
+      isGenerating={isGeneratingSummary}
+      disabled={!sessionId || messages.length < 2}
+      variant="primary"
+    />
+  )}
+</div>
+
+        </div>
       </div>
 
-      {/* Input Area */}
+      {/* ========== MESSAGES AREA ========== */}
+      <div className="flex-1 overflow-y-auto px-4 py-6">
+        <div className="max-w-4xl mx-auto space-y-4">
+          {messages.map((msg) => (
+            <MessageBubble
+              key={msg.id}
+              message={msg}
+              isUser={msg.sender === "user"}
+              darkMode={darkMode}
+            />
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div
+                className={`px-4 py-3 rounded-lg ${
+                  darkMode ? "bg-gray-800" : "bg-gray-100"
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-1">
+                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce delay-100" />
+                    <span className="w-2 h-2 bg-teal-500 rounded-full animate-bounce delay-200" />
+                  </div>
+                  <span
+                    className={`text-sm ${
+                      darkMode ? "text-gray-400" : "text-gray-500"
+                    }`}
+                  >
+                    Thinking...
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+
+      {/* ========== INPUT AREA ========== */}
       <div
-        className={`p-4 md:p-6 z-20 ${
+        className={`border-t px-4 py-4 ${
           darkMode
-            ? "bg-dark-elev/80 border-t border-dark-border"
-            : "bg-white/50 border-t border-white/20"
+            ? "bg-gray-800 border-gray-700"
+            : "bg-white border-gray-200"
         }`}
       >
-        <form
-          onSubmit={handleSendMessage}
-          className="relative flex items-center gap-3 max-w-4xl mx-auto"
-        >
-          {/* Mobile Persona Switcher Button */}
-          <div className="lg:hidden relative">
-            <button
-              type="button"
-              onClick={() => onPersonaSelectorToggle?.(!personaSelectorOpen)}
-              className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform active:scale-95 text-xl shadow-md ${
+        <form onSubmit={handleSendMessage} className="max-w-4xl mx-auto">
+          <div className="flex gap-2">
+            <input
+              ref={inputRef}
+              type="text"
+              value={inputMessage}
+              onChange={(e) => setInputMessage(e.target.value)}
+              placeholder={`Message ${selectedPersona.replace("_", " ")}...`}
+              disabled={isLoading}
+              className={`flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition-colors ${
                 darkMode
-                  ? "bg-dark-elev border border-dark-border text-slate-100"
-                  : "bg-white/80 border border-white/60"
-              }`}
+                  ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                  : "bg-white border-gray-300 text-gray-900 placeholder-gray-500"
+              } disabled:opacity-50`}
+            />
+            <button
+              type="submit"
+              disabled={!inputMessage.trim() || isLoading}
+              className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium flex items-center gap-2"
             >
-              {getPersonaIcon(selectedPersona)}
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                />
+              </svg>
+              Send
             </button>
           </div>
-
-          {/* Text Input */}
-          <input
-            ref={inputRef}
-            type="text"
-            value={inputMessage}
-            onChange={(e) => setInputMessage(e.target.value)}
-            placeholder="Ask about temples, treks, or legends..."
-            className={`flex-1 pl-6 pr-14 py-4 rounded-full shadow-sm focus:outline-none focus:ring-2 transition-all duration-300 ${
-              darkMode
-                ? "bg-dark-elev border border-dark-border hover:bg-dark-elev/95 focus:bg-dark-elev/95 focus:ring-accent-indigo/30 text-slate-100 placeholder-dark-muted"
-                : "bg-white/60 hover:bg-white/80 focus:bg-white/90 border border-white/40 focus:ring-fuchsia-400/30 text-gray-800 placeholder-gray-500"
-            }`}
-            disabled={isLoading}
-          />
-
-          {/* Send Button */}
-          <button
-            type="submit"
-            disabled={isLoading || !inputMessage.trim()}
-            className="absolute right-2 top-2 bottom-2 w-10 h-10 rounded-full flex items-center justify-center transition-transform disabled:opacity-50"
-            style={{
-              background: darkMode
-                ? "linear-gradient(90deg, rgba(99,102,241,1) 0%, rgba(217,70,239,1) 55%)"
-                : undefined,
-              boxShadow: darkMode
-                ? "0 6px 20px rgba(99,102,241,0.12), 0 2px 8px rgba(217,70,239,0.06)"
-                : undefined,
-            }}
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="text-white"
-            >
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-          </button>
         </form>
       </div>
+       
+       
+       {/* ✨ ADD THIS MODAL HERE (before closing div) ✨ */}
+      <SummaryModal
+        isOpen={showSummaryModal}
+        onClose={handleCloseSummaryModal}
+        summary={summary}
+        isGenerating={isGeneratingSummary}
+        error={summaryError}
+        onDownloadPdf={handleDownloadSummary}
+        isDownloading={isDownloadingSummary}
+      />
+
+
     </div>
   );
 }
