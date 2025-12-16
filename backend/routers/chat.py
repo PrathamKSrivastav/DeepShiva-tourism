@@ -16,6 +16,7 @@ import json
 from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
+from tools.holiday_tool import get_holidays
 from tools.trek_tool import search_treks
 
 from localmodel.llm_engine import LLMEngine
@@ -74,6 +75,31 @@ def get_tools_schema():
         {
             "type": "function",
             "function": {
+                "name": "get_holidays",  # 🟢 FIX 1: Name must match the import
+                "description": "Get public holidays for India. To see the whole year, fetch by QUARTERS (Q1, Q2, Q3, Q4) to avoid data truncation.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "year": {
+                            "type": "integer", 
+                            "description": "Year (e.g. 2025). Required."
+                        },
+                        "quarter": {
+                            "type": "integer", 
+                            "description": "Quarter of the year (1=Jan-Mar, 2=Apr-Jun, 3=Jul-Sep, 4=Oct-Dec). Recommended for better visibility."
+                        },
+                        "month": {
+                            "type": "integer", 
+                            "description": "Specific month (1-12). Use only for narrow searches."
+                        }
+                    },
+                    "required": ["year"]
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
                 "name": "search_treks",
                 "description": "Search for trekking trails and hiking routes in India. Returns detailed trek information including difficulty, duration, altitude, best time to visit, and descriptions. Use this for ANY trek-related queries including 'treks near X', 'best treks in Y', 'tell me about Z trek'.",
                 "parameters": {
@@ -91,7 +117,7 @@ def get_tools_schema():
                     "required": []
                 }
             }
-        }
+        },
     ]
 
 async def execute_tool(func_name: str, args: Dict) -> Optional[Dict]:

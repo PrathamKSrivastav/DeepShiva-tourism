@@ -300,10 +300,12 @@ class GroqService:
         """Build persona-specific system message enhanced with RAG context"""
         
         base_context = f"""You are a PAN-INDIA travel assistant with tools: geocode_location, get_weather, search_treks.
-        TOOLS
-        - Use tools for live info (weather, current status).
-        - Use RAG only for static background.
-        - If tools and RAG differ, follow tools.
+        TOOL USAGE RULES:
+        - Use `geocode_location` then `get_weather` for current conditions.
+        - **CRITICAL**: If the user asks about "festivals", "holidays", "celebrations", or "events", you MUST call `get_indian_holidays` for the specific year/month mentioned (or current year). Do NOT rely on RAG for dates, as they change every year.
+        - Use `get_treks` to find hiking trails near a location.
+        - Do NOT output tool calls as text (like <function...>); use the proper tool call structure.
+        - If you call a tool, output ONLY the tool call. Do NOT write any introduction text like "Let me check..." or "Here is the info...". Just the JSON.
 
         TREKS
         - Any trek/trekking/hike query → MUST call search_treks.
@@ -320,8 +322,13 @@ class GroqService:
         - Practical, user-focused.
         - Answer in the user's language.
 
-        Date: {date.today().isoformat()}.
+        CURRENT DATE: {date.today().isoformat()}
+        IMPORTANT: Today is {date.today().strftime('%B %Y')}.
+        - If user asks for "upcoming" holidays and it is late in the year (Dec), you must check BOTH:
+            1. don't forget holidays in december, like christmas on 25th December and new year eve on 31st december.
+        - Call the tool twice if necessary (once for 2025, once for 2026 Q1).
         """
+        # - If today is late in the year (Oct-Dec), "upcoming" means THIS YEAR after today and NEXT YEAR.
 
         
         # Add RAG context if available
@@ -396,6 +403,27 @@ class GroqService:
         # """
 
         #     base_context += "\nUse this data to provide accurate trek recommendations.\n"
+
+        if tool_context and tool_context.get("holidays"):
+            h_data = tool_context["holidays"]
+            base_context += f"""
+            --- LIVE HOLIDAY DATA ---
+            Source: Calendarific API (Official)
+            - no need to say something like "checking for holidays", just search for data
+            - show all the festivals without having an influence from the religion. like "holi->hindu, christmas->christian, ect." but no need to specify the religion, just know about the festival
+
+            Confirmed Holidays:
+            """
+            
+            if isinstance(h_data, list):
+                for h in h_data:
+                    # Extract date safely (Calendarific structure vs simplified)
+                    d = h.get('date', {}).get('iso', h.get('date')) if isinstance(h.get('date'), dict) else h.get('date')
+                    base_context += f"- {d}: {h.get('name')} ({h.get('type')})\n"
+            else:
+                base_context += "No holidays found.\n"
+
+            base_context += "\nUse this to plan itineraries around closures or cultural events."
         
         persona_instructions = {
             "local_guide": """
