@@ -45,3 +45,7 @@
     google-auth-httplib2
 
     llama-cpp-python==0.2.90
+
+
+    #for pdf download (yash)
+    reportlab==4.0.9
