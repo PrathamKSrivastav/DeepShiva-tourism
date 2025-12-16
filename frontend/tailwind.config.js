@@ -20,10 +20,10 @@ export default {
         "dark-muted": "#94A3B8", // muted text
         "dark-subtle": "#0B2533",
 
-        // Accent gradient family
-        "accent-indigo": "#6366F1", // indigo
-        "accent-fuchsia": "#D946EF", // fuchsia
-        "accent-rose": "#FB7185", // rose/red tint
+        // Accent gradient family - CHANGED to emerald
+        "accent-indigo": "#10B981", // emerald-500
+        "accent-fuchsia": "#059669", // emerald-600
+        "accent-rose": "#047857", // emerald-700
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
