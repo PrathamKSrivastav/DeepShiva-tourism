@@ -243,7 +243,7 @@ export const fetchCrowd = async () => {
     console.error("Error fetching crowd data:", error);
     throw error;
   }
-};
+};    
 
 export const fetchFestivals = async () => {
   try {
@@ -265,4 +265,49 @@ export const fetchEmergency = async () => {
   }
 };
 
+
+
+// ============= AUDIO APIs (NEW) =============
+
+/**
+ * Send audio recording to backend for transcription and response
+ * @param {Blob} audioBlob - Audio recording blob
+ * @param {string} persona - Selected persona
+ * @param {string} sessionId - Current session ID (optional)
+ * @returns {Promise} Response with transcription and chat response
+ */
+export const sendAudioMessage = async (audioBlob, persona, sessionId = null) => {
+  try {
+    console.log('🎤 Sending audio message...');
+    console.log('   Audio size:', audioBlob.size, 'bytes');
+    console.log('   Persona:', persona);
+    console.log('   Session ID:', sessionId);
+
+    // Create FormData for file upload
+    const formData = new FormData();
+    formData.append('audio', audioBlob, 'recording.webm');
+    formData.append('persona', persona);
+    if (sessionId) {
+      formData.append('session_id', sessionId);
+    }
+
+    // Send to backend
+    const response = await apiClient.post('/chat/audio', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      timeout: 60000, // 60 seconds for audio processing
+    });
+
+    console.log('✅ Audio response received:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('❌ Error sending audio message:', error);
+    throw error;
+  }
+};
+
 export default apiClient;
+
+
+
