@@ -17,8 +17,8 @@ class GroqService:
         self.api_key = os.getenv("GROQ_API_KEY")
         self.model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
-        self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "1000"))
-        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "10"))
+        self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
+        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "30")) #10-> 30
         
         # Initialize RAG components
         self.vector_store = None
@@ -85,28 +85,30 @@ class GroqService:
         message: str,
         persona: str,
         intent: str,
-        context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
-        tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
+        context: Optional[Dict[str, Any]] = None,   # Optional with default
+        tool_context: Optional[Dict[str, Any]] = None,   # Optional, kept
         conversation_history: Optional[List[Dict[str, Any]]] = None,
-        tools: Optional[List[Dict[str, Any]]] = None
+        tools: Optional[List[Dict[str, Any]]] = None,
+        rag_context: Optional[Dict[str, Any]] = None,
     ) -> Tuple[str, List[str]]:
-
-
         """
-        Generate response using Groq API with RAG enhancement and conversation history
+        Generate response using Groq API with (precomputed) RAG enhancement and conversation history.
+        RAG must be computed outside and passed in via rag_context.
         """
         if not self.client:
             raise Exception("Groq API client not initialized")
-    
-        # Ensure context is not None
-        context = context or {}  # ← ADD THIS LINE
 
-        # Enhance query with RAG context
-        rag_context = await self._get_rag_context(message, persona, intent, context or {})
+        # Ensure context is not None
+        context = context or {}
+
+        # Use precomputed RAG context from caller (no internal RAG call here)
+        rag_context = rag_context or {"has_rag_context": False}
 
         # Build persona-specific system message with RAG
-        system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
-        
+        system_message = self._build_system_message_with_rag(
+            persona, intent, rag_context, tool_context
+        )
+
         # Create the user message
         user_message = self._build_user_message(message, persona, intent, context)
 
@@ -114,15 +116,15 @@ class GroqService:
             def sync_request():
                 # Build messages array with conversation history
                 messages = [{"role": "system", "content": system_message}]
-                
+
                 # ADD CONVERSATION HISTORY (last 4 messages)
                 if conversation_history:
                     logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
                     messages.extend(conversation_history)
-                
+
                 # Add current user message
                 messages.append({"role": "user", "content": user_message})
-                
+
                 # Prepare API arguments
                 kwargs = {
                     "model": self.model_name,
@@ -130,14 +132,13 @@ class GroqService:
                     "max_tokens": self.max_tokens,
                     "temperature": self.temperature,
                 }
-                
+
                 # Add tools if provided
                 if tools:
                     kwargs["tools"] = tools
                     kwargs["tool_choice"] = "auto"
-                
-                return self.client.chat.completions.create(**kwargs)
 
+                return self.client.chat.completions.create(**kwargs)
 
             loop = asyncio.get_event_loop()
             response = await asyncio.wait_for(
@@ -146,14 +147,14 @@ class GroqService:
             )
 
             message_response = response.choices[0].message
-            
+
             # CHECK FOR TOOL CALLS
             if message_response.tool_calls:
                 logger.info(f"🛠️ LLM requested {len(message_response.tool_calls)} tool calls")
                 return {
                     "type": "tool_call",
                     "tool_calls": message_response.tool_calls,
-                    "message": message_response  # Return full message object for history
+                    "message": message_response,  # Return full message object for history
                 }
 
             # STANDARD TEXT RESPONSE
@@ -164,29 +165,31 @@ class GroqService:
                 response_text = self._add_rag_citations(response_text, rag_context)
 
             # Generate contextual suggestions
-            suggestions = await self._generate_suggestions_with_rag(message, persona, intent, rag_context)
-            
+            suggestions = await self._generate_suggestions_with_rag(
+                message, persona, intent, rag_context
+            )
+
             return {
                 "type": "text",
                 "response": response_text,
-                "suggestions": suggestions
+                "suggestions": suggestions,
             }
-
 
         except asyncio.TimeoutError:
             raise Exception("Groq API request timed out")
         except Exception as e:
             logger.error(f"Groq API error: {str(e)}")
             raise Exception(f"Groq API failed: {str(e)[:100]}")
+
     
     async def _get_rag_context(
-        self, 
-        message: str, 
-        persona: str, 
-        intent: str, 
+        self,
+        message: str,
+        persona: str,
+        intent: str,
         context: Dict[str, Any]
     ) -> Dict[str, Any]:
-        """Get RAG context for the query"""
+        """Get RAG context for the query (TRUNCATED)"""
         if not self.persona_rag:
             return {"has_rag_context": False}
         
@@ -198,38 +201,45 @@ class GroqService:
                 context=context
             )
             
+            # ✅ TRUNCATE RAG CONTEXT TO SAVE TOKENS
+            if rag_context.get("formatted_context"):
+                original_length = len(rag_context["formatted_context"])
+                rag_context["formatted_context"] = rag_context["formatted_context"][:1200]  # Max 1200 chars
+                logger.debug(f"RAG context truncated: {original_length} → {len(rag_context['formatted_context'])} chars")
+            
             logger.debug(f"RAG docs: {rag_context.get('retrieved_doc_count', 0)}")
             return rag_context
             
         except Exception as e:
             logger.error(f"Error getting RAG context: {str(e)}")
             return {"has_rag_context": False, "error": str(e)}
+
     
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any], tool_context: Dict[str, Any]) -> str:
         """Build persona-specific system message enhanced with RAG context"""
         
-        base_context = """You are a PAN-INDIA AI knowledge assistant for travel, culture, spirituality, and local insights across India. You have access to two tools: `geocode_location` and `get_weather`.
+        base_context = f"""You are a PAN-INDIA travel assistant with tools: geocode_location, get_weather, search_treks.
+        TOOLS
+        - Use tools for live info (weather, current status).
+        - Use RAG only for static background.
+        - If tools and RAG differ, follow tools.
 
-        PRIORITY & CONFLICT RESOLUTION:
-        1.  **Live Tools First**: For any dynamic query (e.g., "weather", "climate", "temperature", "current status"), you MUST use tools. Tool data is always more current and accurate than RAG context.
-        2.  **RAG Context Second**: Use RAG for static, historical, or general knowledge (e.g., itineraries, culture, history).
-        3.  **Conflict Rule**: Even if the RAG context contains general weather information (like "it is cold in winter"), you MUST STILL call the `get_weather` tool for a live forecast. Do not let RAG context prevent you from using tools for live data.
+        TREKS
+        - Any trek/trekking/hike query → MUST call search_treks.
+        - Use region / trek_name as given.
+        - Recommend ONLY treks returned by search_treks, not from RAG.
 
-        TOOL USAGE RULES:
-        - If the user asks for "current", "today's", or "now" weather, you MUST use `geocode_location` first, then `get_weather`.
-        - Do NOT guess or hallucinate weather data.
-        - If you need a location's coordinates, call `geocode_location`.
-        - Do NOT output tool calls as text (like <function...>); use the proper tool call structure.
+        FACTS
+        - Do NOT invent numbers (km, days, altitude, prices, “250+ treks”, etc.).
+        - If a number is not provided, use vague wording (“long drive”, “multi-day trip”) or admit uncertainty.
+        - Do NOT mention internal tools or “my database” in answers.
 
-        CORE RULES:
-        - Do NOT assume a state, city, or region unless explicitly mentioned.
-        - If tool data is present, it is the single source of truth. Summarize it naturally.
+        STYLE
+        - Brief: 3-6 bullets or a short paragraph.
+        - Practical, user-focused.
+        - Answer in the user's language.
 
-        RESPONSE STYLE:
-        - Default responses must be SHORT (3-6 bullet points or a short paragraph).
-
-        Current date: {date.today().isoformat()}.
-        IMPORTANT: Keep responses under 800 words, conversational, and informative.
+        Date: {date.today().isoformat()}.
         """
 
         
@@ -283,6 +293,29 @@ class GroqService:
             """
             logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
         
+        if tool_context and tool_context.get("treks"):
+            trek_data = tool_context["treks"]
+            base_context += f"""
+
+        --- LIVE TREK DATA ---
+        Source: {trek_data.get('source', 'unknown')} ({'Fallback Dataset' if trek_data.get('using_fallback') else 'Live API'})
+
+        Found {trek_data.get('trek_count', 0)} treks in {trek_data.get('region', 'searched area')}:
+
+        """
+        #-------------- disabled to have less token consumption --------------
+        # for trek in trek_data.get('treks', [])[:5]:  # Show top 5
+        #     base_context += f"""
+        # Trek: {trek['name']}
+        # - Difficulty: {trek.get('difficulty', 'Unknown')}
+        # - Duration: {trek.get('duration', 'Unknown')}
+        # - Altitude: {trek.get('altitude', 'Unknown')}
+        # - Best Time: {trek.get('best_time', 'Unknown')}
+        # - Description: {trek.get('description', 'N/A')[:200]}
+        # """
+
+        #     base_context += "\nUse this data to provide accurate trek recommendations.\n"
+        
         persona_instructions = {
             "local_guide": """
             You are a FRIENDLY LOCAL GUIDE - warm, conversational, and practical. 
@@ -329,20 +362,27 @@ class GroqService:
     def _build_user_message(self, message: str, persona: str, intent: str, context: Dict[str, Any]) -> str:
         """Build the complete user message with context"""
         context_info = ""
+        
         if intent in ["weather", "crowd", "festival", "emergency"]:
             context_info = f"\n\nUser's query seems related to {intent}. Use current information for India."
         
+        # ✅ ADD THIS: Include extracted trek info
+        if intent == "trekking":
+            if context.get('extracted_region'):
+                context_info += f"\n\n🏔️ IMPORTANT: User is asking about treks near/in {context['extracted_region']}. Use this region in your search_treks tool call."
+            if context.get('extracted_trek_name'):
+                context_info += f"\n🎯 Specific trek mentioned: {context['extracted_trek_name']}"
+        
         user_message = f"""
         User Query: {message}
-        
         Detected Intent: {intent}
         {context_info}
-        
-        Please respond as the {persona.replace('_', ' ').title()} persona. 
+
+        Please respond as the {persona.replace('_', ' ').title()} persona.
         Focus on India-specific information and use any available source context naturally.
         """
-        
         return user_message
+
     
     def _add_rag_citations(self, response_text: str, rag_context: Dict[str, Any]) -> str:
         """Add RAG source citations to the response"""
