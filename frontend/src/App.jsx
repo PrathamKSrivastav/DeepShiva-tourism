@@ -2,27 +2,26 @@ import { useState, useEffect } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ChatWindow from "./components/ChatWindow";
-import PersonaSelector from "./components/PersonaSelector";
 import LoginButton from "./components/LoginButton";
 import UserDropdown from "./components/UserDropdown";
 import ChatHistorySidebar from "./components/ChatHistorySidebar";
 import { fetchPersonas } from "./api";
+import { useNavigate } from "react-router-dom"; 
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function AppContent() {
   const [personas, setPersonas] = useState([]);
-  // ✅ Default state: Fresh chat with Local Guide persona
   const [selectedPersona, setSelectedPersona] = useState("local_guide");
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedChat, setSelectedChat] = useState(null); // null = new chat
+  const [selectedChat, setSelectedChat] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [darkMode, setDarkMode] = useState(true);
   const [chatSessions, setChatSessions] = useState([]);
-  const [currentSessionId, setCurrentSessionId] = useState(null); // null = no session yet
-  const [newChatTrigger, setNewChatTrigger] = useState(Date.now()); // triggers welcome message
-  const [personaSelectorOpen, setPersonaSelectorOpen] = useState(false);
+  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [newChatTrigger, setNewChatTrigger] = useState(Date.now());
   const { isAuthenticated } = useAuth();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchPersonas().then((d) => setPersonas(d.personas));
@@ -33,69 +32,52 @@ function AppContent() {
     else document.documentElement.classList.remove("dark");
   }, [darkMode]);
 
-  // Clear chat sessions on logout
   useEffect(() => {
     const handleLogout = () => {
-      console.log('🧹 Clearing chat sessions on logout');
+      console.log("🧹 Clearing chat sessions on logout");
       setChatSessions([]);
       setSelectedChat(null);
       setCurrentSessionId(null);
       setNewChatTrigger(Date.now());
     };
 
-    window.addEventListener('user-logout', handleLogout);
-    
-    return () => {
-      window.removeEventListener('user-logout', handleLogout);
-    };
+    window.addEventListener("user-logout", handleLogout);
+    return () => window.removeEventListener("user-logout", handleLogout);
   }, []);
 
- const handlePersonaSwitch = (personaId, existingChat) => {
-   console.log(`🔄 handlePersonaSwitch called:`, {
-     personaId,
-     existingChat: existingChat?._id,
-     currentPersona: selectedPersona,
-   });
+  const handlePersonaSwitch = (personaId, existingChat) => {
+    console.log(`🔄 handlePersonaSwitch called:`, {
+      personaId,
+      existingChat: existingChat?._id,
+    });
+    setSelectedPersona(personaId);
 
-   // Always update persona
-   setSelectedPersona(personaId);
+    if (existingChat) {
+      console.log(`✅ Loading existing chat: ${existingChat._id}`);
+      setSelectedChat(existingChat);
+      setCurrentSessionId(existingChat._id);
+    } else {
+      console.log(`✨ Starting fresh chat for ${personaId}`);
+      setSelectedChat(null);
+      setCurrentSessionId(null);
+      setNewChatTrigger(Date.now());
+    }
+  };
 
-   if (existingChat) {
-     // Switch to existing chat
-     console.log(`✅ Loading existing chat: ${existingChat._id}`);
-     setSelectedChat(existingChat);
-     setCurrentSessionId(existingChat._id);
-   } else {
-     // Create new chat
-     console.log(`✨ Starting fresh chat for ${personaId}`);
-     setSelectedChat(null);
-     setCurrentSessionId(null);
-     setNewChatTrigger(Date.now());
-   }
+  const handleSelectChatFromSidebar = (chat) => {
+    if (chat) {
+      console.log(`📖 Selected chat from sidebar: ${chat._id}`);
+      setSelectedChat(chat);
+      setCurrentSessionId(chat._id);
+      if (chat.persona !== selectedPersona) {
+        setSelectedPersona(chat.persona);
+      }
+    } else {
+      setSelectedChat(null);
+      setCurrentSessionId(null);
+    }
+  };
 
-   // Close mobile persona selector if open
-   if (personaSelectorOpen) {
-     setPersonaSelectorOpen(false);
-   }
- };
-
- // Handle chat selection from sidebar
- const handleSelectChatFromSidebar = (chat) => {
-   if (chat) {
-     console.log(`📖 Selected chat from sidebar: ${chat._id}`);
-     setSelectedChat(chat);
-     setCurrentSessionId(chat._id);
-     // ✅ Also update persona if chat is from different persona
-     if (chat.persona !== selectedPersona) {
-       setSelectedPersona(chat.persona);
-     }
-   } else {
-     // Clear selection
-     setSelectedChat(null);
-     setCurrentSessionId(null);
-   }
- };
- 
   return (
     <div
       className={`h-screen flex flex-col ${
@@ -104,9 +86,8 @@ function AppContent() {
           : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
       }`}
     >
-      {/* Header */}
       <header
-        className={`h-16 border-b flex items-center px-6 justify-between flex-shrink-0 ${
+        className={`h-20 border-b flex items-center px-6 justify-between flex-shrink-0 ${
           darkMode
             ? "bg-dark-surface border-dark-border"
             : "bg-white border-gray-200"
@@ -120,15 +101,16 @@ function AppContent() {
           }`}
           onClick={() => setSidebarOpen(true)}
         >
-          History
+          ☰
         </button>
 
-        <h1 className="font-heading font-semibold text-lg tracking-tight">
-          Deep Shiva Tourism
-        </h1>
+        <img
+          src="/header-icon.png"
+          alt="Deep Shiva Tourism"
+          className="h-14 w-auto rounded-lg"
+        />
 
         <div className="flex items-center gap-4">
-          {/* Dark Mode Toggle */}
           <button
             onClick={() => setDarkMode((v) => !v)}
             className={`p-2 rounded-lg transition-colors ring-1 ${
@@ -141,6 +123,18 @@ function AppContent() {
             {darkMode ? "☀️" : "🌙"}
           </button>
 
+          <button
+            onClick={() => navigate("/emergency")}
+            className={`px-3 py-2 rounded-lg font-semibold transition-colors ring-1 flex items-center gap-2 ${
+              darkMode
+                ? "bg-dark-elev ring-dark-border text-emerald-300 hover:bg-dark-elev/90"
+                : "bg-white/80 ring-gray-200 text-emerald-600 hover:bg-white"
+            }`}
+            title="View emergency helplines"
+          >
+            🆘 <span className="hidden sm:inline">Help</span>
+          </button>
+
           {!isAuthenticated && <LoginButton darkMode={darkMode} />}
           {isAuthenticated && <UserDropdown darkMode={darkMode} />}
         </div>
@@ -148,17 +142,13 @@ function AppContent() {
 
       {/* Main Layout */}
       <main className="flex-1 overflow-hidden">
-        <div
-          className={`h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6 ${
-            darkMode ? "" : ""
-          }`}
-        >
+        <div className="h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6">
           <div className="flex gap-4 lg:gap-6 h-full">
             {/* LEFT: History Sidebar */}
             <ChatHistorySidebar
               currentPersona={selectedPersona}
-              selectedChatId={currentSessionId} // ✅ Pass current selection
-              onSelectChat={handleSelectChatFromSidebar} // ✅ Use new handler
+              selectedChatId={currentSessionId}
+              onSelectChat={handleSelectChatFromSidebar}
               onNewChat={() => {
                 setSelectedChat(null);
                 setCurrentSessionId(null);
@@ -171,7 +161,7 @@ function AppContent() {
               onSessionsUpdate={setChatSessions}
             />
 
-            {/* CENTER: Chat Window */}
+            {/* CENTER: Chat Window (now takes full width) */}
             <div className="flex-1 min-w-0">
               <ChatWindow
                 selectedPersona={selectedPersona}
@@ -179,26 +169,9 @@ function AppContent() {
                 currentSessionId={currentSessionId}
                 newChatTrigger={newChatTrigger}
                 personas={personas}
-                onPersonaChange={setSelectedPersona}
+                onPersonaChange={handlePersonaSwitch}
                 onSessionCreated={setCurrentSessionId}
                 onNewChatCreated={() => setRefreshTrigger((prev) => prev + 1)}
-                personaSelectorOpen={personaSelectorOpen}
-                onPersonaSelectorToggle={setPersonaSelectorOpen}
-                darkMode={darkMode}
-              />
-            </div>
-            {/* RIGHT: Persona Selector */}
-            <div
-              className={`hidden lg:block w-80 xl:w-96 flex-shrink-0 ${
-                darkMode
-                  ? "bg-dark-surface rounded-lg shadow-lg p-4 overflow-y-auto border border-dark-border"
-                  : "bg-white rounded-lg shadow-lg p-4 overflow-y-auto"
-              }`}
-            >
-              <PersonaSelector
-                personas={personas}
-                selectedPersona={selectedPersona}
-                onSelectPersona={handlePersonaSwitch}
                 darkMode={darkMode}
                 chatSessions={chatSessions}
               />
@@ -213,4 +186,3 @@ function AppContent() {
 export default function App() {
   return <AppContent />;
 }
-
