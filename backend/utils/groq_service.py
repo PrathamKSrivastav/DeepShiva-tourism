@@ -18,7 +18,7 @@ class GroqService:
         self.model_name = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
-        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "30")) #10-> 30
+        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "60")) #10-> 30
         logger.info(f"🤖 Groq Model: {self.model_name}")
         
         # Initialize RAG components
