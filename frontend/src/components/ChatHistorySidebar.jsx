@@ -21,6 +21,8 @@ function ChatHistorySidebar({
   const [selectedChatId, setSelectedChatId] = useState(null);
   const [renamingChatId, setRenamingChatId] = useState(null);
   const [newTitle, setNewTitle] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [chatToDelete, setChatToDelete] = useState(null);
   const { isAuthenticated } = useAuth();
   const [isDesktop, setIsDesktop] = useState(true);
   
@@ -75,20 +77,32 @@ const [selectedSessionForSummary, setSelectedSessionForSummary] = useState(null)
     if (!isDesktop) onToggle();
   };
 
-  const handleDeleteChat = async (chatId, e) => {
+  const handleDeleteClick = (chat, e) => {
     e.stopPropagation();
-    if (!confirm("Delete this conversation?")) return;
+    setChatToDelete(chat);
+    setDeleteDialogOpen(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!chatToDelete) return;
 
     try {
-      await deleteChat(chatId);
-      setChatSessions((prev) => prev.filter((c) => c._id !== chatId));
-      if (selectedChatId === chatId) {
+      await deleteChat(chatToDelete._id);
+      setChatSessions((prev) => prev.filter((c) => c._id !== chatToDelete._id));
+      if (selectedChatId === chatToDelete._id) {
         setSelectedChatId(null);
       }
+      setDeleteDialogOpen(false);
+      setChatToDelete(null);
     } catch (error) {
       console.error("Error deleting chat:", error);
       alert("Failed to delete conversation");
     }
+  };
+
+  const cancelDelete = () => {
+    setDeleteDialogOpen(false);
+    setChatToDelete(null);
   };
 
   const handleNewChat = async () => {
@@ -307,11 +321,19 @@ const handleCloseSummaryModal = () => {
 
                     {/* Delete Button */}
                     <button
+<<<<<<< HEAD
                       onClick={(e) => handleDeleteChat(chat._id, e)}
                       className={`p-1.5 rounded transition-colors ${
                         darkMode
                           ? "bg-gray-700 text-red-400 hover:bg-red-900/30 border border-gray-600"
                           : "bg-white text-red-600 hover:bg-red-50 border border-gray-200"
+=======
+                      onClick={(e) => handleDeleteClick(chat, e)}
+                      className={`p-1 rounded transition-colors ${
+                        darkMode
+                          ? "text-dark-muted hover:bg-dark-elev/50 hover:text-red-400"
+                          : "text-gray-400 hover:bg-red-50 hover:text-red-600"
+>>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
                       }`}
                       title="Delete chat"
                     >
@@ -364,6 +386,7 @@ const handleCloseSummaryModal = () => {
     </div>
   );
 
+<<<<<<< HEAD
   // Mobile/Desktop rendering logic
   if (!isDesktop) {
     return (
@@ -396,6 +419,116 @@ const handleCloseSummaryModal = () => {
         
         />
       </>
+=======
+  /* Delete Confirmation Dialog */
+  const DeleteDialog = () => (
+    <>
+      {/* Overlay */}
+      <div
+        className={`fixed inset-0 z-[60] transition-opacity duration-200 ${
+          deleteDialogOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          backgroundColor: deleteDialogOpen
+            ? darkMode
+              ? "rgba(0, 0, 0, 0.7)"
+              : "rgba(0, 0, 0, 0.5)"
+            : "transparent",
+          backdropFilter: deleteDialogOpen ? "blur(4px)" : "none",
+        }}
+        onClick={cancelDelete}
+      />
+
+      {/* Dialog */}
+      <div
+        className={`fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[70] transform transition-all duration-200 ${
+          deleteDialogOpen
+            ? "scale-100 opacity-100"
+            : "scale-95 opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`rounded-2xl shadow-2xl border ${
+            darkMode
+              ? "bg-dark-surface border-dark-border"
+              : "bg-white border-gray-200"
+          } p-6 max-w-sm w-full mx-4`}
+        >
+          {/* Icon */}
+          <div className="flex justify-center mb-4">
+            <div
+              className={`w-14 h-14 rounded-full flex items-center justify-center text-2xl ${
+                darkMode
+                  ? "bg-red-500/10 text-red-400"
+                  : "bg-red-100 text-red-600"
+              }`}
+            >
+              ⚠️
+            </div>
+          </div>
+
+          {/* Title */}
+          <h3
+            className={`text-lg font-semibold text-center mb-2 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Delete Conversation?
+          </h3>
+
+          {/* Message */}
+          <p
+            className={`text-sm text-center mb-6 ${
+              darkMode ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            {chatToDelete && (
+              <>
+                Are you sure you want to delete "
+                <span className="font-semibold">
+                  {chatToDelete.title || "New Conversation"}
+                </span>
+                "? This action cannot be undone.
+              </>
+            )}
+          </p>
+
+          {/* Buttons */}
+          <div className="flex gap-3">
+            <button
+              onClick={cancelDelete}
+              className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${
+                darkMode
+                  ? "bg-dark-elev text-slate-100 hover:bg-dark-elev/80 border border-dark-border"
+                  : "bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-200"
+              }`}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={confirmDelete}
+              className={`flex-1 px-4 py-2.5 rounded-lg font-medium transition-all ${
+                darkMode
+                  ? "bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-900/20"
+                  : "bg-red-600 text-white hover:bg-red-700 shadow-lg shadow-red-600/20"
+              }`}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+
+  /* Desktop View */
+  if (isDesktop) {
+    return (
+      <aside className="w-72 h-full flex-shrink-0 relative z-10">
+        <SidebarContent />
+        <DeleteDialog />
+      </aside>
+>>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
     );
   }
 
@@ -413,8 +546,20 @@ const handleCloseSummaryModal = () => {
         onDownloadPdf={handleDownloadSummary}
         isDownloading={isDownloadingSummary}
       />
+<<<<<<< HEAD
 
     </div>
+=======
+      <div
+        className={`fixed left-0 top-0 h-full w-72 z-50 transform transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] shadow-2xl ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        <SidebarContent />
+      </div>
+      <DeleteDialog />
+    </>
+>>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
   );
 }
 

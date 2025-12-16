@@ -19,6 +19,9 @@ function AppContent() {
   const [darkMode, setDarkMode] = useState(true); // default to polished dark
   const { isAuthenticated } = useAuth();
 
+useEffect(() => {
+}, [isAuthenticated]);
+
   useEffect(() => {
     fetchPersonas().then((d) => setPersonas(d.personas));
   }, []);
@@ -132,11 +135,6 @@ function AppContent() {
 }
 
 export default function App() {
-  return (
-    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
-    </GoogleOAuthProvider>
-  );
+  return <AppContent />;
 }
+
