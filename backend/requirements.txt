@@ -45,3 +45,6 @@
     google-auth-httplib2
 
     llama-cpp-python==0.2.90
+
+    pandas>=2.0.0
+    kagglehub>=0.2.0

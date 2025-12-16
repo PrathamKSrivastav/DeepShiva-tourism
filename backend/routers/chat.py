@@ -5,7 +5,7 @@ import asyncio
 import logging
 from datetime import datetime
 from utils.groq_service import GroqService
-from utils.intents import classify_intent
+from utils.intents import classify_intent, extract_trek_info, is_trek_query
 from utils.persona_templates import generate_response as generate_local_response
 from utils.connection_checker import check_internet_connection
 from utils.database import get_database
@@ -17,6 +17,7 @@ from tools.tool_router import decide_tools
 from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
 from tools.holiday_tool import get_indian_holidays
+from tools.trek_tool import search_treks
 
 from localmodel.llm_engine import LLMEngine
 
@@ -67,19 +68,39 @@ def get_tools_schema():
             "type": "function",
             "function": {
                 "name": "get_indian_holidays",
-                "description": "Get a list of public holidays and festivals in India for a specific year. Useful for queries about festivals, holidays, or planning dates.",
+                "description": "Get public holidays for India (or specific country) for a given year/month.",
+                "parameters": {
+                    "type": "object", 
+                    "properties": {
+                        "year": {"type": "integer", "description": "Year (e.g. 2025)"},
+                        "month": {"type": "integer", "description": "Month (1-12)"},
+                        "country_code": {"type": "string", "description": "ISO Code (default 'IN')"}
+                    }, 
+                    "required": ["year"]
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "search_treks",
+                "description": "Search for trekking trails and hiking routes in India. Returns detailed trek information including difficulty, duration, altitude, best time to visit, and descriptions. Use this for ANY trek-related queries including 'treks near X', 'best treks in Y', 'tell me about Z trek'.",
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "year": {
-                            "type": "integer", 
-                            "description": "The year to get holidays for (e.g. 2025). Defaults to current year if omitted."
+                        "region": {
+                            "type": "string",
+                            "description": "Indian state or region name (e.g. 'Himachal Pradesh', 'Uttarakhand', 'Ladakh', 'Sikkim', 'Kashmir', 'Maharashtra', 'Karnataka'). Extract from queries like 'treks near Agra' -> 'Uttarakhand' (nearest trekking state)."
+                        },
+                        "trek_name": {
+                            "type": "string",
+                            "description": "Specific trek name to search for (e.g. 'Hampta Pass', 'Valley of Flowers', 'Kedarnath Trek', 'Roopkund'). Only use if user mentions a specific trek name."
                         }
                     },
                     "required": []
                 }
             }
-        }
+        },
     ]
     
 def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
@@ -111,6 +132,17 @@ CRITICAL RULES:
     {rag_context.get('formatted_context', '')[:1500]}
 
     """
+    if rag_context.get("trek_hints"):
+        hints = rag_context["trek_hints"]
+        base_prompt += f"""
+        USER QUERY CONTEXT:
+        The user is asking about treks/hiking.
+        """
+        if hints.get("trek_name"):
+            base_prompt += f"- Specific Trek: {hints['trek_name']}\n"
+        if hints.get("region"):
+            base_prompt += f"- Region of Interest: {hints['region']}\n"
+        base_prompt += "\n"
     
     # Add persona-specific tone (simplified)
     persona_tones = {
@@ -384,6 +416,24 @@ async def chat(
     tool_context = {}
     intent = classify_intent(request.message)
     
+    # Initialize context for the session
+    context = request.context or {}
+
+    # Later when checking for trek queries, update context:
+    if intent == "trekking" or is_trek_query(request.message):
+        trek_name, region = extract_trek_info(request.message)
+        
+        logger.info(f"🏔️ Trek Query Detected!")
+        logger.info(f"   - Extracted Trek Name: {trek_name or 'Not specified'}")
+        logger.info(f"   - Extracted Region: {region or 'Not specified'}")
+        
+        # Update existing context
+        if region:
+            context['extracted_region'] = region
+        if trek_name:
+            context['extracted_trek_name'] = trek_name
+
+    
     # Fetch conversation history
     if session_id and current_user:
         try:
@@ -399,7 +449,7 @@ async def chat(
     if request.use_rag and groq_service.persona_rag:
         try:
             rag_context = await groq_service._get_rag_context(
-                request.message, request.persona, intent, request.context or {}
+                request.message, request.persona, intent, context  # 👈 use enriched context
             )
         except Exception as e:
             logger.warning(f"⚠️ RAG failed: {str(e)}")
@@ -435,11 +485,13 @@ async def chat(
                         message=request.message,
                         persona=request.persona,
                         intent=intent,
-                        context=request.context or {},
+                        context=context,
                         tool_context=tool_context,
                         conversation_history=conversation_history,
-                        tools=tools_schema
+                        tools=tools_schema,
+                        rag_context=rag_context,  # 👈 reuse same RAG for all turns
                     )
+
                     
                     # CASE A: LLM wants to call tools
                     if result["type"] == "tool_call":
@@ -510,6 +562,16 @@ async def chat(
                                     # Join first 50 items to avoid token overflow
                                     tool_result = "\n".join(simplified_list[:50])
                                     
+                                    
+                            elif func_name == "search_treks":
+                                logger.info(f"🏔️ Calling Trek Search: {args}")
+                                tool_result = await search_treks(
+                                    region=args.get('region'),
+                                    trek_name=args.get('trek_name')
+                                )
+                                if tool_result:
+                                    tool_context["treks"] = tool_result
+                                    logger.info(f"✅ Found {tool_result.get('trek_count', 0)} treks")
                             
                             # Add tool result to history
                             conversation_history.append({
@@ -732,7 +794,12 @@ def get_local_suggestions(intent: str, persona: str) -> list[str]:
         "weather": ["Best time to visit?", "Monsoon season?"],
         "itinerary": ["Char Dham route?", "How many days?"],
         "spiritual": ["Temple legends", "Kedarnath significance"],
-        "trekking": ["Valley of Flowers", "Trekking gear"],
+        "trekking": [
+            "Best treks in Himachal Pradesh", 
+            "Tell me about Valley of Flowers", 
+            "Beginner treks in Uttarakhand",
+            "When to trek in Ladakh"
+        ],
     }
     return base_suggestions.get(intent, base_suggestions["general"])
 

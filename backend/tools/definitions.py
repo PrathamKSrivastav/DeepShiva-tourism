@@ -32,6 +32,27 @@ tools_schema = [
     {
         "type": "function",
         "function": {
+            "name": "search_treks",
+            "description": "Search for trekking trails and hiking routes in India. Returns detailed trek information including difficulty, duration, altitude, best time to visit, and descriptions. Use this for ANY trek-related queries including 'treks near X', 'best treks in Y', 'tell me about Z trek'.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "region": {
+                        "type": "string",
+                        "description": "Indian state or region name (e.g. 'Himachal Pradesh', 'Uttarakhand', 'Ladakh', 'Sikkim', 'Kashmir', 'Maharashtra', 'Karnataka'). Extract from queries like 'treks near Agra' -> 'Uttarakhand' (nearest trekking state)."
+                    },
+                    "trek_name": {
+                        "type": "string",
+                        "description": "Specific trek name to search for (e.g. 'Hampta Pass', 'Valley of Flowers', 'Kedarnath Trek', 'Roopkund'). Only use if user mentions a specific trek name."
+                    }
+                },
+            "required": []
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "get_indian_holidays",
             "description": "Get a list of public holidays and festivals in India for a specific year. useful for planning trips or checking dates.",
             "parameters": {
