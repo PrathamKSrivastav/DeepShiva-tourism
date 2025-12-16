@@ -15,7 +15,7 @@ class GroqService:
         load_dotenv()
         
         self.api_key = os.getenv("GROQ_API_KEY")
-        self.model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+        self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
         self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "60")) #10-> 30 -> 60
