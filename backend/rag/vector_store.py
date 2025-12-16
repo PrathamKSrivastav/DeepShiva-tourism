@@ -23,8 +23,8 @@ class VectorStoreManager:
         self.client = chromadb.PersistentClient(
             path=str(self.persist_directory),
             settings=Settings(
-                anonymized_telemetry=False,
-                allow_reset=True
+                anonymized_telemetry=True,
+                allow_reset=True,
             )
         )
         

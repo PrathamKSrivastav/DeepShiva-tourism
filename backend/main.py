@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
+
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
     description="Multi-persona AI chatbot with RAG, Groq API + Google OAuth authentication",

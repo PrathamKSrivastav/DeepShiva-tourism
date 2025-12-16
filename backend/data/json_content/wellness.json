@@ -218,5 +218,42 @@
       "avoid_common_mistake": "Goal is to remain aware, not sleep. If you fall asleep, practice at different time when more alert. 30 minutes Yoga Nidra equals 2-3 hours deep sleep in restorative power.",
       "related_contexts": ["Deep relaxation", "Sleep aid", "Stress recovery", "Jet lag"]
     }
+  ],
+  "health_advisories": [
+    {
+      "topic": "Altitude Sickness (Acute Mountain Sickness - AMS)",
+      "description": "A condition caused by rapid exposure to high altitude with lower oxygen levels. Early recognition and correct response are critical.",
+      "common_symptoms": [
+        "Shortness of breath (often noticed during yawning)",
+        "Headache",
+        "Nausea",
+        "Vomiting or feeling like vomiting",
+        "Red, watery eyes",
+        "General discomfort or uneasiness"
+      ],
+      "immediate_remedies": [
+        "Stabilize breathing and heart rate",
+        "Drink plenty of water to stay hydrated",
+        "Take adequate rest and avoid physical exertion",
+        "Avoid sleeping initially until symptoms stabilize",
+        "Lemon juice or salt water may help with hydration and electrolyte balance"
+      ],
+      "medication_notes": {
+        "diamox_acetazolamide": {
+          "usage": "Use only under medical advice",
+          "warning": "Not suitable for everyone; may cause serious side effects in some individuals"
+        },
+        "ibuprofen": {
+          "usage": "Can be used for headache at lower altitudes",
+          "warning": "Not preferred for use at high altitude"
+        }
+      },
+      "important_precautions": [
+        "People with spinal issues are not recommended to trek",
+        "Any existing medical condition must be pre-declared before trekking",
+        "Do not ignore early symptoms",
+        "Descend immediately if symptoms worsen"
+      ]
+    }
   ]
 }
