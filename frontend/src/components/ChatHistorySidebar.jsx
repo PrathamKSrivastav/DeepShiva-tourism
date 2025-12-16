@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { getChatHistory, deleteChat, updateSessionTitle } from "../api";
 import { useAuth } from "../context/AuthContext";
-import PdfExportButton from "./PdfExportButton";
 import { useSummaryGenerator } from "../hooks/useSummaryGenerator";
 import SummaryModal from "./SummaryModal";
+import { usePdfExport } from "../hooks/usePdfExport";
 
 function ChatHistorySidebar({
   currentPersona,
@@ -36,12 +36,15 @@ function ChatHistorySidebar({
     downloadSummaryPdf,
   } = useSummaryGenerator();
 
+  // PDF Export hook
+  const {
+    isLoading: isPdfExporting,
+    error: pdfError,
+    downloadPdf,
+  } = usePdfExport();
+
   const [summaryModalOpen, setSummaryModalOpen] = useState(false);
   const [summarySessionId, setSummarySessionId] = useState(null);
-
-  // For PDF export dropdown
-  const [pdfExportChatId, setPdfExportChatId] = useState(null);
-  const pdfButtonRef = useRef(null);
 
   useEffect(() => {
     const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -62,7 +65,6 @@ function ChatHistorySidebar({
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
-      // Close dropdown menu if clicking outside
       if (openMenuId && !e.target.closest(".dropdown-menu")) {
         setOpenMenuId(null);
       }
@@ -71,6 +73,13 @@ function ChatHistorySidebar({
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [openMenuId]);
+
+  // Show PDF export error as alert
+  useEffect(() => {
+    if (pdfError) {
+      alert(`PDF Export Error: ${pdfError}`);
+    }
+  }, [pdfError]);
 
   const loadChatHistory = async () => {
     setLoading(true);
@@ -106,33 +115,31 @@ function ChatHistorySidebar({
     setOpenMenuId(null);
   };
 
-const confirmDelete = async () => {
-  if (!chatToDelete) return;
+  const confirmDelete = async () => {
+    if (!chatToDelete) return;
 
-  try {
-    await deleteChat(chatToDelete._id);
-    setChatSessions((prev) => prev.filter((c) => c._id !== chatToDelete._id));
+    try {
+      await deleteChat(chatToDelete._id);
+      setChatSessions((prev) => prev.filter((c) => c._id !== chatToDelete._id));
 
-    // ✅ Notify parent to clear selection if needed
-    if (selectedChatId === chatToDelete._id) {
-      console.log("🗑️ Deleted currently selected chat, clearing selection");
-      onSelectChat(null);
+      if (selectedChatId === chatToDelete._id) {
+        console.log("🗑️ Deleted currently selected chat, clearing selection");
+        onSelectChat(null);
 
-      // ✅ Dispatch custom event to notify ChatWindow
-      window.dispatchEvent(
-        new CustomEvent("chat-deleted", {
-          detail: { chatId: chatToDelete._id },
-        })
-      );
+        window.dispatchEvent(
+          new CustomEvent("chat-deleted", {
+            detail: { chatId: chatToDelete._id },
+          })
+        );
+      }
+
+      setDeleteDialogOpen(false);
+      setChatToDelete(null);
+    } catch (error) {
+      console.error("Error deleting chat:", error);
+      alert("Failed to delete conversation");
     }
-
-    setDeleteDialogOpen(false);
-    setChatToDelete(null);
-  } catch (error) {
-    console.error("Error deleting chat:", error);
-    alert("Failed to delete conversation");
-  }
-};
+  };
 
   const cancelDelete = () => {
     setDeleteDialogOpen(false);
@@ -175,7 +182,6 @@ const confirmDelete = async () => {
     setSummarySessionId(chat._id);
     setOpenMenuId(null);
 
-    // Open modal first, then generate
     setSummaryModalOpen(true);
 
     try {
@@ -196,17 +202,16 @@ const confirmDelete = async () => {
     }
   };
 
-  const handleExportPdfClick = (chat, e) => {
+  // NEW: Handle chat PDF export using the hook
+  const handleExportPdfClick = async (chat, e) => {
     e.stopPropagation();
-    // Trigger PDF export directly using the ref
-    setPdfExportChatId(chat._id);
     setOpenMenuId(null);
 
-    // Trigger click on hidden PDF button
-    setTimeout(() => {
-      pdfButtonRef.current?.click();
-      setPdfExportChatId(null);
-    }, 0);
+    try {
+      await downloadPdf(chat._id, chat.title || "Chat");
+    } catch (error) {
+      console.error("PDF export failed:", error);
+    }
   };
 
   const SidebarContent = () => (
@@ -250,8 +255,8 @@ const confirmDelete = async () => {
           onClick={handleNewChat}
           className={`w-full py-2.5 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition ${
             darkMode
-              ? "bg-gradient-to-r from-accent-indigo to-accent-fuchsia text-white shadow-md hover:from-accent-indigo/95 hover:to-accent-fuchsia/95"
-              : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md"
+              ? "bg-gradient-to-r from-emerald-500 to-emerald-600 text-white shadow-md hover:from-emerald-600 hover:to-emerald-700"
+              : "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md"
           }`}
         >
           <span className="text-lg leading-none">+</span> Start New Chat
@@ -266,8 +271,8 @@ const confirmDelete = async () => {
               className="w-6 h-6 border-2 rounded-full animate-spin"
               style={{
                 borderColor: "transparent",
-                borderTopColor: "#6366F1",
-                borderLeftColor: darkMode ? "#6366F1" : undefined,
+                borderTopColor: "#10B981",
+                borderLeftColor: darkMode ? "#10B981" : undefined,
               }}
             />
           </div>
@@ -287,15 +292,15 @@ const confirmDelete = async () => {
               className={`group relative rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 border-2 ${
                 selectedChatId === chat._id
                   ? darkMode
-                    ? "bg-gradient-to-r from-accent-indigo/12 to-accent-fuchsia/8 border-accent-indigo shadow-[0_8px_24px_rgba(99,102,241,0.06)]"
-                    : "bg-indigo-100 border-indigo-500 shadow-md"
+                    ? "bg-gradient-to-r from-emerald-500/12 to-emerald-600/8 border-emerald-500 shadow-[0_8px_24px_rgba(16,185,129,0.06)]"
+                    : "bg-emerald-100 border-emerald-500 shadow-md"
                   : darkMode
                   ? "bg-dark-surface/40 border-transparent hover:bg-dark-elev/60 hover:border-dark-border"
                   : "bg-white/30 border-transparent hover:bg-white/50 hover:border-white/30"
               }`}
             >
               {selectedChatId === chat._id && (
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-gradient-to-b from-accent-indigo to-accent-fuchsia" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-gradient-to-b from-emerald-500 to-emerald-600" />
               )}
 
               {renamingChatId === chat._id ? (
@@ -308,7 +313,7 @@ const confirmDelete = async () => {
                     e.key === "Enter" && handleSaveTitle(chat._id)
                   }
                   autoFocus
-                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-accent-indigo/30 border ${
+                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-emerald-500/30 border ${
                     darkMode
                       ? "bg-dark-elev text-slate-100 border-dark-border"
                       : "bg-white/80"
@@ -322,7 +327,7 @@ const confirmDelete = async () => {
                         selectedChatId === chat._id
                           ? darkMode
                             ? "text-white"
-                            : "text-indigo-900"
+                            : "text-emerald-900"
                           : darkMode
                           ? "text-slate-100"
                           : "text-gray-700"
@@ -390,26 +395,33 @@ const confirmDelete = async () => {
                         {/* Export PDF */}
                         <button
                           onClick={(e) => handleExportPdfClick(chat, e)}
-                          className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2 transition-colors ${
+                          disabled={isPdfExporting}
+                          className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                             darkMode
                               ? "text-slate-100 hover:bg-dark-surface"
                               : "text-gray-700 hover:bg-gray-50"
                           }`}
                         >
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                            />
-                          </svg>
-                          <span>Export PDF</span>
+                          {isPdfExporting ? (
+                            <div className="w-4 h-4 border-2 border-emerald-500/30 border-t-emerald-500 rounded-full animate-spin" />
+                          ) : (
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                              />
+                            </svg>
+                          )}
+                          <span>
+                            {isPdfExporting ? "Exporting..." : "Export PDF"}
+                          </span>
                         </button>
 
                         <div
@@ -452,20 +464,6 @@ const confirmDelete = async () => {
           ))
         )}
       </div>
-
-      {/* Hidden PDF Export Button */}
-      {pdfExportChatId && (
-        <div className="hidden">
-          <PdfExportButton
-            sessionId={pdfExportChatId}
-            sessionTitle={
-              chatSessions.find((c) => c._id === pdfExportChatId)?.title
-            }
-            darkMode={darkMode}
-            variant="icon"
-          />
-        </div>
-      )}
     </div>
   );
 
@@ -539,22 +537,6 @@ const confirmDelete = async () => {
           isDownloading={isPdfLoading}
           darkMode={darkMode}
         />
-
-        {/* Hidden PDF Export Trigger */}
-        {pdfExportChatId && (
-          <div style={{ position: "absolute", left: "-9999px" }}>
-            <button ref={pdfButtonRef} onClick={() => {}}>
-              <PdfExportButton
-                sessionId={pdfExportChatId}
-                sessionTitle={
-                  chatSessions.find((c) => c._id === pdfExportChatId)?.title
-                }
-                darkMode={darkMode}
-                variant="primary"
-              />
-            </button>
-          </div>
-        )}
       </>
     );
   }

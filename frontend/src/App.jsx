@@ -87,14 +87,14 @@ function AppContent() {
       }`}
     >
       <header
-        className={`h-20 border-b flex items-center px-6 justify-between flex-shrink-0 ${
+        className={`h-20 border-b flex items-center px-4 sm:px-6 justify-between flex-shrink-0 ${
           darkMode
             ? "bg-dark-surface border-dark-border"
             : "bg-white border-gray-200"
         }`}
       >
         <button
-          className={`lg:hidden px-3 py-1 rounded-md transition ${
+          className={`lg:hidden px-3 py-2 rounded-md transition ${
             darkMode
               ? "border-dark-border text-slate-200 bg-dark-elev hover:bg-dark-elev/80"
               : "border-gray-300 text-gray-700 bg-white/60"
@@ -104,13 +104,21 @@ function AppContent() {
           ☰
         </button>
 
-        <img
-          src="/header-icon.png"
-          alt="Deep Shiva Tourism"
-          className="h-14 w-auto rounded-lg"
-        />
+        {/* Logo - Image on desktop, text on mobile */}
+        <div className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4">
+          <img
+            src="/header-icon.png"
+            alt="Deep Shiva Tourism"
+            className="h-14 w-auto rounded-lg hidden sm:block"
+          />
+          <h1
+            className={`sm:hidden text-base font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent px-2`}
+          >
+            Deep Shiva Tourism
+          </h1>
+        </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           <button
             onClick={() => setDarkMode((v) => !v)}
             className={`p-2 rounded-lg transition-colors ring-1 ${
@@ -125,7 +133,7 @@ function AppContent() {
 
           <button
             onClick={() => navigate("/emergency")}
-            className={`px-3 py-2 rounded-lg font-semibold transition-colors ring-1 flex items-center gap-2 ${
+            className={`px-2 sm:px-3 py-2 rounded-lg font-semibold transition-colors ring-1 flex items-center gap-1 sm:gap-2 ${
               darkMode
                 ? "bg-dark-elev ring-dark-border text-emerald-300 hover:bg-dark-elev/90"
                 : "bg-white/80 ring-gray-200 text-emerald-600 hover:bg-white"
@@ -139,7 +147,6 @@ function AppContent() {
           {isAuthenticated && <UserDropdown darkMode={darkMode} />}
         </div>
       </header>
-
       {/* Main Layout */}
       <main className="flex-1 overflow-hidden">
         <div className="h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6">

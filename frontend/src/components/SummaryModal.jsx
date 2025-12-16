@@ -62,8 +62,6 @@ const SummaryModal = ({
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Decorative gradient header background */}
-        
         {/* Header */}
         <div
           className={`relative z-10 flex items-center justify-between p-6 border-b ${
@@ -71,7 +69,7 @@ const SummaryModal = ({
           }`}
         >
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-indigo to-accent-fuchsia flex items-center justify-center text-2xl shadow-lg">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-2xl shadow-lg">
               🤖
             </div>
             <div>
@@ -130,8 +128,8 @@ const SummaryModal = ({
               {/* Animated spinner */}
               <div className="relative w-20 h-20 mb-6">
                 <div className="absolute inset-0 rounded-full border-4 border-gray-200/20"></div>
-                <div className="absolute inset-0 rounded-full border-4 border-t-accent-indigo border-r-accent-fuchsia border-b-transparent border-l-transparent animate-spin"></div>
-                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-accent-indigo/20 to-accent-fuchsia/20 flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full border-4 border-t-emerald-500 border-r-emerald-600 border-b-transparent border-l-transparent animate-spin"></div>
+                <div className="absolute inset-2 rounded-full bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center">
                   <span className="text-2xl animate-pulse">🤖</span>
                 </div>
               </div>
@@ -155,9 +153,9 @@ const SummaryModal = ({
                     className="absolute inset-0 rounded-full animate-progressSlide"
                     style={{
                       background:
-                        "linear-gradient(90deg, #6366f1, #a855f7, #ec4899)",
+                        "linear-gradient(90deg, #10B981, #059669, #047857)",
                       backgroundSize: "200% 100%",
-                      boxShadow: "0 0 20px rgba(99, 102, 241, 0.5)",
+                      boxShadow: "0 0 20px rgba(16, 185, 129, 0.5)",
                     }}
                   />
                   <div
@@ -218,8 +216,8 @@ const SummaryModal = ({
                 <span
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium ${
                     darkMode
-                      ? "bg-accent-indigo/10 text-accent-indigo border border-accent-indigo/20"
-                      : "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                      ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                      : "bg-emerald-50 text-emerald-700 border border-emerald-200"
                   }`}
                 >
                   <span>📊</span>
@@ -228,8 +226,8 @@ const SummaryModal = ({
                 <span
                   className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium ${
                     darkMode
-                      ? "bg-accent-fuchsia/10 text-accent-fuchsia border border-accent-fuchsia/20"
-                      : "bg-pink-50 text-pink-700 border border-pink-200"
+                      ? "bg-emerald-600/10 text-emerald-500 border border-emerald-600/20"
+                      : "bg-emerald-100 text-emerald-800 border border-emerald-300"
                   }`}
                 >
                   <span>⏱️</span>
@@ -250,19 +248,23 @@ const SummaryModal = ({
                     components={{
                       h1: ({ node, ...props }) => (
                         <h1
-                          className="text-2xl font-bold mb-4 bg-gradient-to-r from-accent-indigo to-accent-fuchsia bg-clip-text text-transparent"
+                          className="text-2xl font-bold mb-4 bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent"
                           {...props}
                         />
                       ),
                       h2: ({ node, ...props }) => (
                         <h2
-                          className="text-xl font-semibold mt-6 mb-3"
+                          className={`text-xl font-semibold mt-6 mb-3 ${
+                            darkMode ? "text-white" : "text-gray-900"
+                          }`}
                           {...props}
                         />
                       ),
                       h3: ({ node, ...props }) => (
                         <h3
-                          className="text-lg font-semibold mt-4 mb-2"
+                          className={`text-lg font-semibold mt-4 mb-2 ${
+                            darkMode ? "text-white" : "text-gray-800"
+                          }`}
                           {...props}
                         />
                       ),
@@ -286,7 +288,7 @@ const SummaryModal = ({
                       ),
                       strong: ({ node, ...props }) => (
                         <strong
-                          className="font-semibold text-accent-indigo"
+                          className="font-semibold text-emerald-500"
                           {...props}
                         />
                       ),
@@ -295,8 +297,8 @@ const SummaryModal = ({
                           <code
                             className={`px-2 py-1 rounded text-sm ${
                               darkMode
-                                ? "bg-dark-elev text-accent-fuchsia"
-                                : "bg-gray-100 text-pink-600"
+                                ? "bg-dark-elev text-emerald-400"
+                                : "bg-emerald-100 text-emerald-700"
                             }`}
                             {...props}
                           />
@@ -316,14 +318,18 @@ const SummaryModal = ({
               </div>
 
               {/* Actions */}
-              <div className="flex gap-3 mt-8 pt-6 border-t border-gray-200 dark:border-dark-border">
+              <div
+                className={`flex gap-3 mt-8 pt-6 border-t ${
+                  darkMode ? "border-dark-border" : "border-gray-200"
+                }`}
+              >
                 <button
                   className="flex-1 px-6 py-3 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   style={{
                     background:
-                      "linear-gradient(135deg, #6366f1 0%, #d946ef 100%)",
+                      "linear-gradient(135deg, #10B981 0%, #059669 100%)",
                     color: "white",
-                    boxShadow: "0 4px 14px rgba(99, 102, 241, 0.3)",
+                    boxShadow: "0 4px 14px rgba(16, 185, 129, 0.3)",
                   }}
                   onClick={onDownloadPdf}
                   disabled={isDownloading}

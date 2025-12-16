@@ -7,44 +7,75 @@ import logging
 import os
 import tempfile
 from typing import Dict, Tuple
-from faster_whisper import WhisperModel
-from pydub import AudioSegment
-import langdetect
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+try:
+    from faster_whisper import WhisperModel
+
+    WHISPER_AVAILABLE = True
+except ImportError:
+    logger.warning(
+        "⚠️ faster-whisper not available. Audio transcription will be disabled."
+    )
+    WHISPER_AVAILABLE = False
+
+try:
+    from pydub import AudioSegment
+
+    PYDUB_AVAILABLE = True
+except ImportError:
+    logger.warning("⚠️ pydub not available. Audio conversion will be limited.")
+    PYDUB_AVAILABLE = False
+
+try:
+    import langdetect
+
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    logger.warning("⚠️ langdetect not available. Language detection will be simplified.")
+    LANGDETECT_AVAILABLE = False
+
 
 class AudioProcessor:
     """Process audio files and transcribe to text"""
-    
+
     def __init__(self):
         """Initialize faster-whisper model"""
-        try:
-            # Use small model with int8 quantization for speed and efficiency
-            logger.info("🎤 Loading faster-whisper model (small, int8)...")
-            self.model = WhisperModel(
-                "small",
-                device="cpu",  # Use "cuda" if you have GPU
-                compute_type="int8"
+        self.model = None
+
+        if not WHISPER_AVAILABLE:
+            logger.error(
+                "❌ faster-whisper not installed. Run: pip install faster-whisper"
             )
-            logger.info("✅ Audio model loaded successfully")
+            return
+
+        try:
+            # Use tiny model first (faster download, good for testing)
+            logger.info("🎤 Loading faster-whisper model (tiny)...")
+            self.model = WhisperModel(
+                "small",  # Changed from "small" to "tiny" for faster init
+                device="cpu",
+                compute_type="int8",
+                download_root=None,  # Use default cache location
+            )
+            logger.info("✅ Audio model loaded successfully (tiny)")
         except Exception as e:
             logger.error(f"❌ Failed to load audio model: {str(e)}")
+            logger.error("   Try running: pip install faster-whisper --upgrade")
             self.model = None
-    
+
     async def transcribe_audio(
-        self,
-        audio_file_path: str,
-        detect_language: bool = True
+        self, audio_file_path: str, detect_language: bool = True
     ) -> Dict[str, any]:
         """
         Transcribe audio file to text
-        
+
         Args:
             audio_file_path: Path to audio file
             detect_language: Whether to detect language
-            
+
         Returns:
             {
                 "transcription": "text",
@@ -53,73 +84,81 @@ class AudioProcessor:
             }
         """
         if not self.model:
-            raise Exception("Audio model not initialized")
-        
+            raise Exception(
+                "Audio model not initialized. Please install: pip install faster-whisper pydub"
+            )
+
         try:
             logger.info(f"🎤 Transcribing audio: {audio_file_path}")
-            
+
             # Convert audio to WAV if needed
             audio_path = await self._prepare_audio(audio_file_path)
-            
+
             # Transcribe with faster-whisper
             segments, info = self.model.transcribe(
                 audio_path,
                 language=None if detect_language else "en",
                 beam_size=5,
-                vad_filter=True,  # Voice activity detection
-                vad_parameters=dict(
-                    min_silence_duration_ms=500
-                )
+                vad_filter=True,
+                vad_parameters=dict(min_silence_duration_ms=500),
             )
-            
+
             # Collect transcription
-            transcription_text = " ".join([segment.text for segment in segments]).strip()
-            
-            # Detect language (faster-whisper provides this)
+            transcription_text = " ".join(
+                [segment.text for segment in segments]
+            ).strip()
+
+            # Detect language
             detected_lang = info.language if detect_language else "en"
             detected_lang_code = self._map_language_code(detected_lang)
-            
+
             # Additional language detection for Hindi/Hinglish
-            if detected_lang_code == "hi" or self._contains_hindi_words(transcription_text):
+            if detected_lang_code == "hi" or self._contains_hindi_words(
+                transcription_text
+            ):
                 detected_lang_code = "hi"
-            
+
             logger.info(f"✅ Transcription complete")
             logger.info(f"   Text: {transcription_text[:100]}...")
             logger.info(f"   Detected Language: {detected_lang_code}")
             logger.info(f"   Confidence: {info.language_probability}")
-            
+
             # Cleanup temp files
             if audio_path != audio_file_path:
                 try:
                     os.remove(audio_path)
                 except:
                     pass
-            
+
             return {
                 "transcription": transcription_text,
                 "detected_language": detected_lang_code,
                 "confidence": info.language_probability,
-                "duration": info.duration
+                "duration": info.duration,
             }
-            
+
         except Exception as e:
             logger.error(f"❌ Audio transcription failed: {str(e)}")
             raise Exception(f"Failed to transcribe audio: {str(e)}")
-    
+
     async def _prepare_audio(self, audio_path: str) -> str:
         """
         Convert audio to WAV format if needed
         faster-whisper works best with WAV
         """
         file_ext = Path(audio_path).suffix.lower()
-        
+
         # Already WAV, no conversion needed
         if file_ext == ".wav":
             return audio_path
-        
+
+        if not PYDUB_AVAILABLE:
+            logger.warning("⚠️ pydub not available, cannot convert audio format")
+            return audio_path
+
         try:
             logger.info(f"🔄 Converting {file_ext} to WAV...")
-            
+
             # Load audio with pydub
             if file_ext == ".webm":
                 audio = AudioSegment.from_file(audio_path, format="webm")
@@ -132,26 +171,23 @@ class AudioProcessor:
             else:
                 # Try generic loader
                 audio = AudioSegment.from_file(audio_path)
-            
+
             # Convert to mono 16kHz (optimal for Whisper)
             audio = audio.set_channels(1)
             audio = audio.set_frame_rate(16000)
-            
+
             # Save as temporary WAV
-            temp_wav = tempfile.NamedTemporaryFile(
-                delete=False,
-                suffix=".wav"
-            )
+            temp_wav = tempfile.NamedTemporaryFile(delete=False, suffix=".wav")
             audio.export(temp_wav.name, format="wav")
-            
+
             logger.info(f"✅ Converted to WAV: {temp_wav.name}")
             return temp_wav.name
-            
+
         except Exception as e:
             logger.error(f"❌ Audio conversion failed: {str(e)}")
             # Return original if conversion fails
             return audio_path
-    
+
     def _map_language_code(self, lang: str) -> str:
         """Map Whisper language codes to our system"""
         lang_mapping = {
@@ -159,34 +195,41 @@ class AudioProcessor:
             "en": "en",
             "hindi": "hi",
             "hi": "hi",
-            # Add more if needed
         }
         return lang_mapping.get(lang.lower(), "en")
-    
+
     def _contains_hindi_words(self, text: str) -> bool:
         """
         Detect if text contains Hindi/Devanagari characters
         or common Hinglish patterns
         """
+        if not LANGDETECT_AVAILABLE:
+            # Fallback: check for Devanagari characters only
+            for char in text:
+                if "\u0900" <= char <= "\u097f":
+                    return True
+            return False
+
         try:
             # Check for Devanagari Unicode range
             for char in text:
-                if '\u0900' <= char <= '\u097F':
+                if "\u0900" <= char <= "\u097f":
                     return True
-            
+
             # Use langdetect for mixed language
             detected = langdetect.detect(text)
             if detected == "hi":
                 return True
-                
+
         except:
             pass
-        
+
         return False
 
 
 # Singleton instance
 _audio_processor = None
+
 
 def get_audio_processor() -> AudioProcessor:
     """Get or create audio processor instance"""
