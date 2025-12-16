@@ -1,11 +1,6 @@
 import { useState, useEffect } from "react";
 import { getChatHistory, deleteChat, updateSessionTitle } from "../api";
 import { useAuth } from "../context/AuthContext";
-import PdfExportButton from "./PdfExportButton"; // ← ADDED
-
-import { useSummaryGenerator } from "../hooks/useSummaryGenerator";
-import SummaryModal from "./SummaryModal";
-import SummaryButton from "./SummaryButton";
 
 function ChatHistorySidebar({
   currentPersona,
@@ -25,20 +20,7 @@ function ChatHistorySidebar({
   const [chatToDelete, setChatToDelete] = useState(null);
   const { isAuthenticated } = useAuth();
   const [isDesktop, setIsDesktop] = useState(true);
-  
 
-  const {
-  isGenerating: isGeneratingSummary,
-  isDownloading: isDownloadingSummary,
-  error: summaryError,
-  summary,
-  generateSummary,
-  downloadSummaryPdf,
-  clearSummary,
-  } = useSummaryGenerator();
-
-const [showSummaryModal, setShowSummaryModal] = useState(false);
-const [selectedSessionForSummary, setSelectedSessionForSummary] = useState(null);
   useEffect(() => {
     const checkSize = () => setIsDesktop(window.innerWidth >= 1024);
     checkSize();
@@ -60,6 +42,7 @@ const [selectedSessionForSummary, setSelectedSessionForSummary] = useState(null)
       const res = await getChatHistory(currentPersona, 50);
       const sessions = res.sessions || [];
       setChatSessions(sessions);
+
       if (sessions.length > 0) {
         setSelectedChatId(sessions[0]._id);
         onSelectChat(sessions[0]);
@@ -123,143 +106,132 @@ const [selectedSessionForSummary, setSelectedSessionForSummary] = useState(null)
       alert("Failed to update title");
     }
   };
-  
-
-
-  const handleGenerateSummary = async (chat, e) => {
-  e.stopPropagation();
-  setSelectedSessionForSummary(chat);
-  setShowSummaryModal(true);
-  
-  try {
-    await generateSummary(chat._id);
-  } catch (error) {
-    console.error('Failed to generate summary:', error);
-  }
-};
-
-const handleDownloadSummary = async () => {
-  if (!selectedSessionForSummary) return;
-
-  try {
-    await downloadSummaryPdf(
-      selectedSessionForSummary._id,
-      selectedSessionForSummary.title || 'chat'
-    );
-  } catch (error) {
-    console.error('Failed to download summary:', error);
-  }
-};
-
-const handleCloseSummaryModal = () => {
-  setShowSummaryModal(false);
-  setSelectedSessionForSummary(null);
-  clearSummary();
-};
-
-
 
   const SidebarContent = () => (
     <div
-      className={`flex flex-col h-full ${
-        darkMode ? "bg-gray-900" : "bg-gray-50"
+      className={`h-full flex flex-col ${
+        darkMode
+          ? "bg-dark-surface border-r border-dark-border"
+          : "bg-white/40 backdrop-blur-xl border-white/20"
       }`}
     >
-      {/* Header */}
+      {/* Glass Header */}
       <div
-        className={`p-4 border-b ${
-          darkMode ? "border-gray-700" : "border-gray-200"
+        className={`p-5 flex items-center justify-between border-b ${
+          darkMode ? "border-dark-border" : "border-white/20"
         }`}
       >
         <h2
-          className={`text-lg font-bold ${
-            darkMode ? "text-white" : "text-gray-800"
+          className={`font-semibold tracking-tight ${
+            darkMode ? "text-slate-100" : "text-gray-800"
           }`}
         >
-          Chat History
+          Your Journeys
         </h2>
-        <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-          {chatSessions.length} conversation{chatSessions.length !== 1 ? "s" : ""}
-        </p>
+        {!isDesktop && (
+          <button
+            onClick={onToggle}
+            className={`p-1 rounded-full transition-colors ${
+              darkMode
+                ? "text-gray-400 hover:bg-dark-elev/60"
+                : "text-gray-500 hover:bg-black/5"
+            }`}
+          >
+            ✕
+          </button>
+        )}
+      </div>
+
+      {/* New Chat Button */}
+      <div className="p-4">
+        <button
+          onClick={handleNewChat}
+          className={`w-full py-2.5 px-4 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition ${
+            darkMode
+              ? "bg-gradient-to-r from-accent-indigo to-accent-fuchsia text-white shadow-md hover:from-accent-indigo/95 hover:to-accent-fuchsia/95"
+              : "bg-indigo-600 hover:bg-indigo-700 text-white shadow-md"
+          }`}
+        >
+          <span className="text-lg leading-none">+</span> Start New Chat
+        </button>
       </div>
 
       {/* Chat List */}
-      <div className="flex-1 overflow-y-auto p-3 space-y-2">
+      <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
         {loading ? (
-          <div className="flex justify-center items-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
+          <div className="flex justify-center py-10">
+            <div
+              className="w-6 h-6 border-2 rounded-full animate-spin"
+              style={{
+                borderColor: "transparent",
+                borderTopColor: darkMode ? undefined : "#6366F1",
+                borderLeftColor: darkMode ? "#6366F1" : undefined,
+              }}
+            />
           </div>
         ) : chatSessions.length === 0 ? (
-          <div className="text-center py-12 px-4">
-            <div className="text-4xl mb-3">💬</div>
-            <p
-              className={`text-sm ${
-                darkMode ? "text-gray-400" : "text-gray-500"
-              }`}
-            >
-              No conversations yet
-            </p>
+          <div
+            className={`text-center py-10 text-sm ${
+              darkMode ? "text-dark-muted" : "text-gray-400"
+            }`}
+          >
+            No past conversations
           </div>
         ) : (
           chatSessions.map((chat) => (
             <div
               key={chat._id}
-              className={`group relative p-3 rounded-lg cursor-pointer transition-all ${
+              onClick={() => handleSelectChat(chat)}
+              className={`group relative rounded-xl px-4 py-3 cursor-pointer transition-all duration-200 border-2 ${
                 selectedChatId === chat._id
                   ? darkMode
-                    ? "bg-teal-900/30 border-2 border-teal-500"
-                    : "bg-teal-50 border-2 border-teal-500"
+                    ? "bg-gradient-to-r from-accent-indigo/12 to-accent-fuchsia/8 border-accent-indigo shadow-[0_8px_24px_rgba(99,102,241,0.06)]"
+                    : "bg-indigo-100 border-indigo-500 shadow-md"
                   : darkMode
-                  ? "bg-gray-800 hover:bg-gray-750 border-2 border-transparent"
-                  : "bg-white hover:bg-gray-100 border-2 border-transparent"
+                  ? "bg-dark-surface/40 border-transparent hover:bg-dark-elev/60 hover:border-dark-border"
+                  : "bg-white/30 border-transparent hover:bg-white/50 hover:border-white/30"
               }`}
             >
+              {/* Active Indicator Line */}
+              {selectedChatId === chat._id && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 rounded-r-full bg-gradient-to-b from-accent-indigo to-accent-fuchsia" />
+              )}
+
               {renamingChatId === chat._id ? (
-                <div className="flex flex-col gap-2" onClick={(e) => e.stopPropagation()}>
-                  <input
-                    type="text"
-                    value={newTitle}
-                    onChange={(e) => setNewTitle(e.target.value)}
-                    className={`px-2 py-1 text-sm border rounded ${
-                      darkMode
-                        ? "bg-gray-700 border-gray-600 text-white"
-                        : "bg-white border-gray-300 text-gray-900"
-                    } focus:outline-none focus:ring-2 focus:ring-teal-500`}
-                    placeholder="New title"
-                    autoFocus
-                  />
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleSaveTitle(chat._id)}
-                      className="flex-1 px-2 py-1 bg-teal-500 text-white text-xs rounded hover:bg-teal-600"
-                    >
-                      Save
-                    </button>
-                    <button
-                      onClick={() => setRenamingChatId(null)}
-                      className={`flex-1 px-2 py-1 text-xs rounded ${
-                        darkMode
-                          ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                      }`}
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  value={newTitle}
+                  onChange={(e) => setNewTitle(e.target.value)}
+                  onBlur={() => handleSaveTitle(chat._id)}
+                  onKeyDown={(e) =>
+                    e.key === "Enter" && handleSaveTitle(chat._id)
+                  }
+                  autoFocus
+                  className={`w-full px-2 py-1 text-sm rounded focus:outline-none focus:ring-2 focus:ring-accent-indigo/30 border ${
+                    darkMode
+                      ? "bg-dark-elev text-slate-100 border-dark-border"
+                      : "bg-white/80"
+                  }`}
+                />
               ) : (
-                <>
-                  <div onClick={() => handleSelectChat(chat)}>
-                    <h3
-                      className={`font-medium line-clamp-1 ${
-                        darkMode ? "text-white" : "text-gray-800"
+                <div className="flex items-center justify-between pl-3">
+                  <div className="flex-1 min-w-0 pr-2">
+                    <p
+                      className={`text-sm font-medium truncate ${
+                        selectedChatId === chat._id
+                          ? darkMode
+                            ? "text-white"
+                            : "text-indigo-900"
+                          : darkMode
+                          ? "text-slate-100"
+                          : "text-gray-700"
                       }`}
                     >
                       {chat.title || "New Conversation"}
-                    </h3>
+                    </p>
                     <p
-                      className={`text-xs mt-1 ${
-                        darkMode ? "text-gray-400" : "text-gray-500"
+                      className={`text-[10px] mt-0.5 truncate ${
+                        darkMode ? "text-dark-muted" : "text-gray-500"
                       }`}
                     >
                       {new Date(chat.updated_at).toLocaleDateString()} •{" "}
@@ -267,159 +239,46 @@ const handleCloseSummaryModal = () => {
                     </p>
                   </div>
 
-                  {/* ✨ ACTION BUTTONS - ADDED ✨ */}
-                  <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    {/* PDF Export Button */}
-                    <div onClick={(e) => e.stopPropagation()}>
-                      <PdfExportButton
-                        sessionId={chat._id}
-                        sessionTitle={chat.title || "Chat"}
-                        variant="icon"
-                        darkMode={darkMode}
-                        className="shadow-sm"
-                      />
-                    </div>
-                     
-                      {/* ✨ NEW: AI Summary Button ✨ */}
-  <div onClick={(e) => e.stopPropagation()}>
-    <SummaryButton
-      onClick={(e) => handleGenerateSummary(chat, e)}
-      variant="icon"
-      disabled={!chat.messages || chat.messages.length < 2}
-    />
-  </div>    
-
-
-                    {/* Edit Button */}
+                  {/* Hover Actions */}
+                  <div
+                    className={`flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity ${
+                      selectedChatId === chat._id ? "opacity-100" : ""
+                    }`}
+                  >
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         setRenamingChatId(chat._id);
                         setNewTitle(chat.title || "");
                       }}
-                      className={`p-1.5 rounded transition-colors ${
+                      className={`p-1 rounded transition-colors ${
                         darkMode
-                          ? "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-gray-600"
-                          : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
+                          ? "text-dark-muted hover:bg-dark-elev/50 hover:text-accent-fuchsia"
+                          : "text-gray-400 hover:bg-indigo-50 hover:text-indigo-600"
                       }`}
-                      title="Rename chat"
                     >
-                      <svg
-                        className="h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                        />
-                      </svg>
+                      ✎
                     </button>
-
-                    {/* Delete Button */}
                     <button
-<<<<<<< HEAD
-                      onClick={(e) => handleDeleteChat(chat._id, e)}
-                      className={`p-1.5 rounded transition-colors ${
-                        darkMode
-                          ? "bg-gray-700 text-red-400 hover:bg-red-900/30 border border-gray-600"
-                          : "bg-white text-red-600 hover:bg-red-50 border border-gray-200"
-=======
                       onClick={(e) => handleDeleteClick(chat, e)}
                       className={`p-1 rounded transition-colors ${
                         darkMode
                           ? "text-dark-muted hover:bg-dark-elev/50 hover:text-red-400"
                           : "text-gray-400 hover:bg-red-50 hover:text-red-600"
->>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
                       }`}
-                      title="Delete chat"
                     >
-                      <svg
-                        className="h-4 w-4"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
+                      🗑
                     </button>
                   </div>
-                </>
+                </div>
               )}
             </div>
           ))
         )}
       </div>
-
-      {/* New Chat Button */}
-      <div
-        className={`p-4 border-t ${
-          darkMode ? "border-gray-700" : "border-gray-200"
-        }`}
-      >
-        <button
-          onClick={handleNewChat}
-          className="w-full px-4 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors font-medium flex items-center justify-center gap-2 shadow-md"
-        >
-          <svg
-            className="h-5 w-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 4v16m8-8H4"
-            />
-          </svg>
-          New Chat
-        </button>
-      </div>
     </div>
   );
 
-<<<<<<< HEAD
-  // Mobile/Desktop rendering logic
-  if (!isDesktop) {
-    return (
-      <>
-        {isOpen && (
-          <div
-            className="fixed inset-0 bg-black/50 z-40 lg:hidden"
-            onClick={onToggle}
-          />
-        )}
-        <div
-          className={`fixed top-0 left-0 h-full w-80 z-50 transform transition-transform duration-300 lg:hidden ${
-            isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
-        >
-          <SidebarContent />
-        </div>
-      
-      <SummaryModal
-          isOpen={showSummaryModal}
-          onClose={handleCloseSummaryModal}
-          summary={summary}
-          isGenerating={isGeneratingSummary}
-          error={summaryError}
-          onDownloadPdf={handleDownloadSummary}
-          isDownloading={isDownloadingSummary}
-        
-        
-        
-        
-        />
-      </>
-=======
   /* Delete Confirmation Dialog */
   const DeleteDialog = () => (
     <>
@@ -528,28 +387,22 @@ const handleCloseSummaryModal = () => {
         <SidebarContent />
         <DeleteDialog />
       </aside>
->>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
     );
   }
 
+  /* Mobile Overlay */
   return (
-    <div className="w-80 border-r h-screen">
-      <SidebarContent />
-
-      {/* ✨ ADD SUMMARY MODAL HERE ✨ */}
-      <SummaryModal
-        isOpen={showSummaryModal}
-        onClose={handleCloseSummaryModal}
-        summary={summary}
-        isGenerating={isGeneratingSummary}
-        error={summaryError}
-        onDownloadPdf={handleDownloadSummary}
-        isDownloading={isDownloadingSummary}
+    <>
+      <div
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        style={{
+          backgroundColor: isOpen ? "rgba(0, 0, 0, 0.4)" : "transparent",
+          backdropFilter: isOpen ? "blur(4px)" : "none",
+        }}
+        onClick={onToggle}
       />
-<<<<<<< HEAD
-
-    </div>
-=======
       <div
         className={`fixed left-0 top-0 h-full w-72 z-50 transform transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] shadow-2xl ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -559,7 +412,6 @@ const handleCloseSummaryModal = () => {
       </div>
       <DeleteDialog />
     </>
->>>>>>> c62f8f4b36b7433f42a95a6c647a5cdcd8fad877
   );
 }
 
