@@ -1,0 +1,53 @@
+backend
+│
+├── data
+│   ├── json_content
+│   └── spiritual
+│
+├── localmodel
+│
+├── middleware
+│
+├── models
+│   ├── __init__.py
+│   ├── chat.py
+│   └── user.py
+│
+├── rag
+│   ├── __init__.py
+│   ├── content_manager.py
+│   ├── document_processor.py
+│   ├── persona_rag.py
+│   ├── retriever.py
+│   └── vector_store.py
+│
+├── routers
+│   ├── auth.py
+│   ├── chat.py
+│   ├── mock_data.py
+│   ├── persona.py
+│   └── rag_admin.py
+│
+├── scripts
+│   ├── ingest_all_data.py
+│   └── ingest_json_files.py
+│
+├── tests
+│
+├── tools
+│
+├── utils
+│   ├── connection_checker.py
+│   ├── database.py
+│   ├── groq_service.py
+│   ├── intents.py
+│   ├── jwt_handler.py
+│   ├── persona_templates.py
+│
+├── check_spiritual_sites.py
+├── config.py
+├── test_db.py
+├── test_retrieval.py
+├── main.py
+├── requirements.txt
+└── python
