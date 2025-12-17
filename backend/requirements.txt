@@ -52,6 +52,9 @@
     #for pdf download (yash)
     reportlab==4.0.9
 
+    # Vector Database - Qdrant
+    qdrant-client
+
 
 
     # For audio input feature (yash)
