@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import cv2
@@ -57,6 +57,10 @@ def index():
         'available_poses': pose_validator.list_all_poses()
     })
 
+@app.route('/static/img/')
+def serve_static(filename):
+    return send_from_directory('static', filename)
+
 
 @socketio.on('connect')
 def handle_connect():
@@ -80,23 +84,35 @@ def handle_disconnect(sid):
     if session_id and session_id in active_sessions:
         del active_sessions[session_id]
 
-
 @socketio.on('get_pose_info')
 def handle_get_pose_info(data):
     """Send pose information to client"""
     pose_name = data.get('pose_name')
     
+    print(f"🔍 Requesting pose info for: {pose_name}")
+    
     if not pose_name:
+        print("❌ No pose name provided")
         emit('error', {'message': 'No pose name provided'})
         return
     
-    pose_info = pose_validator.get_pose_info(pose_name)
-    
-    if pose_info:
-        print(f"📋 Sending pose info: {pose_name}")
-        emit('pose_info', pose_info)
-    else:
-        emit('error', {'message': f'Pose {pose_name} not found'})
+    try:
+        pose_info = pose_validator.get_pose_info(pose_name)
+        
+        if pose_info:
+            print(f"📋 Sending pose info: {pose_name}")
+            emit('pose_info', pose_info)
+        else:
+            error_msg = f'Pose "{pose_name}" not found in database'
+            print(f"❌ {error_msg}")
+            print(f"Available poses: {pose_validator.list_all_poses()}")
+            emit('error', {'message': error_msg})
+    except Exception as e:
+        error_msg = f'Error getting pose info: {str(e)}'
+        print(f"❌ {error_msg}")
+        import traceback
+        traceback.print_exc()
+        emit('error', {'message': error_msg})
 
 
 @socketio.on('start_analysis')

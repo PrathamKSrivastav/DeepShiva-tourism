@@ -14,6 +14,19 @@ function PoseDetails({ poseInfo, currentPose, feedback, accuracy }) {
     <div className="pose-details">
       <h2>{poseInfo?.name || 'Loading...'}</h2>
       
+      {poseInfo?.image && (
+        <div className="pose-image-container">
+          <img 
+            src={`http://localhost:5000/static/images/poses/${poseInfo.image}`}
+            alt={poseInfo.name}
+            className="pose-reference-image"
+            onError={(e) => {
+              e.target.style.display = 'none';
+            }}
+          />
+        </div>
+      )}
+      
       {poseInfo && (
         <>
           <div className="info-section">

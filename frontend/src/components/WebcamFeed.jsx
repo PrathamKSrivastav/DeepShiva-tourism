@@ -1,15 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 
-function WebcamFeed({ socket, isAnalyzing, currentPose }) {
-
-  console.log('🎥 WebcamFeed render - Props:', { 
-    socket: !!socket, 
-    isAnalyzing, 
-    currentPose 
-  });
-  
-
+function WebcamFeed({ socket, isAnalyzing, isInitialized, currentPose }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
   const [landmarks, setLandmarks] = useState(null);
@@ -28,7 +20,7 @@ function WebcamFeed({ socket, isAnalyzing, currentPose }) {
           });
         }
       }
-    }, 100); // Send 10 frames per second
+    }, 100);
 
     return () => clearInterval(interval);
   }, [socket, isAnalyzing, currentPose]);
@@ -38,17 +30,27 @@ function WebcamFeed({ socket, isAnalyzing, currentPose }) {
     if (!socket) return;
 
     socket.on('landmarks', (data) => {
-      setLandmarks(data.landmarks);
+      if (isInitialized) {
+        setLandmarks(data.landmarks);
+      }
     });
 
     return () => {
       socket.off('landmarks');
     };
-  }, [socket]);
+  }, [socket, isInitialized]);
 
   // Draw skeleton on canvas
   useEffect(() => {
-    if (!landmarks || !canvasRef.current || !webcamRef.current) return;
+    if (!landmarks || !canvasRef.current || !webcamRef.current || !isInitialized) {
+      // Clear canvas if not initialized
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      return;
+    }
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -61,7 +63,6 @@ function WebcamFeed({ socket, isAnalyzing, currentPose }) {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw connections between landmarks
     const connections = [
       [11, 13], [13, 15], // Left arm
       [12, 14], [14, 16], // Right arm
@@ -99,7 +100,7 @@ function WebcamFeed({ socket, isAnalyzing, currentPose }) {
         ctx.fill();
       }
     });
-  }, [landmarks]);
+  }, [landmarks, isInitialized]);
 
   return (
     <div className="webcam-container">
@@ -121,11 +122,9 @@ function WebcamFeed({ socket, isAnalyzing, currentPose }) {
       </div>
       
       <div className="status-indicator">
-        {isAnalyzing ? (
-          <span className="status-active">🟢 Analyzing...</span>
-        ) : (
-          <span className="status-inactive">⚪ Ready</span>
-        )}
+        {!isInitialized && <span className="status-info">⚪ Click "Get Started" to begin</span>}
+        {isInitialized && !isAnalyzing && <span className="status-ready">🟢 Ready - Click "Run Analysis"</span>}
+        {isAnalyzing && <span className="status-active">🟢 Analyzing...</span>}
       </div>
     </div>
   );

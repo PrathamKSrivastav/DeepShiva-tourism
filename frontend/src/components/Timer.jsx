@@ -2,28 +2,23 @@ import React, { useState, useEffect, useRef } from 'react';
 
 function Timer({ duration, isActive, onComplete }) {
   const [timeLeft, setTimeLeft] = useState(duration);
-  const hasStartedRef = useRef(false);
+  const hasCompletedRef = useRef(false);
 
   useEffect(() => {
     setTimeLeft(duration);
-    if (isActive) {
-      hasStartedRef.current = true;
-    }
+    hasCompletedRef.current = false;
   }, [duration]);
 
   useEffect(() => {
     if (!isActive) {
       setTimeLeft(duration);
-      hasStartedRef.current = false;
+      hasCompletedRef.current = false;
       return;
     }
 
-    // Don't complete if we just started and time is 0
-    if (timeLeft === 0) {
-      if (hasStartedRef.current) {
-        console.log('⏱️ Timer reached 0, calling onComplete');
-        onComplete();
-      }
+    if (timeLeft === 0 && !hasCompletedRef.current) {
+      hasCompletedRef.current = true;
+      onComplete();
       return;
     }
 
@@ -50,7 +45,7 @@ function Timer({ duration, isActive, onComplete }) {
 
   return (
     <div className="timer-container">
-      <h3>⏱️ Timer</h3>
+      <h3>⏱️ Hold Duration</h3>
       <div className="timer-display">
         <span className="time">{formatTime(timeLeft)}</span>
       </div>
@@ -60,6 +55,7 @@ function Timer({ duration, isActive, onComplete }) {
           style={{ width: `${progress}%` }}
         />
       </div>
+      {timeLeft === 0 && <p className="timer-complete">✓ Time Complete!</p>}
     </div>
   );
 }

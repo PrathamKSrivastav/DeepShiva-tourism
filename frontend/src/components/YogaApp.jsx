@@ -2,22 +2,29 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import io from 'socket.io-client';
 import PoseDetails from './PoseDetails';
 import WebcamFeed from './WebcamFeed';
-import PoseChecklist from './PoseChecklist';
+import PoseSelector from './PoseSelector';
 import Timer from './Timer';
 import '../styles/YogaApp.css';
 
 const AVAILABLE_POSES = [
-  { id: 'warrior_2', name: 'Warrior II Pose' },
-  { id: 'tree_pose', name: 'Tree Pose' },
-  { id: 'downward_dog', name: 'Downward-Facing Dog' },
-  { id: 'plank', name: 'Plank Pose' },
-  { id: 'child_pose', name: "Child's Pose" }
+  { id: 't_pose', name: 'T-Pose', category: 'Calibration' },
+  { id: 'trikonasana', name: 'Triangle Pose', category: 'Standing' },
+  { id: 'virabhadrasana', name: 'Warrior I', category: 'Standing' },
+  { id: 'warrior_2', name: 'Warrior II', category: 'Standing' },
+  { id: 'vrikshasana', name: 'Tree Pose', category: 'Balance' },
+  { id: 'naukasana', name: 'Boat Pose', category: 'Core' },
+  { id: 'bhujangasana', name: 'Cobra Pose', category: 'Prone' },
+  { id: 'chakrasana', name: 'Wheel Pose', category: 'Backbend' },
+  { id: 'balasana', name: "Child's Pose", category: 'Resting' },
+  { id: 'sukhasana', name: 'Easy Pose', category: 'Seated' },
+  { id: 'shavasana', name: 'Corpse Pose', category: 'Resting' }
 ];
 
 function YogaApp() {
   const [socket, setSocket] = useState(null);
   const [currentPose, setCurrentPose] = useState(null);
   const [poseInfo, setPoseInfo] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [feedback, setFeedback] = useState([]);
   const [accuracy, setAccuracy] = useState(0);
@@ -25,11 +32,10 @@ function YogaApp() {
   const [timerActive, setTimerActive] = useState(false);
   const [completedPoses, setCompletedPoses] = useState([]);
 
-  // Use refs for values used in socket callbacks
   const currentPoseRef = useRef(currentPose);
   const timerActiveRef = useRef(timerActive);
+  const accuracyRef = useRef(accuracy);
 
-  // Update refs when values change
   useEffect(() => {
     currentPoseRef.current = currentPose;
   }, [currentPose]);
@@ -38,7 +44,10 @@ function YogaApp() {
     timerActiveRef.current = timerActive;
   }, [timerActive]);
 
-  // Memoize handlePoseCompletion to avoid recreating on every render
+  useEffect(() => {
+    accuracyRef.current = accuracy;
+  }, [accuracy]);
+
   const handlePoseCompletion = useCallback(() => {
     const pose = currentPoseRef.current;
     setCompletedPoses(prev => {
@@ -49,14 +58,23 @@ function YogaApp() {
     });
     setIsAnalyzing(false);
     setTimerActive(false);
-  }, []); // Empty deps because we use refs
+    
+    // Auto-advance to next pose if accuracy was good
+    if (accuracyRef.current >= 85) {
+      const currentIndex = AVAILABLE_POSES.findIndex(p => p.id === pose);
+      if (currentIndex < AVAILABLE_POSES.length - 1) {
+        const nextPose = AVAILABLE_POSES[currentIndex + 1];
+        setTimeout(() => {
+          handlePoseSelect(nextPose.id);
+        }, 2000);
+      }
+    }
+  }, []);
 
-  // Initialize Socket.IO connection
-  // Initialize Socket.IO connection
   // Initialize Socket.IO connection
   useEffect(() => {
     console.log('🔌 Initializing socket connection...');
-
+    
     const newSocket = io('http://localhost:5000', {
       transports: ['polling', 'websocket'],
       reconnection: true,
@@ -68,12 +86,17 @@ function YogaApp() {
     newSocket.on('connect', () => {
       console.log('✅ Connected to Flask server');
       console.log('Socket ID:', newSocket.id);
-      console.log('Transport:', newSocket.io.engine.transport.name);
     });
 
     newSocket.on('connect_error', (error) => {
       console.error('❌ Connection Error:', error.message);
     });
+
+    newSocket.on('error', (data) => {
+      console.error('❌ Socket Error:', data);
+      alert(`Error: ${data.message || 'Unknown error'}`);
+    });
+
 
     newSocket.on('pose_info', (data) => {
       console.log('📋 Pose info received:', data);
@@ -81,27 +104,13 @@ function YogaApp() {
       setTimerDuration(data.duration || 30);
     });
 
-    newSocket.on('analysis_started', (data) => {
-      console.log('✅ Analysis started confirmation from backend:', data);
-    });
-
-    newSocket.on('analysis_stopped', (data) => {
-      console.log('⏸️ Analysis stopped confirmation from backend');
-    });
-
-
     newSocket.on('pose_feedback', (data) => {
-      console.log('📊 Feedback received:', data);
       setFeedback(data.feedback || []);
       setAccuracy(data.accuracy || 0);
-
-      if (data.accuracy >= 85 && timerActiveRef.current && currentPoseRef.current) {
-        handlePoseCompletion();
-      }
     });
 
     newSocket.on('landmarks', (data) => {
-      console.log('🎯 Landmarks received');
+      // Landmarks received for skeleton drawing
     });
 
     newSocket.on('disconnect', (reason) => {
@@ -116,21 +125,14 @@ function YogaApp() {
     };
   }, [handlePoseCompletion]);
 
-
-
   const handlePoseSelect = (poseId) => {
     console.log('🎯 Pose selected:', poseId);
     
-    if (!socket) {
-      console.error('❌ Socket not available');
-      return;
-    }
-
-    if (!socket.connected) {
+    if (!socket || !socket.connected) {
       console.error('❌ Socket not connected');
       return;
     }
-
+    
     setCurrentPose(poseId);
     setIsAnalyzing(false);
     setTimerActive(false);
@@ -141,42 +143,38 @@ function YogaApp() {
     socket.emit('get_pose_info', { pose_name: poseId });
   };
 
-  const handleStartAnalysis = () => {
-    console.log('🎯 START BUTTON CLICKED!');
-    
-    const testPose = 'warrior_2';
-    setCurrentPose(testPose);
-    
-    console.log('Socket exists:', !!socket);
-    console.log('Socket connected:', socket?.connected);
+  const handleGetStarted = () => {
+    if (!currentPose) {
+      alert('Please select a pose first!');
+      return;
+    }
     
     if (!socket || !socket.connected) {
       alert('Socket not connected! Check if backend is running on port 5000');
       return;
     }
+    
+    setIsInitialized(true);
+    console.log('✅ Webcam initialized, ready for analysis');
+  };
 
-    // FIX: Set timer duration BEFORE activating
-    if (!timerDuration || timerDuration === 0) {
-      setTimerDuration(30); // Default 30 seconds
+  const handleRunAnalysis = () => {
+    if (!currentPose) {
+      alert('Please select a pose first!');
+      return;
     }
 
     setIsAnalyzing(true);
     setTimerActive(true);
-
-    console.log('✅ Set isAnalyzing to TRUE');
-    console.log('✅ Set timerActive to TRUE');
-
-    console.log('📤 Emitting start_analysis...');
-    socket.emit('start_analysis', { pose_name: testPose });
-
-    console.log('Analysis started! Check the console and backend terminal.');
+    
+    console.log('📤 Emitting start_analysis for:', currentPose);
+    socket.emit('start_analysis', { pose_name: currentPose });
   };
-
-  
 
   const handleStopAnalysis = () => {
     setIsAnalyzing(false);
     setTimerActive(false);
+    
     if (socket) {
       socket.emit('stop_analysis');
     }
@@ -186,15 +184,31 @@ function YogaApp() {
     handlePoseCompletion();
   };
 
-  const togglePoseComplete = (poseId) => {
-    setCompletedPoses(prev => {
-      if (prev.includes(poseId)) {
-        return prev.filter(id => id !== poseId);
-      } else {
-        return [...prev, poseId];
-      }
-    });
+  const getButtonConfig = () => {
+    if (!isInitialized) {
+      return {
+        text: 'Get Started',
+        action: handleGetStarted,
+        className: 'btn-get-started'
+      };
+    }
+    
+    if (isAnalyzing) {
+      return {
+        text: 'Stop Analysis',
+        action: handleStopAnalysis,
+        className: 'btn-stop'
+      };
+    }
+    
+    return {
+      text: 'Run Analysis',
+      action: handleRunAnalysis,
+      className: 'btn-run'
+    };
   };
+
+  const buttonConfig = getButtonConfig();
 
   return (
     <div className="yoga-app">
@@ -212,55 +226,31 @@ function YogaApp() {
             accuracy={accuracy}
           />
           
-          <Timer 
-            duration={timerDuration}
-            isActive={timerActive}
-            onComplete={handleTimerComplete}
-          />
+          {currentPose && (
+            <>
+              <Timer 
+                duration={timerDuration}
+                isActive={timerActive}
+                onComplete={handleTimerComplete}
+              />
 
-          <div className="controls">
-            <button 
-              className="btn btn-start"
-              onClick={handleStartAnalysis}
-              style={{
-                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                color: 'white',
-                padding: '1rem',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}
-            >
-              START ANALYSIS
-            </button>
-            
-            <button 
-              className="btn btn-stop"
-              onClick={handleStopAnalysis}
-              style={{
-                background: '#f44336',
-                color: 'white',
-                padding: '1rem',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                fontWeight: 'bold',
-                cursor: 'pointer'
-              }}
-            >
-              STOP
-            </button>
-          </div>
-            
+              <div className="controls">
+                <button 
+                  className={`btn ${buttonConfig.className}`}
+                  onClick={buttonConfig.action}
+                  disabled={!currentPose}
+                >
+                  {buttonConfig.text}
+                </button>
+              </div>
+            </>
+          )}
 
-          <PoseChecklist 
+          <PoseSelector 
             poses={AVAILABLE_POSES}
             currentPose={currentPose}
             completedPoses={completedPoses}
             onPoseSelect={handlePoseSelect}
-            onToggleComplete={togglePoseComplete}
           />
         </div>
 
@@ -268,6 +258,7 @@ function YogaApp() {
           <WebcamFeed 
             socket={socket}
             isAnalyzing={isAnalyzing}
+            isInitialized={isInitialized}
             currentPose={currentPose}
           />
         </div>
