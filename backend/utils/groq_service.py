@@ -15,10 +15,10 @@ class GroqService:
         load_dotenv()
         
         self.api_key = os.getenv("GROQ_API_KEY")
-        self.model_name = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+        self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
-        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "30")) #10-> 30
+        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "60")) #10-> 30 -> 60
         logger.info(f"🤖 Groq Model: {self.model_name}")
         
         # Initialize RAG components
@@ -218,7 +218,10 @@ class GroqService:
     def _parse_malformed_function_call(self, error_message: str) -> Optional[Dict[str, Any]]:
         """
         Parse malformed function calls from Groq errors
-        Handles nested calls by extracting the INNER function first
+        Handles:
+        1. Nested calls (outer function wrapping inner)
+        2. Open-ended XML tags (<function=name>{args})
+        3. Strict XML tags (<function=name>{args}</function>)
         """
         import re
         import json
@@ -230,13 +233,14 @@ class GroqService:
                 match = re.search(r'"failed_generation":\s*"([^"]+)"', error_message)
             
             if not match:
-                logger.warning("❌ Could not find failed_generation in error")
+                # logger.warning("❌ Could not find failed_generation in error")
                 return None
             
             failed_gen = match.group(1)
             logger.info(f"📝 Parsing failed generation: {failed_gen}")
             
             # PRIORITY 1: Check for NESTED function calls - extract INNER function
+            # Example: <tool_code>...<function=inner>{...}</function>...</tool_code>
             nested_pattern = r'<function=(\w+)\s*\{[^}]*<function=(\w+)\s*(\{[^}]+\})</function>'
             nested_match = re.search(nested_pattern, failed_gen)
             
@@ -255,14 +259,35 @@ class GroqService:
                         "arguments": arguments,
                         "id": f"call_recovered_{inner_func}",
                         "is_nested": True,
-                        "outer_function": outer_func  # Remember what comes next
+                        "outer_function": outer_func
                     }
                 except json.JSONDecodeError as je:
                     logger.error(f"❌ Failed to parse nested JSON: {je}")
-                    return None
+                    # Don't return None yet, try other patterns
             
-            # PRIORITY 2: Simple malformed calls
-            func_pattern = r'<function=(\w+)\s*>?\s*(\{[^}]+\})</function>'
+            # PRIORITY 2: Handle Open-Ended XML style (Missing closing tag)
+            # Matches: <function=name>{args}
+            # This is common with Llama-3-8b-instant
+            xml_open_pattern = r'<function=([a-zA-Z0-9_]+)>.*?({.*})'
+            xml_match = re.search(xml_open_pattern, failed_gen)
+            
+            if xml_match:
+                function_name = xml_match.group(1)
+                json_args = xml_match.group(2)
+                logger.info(f"✅ Extracted XML-style function (open): {function_name}")
+                try:
+                    arguments = json.loads(json_args)
+                    return {
+                        "function_name": function_name,
+                        "arguments": arguments,
+                        "id": f"call_recovered_{function_name}",
+                    }
+                except json.JSONDecodeError:
+                     logger.warning("Could not parse JSON from open XML pattern, trying strict pattern...")
+
+            # PRIORITY 3: Simple malformed calls (Strict XML with optional closing tag)
+            # Matches: <function=name>{args}</function> OR <function=name>{args}
+            func_pattern = r'<function=(\w+)\s*>?\s*(\{[^}]+\})(?:</function>)?'
             func_match = re.search(func_pattern, failed_gen)
             
             if not func_match:
@@ -292,6 +317,7 @@ class GroqService:
             return None
 
 
+
     async def _get_rag_context(
         self,
         message: str,
@@ -314,7 +340,7 @@ class GroqService:
             # ✅ TRUNCATE RAG CONTEXT TO SAVE TOKENS
             if rag_context.get("formatted_context"):
                 original_length = len(rag_context["formatted_context"])
-                rag_context["formatted_context"] = rag_context["formatted_context"][:1200]  # Max 1200 chars
+                rag_context["formatted_context"] = rag_context["formatted_context"][:1000]  # Max 1200 chars ----- 1200 -> 1000
                 logger.debug(f"RAG context truncated: {original_length} → {len(rag_context['formatted_context'])} chars")
             
             logger.debug(f"RAG docs: {rag_context.get('retrieved_doc_count', 0)}")
@@ -327,22 +353,34 @@ class GroqService:
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any], tool_context: Dict[str, Any]) -> str:
         """Build persona-specific system message enhanced with RAG context"""
         
-        base_context = f"""You are a PAN-INDIA travel assistant with tools: geocode_location, get_weather, search_treks.
+        base_context = f"""You are a PAN-INDIA travel assistant with tools: geocode_location, get_weather, search_treks, get_hotel_rates.
         TOOL USAGE RULES:
         - Use `geocode_location` then `get_weather` for current conditions.
-        - **CRITICAL**: If the user asks about "festivals", "holidays", "celebrations", or "events", you MUST call `get_indian_holidays` for the specific year/month mentioned (or current year). Do NOT rely on RAG for dates, as they change every year.
+        - **CRITICAL**: If the user asks about "festivals", "holidays", "celebrations", or "events", you MUST call `get_indian_holidays`.
         - Use `get_treks` to find hiking trails near a location.
+        - **NEW**: If user asks about "hotels", "stays", "accommodation", "prices", or "lodging", MUST call `get_hotel_rates`.
         - Do NOT output tool calls as text (like <function...>); use the proper tool call structure.
-        - If you call a tool, output ONLY the tool call. Do NOT write any introduction text like "Let me check..." or "Here is the info...". Just the JSON.
-
+        - If you call a tool, output ONLY the tool call.
+        - **CRITICAL**: Check the conversation history. If you have ALREADY called a tool with the same arguments, DO NOT call it again.
+        
+        - If the user asks to "PLAN" a trip:
+            1. Search for treks/places FIRST (search_treks).
+            2. Then get the WEATHER for the top location found (get_weather).
+            3. Then check HOTELS/ACCOMMODATION availability (get_hotel_rates).
+            4. Then check HOLIDAYS if a date is mentioned (get_indian_holidays).
+            5. Synthesize all data into the final answer.
+            
         TREKS
         - Any trek/trekking/hike query → MUST call search_treks.
         - Use region / trek_name as given.
-        - Recommend ONLY treks returned by search_treks, not from RAG.
-
+        
+        HOTELS
+        - Any query about staying, room prices, or hotel suggestions → MUST call get_hotel_rates.
+        - Always specify the city clearly (e.g., "hotels in Agra").
+        
         FACTS
         - Do NOT invent numbers (km, days, altitude, prices, “250+ treks”, etc.).
-        - If a number is not provided, use vague wording (“long drive”, “multi-day trip”) or admit uncertainty.
+        - If a number is not provided, use vague wording or admit uncertainty.
         - Do NOT mention internal tools or “my database” in answers.
 
         STYLE
@@ -352,12 +390,27 @@ class GroqService:
 
         CURRENT DATE: {date.today().isoformat()}
         IMPORTANT: Today is {date.today().strftime('%B %Y')}.
-        - If user asks for "upcoming" holidays and it is late in the year (Dec), you must check BOTH:
-            1. don't forget holidays in december, like christmas on 25th December and new year eve on 31st december.
-        - Call the tool twice if necessary (once for 2025, once for 2026 Q1).
+        - If user asks for "upcoming" holidays and it is late in the year (Dec), check BOTH current year and next year Q1.
         """
-        # - If today is late in the year (Oct-Dec), "upcoming" means THIS YEAR after today and NEXT YEAR.
 
+        # - If today is late in the year (Oct-Dec), "upcoming" means THIS YEAR after today and NEXT YEAR.
+        
+            # ✨ ADD HINGLISH RESPONSE MODE ✨
+        if rag_context.get("response_language") == "hinglish":
+            base_context += """
+
+IMPORTANT: RESPONSE LANGUAGE - HINGLISH
+The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
+- Use simple English words mixed with Hindi
+- Use Roman script (English letters) for Hindi words
+- Examples:
+  * "Aap Kedarnath ja sakte hain. Best time hai May-June."
+  * "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
+  * "Yeh trek difficult hai, proper preparation chahiye."
+- Keep it natural and conversational
+- Use Hindi words that Indian tourists commonly understand
+
+"""
         
         # Add RAG context if available
         if rag_context.get("has_rag_context", False):

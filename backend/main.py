@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
-from routers import chat, persona, mock_data, rag_admin, auth
+from routers import chat, persona, mock_data, rag_admin, auth, audio
 import os
 from rag.vector_store import VectorStoreManager
 from dotenv import load_dotenv
@@ -79,6 +79,7 @@ app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(persona.router, prefix="/api", tags=["personas"])
 app.include_router(mock_data.router, prefix="/api/mock", tags=["mock-data"])
 app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
+app.include_router(audio.router, prefix="/api", tags=["audio"]) 
 
 @app.get("/")
 async def root():

@@ -18,6 +18,7 @@ from tools.geocoding_tool import geocode_location
 from tools.weather_tool import get_weather
 from tools.holiday_tool import get_holidays
 from tools.trek_tool import search_treks
+from tools.hotel_tool import get_hotel_rates
 
 from localmodel.llm_engine import LLMEngine
 
@@ -101,20 +102,41 @@ def get_tools_schema():
             "type": "function",
             "function": {
                 "name": "search_treks",
-                "description": "Search for trekking trails and hiking routes in India. Returns detailed trek information including difficulty, duration, altitude, best time to visit, and descriptions. Use this for ANY trek-related queries including 'treks near X', 'best treks in Y', 'tell me about Z trek'.",
+                "description": "Search for trekking trails and hiking routes in India. Returns detailed info (difficulty, duration, altitude, best time). Use this for queries like 'treks near Mumbai', 'hikes in Uttarakhand', or specific trek names.",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "region": {
                             "type": "string",
-                            "description": "Indian state or region name (e.g. 'Himachal Pradesh', 'Uttarakhand', 'Ladakh', 'Sikkim', 'Kashmir', 'Maharashtra', 'Karnataka'). Extract from queries like 'treks near Agra' -> 'Uttarakhand' (nearest trekking state)."
+                            "description": "State or region name. IF the query mentions a city (e.g., 'near Mumbai', 'near Pune'), map it to the trekking region (e.g., 'Maharashtra'). Examples: 'near Agra' -> 'Uttarakhand', 'near Bangalore' -> 'Karnataka'."
                         },
                         "trek_name": {
                             "type": "string",
-                            "description": "Specific trek name to search for (e.g. 'Hampta Pass', 'Valley of Flowers', 'Kedarnath Trek', 'Roopkund'). Only use if user mentions a specific trek name."
+                            "description": "Specific trek name (e.g., 'Kalsubai', 'Valley of Flowers'). Leave empty if searching by region."
                         }
                     },
                     "required": []
+                }
+            }
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "get_hotel_rates",
+                "description": "Get current hotel prices and availability for a specific city. Use this when users ask for 'hotel prices', 'places to stay', or 'accommodation costs'.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string",
+                            "description": "City name (e.g., 'Agra', 'Mumbai', 'Manali')."
+                        },
+                        "checkin_date": {
+                            "type": "string",
+                            "description": "Check-in date in YYYY-MM-DD format. If not specified, defaults to tomorrow."
+                        }
+                    },
+                    "required": ["city"]
                 }
             }
         },
@@ -490,7 +512,7 @@ async def chat(
 ):
     """
     Agentic Chat Endpoint with Offline Fallback:
-    1. Try Groq with tools (your original agent loop)
+    1. Try Groq with tools (Optimized Agent Loop)
     2. If Groq fails → fallback to local LLM (no tools)
     """
     logger.info("==" * 35)
@@ -506,21 +528,18 @@ async def chat(
     # Initialize context for the session
     context = request.context or {}
 
-    # Later when checking for trek queries, update context:
+    # Update context for trek queries
     if intent == "trekking" or is_trek_query(request.message):
         trek_name, region = extract_trek_info(request.message)
-        
         logger.info(f"🏔️ Trek Query Detected!")
         logger.info(f"   - Extracted Trek Name: {trek_name or 'Not specified'}")
         logger.info(f"   - Extracted Region: {region or 'Not specified'}")
         
-        # Update existing context
         if region:
             context['extracted_region'] = region
         if trek_name:
             context['extracted_trek_name'] = trek_name
 
-    
     # Fetch conversation history
     if session_id and current_user:
         try:
@@ -531,12 +550,12 @@ async def chat(
         except Exception as e:
             logger.warning(f"⚠️ Could not load history: {str(e)}")
     
-    # Get RAG context``
+    # Get RAG context
     rag_context = {"has_rag_context": False}
     if request.use_rag and groq_service.persona_rag:
         try:
             rag_context = await groq_service._get_rag_context(
-                request.message, request.persona, intent, context  # 👈 use enriched context
+                request.message, request.persona, intent, context
             )
         except Exception as e:
             logger.warning(f"⚠️ RAG failed: {str(e)}")
@@ -549,6 +568,9 @@ async def chat(
     final_suggestions = []
     response_source = "groq"
     
+    # 🟢 OPTIMIZATION: Track called tools to prevent loops
+    called_tools = set()
+
     if not use_local_fallback:
         try:
             # Check if Groq is available
@@ -557,7 +579,7 @@ async def chat(
                 use_local_fallback = True
             else:
                 # ==========================================
-                # YOUR ORIGINAL AGENT LOOP WITH TOOLS
+                # OPTIMIZED AGENT LOOP
                 # ==========================================
                 max_turns = 5
                 current_turn = 0
@@ -567,7 +589,7 @@ async def chat(
                     current_turn += 1
                     logger.info(f"🔄 Agent Turn {current_turn}/{max_turns}")
                     
-                    # Call Groq with tools
+                    # Call Groq
                     result = await groq_service.generate_persona_response(
                         message=request.message,
                         persona=request.persona,
@@ -576,16 +598,39 @@ async def chat(
                         tool_context=tool_context,
                         conversation_history=conversation_history,
                         tools=tools_schema,
-                        rag_context=rag_context,  # 👈 reuse same RAG for all turns
+                        rag_context=rag_context,
                     )
 
-                    
                     # CASE A: LLM wants to call tools
                     if result["type"] == "tool_call":
                         tool_calls = result["tool_calls"]
                         llm_message = result["message"]
                         
-                        # Add LLM's message to history
+                        # 🟢 CRITICAL FIX: Filter out duplicate calls to prevent loops
+                        unique_tool_calls = []
+                        for tc in tool_calls:
+                            # Create a unique signature: func_name + arguments
+                            call_signature = f"{tc.function.name}:{tc.function.arguments}"
+                            if call_signature in called_tools:
+                                logger.warning(f"⚠️ Skipping duplicate tool call: {call_signature}")
+                                continue
+                            
+                            called_tools.add(call_signature)
+                            unique_tool_calls.append(tc)
+                        
+                        # If no new tools to call, break the loop or force an answer
+                        if not unique_tool_calls:
+                            logger.info("🛑 No new tool calls needed. Forcing completion.")
+                            # Add a system nudge to history to force an answer next turn
+                            conversation_history.append({
+                                "role": "tool", # Pretend to be a tool system message
+                                "tool_call_id": tool_calls[0].id, # Reuse ID to satisfy API strictness
+                                "name": "system_guard",
+                                "content": "Error: You have already called these tools. Do not call them again. Summarize the data you have."
+                            })
+                            continue
+
+                        # Add LLM's message to history (only if we have valid calls)
                         conversation_history.append({
                             "role": "assistant",
                             "content": llm_message.content or "",
@@ -597,12 +642,12 @@ async def chat(
                                         "name": tc.function.name,
                                         "arguments": tc.function.arguments
                                     }
-                                } for tc in tool_calls
+                                } for tc in unique_tool_calls
                             ]
                         })
                         
-                        # Execute each tool
-                        for tool_call in tool_calls:
+                        # Execute VALID, UNIQUE tools
+                        for tool_call in unique_tool_calls:
                             func_name = tool_call.function.name
                             try:
                                 args = json.loads(tool_call.function.arguments)
@@ -611,6 +656,8 @@ async def chat(
                                 continue
                             
                             tool_result = None
+                            
+                            # --- Tool Execution Logic ---
                             if func_name == "geocode_location":
                                 logger.info(f"📍 Calling Geocode: {args.get('query')}")
                                 tool_result = await geocode_location(args.get('query'))
@@ -625,37 +672,42 @@ async def chat(
                                 )
                                 if tool_result:
                                     tool_context["weather"] = tool_result
+                            
+                            elif func_name == "get_hotel_rates":
+                                logger.info(f"🏨 Calling Hotels: {args}")
+                                # Import it at the top of chat.py first: from tools.hotel_tool import get_hotel_rates
+                                tool_result = await get_hotel_rates(
+                                    city=args.get('city'),
+                                    checkin_date=args.get('checkin_date')
+                                )
+                                if tool_result and "hotels" in tool_result:
+                                    tool_context["hotels"] = tool_result
 
                             elif func_name == "get_holidays":
                                 year = args.get('year')
                                 month = args.get('month')
                                 quarter = args.get('quarter')
+                                logger.info(f"🎉 Calling Holidays for: {year} (Q{quarter}/M{month})")
                                 
-                                logger.info(f"🎉 Calling Holidays for: {year} (Q{quarter} / M{month})")
-
-                                # 1. Fetch Data
                                 holidays_data = await get_holidays(year=year, month=month, quarter=quarter)
                                 
-                                # 2. 🟢 ADD FILTERING LOGIC HERE
+                                # 🟢 Date Filtering Logic
                                 from datetime import datetime
                                 today_str = datetime.now().strftime("%Y-%m-%d")
                                 current_year = datetime.now().year
-
-                                # If looking at the current year, filter out past dates
+                                
                                 if year == current_year:
                                     holidays_data = [
                                         h for h in holidays_data 
                                         if h.get('date', {}).get('iso', '9999-99-99') >= today_str
                                     ]
-
+                                
                                 if not holidays_data:
-                                    # 3. 🟢 SMART HINT: If no holidays left in 2025, tell LLM to look at 2026
                                     if year == current_year:
-                                        tool_result = f"No upcoming holidays remaining in {year}. Please call the tool again for {year + 1} (Quarter 1)."
+                                        tool_result = f"No upcoming holidays left in {year}. Please search for {year + 1} (Q1)."
                                     else:
-                                        tool_result = "No holidays found for this period."
+                                        tool_result = "No holidays found."
                                 else:
-                                    # 4. Format the valid upcoming holidays
                                     simplified_list = []
                                     for h in holidays_data:
                                         d = h.get('date', {}).get('iso', 'Unknown')
@@ -663,10 +715,8 @@ async def chat(
                                         t_raw = h.get('type')
                                         t = t_raw[0] if isinstance(t_raw, list) and t_raw else 'Public'
                                         simplified_list.append(f"{d}: {n} ({t})")
-                                    
                                     tool_result = "\n".join(simplified_list[:50])
-                                    
-                                    
+
                             elif func_name == "search_treks":
                                 logger.info(f"🏔️ Calling Trek Search: {args}")
                                 tool_result = await search_treks(
@@ -677,12 +727,33 @@ async def chat(
                                     tool_context["treks"] = tool_result
                                     logger.info(f"✅ Found {tool_result.get('trek_count', 0)} treks")
                             
-                            # Add tool result to history
+                            # --- 🟢 OPTIMIZED HISTORY STORAGE ---
+                            # We summarize what goes into history to save tokens. 
+                            # Full data is in tool_context for the system prompt.
+                            
+                            history_content = ""
+                            if not tool_result:
+                                history_content = "Error: Tool failed or returned no data."
+                            elif func_name == "search_treks":
+                                count = tool_result.get('trek_count', 0)
+                                names = [t.get('name') for t in tool_result.get('treks', [])[:5]]
+                                history_content = json.dumps({
+                                    "status": "success", 
+                                    "found": count, 
+                                    "top_5": names, 
+                                    "note": "Full details available in system context."
+                                })
+                            elif func_name == "get_holidays":
+                                content_str = str(tool_result)
+                                history_content = content_str[:250] + "...(truncated)" if len(content_str) > 250 else content_str
+                            else:
+                                history_content = json.dumps(tool_result)
+
                             conversation_history.append({
                                 "role": "tool",
                                 "tool_call_id": tool_call.id,
                                 "name": func_name,
-                                "content": json.dumps(tool_result) if tool_result else "Error: Tool failed"
+                                "content": history_content
                             })
                         
                         # Continue loop to get LLM's final response
@@ -699,6 +770,7 @@ async def chat(
                 if not final_response_text:
                     final_response_text = "I'm having trouble processing your request with tools. Let me try a different approach."
                     use_local_fallback = True
+
         except Exception as e:
             logger.error(f"❌ Groq agent failed: {str(e)}")
             use_local_fallback = True
@@ -710,9 +782,9 @@ async def chat(
         logger.warning("⚠️ Using local LLM fallback (no tools available)")
         try:
             system_prompt = build_offline_system_prompt(
-            persona=request.persona,
-            rag_context=rag_context
-        )
+                persona=request.persona,
+                rag_context=rag_context
+            )
             
             final_response_text, response_source = await llm_engine.generate(
                 system_prompt=system_prompt,
@@ -721,7 +793,7 @@ async def chat(
                 force_offline=True
             )
             
-            final_suggestions = []  # Local model doesn't generate suggestions
+            final_suggestions = []
             response_source = "local"
             
         except Exception as e:

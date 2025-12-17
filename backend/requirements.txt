@@ -55,3 +55,9 @@
     # Vector Database - Qdrant
     qdrant-client
 
+
+
+    # For audio input feature (yash)
+faster-whisper==1.0.3
+pydub==0.25.1
+langdetect==1.0.9
