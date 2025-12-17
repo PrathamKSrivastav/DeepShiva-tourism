@@ -148,7 +148,7 @@ async def get_course_details(course_id: str):
                 "type": course["type"],
                 "difficulty": course["difficulty"],
                 "description": course["description"],
-                "icon": course["icon"],
+                "image": course["image"],
                 "benefits": course["benefits"]
             },
             "chapters": chapter_summaries,
