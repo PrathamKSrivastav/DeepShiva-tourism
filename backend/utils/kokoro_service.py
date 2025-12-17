@@ -9,7 +9,7 @@ import tempfile
 from pathlib import Path
 from typing import Optional
 import soundfile as sf
-
+import hashlib
 from kokoro import KPipeline
 
 logger = logging.getLogger(__name__)
@@ -25,8 +25,12 @@ class KokoroTTSService:
         """
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"🎙️ Initializing Kokoro on {self.device}")
+        self.lang_code = lang_code  # cache key component
 
         self.pipeline = KPipeline(lang_code=lang_code)
+        # Cache dir (persist across runs)
+        self.cache_dir = Path(__file__).parent.parent / "cache" / "tts"
+        self.cache_dir.mkdir(parents=True, exist_ok=True)
 
     def synthesize(
         self,
@@ -38,6 +42,17 @@ class KokoroTTSService:
         Generate speech and return WAV bytes
         """
         try:
+            # ---------- Disk cache ----------
+            key = f"{self.lang_code}|{voice}|{speed}|{text}"
+            key_hash = hashlib.sha1(key.encode("utf-8")).hexdigest()
+            cache_path = self.cache_dir / f"{key_hash}.wav"
+
+            if cache_path.exists():
+                logger.debug(f"🗄️ TTS cache hit: {key_hash}")
+                return cache_path.read_bytes()
+            logger.debug(f"🆕 TTS cache miss: {key_hash}")
+
+            # ---------- Synthesize ----------
             generator = self.pipeline(
                 text,
                 voice=voice,
@@ -62,6 +77,12 @@ class KokoroTTSService:
 
             data = Path(wav_path).read_bytes()
             Path(wav_path).unlink()
+
+            # ---------- Save to cache ----------
+            try:
+                cache_path.write_bytes(data)
+            except Exception as ce:
+                logger.warning(f"⚠️ Could not write TTS cache: {ce}")
 
             return data
 
