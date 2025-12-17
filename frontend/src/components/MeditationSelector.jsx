@@ -7,6 +7,7 @@ const MeditationSelector = ({ darkMode, onClose }) => {
   const [stage, setStage] = useState("courses"); // 'courses', 'chapters', 'playing'
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedChapter, setSelectedChapter] = useState(null);
+  const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
 
   const {
     courses,
@@ -29,10 +30,30 @@ const MeditationSelector = ({ darkMode, onClose }) => {
     setStage("chapters");
   };
 
-  const handleChapterSelect = async (chapter) => {
+  const handleChapterSelect = async (chapter, index) => {
     setSelectedChapter(chapter);
-    await fetchChapterScript(selectedCourse.id, chapter.id);
+    setCurrentChapterIndex(index);
+    console.log(`📖 Selecting chapter - ID: ${chapter.id}, Index: ${index}`);
+    await fetchChapterScript(selectedCourse.id, chapter.id); // ✅ Use chapter.id
     setStage("playing");
+  };
+
+  const handleNextChapter = async () => {
+    if (!courseDetails || !courseDetails.chapters) {
+      console.warn("❌ No course details or chapters available");
+      return;
+    }
+
+    const nextIndex = currentChapterIndex + 1;
+    if (nextIndex < courseDetails.chapters.length) {
+      const nextChapter = courseDetails.chapters[nextIndex];
+      console.log(
+        `⏭️ Moving to next chapter - ID: ${nextChapter.id}, Index: ${nextIndex}`
+      );
+      await handleChapterSelect(nextChapter, nextIndex);
+    } else {
+      console.log("✅ Course complete - no more chapters");
+    }
   };
 
   const handleBack = () => {
@@ -42,8 +63,14 @@ const MeditationSelector = ({ darkMode, onClose }) => {
     } else if (stage === "playing") {
       setStage("chapters");
       setSelectedChapter(null);
+      setCurrentChapterIndex(0);
     }
   };
+
+  const hasNextChapter =
+    courseDetails &&
+    courseDetails.chapters &&
+    currentChapterIndex < courseDetails.chapters.length - 1;
 
   return (
     <>
@@ -240,7 +267,7 @@ const MeditationSelector = ({ darkMode, onClose }) => {
                       key={chapter.id}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      onClick={() => handleChapterSelect(chapter)}
+                      onClick={() => handleChapterSelect(chapter, idx)}
                       className={`w-full p-4 rounded-xl text-left transition-all ${
                         darkMode
                           ? "bg-dark-elev hover:bg-dark-elev/80 border border-dark-border"
@@ -286,6 +313,8 @@ const MeditationSelector = ({ darkMode, onClose }) => {
             courseTitle={courseDetails?.course_title}
             onClose={handleBack}
             darkMode={darkMode}
+            onNextChapter={handleNextChapter}
+            hasNextChapter={hasNextChapter}
           />
         )}
       </AnimatePresence>

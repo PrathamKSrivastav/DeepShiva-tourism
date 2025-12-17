@@ -55,8 +55,20 @@ export const useMeditation = () => {
       );
       if (!response.ok) throw new Error("Failed to fetch chapter script");
       const data = await response.json();
+
+      // ✅ Resolve relative audio paths to backend URL
+      if (data.chapter && data.chapter.background_music) {
+        if (data.chapter.background_music.startsWith("/")) {
+          // Audio files are in backend/public/audio/
+          // Convert /audio/mountain.mp3 to http://localhost:8000/audio/mountain.mp3
+          const backendBaseURL = API_BASE_URL.replace("/api", "");
+          data.chapter.background_music = `${backendBaseURL}${data.chapter.background_music}`;
+        }
+      }
+
       setChapterScript(data);
       console.log("✅ Fetched chapter script:", data);
+      console.log("🎵 Background music URL:", data.chapter?.background_music);
     } catch (err) {
       setError(err.message);
       console.error("❌ Error fetching chapter script:", err);

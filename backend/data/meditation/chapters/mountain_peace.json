@@ -7,7 +7,7 @@
       "id": 1,
       "title": "Arrival at Base",
       "duration": 3,
-      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/15/audio_64170b8ba4.mp3",
+      "background_music": "/audio/mountain.mp3",
       "script": [
         {
           "text": "Welcome to Mountain Peace meditation. This practice will help you find tranquility through nature-inspired mindfulness.",
@@ -27,7 +27,7 @@
         },
         {
           "text": "Take three deep breaths, feeling yourself becoming part of this peaceful mountain landscape.",
-          "pause": 10
+          "pause": 6
         },
         {
           "text": "With each breath, feel yourself grounding deeper into this moment.",
@@ -39,7 +39,7 @@
       "id": 2,
       "title": "Climbing Mindfully",
       "duration": 5,
-      "background_music": "https://cdn.pixabay.com/download/audio/2021/11/25/audio_9f403b3f7d.mp3",
+      "background_music": "/audio/mountain.mp3",
       "script": [
         {
           "text": "Now, imagine beginning your ascent up the mountain trail. But this is no ordinary climb.",
@@ -79,7 +79,7 @@
       "id": 3,
       "title": "Summit Stillness",
       "duration": 5,
-      "background_music": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_c89f2cd5e5.mp3",
+      "background_music": "/audio/mountain.mp3",
       "script": [
         {
           "text": "You've reached the summit. At the top of the mountain, there is perfect stillness.",
@@ -88,7 +88,7 @@
         {
           "text": "From here, you can see for miles. Valleys, forests, rivers, all of nature spread before you.",
           "pause": 6
-        },
+      },
         {
           "text": "Just as you observe this vast landscape, observe your thoughts without getting caught in them.",
           "pause": 6
@@ -115,7 +115,7 @@
       "id": 4,
       "title": "Descent & Integration",
       "duration": 2,
-      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/15/audio_64170b8ba4.mp3",
+      "background_music": "/audio/mountain.mp3",
       "script": [
         {
           "text": "It's time to begin our descent, carrying this mountain peace with us.",
