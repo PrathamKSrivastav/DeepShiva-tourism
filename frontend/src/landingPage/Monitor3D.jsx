@@ -10,6 +10,16 @@ export default function Monitor3D({ season, seasonData }) {
     if (screenRef.current) {
       setScreenHeight(screenRef.current.offsetHeight);
     }
+
+    // Add resize listener to update height if window changes
+    const handleResize = () => {
+      if (screenRef.current) {
+        setScreenHeight(screenRef.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -22,7 +32,7 @@ export default function Monitor3D({ season, seasonData }) {
           className="relative aspect-[16/10] bg-black rounded-2xl overflow-hidden"
         >
           {/* Display Content */}
-          <div className="w-full h-full relative">
+          <div className="w-full h-full relative isolate">
             {/* ✅ SEASONAL Mountain Background */}
             <motion.img
               key={season}
@@ -31,24 +41,24 @@ export default function Monitor3D({ season, seasonData }) {
               transition={{ duration: 0.8 }}
               src={seasonData.image}
               alt={`${season} Landscape`}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover z-0"
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20 z-10" />
 
-            {/* ✅ SEASONAL EFFECTS - Pass container height */}
-            <div className="absolute inset-0 overflow-hidden rounded-2xl">
+            {/* ✅ SEASONAL EFFECTS - FIXED: Explicit z-index and pointer-events */}
+            <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
               <SeasonalEffects season={season} containerHeight={screenHeight} />
             </div>
 
             {/* Top Bar Labels */}
-            <div className="absolute top-4 left-6 text-white text-xs font-light opacity-90 drop-shadow-lg z-10">
+            <div className="absolute top-4 left-6 text-white text-xs font-light opacity-90 drop-shadow-lg z-30">
               rasML·AI
             </div>
 
             {/* Center "Explore" Text */}
-            <div className="absolute inset-0 flex items-center justify-center z-20">
+            <div className="absolute inset-0 flex items-center justify-center z-30">
               <motion.h2
                 initial={{ opacity: 0, scale: 0.92, z: -10 }}
                 animate={{ opacity: 1, scale: 1, z: 0 }}
@@ -87,7 +97,7 @@ export default function Monitor3D({ season, seasonData }) {
                 ease: "easeInOut",
                 delay: 4,
               }}
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none z-20"
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none z-40"
               style={{ width: "40%" }}
             />
           </div>

@@ -9,6 +9,33 @@ export default function Hero() {
   const [animationStage, setAnimationStage] = useState("rotate");
   const [currentSeason, setCurrentSeason] = useState("winter");
   const [isRotating, setIsRotating] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  // Detect screen size changes with smooth transition
+  useEffect(() => {
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 890); // Mobile: < 890px
+      setIsTablet(width >= 890 && width < 1300); // Tablet: 890px - 1300px
+    };
+
+    // Initial check
+    checkScreenSize();
+
+    // Add resize listener with debounce
+    let timeoutId;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkScreenSize, 150);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   useEffect(() => {
     const rotationTimer = setTimeout(() => {
@@ -32,7 +59,7 @@ export default function Hero() {
   const seasonData = seasons[currentSeason];
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full h-screen overflow-hidden bg-white">
       {/* DYNAMIC SEASONAL GRADIENT BACKGROUND */}
       <div className="absolute inset-0 z-0">
         <div
@@ -91,47 +118,151 @@ export default function Hero() {
         isRotating={isRotating}
       />
 
-      {/* MAIN CONTENT */}
-      <div className="relative z-10 w-full h-full flex items-center justify-center px-6 lg:px-12">
-        <div className="w-full max-w-7xl mx-auto flex items-center justify-center lg:justify-between gap-8">
-          {/* MONITOR */}
-          <motion.div
-            initial={{ rotateX: 90, opacity: 0, y: 30, scale: 1, x: 0 }}
-            animate={{
-              rotateX: 0,
-              opacity: 1,
-              y: 0,
-              scale: animationStage === "content" ? 1.1 : 1,
-              x: animationStage === "content" ? "-10%" : 0,
-            }}
-            transition={{
-              rotateX: { duration: 2.2, ease: [0.22, 1, 0.36, 1] },
-              opacity: { duration: 0.5, delay: 0.2 },
-              y: { duration: 1.5, ease: [0.22, 1, 0.36, 1] },
-              scale: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-              x: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-            }}
-            className="w-full max-w-3xl flex-shrink-0"
-            style={{ perspective: "2500px", transformStyle: "preserve-3d" }}
-          >
-            <Monitor3D season={currentSeason} seasonData={seasonData} />
-          </motion.div>
-
-          {/* LOGIN PANEL */}
-          <AnimatePresence>
-            {animationStage === "content" && (
+      {/* MAIN CONTENT - Animated transition between layouts */}
+      <div className="relative z-10 w-full h-screen flex items-center justify-center overflow-hidden">
+        <AnimatePresence mode="wait">
+          {isMobile ? (
+            // MOBILE LAYOUT (< 768px)
+            <motion.div
+              key="mobile-layout"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="w-full h-full relative"
+            >
+              {/* Background Hero Image - flows from top to middle */}
               <motion.div
-                initial={{ opacity: 0, x: 80 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0 }}
-                className="w-full max-w-md flex-shrink-0 relative z-20"
+                key={currentSeason}
+                initial={{ opacity: 0, scale: 1.05 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8 }}
+                className="absolute top-0 left-0 right-0 w-full h-[45vh] rounded-b-[1rem] overflow-hidden"
               >
-                {/* LoginPanel component handles all button interactions */}
-                <LoginPanel />
+                <img
+                  src={seasonData.image}
+                  alt={`${seasonData.name} landscape`}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Explore Text Overlay */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.h2
+                    initial={{ opacity: 0, scale: 0.92 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.5, duration: 0.8 }}
+                    className="text-white text-6xl font-bold"
+                    style={{
+                      fontFamily: "Georgia, serif",
+                      fontStyle: "italic",
+                      textShadow: `
+                        0 4px 40px rgba(0,0,0,0.9),
+                        0 8px 60px rgba(0,0,0,0.7)
+                      `,
+                    }}
+                  >
+                    Explore
+                  </motion.h2>
+                </div>
               </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+
+              {/* Overlayed Login Panel */}
+              <AnimatePresence>
+                {animationStage === "content" && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: 0.4,
+                    }}
+                    className="absolute top-[35vh] left-0 right-0 z-30 flex items-center justify-center px-6"
+                  >
+                    <div className="w-full max-w-md">
+                      <LoginPanel />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ) : (
+            // DESKTOP/TABLET LAYOUT (>= 768px)
+            <motion.div
+              key="desktop-layout"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className={`w-full mx-auto flex items-center justify-center px-4 ${
+                isTablet
+                  ? "max-w-5xl gap-6 flex-col md:flex-row scale-90"
+                  : "max-w-7xl gap-20 px-6 lg:px-12"
+              }`}
+            >
+              {/* Monitor3D - Responsive sizing */}
+              <motion.div
+                initial={{ rotateX: 90, opacity: 0, y: 30, scale: 1, x: 0 }}
+                animate={{
+                  rotateX: 0,
+                  opacity: 1,
+                  y: 0,
+                  scale:
+                    animationStage === "content"
+                      ? isTablet
+                        ? 0.9
+                        : 1.05
+                      : isTablet
+                      ? 0.85
+                      : 1,
+                  x:
+                    animationStage === "content"
+                      ? isTablet
+                        ? "0%"
+                        : "-4%"
+                      : 0,
+                }}
+                transition={{
+                  rotateX: { duration: 2.2, ease: [0.22, 1, 0.36, 1] },
+                  opacity: { duration: 0.5, delay: 0.2 },
+                  y: { duration: 1.5, ease: [0.22, 1, 0.36, 1] },
+                  scale: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+                  x: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+                }}
+                className={`flex-shrink-0 ${
+                  isTablet ? "w-full max-w-lg" : "w-full max-w-2xl"
+                }`}
+                style={{ perspective: "2500px", transformStyle: "preserve-3d" }}
+              >
+                <Monitor3D season={currentSeason} seasonData={seasonData} />
+              </motion.div>
+
+              {/* Login Panel - Responsive sizing */}
+              <AnimatePresence>
+                {animationStage === "content" && (
+                  <motion.div
+                    initial={{
+                      opacity: 0,
+                      x: isTablet ? 0 : 80,
+                      y: isTablet ? 20 : 0,
+                    }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{
+                      duration: 1,
+                      ease: [0.22, 1, 0.36, 1],
+                      delay: isTablet ? 0.2 : 0,
+                    }}
+                    className={`flex-shrink-0 relative z-20 ${
+                      isTablet ? "w-full max-w-md px-4" : "w-full max-w-md"
+                    }`}
+                  >
+                    <LoginPanel />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Footer */}
@@ -145,7 +276,7 @@ export default function Hero() {
           >
             <p className="text-sm text-gray-500 font-light tracking-wide">
               Built by team{" "}
-              <span className="text-primary-dark font-medium">resMLAI</span>
+              <span className="text-primary-dark font-medium">rasMLAI</span>
             </p>
           </motion.footer>
         )}

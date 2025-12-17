@@ -5,15 +5,15 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
   // Snowflakes for Winter
   const snowflakes = useMemo(() => {
     if (season !== "winter") return [];
-    return Array.from({ length: 50 }, (_, i) => ({
+    return Array.from({ length: 35 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 12 + 6,
-      delay: Math.random() * 20,
-      duration: Math.random() * 8 + 10,
-      drift: Math.random() * 80 - 40,
-      opacity: Math.random() * 0.4 + 0.6,
-      blur: Math.random() * 1,
+      size: Math.random() * 8 + 4,
+      delay: Math.random() * 15,
+      duration: Math.random() * 6 + 8,
+      drift: Math.random() * 60 - 30,
+      opacity: Math.random() * 0.5 + 0.5,
+      blur: Math.random() * 0.5,
       rotation: Math.random() * 360,
     }));
   }, [season]);
@@ -21,13 +21,13 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
   // Falling Leaves for Autumn
   const leaves = useMemo(() => {
     if (season !== "autumn") return [];
-    return Array.from({ length: 30 }, (_, i) => ({
+    return Array.from({ length: 25 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 15 + 10,
-      delay: Math.random() * 15,
-      duration: Math.random() * 6 + 8,
-      drift: Math.random() * 120 - 60,
+      size: Math.random() * 12 + 8,
+      delay: Math.random() * 12,
+      duration: Math.random() * 5 + 6,
+      drift: Math.random() * 80 - 40,
       rotation: Math.random() * 360,
       color: ["#ff6b35", "#f7931e", "#c1440e", "#8b4513"][
         Math.floor(Math.random() * 4)
@@ -38,13 +38,13 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
   // Cherry Blossoms for Spring
   const petals = useMemo(() => {
     if (season !== "spring") return [];
-    return Array.from({ length: 40 }, (_, i) => ({
+    return Array.from({ length: 30 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
-      size: Math.random() * 10 + 5,
-      delay: Math.random() * 18,
-      duration: Math.random() * 7 + 10,
-      drift: Math.random() * 100 - 50,
+      size: Math.random() * 8 + 4,
+      delay: Math.random() * 14,
+      duration: Math.random() * 6 + 8,
+      drift: Math.random() * 70 - 35,
       rotation: Math.random() * 360,
     }));
   }, [season]);
@@ -52,12 +52,12 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
   // Fireflies for Summer
   const fireflies = useMemo(() => {
     if (season !== "summer") return [];
-    return Array.from({ length: 20 }, (_, i) => ({
+    return Array.from({ length: 15 }, (_, i) => ({
       id: i,
       left: `${Math.random() * 100}%`,
       top: `${Math.random() * 100}%`,
-      size: Math.random() * 4 + 3,
-      delay: Math.random() * 5,
+      size: Math.random() * 3 + 2,
+      delay: Math.random() * 4,
     }));
   }, [season]);
 
@@ -65,11 +65,11 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
     <>
       {/* WINTER - Snowflakes */}
       {season === "winter" && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        <div className="absolute inset-0 pointer-events-none">
           {snowflakes.map((flake) => (
             <motion.div
               key={`snow-${flake.id}`}
-              className="snowflake"
+              className="snowflake bg-white rounded-full" // Added bg-white and rounded-full explicitly
               initial={{
                 y: -30,
                 x: 0,
@@ -108,6 +108,8 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
                 width: `${flake.size}px`,
                 height: `${flake.size}px`,
                 filter: `blur(${flake.blur}px)`,
+                backgroundColor: "white", // Ensure color is set
+                boxShadow: "0 0 5px rgba(255,255,255,0.8)", // Add glow
               }}
             />
           ))}
@@ -116,11 +118,11 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
 
       {/* AUTUMN - Falling Leaves */}
       {season === "autumn" && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        <div className="absolute inset-0 pointer-events-none">
           {leaves.map((leaf) => (
             <motion.div
               key={`leaf-${leaf.id}`}
-              className="autumn-leaf"
+              className="autumn-leaf rounded-tl-none rounded-br-none rounded-tr-full rounded-bl-full" // Leaf shape
               initial={{ y: -30, x: 0, rotate: leaf.rotation, scale: 1 }}
               animate={{
                 y: containerHeight + 50,
@@ -150,11 +152,11 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
 
       {/* SPRING - Cherry Blossom Petals */}
       {season === "spring" && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        <div className="absolute inset-0 pointer-events-none">
           {petals.map((petal) => (
             <motion.div
               key={`petal-${petal.id}`}
-              className="cherry-petal"
+              className="cherry-petal rounded-full"
               initial={{ y: -30, x: 0, rotate: petal.rotation, scale: 1 }}
               animate={{
                 y: containerHeight + 50,
@@ -175,6 +177,8 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
                 top: "-30px",
                 width: `${petal.size}px`,
                 height: `${petal.size}px`,
+                backgroundColor: "#ffb7b2", // Pink color
+                boxShadow: "0 0 5px rgba(255, 183, 178, 0.6)",
               }}
             />
           ))}
@@ -183,11 +187,11 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
 
       {/* SUMMER - Fireflies */}
       {season === "summer" && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        <div className="absolute inset-0 pointer-events-none">
           {fireflies.map((fly) => (
             <motion.div
               key={`fly-${fly.id}`}
-              className="firefly"
+              className="firefly rounded-full"
               initial={{ opacity: 0, scale: 0 }}
               animate={{
                 opacity: [0, 1, 1, 0],
@@ -208,6 +212,8 @@ export default function SeasonalEffects({ season, containerHeight = 600 }) {
                 top: fly.top,
                 width: `${fly.size}px`,
                 height: `${fly.size}px`,
+                backgroundColor: "#fbbf24", // Yellow/Gold
+                boxShadow: "0 0 8px 2px rgba(251, 191, 36, 0.8)", // Strong glow
               }}
             />
           ))}

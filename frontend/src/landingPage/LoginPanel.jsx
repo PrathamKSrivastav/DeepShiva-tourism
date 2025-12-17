@@ -88,7 +88,7 @@ export default function LoginPanel() {
             duration: 0.4,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="w-full"
+          className="w-full flex justify-center"
         >
           <GoogleLogin
             onSuccess={handleGoogleSuccess}
@@ -122,7 +122,7 @@ export default function LoginPanel() {
           </span>
         </motion.div>
 
-        {/* Continue as Guest */}
+        {/* Continue as Guest - FIXED */}
         <motion.button
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,22 +134,19 @@ export default function LoginPanel() {
           onClick={handleGuestClick}
           onHoverStart={() => setHoveredButton("guest")}
           onHoverEnd={() => setHoveredButton(null)}
-          whileHover={{ scale: 1.02, y: -2 }}
+          whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           disabled={isLoading}
-          className="w-full px-6 py-3 rounded-xl bg-gradient-to-r from-accent-indigo to-accent-fuchsia backdrop-blur-md overflow-hidden border border-indigo-400/30 transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed relative font-semibold text-base"
+          className="w-full px-6 py-3.5 md:py-4 rounded-xl overflow-hidden transition-all shadow-md hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed relative"
+          style={{
+            background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+          }}
         >
-          <motion.div
-            className="absolute inset-0 bg-indigo-600/10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: hoveredButton === "guest" ? 1 : 0 }}
-            transition={{ duration: 0.25 }}
-          />
-          <span className="relative z-10 text-white font-semibold text-base flex items-center justify-center gap-2">
+          <span className="relative z-10 text-white font-semibold text-base md:text-lg flex items-center justify-center gap-2">
             Continue as Guest
             <motion.span
               animate={{ x: hoveredButton === "guest" ? 5 : 0 }}
-              transition={{ duration: 0.15 }}
+              transition={{ duration: 0.2 }}
             >
               →
             </motion.span>
