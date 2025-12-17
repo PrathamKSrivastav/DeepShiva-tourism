@@ -108,7 +108,8 @@ class GroqService:
         context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
         tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
         conversation_history: Optional[List[Dict[str, Any]]] = None,
-        tools: Optional[List[Dict[str, Any]]] = None
+        tools: Optional[List[Dict[str, Any]]] = None,
+        rag_context: Optional[Dict[str, Any]] = None
     ) -> Tuple[str, List[str]]:
 
 
