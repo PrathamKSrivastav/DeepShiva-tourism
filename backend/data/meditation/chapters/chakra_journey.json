@@ -1,0 +1,171 @@
+{
+  "course_id": "chakra_journey",
+  "course_title": "Chakra Journey",
+  "total_duration": 20,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Introduction to Energy Centers",
+      "duration": 3,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+      "script": [
+        {
+          "text": "Welcome to the Chakra Journey. In this practice, we'll explore the seven main energy centers of your body.",
+          "pause": 5
+        },
+        {
+          "text": "Chakras are spinning wheels of energy that run along your spine, from base to crown.",
+          "pause": 4
+        },
+        {
+          "text": "When balanced, they create harmony in body, mind, and spirit.",
+          "pause": 4
+        },
+        {
+          "text": "Sit comfortably with spine straight. This allows energy to flow freely.",
+          "pause": 5
+        },
+        {
+          "text": "Close your eyes and take three deep, cleansing breaths.",
+          "pause": 10
+        },
+        {
+          "text": "Set an intention to open yourself to healing energy and spiritual awareness.",
+          "pause": 6
+        },
+        {
+          "text": "Let's begin our journey from the earth to the heavens.",
+          "pause": 3
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Root to Solar Plexus",
+      "duration": 6,
+      "background_music": "https://cdn.pixabay.com/download/audio/2021/08/09/audio_12b0c7443c.mp3",
+      "script": [
+        {
+          "text": "Bring awareness to the base of your spine. This is Muladhara, the Root Chakra, glowing red.",
+          "pause": 5
+        },
+        {
+          "text": "This is your foundation, your connection to earth. Feel grounded, safe, secure.",
+          "pause": 6
+        },
+        {
+          "text": "Visualize red healing light at the base of your spine, spinning gently clockwise.",
+          "pause": 8
+        },
+        {
+          "text": "Now move up to your lower abdomen, just below the navel. Svadhisthana, the Sacral Chakra, orange in color.",
+          "pause": 5
+        },
+        {
+          "text": "This is your creative center, your passion. Feel orange light swirling here, opening your creativity.",
+          "pause": 8
+        },
+        {
+          "text": "Move up to your solar plexus, just above the navel. Manipura, the Solar Plexus Chakra, bright yellow.",
+          "pause": 5
+        },
+        {
+          "text": "This is your power center, your confidence. See golden yellow light radiating from here, filling you with strength.",
+          "pause": 8
+        },
+        {
+          "text": "These three lower chakras are now balanced and glowing. You feel rooted, creative, and empowered.",
+          "pause": 6
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Heart to Crown",
+      "duration": 8,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_c89f2cd5e5.mp3",
+      "script": [
+        {
+          "text": "Bring awareness to your heart center, in the middle of your chest. Anahata, the Heart Chakra, green and pink.",
+          "pause": 5
+        },
+        {
+          "text": "This is love, compassion, connection. Feel your heart opening like a lotus flower, radiating green healing light.",
+          "pause": 8
+        },
+        {
+          "text": "Breathe into your heart. Send love to yourself, then to all beings.",
+          "pause": 8
+        },
+        {
+          "text": "Move to your throat. Vishuddha, the Throat Chakra, sky blue in color.",
+          "pause": 5
+        },
+        {
+          "text": "This is your voice, your truth. See blue light swirling here, giving you clarity in expression.",
+          "pause": 8
+        },
+        {
+          "text": "Now to the space between your eyebrows. Ajna, the Third Eye Chakra, indigo or purple.",
+          "pause": 5
+        },
+        {
+          "text": "This is intuition, inner wisdom, spiritual sight. Visualize deep purple light here, opening your inner vision.",
+          "pause": 10
+        },
+        {
+          "text": "Finally, the crown of your head. Sahasrara, the Crown Chakra, violet or pure white light.",
+          "pause": 5
+        },
+        {
+          "text": "This is your connection to the divine, to universal consciousness. See white light pouring down from above, through your crown.",
+          "pause": 10
+        },
+        {
+          "text": "All seven chakras are now aligned and glowing. You are a pillar of light, from earth to sky.",
+          "pause": 8
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Integration & Sealing",
+      "duration": 3,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+      "script": [
+        {
+          "text": "Now, visualize all seven chakras at once. See them as seven glowing lights along your spine.",
+          "pause": 8
+        },
+        {
+          "text": "Watch as they begin to spin in harmony, creating a unified column of rainbow light.",
+          "pause": 8
+        },
+        {
+          "text": "This is your true nature, balanced, whole, radiant.",
+          "pause": 5
+        },
+        {
+          "text": "Seal this energy by bringing your hands to heart center in prayer position.",
+          "pause": 5
+        },
+        {
+          "text": "Silently offer gratitude for this healing journey.",
+          "pause": 6
+        },
+        {
+          "text": "Begin to deepen your breath. Gently move your body.",
+          "pause": 5
+        },
+        {
+          "text": "When ready, open your eyes, knowing your chakras remain balanced and aligned.",
+          "pause": 5
+        },
+        {
+          "text": "You may practice this journey anytime you need energetic realignment. Om Shanti. Peace.",
+          "pause": 3
+        }
+      ]
+    }
+  ]
+}

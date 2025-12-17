@@ -1,0 +1,43 @@
+{
+  "found": 33,
+  "city": "Ooty",
+  "dates": "2025-12-18 to 2025-12-19",
+  "hotels": [
+    {
+      "name": "Savoy - IHCL SeleQtions",
+      "price": "INR 17413.28",
+      "rating": "8.7/10",
+      "image": "https://static.cupid.travel/hotels/254172471.jpg",
+      "address": "77, Sylks Road"
+    },
+    {
+      "name": "Gem Park Ooty",
+      "price": "INR 7442.62",
+      "rating": "7.5/10",
+      "image": "https://static.cupid.travel/hotels/402393657.jpg",
+      "address": "Sheddon Road"
+    },
+    {
+      "name": "Gateway Coonoor",
+      "price": "INR 20791.82",
+      "rating": "9/10",
+      "image": "https://static.cupid.travel/hotels/524729240.jpg",
+      "address": "Church Road, Upper Coonoor"
+    },
+    {
+      "name": "Hotel Nahar Nilgiris",
+      "price": "INR 3806.22",
+      "rating": "6.6/10",
+      "image": "https://static.cupid.travel/hotels/215182653.jpg",
+      "address": "52 A Charring Cross"
+    },
+    {
+      "name": "Sterling Ooty Elk Hill",
+      "price": "INR 6313.26",
+      "rating": "8/10",
+      "image": "https://static.cupid.travel/hotels/385421742.jpg",
+      "address": "No. 25 Ramakrishna Mutt Road, R. K. Puram, Elk Hill "
+    }
+  ],
+  "cached_at": "2025-12-17T05:17:46.276608"
+}

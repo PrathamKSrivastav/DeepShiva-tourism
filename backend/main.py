@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import chat, persona, mock_data, rag_admin, auth
+from routers import chat, persona, mock_data, rag_admin, auth, audio, meditation
 import os
 from dotenv import load_dotenv
 from utils.database import connect_to_mongo, close_mongo_connection
@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
+
+os.environ["ANONYMIZED_TELEMETRY"] = "False"
 
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
@@ -57,6 +59,8 @@ app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(persona.router, prefix="/api", tags=["personas"])
 app.include_router(mock_data.router, prefix="/api/mock", tags=["mock-data"])
 app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
+app.include_router(audio.router, prefix="/api", tags=["audio"]) 
+app.include_router(meditation.router, prefix="/api", tags=["meditation"])
 
 @app.get("/")
 async def root():

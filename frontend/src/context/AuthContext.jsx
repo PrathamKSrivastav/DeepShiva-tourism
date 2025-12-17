@@ -112,7 +112,15 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await logoutApi()
+      // Clear all auth-related data
+      localStorage.removeItem("app_session_token");
+      localStorage.removeItem("app_user_data");
+      setUser(null);
+      setIsAuthenticated(false);
+
+      // Emit custom event for components to listen to
+      window.dispatchEvent(new Event("user-logout"));
+      await logoutApi();
     } catch (error) {
       console.error('Logout API error:', error)
     } finally {

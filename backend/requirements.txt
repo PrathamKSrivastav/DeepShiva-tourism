@@ -45,3 +45,16 @@
     google-auth-httplib2
 
     llama-cpp-python==0.2.90
+
+    pandas>=2.0.0
+    kagglehub>=0.2.0
+
+    #for pdf download (yash)
+    reportlab==4.0.9
+
+
+
+    # For audio input feature (yash)
+faster-whisper==1.0.3
+pydub==0.25.1
+langdetect==1.0.9
