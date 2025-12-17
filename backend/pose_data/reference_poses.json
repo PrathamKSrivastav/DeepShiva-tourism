@@ -1,0 +1,178 @@
+{
+  "t_pose": {
+    "name": "T-Pose",
+    "duration": 30,
+    "benefits": "Calibration pose for body alignment, strengthens arms and shoulders",
+    "instructions": "Stand straight, arms extended horizontally at shoulder height, palms down",
+    "image": "T-pose.png",
+    "reference_angles": {
+      "left_elbow": 180,
+      "right_elbow": 180,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "left_knee": 180,
+      "right_knee": 180,
+      "left_hip": 180,
+      "right_hip": 180,
+      "tolerance": 10
+    }
+  },
+  "trikonasana": {
+    "name": "Triangle Pose (Trikonasana)",
+    "duration": 30,
+    "benefits": "Helps in reducing excess body weight, strengthens legs and arms, improves digestion",
+    "instructions": "Stand wide, extend one arm down to ankle, other arm up, chest open, legs straight",
+    "image": "Trikonasana.jpg",
+    "reference_angles": {
+      "left_knee": 175,
+      "right_knee": 175,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "left_hip": 160,
+      "right_hip": 160,
+      "tolerance": 15
+    }
+  },
+  "naukasana": {
+    "name": "Boat Pose (Naukasana)",
+    "duration": 25,
+    "benefits": "Strengthens legs, improves balance, enhances focus, instills determination and resilience",
+    "instructions": "Balance on sitting bones, legs and torso raised at 45°, arms parallel to ground",
+    "image": "Naukasana.png",
+    "reference_angles": {
+      "left_hip": 45,
+      "right_hip": 45,
+      "left_knee": 170,
+      "right_knee": 170,
+      "left_shoulder": 20,
+      "right_shoulder": 20,
+      "tolerance": 15
+    }
+  },
+  "bhujangasana": {
+    "name": "Cobra Pose (Bhujangasana)",
+    "duration": 30,
+    "benefits": "Improves strength of back and legs, improves balance when practiced regularly",
+    "instructions": "Lie face down, hands under shoulders, lift chest, keep pelvis grounded, elbows slightly bent",
+    "image": "Bhujangasana.png",
+    "reference_angles": {
+      "left_elbow": 140,
+      "right_elbow": 140,
+      "left_shoulder": 60,
+      "right_shoulder": 60,
+      "left_hip": 170,
+      "right_hip": 170,
+      "tolerance": 20
+    }
+  },
+  "balasana": {
+    "name": "Child's Pose (Balasana)",
+    "duration": 60,
+    "benefits": "Calms mind, enhances peace, improves body posture, relaxes entire body",
+    "instructions": "Knees wide, big toes touching, sit back on heels, arms extended forward",
+    "image": "Balasana.png",
+    "reference_angles": {
+      "left_knee": 45,
+      "right_knee": 45,
+      "left_hip": 45,
+      "right_hip": 45,
+      "left_shoulder": 20,
+      "right_shoulder": 20,
+      "tolerance": 20
+    }
+  },
+  "shavasana": {
+    "name": "Corpse Pose (Shavasana)",
+    "duration": 120,
+    "benefits": "Mentally, physically, and emotionally relaxing. Improves memory and concentration",
+    "instructions": "Lie flat on back, arms at sides, palms up, legs slightly apart, completely relaxed",
+    "image": "Shavasana.png",
+    "reference_angles": {
+      "left_elbow": 175,
+      "right_elbow": 175,
+      "left_knee": 175,
+      "right_knee": 175,
+      "left_hip": 175,
+      "right_hip": 175,
+      "tolerance": 25
+    }
+  },
+  "vrikshasana": {
+    "name": "Tree Pose (Vrikshasana)",
+    "duration": 30,
+    "benefits": "Improves balance, strengthens legs and core, enhances focus and concentration",
+    "instructions": "Stand on one leg, place other foot on inner thigh, hands in prayer position or overhead",
+    "image": "Vrikshasana.png",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 180,
+      "left_hip": 180,
+      "right_hip": 90,
+      "tolerance": 20
+    }
+  },
+  "sukhasana": {
+    "name": "Easy Pose (Sukhasana)",
+    "duration": 60,
+    "benefits": "Calms mind, strengthens back, opens hips, improves posture and breathing",
+    "instructions": "Sit cross-legged, spine straight, hands on knees, shoulders relaxed",
+    "image": "Sukhasana.png",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 90,
+      "left_hip": 90,
+      "right_hip": 90,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "tolerance": 20
+    }
+  },
+  "chakrasana": {
+    "name": "Wheel Pose (Chakrasana)",
+    "duration": 20,
+    "benefits": "Cures back and kidney pain, stimulates thyroid and pituitary glands, improves flexibility",
+    "instructions": "Lie on back, bend knees and elbows, lift body into arch, hands and feet on ground",
+    "image": "Chakrasana.png",
+    "reference_angles": {
+      "left_elbow": 140,
+      "right_elbow": 140,
+      "left_knee": 90,
+      "right_knee": 90,
+      "left_shoulder": 40,
+      "right_shoulder": 40,
+      "tolerance": 15
+    }
+  },
+  "virabhadrasana": {
+    "name": "Warrior I Pose (Virabhadrasana I)",
+    "duration": 30,
+    "benefits": "Strengthens legs, opens chest and shoulders, improves focus and stability",
+    "instructions": "Lunge forward, back leg straight, arms raised overhead, chest lifted",
+    "image": "Virabadrasana.png",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 170,
+      "left_elbow": 170,
+      "right_elbow": 170,
+      "left_shoulder": 170,
+      "right_shoulder": 170,
+      "tolerance": 15
+    }
+  },
+  "warrior_2": {
+    "name": "Warrior II Pose (Virabhadrasana II)",
+    "duration": 30,
+    "benefits": "Strengthens legs, opens hips and chest, improves balance and concentration",
+    "instructions": "Front knee bent at 90°, back leg straight, arms parallel to ground, gaze over front hand",
+    "image": "Warrior%20II%20pose.png",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 170,
+      "left_elbow": 170,
+      "right_elbow": 170,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "tolerance": 15
+    }
+  }
+}
