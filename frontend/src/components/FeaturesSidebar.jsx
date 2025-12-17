@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MeditationSelector from "./MeditationSelector";
+import YogaSelector from "./YogaSelector";
 
-function FeaturesSidebar({ darkMode }) {
-  const [isOpen, setIsOpen] = useState(false);
+function FeaturesSidebar({ darkMode, isOpen, onToggle }) {
   const [isMobile, setIsMobile] = useState(false);
   const [activeFeature, setActiveFeature] = useState(null);
   const [showMeditationModal, setShowMeditationModal] = useState(false);
+  const [showYogaModal, setShowYogaModal] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -24,6 +25,13 @@ function FeaturesSidebar({ darkMode }) {
       icon: "🧘",
       description: "Guided meditation courses for spiritual journeys",
       color: "from-purple-500 to-indigo-600",
+    },
+    {
+      id: "yoga",
+      name: "Yoga Practice",
+      icon: "🤸",
+      description: "AI-powered yoga pose detection and correction",
+      color: "from-emerald-500 to-teal-600",
     },
     {
       id: "weather",
@@ -51,6 +59,10 @@ function FeaturesSidebar({ darkMode }) {
   const handleFeatureClick = (feature) => {
     if (feature.id === "meditation") {
       setShowMeditationModal(true);
+      onToggle?.(false); // ✅ Close sidebar immediately
+    } else if (feature.id === "yoga") {
+      setShowYogaModal(true);
+      onToggle?.(false); // ✅ Close sidebar immediately
     } else {
       setActiveFeature(activeFeature?.id === feature.id ? null : feature);
     }
@@ -79,11 +91,11 @@ function FeaturesSidebar({ darkMode }) {
         </h2>
         {isMobile && (
           <button
-            onClick={() => setIsOpen(false)}
-            className={`p-1 rounded-full transition-colors ${
+            onClick={() => onToggle?.(false)}
+            className={`w-8 h-8 rounded-full flex items-center justify-center ${
               darkMode
-                ? "text-gray-400 hover:bg-dark-elev/60"
-                : "text-gray-500 hover:bg-black/5"
+                ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
+                : "bg-gray-100 hover:bg-gray-200 text-gray-700"
             }`}
           >
             ✕
@@ -92,50 +104,46 @@ function FeaturesSidebar({ darkMode }) {
       </div>
 
       {/* Features List */}
-      <div className="flex-1 overflow-y-auto no-scrollbar p-3 space-y-2">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {features.map((feature) => (
           <motion.div
             key={feature.id}
-            initial={false}
-            animate={{
-              height: activeFeature?.id === feature.id ? "auto" : "auto",
-            }}
+            whileHover={{ scale: 1.02 }}
+            className="overflow-hidden"
           >
             <button
               onClick={() => handleFeatureClick(feature)}
-              className={`w-full text-left p-4 rounded-xl transition-all duration-200 ${
-                activeFeature?.id === feature.id
-                  ? darkMode
-                    ? "bg-dark-elev ring-1 ring-emerald-500/30 shadow-lg"
-                    : "bg-white ring-1 ring-emerald-200 shadow-lg"
+              className={`w-full text-left p-4 rounded-xl transition-all ${
+                activeFeature?.id === feature.id ||
+                (feature.id === "meditation" && showMeditationModal) ||
+                (feature.id === "yoga" && showYogaModal)
+                  ? `bg-gradient-to-r ${feature.color} text-white shadow-lg`
                   : darkMode
-                  ? "bg-dark-surface/40 hover:bg-dark-elev/60"
-                  : "bg-white/30 hover:bg-white/50"
+                  ? "bg-dark-elev hover:bg-dark-elev/80 text-slate-200"
+                  : "bg-white/60 hover:bg-white text-gray-800"
               }`}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center text-2xl shadow-md`}
-                >
-                  {feature.icon}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <span className="text-2xl">{feature.icon}</span>
+                  <div>
+                    <h3 className="font-semibold text-sm">{feature.name}</h3>
+                    <p
+                      className={`text-xs mt-0.5 ${
+                        activeFeature?.id === feature.id ||
+                        (feature.id === "meditation" && showMeditationModal) ||
+                        (feature.id === "yoga" && showYogaModal)
+                          ? "text-white/80"
+                          : darkMode
+                          ? "text-slate-400"
+                          : "text-gray-600"
+                      }`}
+                    >
+                      {feature.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h3
-                    className={`font-semibold text-sm ${
-                      darkMode ? "text-slate-100" : "text-gray-800"
-                    }`}
-                  >
-                    {feature.name}
-                  </h3>
-                  <p
-                    className={`text-xs ${
-                      darkMode ? "text-dark-muted" : "text-gray-500"
-                    }`}
-                  >
-                    {feature.description}
-                  </p>
-                </div>
-                {feature.id !== "meditation" && (
+                {feature.id !== "meditation" && feature.id !== "yoga" && (
                   <svg
                     className={`w-5 h-5 transition-transform ${
                       activeFeature?.id === feature.id ? "rotate-180" : ""
@@ -198,40 +206,33 @@ function FeaturesSidebar({ darkMode }) {
         <aside className="w-80 h-full flex-shrink-0 relative z-10">
           <SidebarContent />
         </aside>
+
+        {/* Modals - Render outside sidebar */}
         {showMeditationModal && (
           <MeditationSelector
             darkMode={darkMode}
             onClose={() => setShowMeditationModal(false)}
           />
         )}
+        {showYogaModal && (
+          <YogaSelector
+            darkMode={darkMode}
+            onClose={() => setShowYogaModal(false)}
+          />
+        )}
       </>
     );
   }
 
-  // Mobile view - Floating button + overlay
+  // Mobile view - overlay only (button moved to header)
   return (
     <>
-      {/* Floating Features Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl z-40 transition-transform hover:scale-110 ${
-          darkMode
-            ? "bg-gradient-to-br from-emerald-500 to-emerald-600"
-            : "bg-gradient-to-br from-emerald-500 to-emerald-600"
-        }`}
-        style={{
-          boxShadow: "0 8px 32px rgba(16, 185, 129, 0.4)",
-        }}
-      >
-        ✨
-      </button>
-
-      {/* Mobile Overlay */}
+      {/* Mobile Sidebar Overlay */}
       {isOpen && (
         <>
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
-            onClick={() => setIsOpen(false)}
+            onClick={() => onToggle?.(false)}
           />
           <aside className="fixed right-0 top-0 bottom-0 w-80 z-50">
             <SidebarContent />
@@ -239,12 +240,20 @@ function FeaturesSidebar({ darkMode }) {
         </>
       )}
 
+      {/* Modals - Render OUTSIDE sidebar with higher z-index */}
       {showMeditationModal && (
         <MeditationSelector
           darkMode={darkMode}
           onClose={() => {
             setShowMeditationModal(false);
-            setIsOpen(false);
+          }}
+        />
+      )}
+      {showYogaModal && (
+        <YogaSelector
+          darkMode={darkMode}
+          onClose={() => {
+            setShowYogaModal(false);
           }}
         />
       )}
@@ -254,41 +263,46 @@ function FeaturesSidebar({ darkMode }) {
 
 // Weather Content Component
 function WeatherContent({ darkMode }) {
+  const weatherTips = [
+    { temp: "25°C", condition: "Sunny", advice: "Perfect for temple visits" },
+    { temp: "18°C", condition: "Pleasant", advice: "Ideal for trekking" },
+    { temp: "12°C", condition: "Cool", advice: "Carry warm clothing" },
+  ];
+
   return (
-    <div className="space-y-3">
-      <div
-        className={`p-3 rounded-lg ${
-          darkMode ? "bg-dark-surface" : "bg-white/60"
-        }`}
-      >
-        <p
-          className={`text-xs ${
-            darkMode ? "text-dark-muted" : "text-gray-600"
+    <div className="space-y-2">
+      {weatherTips.map((tip, idx) => (
+        <div
+          key={idx}
+          className={`p-3 rounded-lg ${
+            darkMode ? "bg-dark-surface" : "bg-white/60"
           }`}
         >
-          Ask your guide about weather conditions for any destination
-        </p>
-      </div>
-      <div className="flex gap-2">
-        <button
-          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-            darkMode
-              ? "bg-dark-surface hover:bg-dark-elev text-slate-100"
-              : "bg-white/60 hover:bg-white text-gray-700"
-          }`}
-        >
-          🌦️ Kedarnath
-        </button>
-        <button
-          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-            darkMode
-              ? "bg-dark-surface hover:bg-dark-elev text-slate-100"
-              : "bg-white/60 hover:bg-white text-gray-700"
-          }`}
-        >
-          ☀️ Rishikesh
-        </button>
-      </div>
+          <div className="flex items-center justify-between mb-1">
+            <span
+              className={`text-sm font-medium ${
+                darkMode ? "text-slate-100" : "text-gray-800"
+              }`}
+            >
+              {tip.condition}
+            </span>
+            <span
+              className={`text-sm font-bold ${
+                darkMode ? "text-emerald-400" : "text-emerald-600"
+              }`}
+            >
+              {tip.temp}
+            </span>
+          </div>
+          <p
+            className={`text-xs ${
+              darkMode ? "text-dark-muted" : "text-gray-600"
+            }`}
+          >
+            {tip.advice}
+          </p>
+        </div>
+      ))}
     </div>
   );
 }
@@ -333,10 +347,10 @@ function FestivalsContent({ darkMode }) {
 // Tips Content Component
 function TipsContent({ darkMode }) {
   const tips = [
-    "📱 Download offline maps",
-    "💧 Stay hydrated in hills",
-    "🧥 Carry warm clothing",
-    "💊 Pack basic medicines",
+    "Dress modestly at religious sites",
+    "Remove shoes before entering temples",
+    "Carry enough water and snacks",
+    "Book accommodations in advance",
   ];
 
   return (
@@ -344,9 +358,9 @@ function TipsContent({ darkMode }) {
       {tips.map((tip, idx) => (
         <li
           key={idx}
-          className={`text-sm ${darkMode ? "text-slate-100" : "text-gray-700"}`}
+          className={`text-sm ${darkMode ? "text-slate-200" : "text-gray-700"}`}
         >
-          {tip}
+          • {tip}
         </li>
       ))}
     </ul>

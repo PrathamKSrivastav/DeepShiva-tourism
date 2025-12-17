@@ -306,6 +306,57 @@ export const sendAudioMessage = async (audioBlob, persona, sessionId = null) => 
   }
 };
 
+
+export const getAvailableYogaPoses = async () => {
+  try {
+    const response = await apiClient.get("/yoga/poses");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching yoga poses:", error);
+    throw error;
+  }
+};
+
+export const getYogaPoseDetails = async (poseName) => {
+  try {
+    const response = await apiClient.get(`/yoga/poses/${poseName}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching pose details:", error);
+    throw error;
+  }
+};
+
+export const analyzeYogaPose = async (imageFile, poseName) => {
+  try {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+    formData.append("pose_name", poseName);
+
+    const response = await apiClient.post("/yoga/analyze", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      timeout: 60000, // 60 seconds for image processing
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error analyzing yoga pose:", error);
+    throw error;
+  }
+};
+
+export const checkYogaHealth = async () => {
+  try {
+    const response = await apiClient.get("/yoga/health");
+    return response.data;
+  } catch (error) {
+    console.error("Error checking yoga health:", error);
+    throw error;
+  }
+};
+
 export default apiClient;
 
 

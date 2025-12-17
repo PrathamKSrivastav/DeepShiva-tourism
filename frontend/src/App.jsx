@@ -17,10 +17,15 @@ function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedChat, setSelectedChat] = useState(null);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [darkMode, setDarkMode] = useState(true);
+  // ✅ Initialize from localStorage, default to false (light mode)
+  const [darkMode, setDarkMode] = useState(() => {
+    const saved = localStorage.getItem("theme_preference");
+    return saved === "dark"; // Only true if explicitly set to "dark"
+  });
   const [chatSessions, setChatSessions] = useState([]);
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [newChatTrigger, setNewChatTrigger] = useState(Date.now());
+  const [featuresSidebarOpen, setFeaturesSidebarOpen] = useState(false);
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -28,9 +33,18 @@ function AppContent() {
     fetchPersonas().then((d) => setPersonas(d.personas));
   }, []);
 
+  // ✅ Save theme preference to localStorage whenever it changes
   useEffect(() => {
-    if (darkMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
+    const theme = darkMode ? "dark" : "light";
+    localStorage.setItem("theme_preference", theme);
+
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    console.log(`🎨 Theme changed to: ${theme}`);
   }, [darkMode]);
 
   useEffect(() => {
@@ -105,20 +119,35 @@ function AppContent() {
           ☰
         </button>
 
-        <div className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4">
+        <div className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4 gap-2">
           <img
-            src="/header-icon.png"
+            src="/adventurer.png"
             alt="Deep Shiva Tourism"
-            className="h-14 w-auto rounded-lg hidden sm:block"
+            className="h-14 w-auto rounded-lg block sm:hidden lg:block"
           />
           <h1
-            className={`sm:hidden text-base font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent px-2`}
+            className={`hidden sm:block text-base lg:text-lg font-bold bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text text-transparent`}
           >
             Deep Shiva Tourism
           </h1>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
+          {/* Features button - only show on mobile when authenticated */}
+          {isAuthenticated && (
+            <button
+              onClick={() => setFeaturesSidebarOpen(true)}
+              className={`lg:hidden p-2 rounded-lg transition-colors ring-1 ${
+                darkMode
+                  ? "bg-dark-elev ring-dark-border text-emerald-300 hover:bg-dark-elev/90"
+                  : "bg-white/80 ring-gray-200 text-emerald-600 hover:bg-white"
+              }`}
+              title="Open features"
+            >
+              ✨
+            </button>
+          )}
+
           <button
             onClick={() => setDarkMode((v) => !v)}
             className={`p-2 rounded-lg transition-colors ring-1 ${
@@ -148,10 +177,10 @@ function AppContent() {
         </div>
       </header>
 
-      {/* Main Layout with 3 columns */}
+      {/* Main Layout with conditional columns based on auth */}
       <main className="flex-1 overflow-hidden">
         <div className="h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6">
-          <div className="flex gap-4 lg:gap-6 h-full">
+          <div className={`flex gap-4 lg:gap-6 h-full ${!isAuthenticated ? 'justify-center' : ''}`}>
             {/* LEFT: History Sidebar */}
             <ChatHistorySidebar
               currentPersona={selectedPersona}
@@ -170,7 +199,7 @@ function AppContent() {
             />
 
             {/* CENTER: Chat Window */}
-            <div className="flex-1 min-w-0">
+            <div className={`flex-1 min-w-0 ${!isAuthenticated ? 'max-w-4xl' : ''}`}>
               <ChatWindow
                 selectedPersona={selectedPersona}
                 selectedChat={selectedChat}
@@ -185,8 +214,14 @@ function AppContent() {
               />
             </div>
 
-            {/* RIGHT: Features Sidebar */}
-            <FeaturesSidebar darkMode={darkMode} />
+            {/* RIGHT: Features Sidebar - Only show when authenticated */}
+            {isAuthenticated && (
+              <FeaturesSidebar 
+                darkMode={darkMode} 
+                isOpen={featuresSidebarOpen}
+                onToggle={setFeaturesSidebarOpen}
+              />
+            )}
           </div>
         </div>
       </main>
