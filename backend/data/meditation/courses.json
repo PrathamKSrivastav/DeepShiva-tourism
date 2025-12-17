@@ -1,0 +1,52 @@
+{
+  "courses": [
+    {
+      "id": "temple_prep",
+      "title": "Temple Visit Preparation",
+      "type": "spiritual",
+      "duration": 10,
+      "difficulty": "beginner",
+      "description": "Prepare your mind and spirit before visiting sacred temples",
+      "icon": "🕉️",
+      "benefits": [
+        "Mental clarity",
+        "Spiritual connection",
+        "Inner peace"
+      ],
+      "chapter_count": 4,
+      "chapters_file": "temple_prep.json"
+    },
+    {
+      "id": "mountain_peace",
+      "title": "Mountain Peace",
+      "type": "mindfulness",
+      "duration": 15,
+      "difficulty": "beginner",
+      "description": "Find tranquility through nature-inspired mindfulness",
+      "icon": "🏔️",
+      "benefits": [
+        "Stress relief",
+        "Nature connection",
+        "Grounding"
+      ],
+      "chapter_count": 4,
+      "chapters_file": "mountain_peace.json"
+    },
+    {
+      "id": "chakra_journey",
+      "title": "Chakra Journey",
+      "type": "chakra",
+      "duration": 20,
+      "difficulty": "intermediate",
+      "description": "Balance your seven chakras for spiritual alignment",
+      "icon": "🌈",
+      "benefits": [
+        "Energy balance",
+        "Chakra activation",
+        "Spiritual awakening"
+      ],
+      "chapter_count": 4,
+      "chapters_file": "chakra_journey.json"
+    }
+  ]
+}
