@@ -1,0 +1,43 @@
+{
+  "found": 11,
+  "city": "Surat",
+  "dates": "2025-12-18 to 2025-12-19",
+  "hotels": [
+    {
+      "name": "Lords Plaza Surat",
+      "price": "INR 24673.13",
+      "rating": "7/10",
+      "image": "https://static.cupid.travel/hotels/79795583.jpg",
+      "address": "Delhi Gate, Ring Road"
+    },
+    {
+      "name": "Surat Marriott Hotel",
+      "price": "INR 10593",
+      "rating": "8.6/10",
+      "image": "https://static.cupid.travel/hotels/ex_7ffa2909_z.jpg",
+      "address": "Surat, Gujarat, 395007"
+    },
+    {
+      "name": "Hotel Orange International",
+      "price": "INR 5158.08",
+      "rating": "8.1/10",
+      "image": "https://static.cupid.travel/hotels/83583855.jpg",
+      "address": "Railway Station Main Road, Next to Mohan Mithai"
+    },
+    {
+      "name": "Courtyard by Marriott Surat",
+      "price": "INR 8947.27",
+      "rating": "8.1/10",
+      "image": "https://static.cupid.travel/hotels/594470317.jpg",
+      "address": "Earthspace, Hazira Road, Near ONGC"
+    },
+    {
+      "name": "Ginger Surat City Centre",
+      "price": "INR 5295.49",
+      "rating": "5/10",
+      "image": "https://static.cupid.travel/hotels/234013725.jpg",
+      "address": "Doriwala Square Opposite\u00a0Surat\u00a0Railway\u00a0Station"
+    }
+  ],
+  "cached_at": "2025-12-17T18:31:09.080564"
+}

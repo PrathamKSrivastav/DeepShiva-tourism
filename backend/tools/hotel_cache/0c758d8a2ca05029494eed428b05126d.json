@@ -1,0 +1,43 @@
+{
+  "found": 36,
+  "city": "Rishikesh",
+  "dates": "2025-12-18 to 2025-12-19",
+  "hotels": [
+    {
+      "name": "GANGA KINARE- A Riverside Boutique Resort, Rishikesh",
+      "price": "INR 16937.78",
+      "rating": "8.5/10",
+      "image": "https://static.cupid.travel/hotels/587139628.jpg",
+      "address": "237 Virbhadra Road"
+    },
+    {
+      "name": "Hotel Alpana",
+      "price": "INR 2189.99",
+      "rating": "7.7/10",
+      "image": "https://static.cupid.travel/hotels/41512369.jpg",
+      "address": "Ram Ghat, Lower Bazar, Lower Road"
+    },
+    {
+      "name": "Hill Top Swiss Cottage",
+      "price": "INR 1607.1",
+      "rating": "8.2/10",
+      "image": "https://static.cupid.travel/hotels/355921568.jpg",
+      "address": "High Bank, Bhirkhet, Tapovan"
+    },
+    {
+      "name": "Hotel Krishna Ji",
+      "price": "INR 2172.53",
+      "rating": "8.6/10",
+      "image": "https://static.cupid.travel/hotels/135176663.jpg",
+      "address": "Chitra Talkies Lane,Sharvan Nath Nagar"
+    },
+    {
+      "name": "Hotel Le Roi,Haridwar@Har Ki Pauri",
+      "price": "INR 2001.67",
+      "rating": "8/10",
+      "image": "https://static.cupid.travel/hotels/55930491.jpg",
+      "address": "Multi-Functional Complex, Haridwar City Railway Station"
+    }
+  ],
+  "cached_at": "2025-12-17T16:42:58.068277"
+}

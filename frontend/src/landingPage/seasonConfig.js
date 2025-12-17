@@ -2,7 +2,7 @@ export const seasons = {
   winter: {
     name: "Winter",
     image:
-      "https://images.pexels.com/photos/1366919/pexels-photo-1366919.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "/public/winter.jpeg",
     gradient: {
       base: "from-slate-200 via-blue-100 to-slate-300",
       mesh1: "rgba(147, 197, 253, 0.3)", // Light blue

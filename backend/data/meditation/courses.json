@@ -7,7 +7,7 @@
       "duration": 10,
       "difficulty": "beginner",
       "description": "Prepare your mind and spirit before visiting sacred temples",
-      "icon": "🕉️",
+      "image": "/images/temple.png",
       "benefits": [
         "Mental clarity",
         "Spiritual connection",
@@ -23,7 +23,7 @@
       "duration": 15,
       "difficulty": "beginner",
       "description": "Find tranquility through nature-inspired mindfulness",
-      "icon": "🏔️",
+      "image": "/images/mountain.png",
       "benefits": [
         "Stress relief",
         "Nature connection",
@@ -39,7 +39,7 @@
       "duration": 20,
       "difficulty": "intermediate",
       "description": "Balance your seven chakras for spiritual alignment",
-      "icon": "🌈",
+      "image": "/images/anahata.png",
       "benefits": [
         "Energy balance",
         "Chakra activation",

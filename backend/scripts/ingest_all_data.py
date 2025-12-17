@@ -16,12 +16,17 @@ import logging
 import sys
 from pathlib import Path
 import shutil
+import os
+from dotenv import load_dotenv
 
 # ------------------------------------------------------------------
 # Resolve backend root safely
 # ------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.append(str(BASE_DIR))
+
+# Load environment variables for Qdrant
+load_dotenv()
 
 from rag.vector_store import VectorStoreManager
 from rag.content_manager import ContentManager
@@ -89,12 +94,11 @@ async def main():
     logger.info("=" * 70)
     logger.info("UNIFIED RAG INGESTION - ALL DATA SOURCES")
     logger.info("=" * 70)
-
+    
     # ------------------------------------------------------------------
     # Discover data sources
     # ------------------------------------------------------------------
     logger.info("\n📂 Scanning data directories...\n")
-    
     all_stats = {}
     
     # JSON files
@@ -106,7 +110,7 @@ async def main():
             for ext, data in json_stats.items():
                 logger.info(f"   {ext}: {data['count']} files ({data['size_mb']:.1f} MB)")
                 for fname in data['files']:
-                    logger.info(f"      • {fname}")
+                    logger.info(f"   • {fname}")
     
     # PDFs
     if SPIRITUAL_DIR.exists():
@@ -117,7 +121,7 @@ async def main():
             for ext, data in pdf_stats.items():
                 logger.info(f"   {ext}: {data['count']} files ({data['size_mb']:.1f} MB)")
                 for fname in data['files']:
-                    logger.info(f"      • {fname}")
+                    logger.info(f"   • {fname}")
     
     # Check if any data found
     if not all_stats:
@@ -126,21 +130,22 @@ async def main():
         logger.info(f"   • JSON files: {JSON_DIR}")
         logger.info(f"   • PDF files: {SPIRITUAL_DIR}")
         return
-
+    
     # Count totals
     total_files = sum(
-        data['count'] 
-        for dir_stats in all_stats.values() 
+        data['count']
+        for dir_stats in all_stats.values()
         for data in dir_stats.values()
     )
+    
     total_size = sum(
-        data['size_mb'] 
-        for dir_stats in all_stats.values() 
+        data['size_mb']
+        for dir_stats in all_stats.values()
         for data in dir_stats.values()
     )
-
+    
     logger.info(f"\n📊 TOTAL: {total_files} files ({total_size:.1f} MB)")
-
+    
     # ------------------------------------------------------------------
     # Clear old data options
     # ------------------------------------------------------------------
@@ -163,7 +168,7 @@ async def main():
         logger.info("✅ Vector DB cleared - will rebuild from scratch")
     else:
         logger.info("➕ Will ADD to existing data")
-
+    
     # ------------------------------------------------------------------
     # Confirmation
     # ------------------------------------------------------------------
@@ -171,22 +176,38 @@ async def main():
     logger.info(f"⚠️  READY TO INGEST {total_files} FILES")
     logger.info("=" * 70)
     response = input("Continue ingestion? (yes/no): ").strip().lower()
+    
     if response not in {"yes", "y"}:
         logger.info("❌ Ingestion cancelled")
         return
-
+    
     # ------------------------------------------------------------------
-    # Initialize RAG system
+    # Initialize RAG system with Qdrant support
     # ------------------------------------------------------------------
     logger.info("\n🚀 Initializing RAG system...")
     
-    vector_store = VectorStoreManager(
-        persist_directory=str(VECTOR_DB_DIR)
-    )
-    content_manager = ContentManager(vector_store)
+    # Get Qdrant credentials from environment
+    qdrant_host = os.getenv("QDRANT_HOST")
+    qdrant_api_key = os.getenv("QDRANT_API_KEY")
+    qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
     
+    vector_store = VectorStoreManager(
+        persist_directory=str(VECTOR_DB_DIR),
+        embedding_model_name="all-MiniLM-L6-v2",
+        qdrant_host=qdrant_host,
+        qdrant_api_key=qdrant_api_key,
+        qdrant_dim=qdrant_dim
+    )
+    
+    # Check Qdrant availability
+    if vector_store._cloud_available():
+        logger.info("✅ Qdrant Cloud connected - data will be uploaded to cloud")
+    else:
+        logger.warning("⚠️  Qdrant not available - data will only be stored in local ChromaDB")
+    
+    content_manager = ContentManager(vector_store)
     logger.info("✅ RAG system initialized\n")
-
+    
     # ------------------------------------------------------------------
     # Ingest JSON files
     # ------------------------------------------------------------------
@@ -204,21 +225,20 @@ async def main():
             logger.info(f"\n✅ Processed {len(json_results['processed_files'])} JSON files")
             logger.info(f"📊 Total entities: {json_results['total_entities']}")
             logger.info(f"📊 Total chunks: {json_results['total_chunks']}")
-            
             logger.info("\n📁 JSON Files Summary:")
             for f in json_results['processed_files']:
                 logger.info(
-                    f"  ✓ {f['file']:25s} | "
+                    f"   ✓ {f['file']:25s} | "
                     f"{f['entities']:3d} entities | "
                     f"{f['chunks']:3d} chunks | "
                     f"{f['type']}"
                 )
         
         if json_results['failed_files']:
-            logger.warning(f"\n⚠️ Failed {len(json_results['failed_files'])} files:")
+            logger.warning(f"\n⚠️  Failed {len(json_results['failed_files'])} files:")
             for f in json_results['failed_files']:
-                logger.warning(f"  ✗ {f['file']} → {f['error']}")
-
+                logger.warning(f"   ✗ {f['file']} → {f['error']}")
+    
     # ------------------------------------------------------------------
     # Ingest PDFs and other documents
     # ------------------------------------------------------------------
@@ -235,21 +255,20 @@ async def main():
         if pdf_results['processed_files']:
             logger.info(f"\n✅ Processed {len(pdf_results['processed_files'])} files")
             logger.info(f"📊 Total chunks: {pdf_results['total_chunks']}")
-            
             logger.info("\n📁 PDF/Text Files Summary:")
             for f in pdf_results['processed_files']:
                 filename = Path(f['file']).name
                 logger.info(
-                    f"  ✓ {filename:30s} | "
+                    f"   ✓ {filename:30s} | "
                     f"{f['chunks']:3d} chunks | "
                     f"{f['collection']}"
                 )
         
         if pdf_results['failed_files']:
-            logger.warning(f"\n⚠️ Failed {len(pdf_results['failed_files'])} files:")
+            logger.warning(f"\n⚠️  Failed {len(pdf_results['failed_files'])} files:")
             for f in pdf_results['failed_files']:
-                logger.warning(f"  ✗ {Path(f['file']).name} → {f['error']}")
-
+                logger.warning(f"   ✗ {Path(f['file']).name} → {f['error']}")
+    
     # ------------------------------------------------------------------
     # Final statistics
     # ------------------------------------------------------------------
@@ -260,10 +279,10 @@ async def main():
     stats = content_manager.get_content_statistics()
     
     logger.info(f"\n📊 FINAL SYSTEM STATE")
-    logger.info(f"Total files       : {stats['total_files']}")
-    logger.info(f"Total JSON files  : {stats['total_json_files']}")
-    logger.info(f"Total URLs        : {stats['total_urls']}")
-    logger.info(f"Total documents   : {stats['total_documents']}")
+    logger.info(f"Total files         : {stats['total_files']}")
+    logger.info(f"Total JSON files    : {stats['total_json_files']}")
+    logger.info(f"Total URLs          : {stats['total_urls']}")
+    logger.info(f"Total documents     : {stats['total_documents']}")
     
     # Collection statistics
     collections = stats.get("collections", {})
@@ -272,7 +291,7 @@ async def main():
         for name, c in collections.items():
             count = c.get('document_count', 0)
             if count > 0:
-                logger.info(f"  • {name:25s} : {count:5d} documents")
+                logger.info(f"   • {name:25s} : {count:5d} documents")
     
     # JSON entities by type
     json_entities = stats.get("json_entities_by_type", {})
@@ -280,7 +299,7 @@ async def main():
         logger.info("\n📋 JSON Entities by Type:")
         for entity_type, data in json_entities.items():
             logger.info(
-                f"  • {entity_type:20s} : "
+                f"   • {entity_type:20s} : "
                 f"{data['entities']:3d} entities | "
                 f"{data['chunks']:4d} chunks"
             )
@@ -290,7 +309,7 @@ async def main():
     if content_dist:
         logger.info("\n📚 Content Types Distribution:")
         for content_type, chunk_count in content_dist.items():
-            logger.info(f"  • {content_type:20s} : {chunk_count:5d} chunks")
+            logger.info(f"   • {content_type:20s} : {chunk_count:5d} chunks")
     
     logger.info("\n✨ RAG system ready for queries!")
     logger.info("=" * 70)
@@ -301,6 +320,6 @@ if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        logger.info("\n⚠️ Interrupted by user")
+        logger.info("\n⚠️  Interrupted by user")
     except Exception as e:
         logger.error(f"\n❌ Fatal error: {e}", exc_info=True)

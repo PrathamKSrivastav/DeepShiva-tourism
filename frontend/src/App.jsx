@@ -5,8 +5,9 @@ import ChatWindow from "./components/ChatWindow";
 import LoginButton from "./components/LoginButton";
 import UserDropdown from "./components/UserDropdown";
 import ChatHistorySidebar from "./components/ChatHistorySidebar";
+import FeaturesSidebar from "./components/FeaturesSidebar";
 import { fetchPersonas } from "./api";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -21,7 +22,7 @@ function AppContent() {
   const [currentSessionId, setCurrentSessionId] = useState(null);
   const [newChatTrigger, setNewChatTrigger] = useState(Date.now());
   const { isAuthenticated } = useAuth();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPersonas().then((d) => setPersonas(d.personas));
@@ -104,7 +105,6 @@ function AppContent() {
           ☰
         </button>
 
-        {/* Logo - Image on desktop, text on mobile */}
         <div className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4">
           <img
             src="/header-icon.png"
@@ -147,7 +147,8 @@ function AppContent() {
           {isAuthenticated && <UserDropdown darkMode={darkMode} />}
         </div>
       </header>
-      {/* Main Layout */}
+
+      {/* Main Layout with 3 columns */}
       <main className="flex-1 overflow-hidden">
         <div className="h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6">
           <div className="flex gap-4 lg:gap-6 h-full">
@@ -168,7 +169,7 @@ function AppContent() {
               onSessionsUpdate={setChatSessions}
             />
 
-            {/* CENTER: Chat Window (now takes full width) */}
+            {/* CENTER: Chat Window */}
             <div className="flex-1 min-w-0">
               <ChatWindow
                 selectedPersona={selectedPersona}
@@ -183,6 +184,9 @@ function AppContent() {
                 chatSessions={chatSessions}
               />
             </div>
+
+            {/* RIGHT: Features Sidebar */}
+            <FeaturesSidebar darkMode={darkMode} />
           </div>
         </div>
       </main>

@@ -18,7 +18,7 @@ class GroqService:
         self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
-        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "60")) #10-> 30 -> 60
+        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "90")) #10-> 30 -> 60 -> 90
         logger.info(f"🤖 Groq Model: {self.model_name}")
         
         # Initialize RAG components
@@ -38,11 +38,30 @@ class GroqService:
             logger.warning("GROQ_API_KEY not found - only offline mode available")
     
     def _init_rag_components(self):
-        """Initialize RAG components"""
+        """Initialize RAG components with Qdrant support"""
         try:
-            self.vector_store = VectorStoreManager()
+            # Get Qdrant credentials from environment
+            qdrant_host = os.getenv("QDRANT_HOST")
+            qdrant_api_key = os.getenv("QDRANT_API_KEY")
+            qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
+            
+            # Initialize VectorStoreManager with Qdrant support
+            self.vector_store = VectorStoreManager(
+                persist_directory="data/vector_db",
+                embedding_model_name="all-MiniLM-L6-v2",
+                qdrant_host=qdrant_host,
+                qdrant_api_key=qdrant_api_key,
+                qdrant_dim=qdrant_dim
+            )
+            
             self.persona_rag = PersonaRAG(self.vector_store)
-            logger.info("RAG components initialized successfully")
+            
+            # Log Qdrant status
+            if self.vector_store._cloud_available():
+                logger.info("✅ RAG components initialized with Qdrant Cloud")
+            else:
+                logger.warning("⚠️ RAG components initialized with ChromaDB fallback only")
+                
         except Exception as e:
             logger.error(f"Failed to initialize RAG components: {str(e)}")
             self.vector_store = None
@@ -90,31 +109,63 @@ class GroqService:
         tool_context: Optional[Dict[str, Any]] = None,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         tools: Optional[List[Dict[str, Any]]] = None,
-        rag_context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
-        """Generate response with retry logic for malformed tool calls"""
+        rag_context: Optional[Dict[str, Any]] = None,  # ← Can be pre-fetched
+        skip_rag: bool = False  # ← NEW: Explicit control to skip RAG
+    ) -> Tuple[str, List[str]]:
+        """
+        Generate response using Groq API with RAG enhancement and conversation history
         
+        Args:
+            message: User's input message
+            persona: Selected persona (local_guide, spiritual_teacher, etc.)
+            intent: Classified intent (spiritual, trekking, etc.)
+            context: Additional context dictionary
+            tool_context: Results from tool executions
+            conversation_history: Previous messages in conversation
+            tools: Available tools for function calling
+            rag_context: PRE-FETCHED RAG context (avoids duplicate retrieval)
+            skip_rag: Explicitly skip RAG retrieval (for offline mode)
+        """
         if not self.client:
             raise Exception("Groq API client not initialized")
-        
+    
+        # Ensure context is not None
         context = context or {}
-        rag_context = rag_context or {"has_rag_context": False}
+
+        # ⭐ FIX: Only retrieve RAG context if not already provided
+        if rag_context is None and not skip_rag:
+            logger.info("🔍 Fetching RAG context (not pre-cached)")
+            rag_context = await self._get_rag_context(message, persona, intent, context)
+        elif rag_context:
+            logger.info("✅ Using pre-cached RAG context (no duplicate retrieval)")
+        elif skip_rag:
+            logger.info("⏭️ RAG retrieval skipped (offline mode)")
+            rag_context = {"has_rag_context": False}
+        else:
+            # Fallback
+            rag_context = {"has_rag_context": False}
+
+        # Build persona-specific system message with RAG
+        system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
         
-        system_message = self._build_system_message_with_rag(
-            persona, intent, rag_context, tool_context
-        )
+        # Create the user message
         user_message = self._build_user_message(message, persona, intent, context)
-        
+
         try:
             def sync_request():
+                # Build messages array with conversation history
                 messages = [{"role": "system", "content": system_message}]
                 
+                # ADD CONVERSATION HISTORY (last 4 messages)
                 if conversation_history:
-                    logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
+                    # ⭐ OPTIMIZATION: Log but don't repeat the same info
+                    logger.debug(f"💬 Including {len(conversation_history)} previous messages for context")
                     messages.extend(conversation_history)
                 
+                # Add current user message
                 messages.append({"role": "user", "content": user_message})
                 
+                # Prepare API arguments
                 kwargs = {
                     "model": self.model_name,
                     "messages": messages,
@@ -184,6 +235,11 @@ class GroqService:
             
             logger.error(f"Groq API error: {error_str}")
             raise Exception(f"Groq API failed: {error_str[:100]}")
+
+        # Wrapper to allow public access to the internal RAG method
+    async def get_rag_context(self, message: str, persona: str, intent: str, context: Dict[str, Any]) -> Dict[str, Any]:
+        """Public wrapper for RAG retrieval"""
+        return await self._get_rag_context(message, persona, intent, context)
 
 
     def _parse_malformed_function_call(self, error_message: str) -> Optional[Dict[str, Any]]:
@@ -320,207 +376,79 @@ class GroqService:
         except Exception as e:
             logger.error(f"Error getting RAG context: {str(e)}")
             return {"has_rag_context": False, "error": str(e)}
-
     
-    def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any], tool_context: Dict[str, Any]) -> str:
-        """Build persona-specific system message enhanced with RAG context"""
-        
-        base_context = f"""You are a PAN-INDIA travel assistant with tools: geocode_location, get_weather, search_treks, get_hotel_rates.
-        TOOL USAGE RULES:
-        - Use `geocode_location` then `get_weather` for current conditions.
-        - **CRITICAL**: If the user asks about "festivals", "holidays", "celebrations", or "events", you MUST call `get_indian_holidays`.
-        - Use `get_treks` to find hiking trails near a location.
-        - **NEW**: If user asks about "hotels", "stays", "accommodation", "prices", or "lodging", MUST call `get_hotel_rates`.
-        - Do NOT output tool calls as text (like <function...>); use the proper tool call structure.
-        - If you call a tool, output ONLY the tool call.
-        - **CRITICAL**: Check the conversation history. If you have ALREADY called a tool with the same arguments, DO NOT call it again.
-        
-        - If the user asks to "PLAN" a trip:
-            1. Search for treks/places FIRST (search_treks).
-            2. Then get the WEATHER for the top location found (get_weather).
-            3. Then check HOTELS/ACCOMMODATION availability (get_hotel_rates).
-            4. Then check HOLIDAYS if a date is mentioned (get_indian_holidays).
-            5. Synthesize all data into the final answer.
-            
-        TREKS
-        - Any trek/trekking/hike query → MUST call search_treks.
-        - Use region / trek_name as given.
-        
-        HOTELS
-        - Any query about staying, room prices, or hotel suggestions → MUST call get_hotel_rates.
-        - Always specify the city clearly (e.g., "hotels in Agra").
-        
-        FACTS
-        - Do NOT invent numbers (km, days, altitude, prices, “250+ treks”, etc.).
-        - If a number is not provided, use vague wording or admit uncertainty.
-        - Do NOT mention internal tools or “my database” in answers.
-
-        STYLE
-        - Brief: 3-6 bullets or a short paragraph.
-        - Practical, user-focused.
-        - Answer in the user's language.
-
-        CURRENT DATE: {date.today().isoformat()}
-        IMPORTANT: Today is {date.today().strftime('%B %Y')}.
-        - If user asks for "upcoming" holidays and it is late in the year (Dec), check BOTH current year and next year Q1.
+    def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: dict, tool_context: dict) -> str:
         """
-
-        # - If today is late in the year (Oct-Dec), "upcoming" means THIS YEAR after today and NEXT YEAR.
-        
-            # ✨ ADD HINGLISH RESPONSE MODE ✨
-        if rag_context.get("response_language") == "hinglish":
-            base_context += """
-
-IMPORTANT: RESPONSE LANGUAGE - HINGLISH
-The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
-- Use simple English words mixed with Hindi
-- Use Roman script (English letters) for Hindi words
-- Examples:
-  * "Aap Kedarnath ja sakte hain. Best time hai May-June."
-  * "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
-  * "Yeh trek difficult hai, proper preparation chahiye."
-- Keep it natural and conversational
-- Use Hindi words that Indian tourists commonly understand
-
-"""
-        
-        # Add RAG context if available
-        if rag_context.get("has_rag_context", False):
-            base_context += f"""
-        
-        ADDITIONAL CONTEXT FROM RELIABLE SOURCES:
-        I have access to verified information from {rag_context.get('source_count', 0)} reliable sources including official Indian government documents and verified tourism resources. Use this information to provide accurate, up-to-date responses.
-        
-        {rag_context.get('formatted_context', '')}
+        Builds a highly optimized system prompt for RAG + Agents.
         """
-        if tool_context and tool_context.get("location"):
-            loc = tool_context["location"]
-            base_context += f"""
-            --- LIVE LOCATION DATA ---
-            The following location was identified using Mappls Geocoding
-            and should be treated as FACTUAL:
-            - Place: {loc.get("place_name")}
-            - City: {loc.get("city")}
-            - State: {loc.get("state")}
-            - Country: {loc.get("country")}
-            - Latitude: {loc.get("latitude")}
-            - Longitude: {loc.get("longitude")}
+        # 1. Base Identity
+        base_prompt = f"You are a {persona} guide for India. Intent: {intent}.\n"
 
-            Do NOT assume a different location.
-            If advice depends on geography, base it on this data.
+        # 2. Inject RAG Context (The "Truth")
+        if rag_context and rag_context.get("has_rag_context"):
+            # Truncate to avoid token overflow (~6000 chars is plenty for Llama3-70b)
+            context_text = rag_context.get("formatted_context", "")[:6000]
+            base_prompt += f"\n### OFFICIAL KNOWLEDGE BASE (PRIORITY):\n{context_text}\n"
+            base_prompt += "INSTRUCTION: Answer strictly using this Knowledge Base if possible.\n"
+
+        # 3. Inject Tool Results (Real-time Data)
+        if tool_context:
+            import json
+            # Filter huge lists to save tokens (e.g. only top 5 treks)
+            clean_tool_context = tool_context.copy()
+            if "treks" in clean_tool_context:
+                # Keep only summary info for treks to save space
+                trek_data = clean_tool_context["treks"]
+                clean_tool_context["treks"] = {
+                    "count": trek_data.get("trek_count"),
+                    "region": trek_data.get("region"),
+                    "top_treks": trek_data.get("treks", [])[:5] # Only top 5
+                }
+
+            base_prompt += f"\n### LIVE TOOL RESULTS:\n{json.dumps(clean_tool_context, indent=2)}\n"
+            base_prompt += "INSTRUCTION: Use these results to answer specific questions (e.g., weather, prices).\n"
+
+        # 4. Hinglish Support
+        if rag_context and rag_context.get("response_language") == "hinglish":
+            base_prompt += """
+            IMPORTANT: RESPONSE LANGUAGE - HINGLISH
+            The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
+            - Use simple English words mixed with Hindi.
+            - Use Roman script (English letters).
+            - Example: "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
             """
-        if tool_context and tool_context.get("weather"):
-            w = tool_context["weather"]
-            base_context += f"""
-            --- LIVE WEATHER FORECAST (NEXT 7 DAYS) ---
-            Source: Open-Meteo (real-time forecast)
 
-            This weather data is REAL and CURRENT.
-            You MUST use it instead of generic knowledge.
-            If weather is present, do NOT say you lack real-time access.
-
-
-            Dates: {w["dates"]}
-            Max Temperatures (°C): {w["temp_max"]}
-            Min Temperatures (°C): {w["temp_min"]}
-            Precipitation (mm): {w["precipitation"]}
-            Max Wind Speed (km/h): {w["wind_speed"]}
-
-            Use this data to:
-            - assess safety
-            - suggest suitable dates
-            - warn about bad conditions
-            Do NOT guess weather.
-            """
-            logger.info(f"🧰 TOOL CONTEXT SENT TO LLM: {tool_context}")
-        
-        if tool_context and tool_context.get("treks"):
-            trek_data = tool_context["treks"]
-            base_context += f"""
-
-        --- LIVE TREK DATA ---
-        Source: {trek_data.get('source', 'unknown')} ({'Fallback Dataset' if trek_data.get('using_fallback') else 'Live API'})
-
-        Found {trek_data.get('trek_count', 0)} treks in {trek_data.get('region', 'searched area')}:
-
-        """
-        #-------------- disabled to have less token consumption --------------
-        # for trek in trek_data.get('treks', [])[:5]:  # Show top 5
-        #     base_context += f"""
-        # Trek: {trek['name']}
-        # - Difficulty: {trek.get('difficulty', 'Unknown')}
-        # - Duration: {trek.get('duration', 'Unknown')}
-        # - Altitude: {trek.get('altitude', 'Unknown')}
-        # - Best Time: {trek.get('best_time', 'Unknown')}
-        # - Description: {trek.get('description', 'N/A')[:200]}
-        # """
-
-        #     base_context += "\nUse this data to provide accurate trek recommendations.\n"
-
-        if tool_context and tool_context.get("holidays"):
-            h_data = tool_context["holidays"]
-            base_context += f"""
-            --- LIVE HOLIDAY DATA ---
-            Source: Calendarific API (Official)
-            - no need to say something like "checking for holidays", just search for data
-            - show all the festivals without having an influence from the religion. like "holi->hindu, christmas->christian, ect." but no need to specify the religion, just know about the festival
-
-            Confirmed Holidays:
-            """
-            
-            if isinstance(h_data, list):
-                for h in h_data:
-                    # Extract date safely (Calendarific structure vs simplified)
-                    d = h.get('date', {}).get('iso', h.get('date')) if isinstance(h.get('date'), dict) else h.get('date')
-                    base_context += f"- {d}: {h.get('name')} ({h.get('type')})\n"
-            else:
-                base_context += "No holidays found.\n"
-
-            base_context += "\nUse this to plan itineraries around closures or cultural events."
-        
+        # 5. Persona Instructions
         persona_instructions = {
             "local_guide": """
-            You are a FRIENDLY LOCAL GUIDE - warm, conversational, and practical. 
-            - Use casual, approachable language like "Hey there!", "Trust me", "Pro tip"
-            - Share insider knowledge and practical tips
-            - Focus on real travel logistics, costs, timing
-            - Be encouraging and enthusiastic
-            - When you have specific source information, mention it naturally: "According to the latest tourism board info..."
+            STYLE: Friendly, casual, "Hey there!", "Pro tip".
+            Focus on practical logistics, costs, and insider tips.
             """,
-            
             "spiritual_teacher": """
-            You are a SPIRITUAL TEACHER - serene, wise, and philosophical.
-            - Use reverent, peaceful language with occasional Sanskrit terms
-            - Include Sanskrit phrases with translations: "Om Namah Shivaya (I bow to Shiva)"
-            - Share spiritual significance, legends, and mythological stories
-            - Focus on inner transformation and sacred experiences
-            - Weave source information seamlessly into spiritual narratives
-            - Be gentle, reflective, and inspiring
+            STYLE: Serene, wise, philosophical.
+            Include Sanskrit phrases with translations. Focus on inner transformation.
             """,
-            
             "trek_companion": """
-            You are an ADVENTURE TREK COMPANION - enthusiastic, safety-focused, concise.
-            - Use energetic language with adventure terms
-            - Focus heavily on safety, gear, difficulty levels, weather
-            - Be direct and practical with bullet-point style info when helpful
-            - Include specific details: distances, altitudes, timings
-            - Emphasize preparation and responsible trekking
-            - Reference official sources for safety information: "Latest government advisories show..."
+            STYLE: Energetic, safety-focused, concise.
+            Focus on gear, difficulty, weather, and safety.
             """,
-            
             "cultural_expert": """
-            You are a CULTURAL EXPERT and mythological storyteller - scholarly yet engaging.
-            - Share rich historical context, legends, and cultural stories
-            - Reference historical texts and traditions ONLY when relevant.Do not assume a religious framework unless specified.
-            - Explain cultural significance behind places and rituals
-            - Use storytelling elements: "Legend says...", "In ancient times..."
-            - Be informative but captivating, like a museum guide
-            - Cite historical sources when available: "According to historical documents..."
+            STYLE: Scholarly yet engaging storyteller.
+            Focus on history, legends, and cultural significance.
             """
         }
+        base_prompt += f"\n### PERSONA GUIDELINES:\n{persona_instructions.get(persona, persona_instructions['local_guide'])}\n"
+
+        # 6. Final Rules
+        base_prompt += """
+        ### FINAL RULES:
+        1. If the answer is in the KNOWLEDGE BASE, use it. DO NOT invent facts.
+        2. If 'LIVE TOOL RESULTS' contains the info, ANSWER the user. DO NOT call the tool again.
+        3. Keep answers concise (under 4 sentences unless asked for details).
+        """
         
-        return base_context + persona_instructions.get(persona, persona_instructions["local_guide"])
-    
+        return base_prompt
+
     def _build_user_message(self, message: str, persona: str, intent: str, context: Dict[str, Any]) -> str:
         """Build the complete user message with context"""
         context_info = ""
