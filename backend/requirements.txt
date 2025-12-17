@@ -61,3 +61,6 @@
 faster-whisper==1.0.3
 pydub==0.25.1
 langdetect==1.0.9
+
+soundfile>=0.12.1
+kokoro>=0.3.0
