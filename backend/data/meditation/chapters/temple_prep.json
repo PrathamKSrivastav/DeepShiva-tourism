@@ -1,0 +1,151 @@
+{
+  "course_id": "temple_prep",
+  "course_title": "Temple Visit Preparation",
+  "total_duration": 10,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Welcome & Setup",
+      "duration": 2,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8e1c3b8.mp3",
+      "script": [
+        {
+          "text": "Namaste. Welcome to this guided meditation for temple visit preparation.",
+          "pause": 2
+        },
+        {
+          "text": "Find a quiet space where you won't be disturbed for the next 10 minutes.",
+          "pause": 3
+        },
+        {
+          "text": "Sit in a comfortable position with your spine straight. You may sit cross-legged on the floor or in a chair with feet flat on the ground.",
+          "pause": 4
+        },
+        {
+          "text": "Gently close your eyes, or lower your gaze to the ground.",
+          "pause": 3
+        },
+        {
+          "text": "Take a moment to arrive here, letting go of any distractions or worries.",
+          "pause": 5
+        },
+        {
+          "text": "When you're ready, we'll begin with conscious breathing.",
+          "pause": 2
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Sacred Breathing",
+      "duration": 3,
+      "background_music": "https://cdn.pixabay.com/download/audio/2021/08/09/audio_12b0c7443c.mp3",
+      "script": [
+        {
+          "text": "Now, bring your attention to your natural breath. Don't try to change it, just observe.",
+          "pause": 4
+        },
+        {
+          "text": "Notice the cool air entering through your nostrils, and the warm air leaving.",
+          "pause": 5
+        },
+        {
+          "text": "Let's practice a sacred breathing pattern. Inhale slowly through your nose for a count of four.",
+          "pause": 5,
+          "instruction": "breathe_in"
+        },
+        {
+          "text": "Hold gently for four counts.",
+          "pause": 5,
+          "instruction": "hold"
+        },
+        {
+          "text": "Exhale slowly through your nose for four counts.",
+          "pause": 5,
+          "instruction": "breathe_out"
+        },
+        {
+          "text": "And hold empty for four counts.",
+          "pause": 5,
+          "instruction": "hold"
+        },
+        {
+          "text": "Continue this pattern for the next few breaths on your own. I'll remain silent.",
+          "pause": 30
+        },
+        {
+          "text": "Beautiful. Now return to your natural breathing rhythm.",
+          "pause": 3
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Spiritual Connection",
+      "duration": 4,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+      "script": [
+        {
+          "text": "With your mind calm and body relaxed, let's prepare your spirit for the sacred temple visit.",
+          "pause": 4
+        },
+        {
+          "text": "Visualize yourself standing at the entrance of the temple. See the ancient architecture, feel the spiritual energy.",
+          "pause": 6
+        },
+        {
+          "text": "As you imagine stepping inside, feel a wave of peace washing over you.",
+          "pause": 5
+        },
+        {
+          "text": "This temple is not just a physical place, but a sacred space within your own heart.",
+          "pause": 4
+        },
+        {
+          "text": "Silently, offer a prayer of gratitude. Thank the divine for this opportunity to connect.",
+          "pause": 8
+        },
+        {
+          "text": "Feel your heart opening, becoming receptive to spiritual blessings.",
+          "pause": 6
+        },
+        {
+          "text": "If any mantras come to mind, you may silently chant them now.",
+          "pause": 20
+        },
+        {
+          "text": "Know that you carry this sacred space within you, wherever you go.",
+          "pause": 4
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Closing & Blessing",
+      "duration": 1,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/10/audio_c8c8e1c3b8.mp3",
+      "script": [
+        {
+          "text": "You are now prepared, both mentally and spiritually, for your temple visit.",
+          "pause": 4
+        },
+        {
+          "text": "Begin to bring gentle movement back to your fingers and toes.",
+          "pause": 4
+        },
+        {
+          "text": "Take a deep, refreshing breath in, and sigh it out.",
+          "pause": 4
+        },
+        {
+          "text": "When you're ready, slowly open your eyes.",
+          "pause": 5
+        },
+        {
+          "text": "May your temple visit be filled with peace, devotion, and spiritual awakening. Namaste.",
+          "pause": 3
+        }
+      ]
+    }
+  ]
+}

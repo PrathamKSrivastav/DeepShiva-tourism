@@ -1,0 +1,147 @@
+{
+  "course_id": "mountain_peace",
+  "course_title": "Mountain Peace",
+  "total_duration": 15,
+  "chapters": [
+    {
+      "id": 1,
+      "title": "Arrival at Base",
+      "duration": 3,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/15/audio_64170b8ba4.mp3",
+      "script": [
+        {
+          "text": "Welcome to Mountain Peace meditation. This practice will help you find tranquility through nature-inspired mindfulness.",
+          "pause": 4
+        },
+        {
+          "text": "Sit comfortably and close your eyes. Imagine you've just arrived at the base of a majestic mountain.",
+          "pause": 5
+        },
+        {
+          "text": "The air here is crisp and clean. Birds are singing in the distance. A gentle breeze touches your skin.",
+          "pause": 6
+        },
+        {
+          "text": "You are safe here. You are welcome here. Nature embraces you.",
+          "pause": 5
+        },
+        {
+          "text": "Take three deep breaths, feeling yourself becoming part of this peaceful mountain landscape.",
+          "pause": 10
+        },
+        {
+          "text": "With each breath, feel yourself grounding deeper into this moment.",
+          "pause": 5
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Climbing Mindfully",
+      "duration": 5,
+      "background_music": "https://cdn.pixabay.com/download/audio/2021/11/25/audio_9f403b3f7d.mp3",
+      "script": [
+        {
+          "text": "Now, imagine beginning your ascent up the mountain trail. But this is no ordinary climb.",
+          "pause": 4
+        },
+        {
+          "text": "With each imagined step, you'll practice mindful awareness of your body.",
+          "pause": 4
+        },
+        {
+          "text": "Bring attention to your feet. Feel them connected to the earth. Notice any sensations there.",
+          "pause": 6
+        },
+        {
+          "text": "Move your awareness up to your legs. Are they tense or relaxed? Just notice, without judgment.",
+          "pause": 6
+        },
+        {
+          "text": "Scan your hips, your lower back, your abdomen. Breathing naturally.",
+          "pause": 6
+        },
+        {
+          "text": "Notice your chest rising and falling. Your shoulders. Any tension you find, imagine it melting away.",
+          "pause": 8
+        },
+        {
+          "text": "Your neck, your jaw, your face. Let everything soften.",
+          "pause": 6
+        },
+        {
+          "text": "Your entire body is now a mountain, strong, stable, peaceful.",
+          "pause": 5
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Summit Stillness",
+      "duration": 5,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_c89f2cd5e5.mp3",
+      "script": [
+        {
+          "text": "You've reached the summit. At the top of the mountain, there is perfect stillness.",
+          "pause": 5
+        },
+        {
+          "text": "From here, you can see for miles. Valleys, forests, rivers, all of nature spread before you.",
+          "pause": 6
+        },
+        {
+          "text": "Just as you observe this vast landscape, observe your thoughts without getting caught in them.",
+          "pause": 6
+        },
+        {
+          "text": "Thoughts come, like clouds passing across the sky. Let them drift by.",
+          "pause": 8
+        },
+        {
+          "text": "You are not your thoughts. You are the vast, open sky in which they appear.",
+          "pause": 6
+        },
+        {
+          "text": "Rest here in this spacious awareness. Nothing to do, nowhere to go.",
+          "pause": 15
+        },
+        {
+          "text": "Simply be, like the mountain. Present. Unshakeable. At peace.",
+          "pause": 8
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Descent & Integration",
+      "duration": 2,
+      "background_music": "https://cdn.pixabay.com/download/audio/2022/03/15/audio_64170b8ba4.mp3",
+      "script": [
+        {
+          "text": "It's time to begin our descent, carrying this mountain peace with us.",
+          "pause": 4
+        },
+        {
+          "text": "Know that you can return to this place anytime you need. The mountain is always here, within you.",
+          "pause": 6
+        },
+        {
+          "text": "Begin to deepen your breath. Wiggle your fingers and toes.",
+          "pause": 5
+        },
+        {
+          "text": "Gently roll your shoulders, your neck.",
+          "pause": 4
+        },
+        {
+          "text": "When you're ready, open your eyes, carrying this sense of mountain peace into your day.",
+          "pause": 5
+        },
+        {
+          "text": "Thank you for practicing. May you move through your journey with the strength and serenity of mountains.",
+          "pause": 3
+        }
+      ]
+    }
+  ]
+}
