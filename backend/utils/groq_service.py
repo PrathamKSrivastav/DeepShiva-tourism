@@ -15,7 +15,7 @@ class GroqService:
         load_dotenv()
         
         self.api_key = os.getenv("GROQ_API_KEY")
-        self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
+        self.model_name = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
         self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "60")) #10-> 30 -> 60
@@ -38,11 +38,30 @@ class GroqService:
             logger.warning("GROQ_API_KEY not found - only offline mode available")
     
     def _init_rag_components(self):
-        """Initialize RAG components"""
+        """Initialize RAG components with Qdrant support"""
         try:
-            self.vector_store = VectorStoreManager()
+            # Get Qdrant credentials from environment
+            qdrant_host = os.getenv("QDRANT_HOST")
+            qdrant_api_key = os.getenv("QDRANT_API_KEY")
+            qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
+            
+            # Initialize VectorStoreManager with Qdrant support
+            self.vector_store = VectorStoreManager(
+                persist_directory="data/vector_db",
+                embedding_model_name="all-MiniLM-L6-v2",
+                qdrant_host=qdrant_host,
+                qdrant_api_key=qdrant_api_key,
+                qdrant_dim=qdrant_dim
+            )
+            
             self.persona_rag = PersonaRAG(self.vector_store)
-            logger.info("RAG components initialized successfully")
+            
+            # Log Qdrant status
+            if self.vector_store._cloud_available():
+                logger.info("✅ RAG components initialized with Qdrant Cloud")
+            else:
+                logger.warning("⚠️ RAG components initialized with ChromaDB fallback only")
+                
         except Exception as e:
             logger.error(f"Failed to initialize RAG components: {str(e)}")
             self.vector_store = None
@@ -86,35 +105,46 @@ class GroqService:
         message: str,
         persona: str,
         intent: str,
-        context: Optional[Dict[str, Any]] = None,
-        tool_context: Optional[Dict[str, Any]] = None,
+        context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
+        tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         tools: Optional[List[Dict[str, Any]]] = None,
-        rag_context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str, Any]:
-        """Generate response with retry logic for malformed tool calls"""
-        
+        rag_context: Optional[Dict[str, Any]] = None
+    ) -> Tuple[str, List[str]]:
+
+
+        """
+        Generate response using Groq API with RAG enhancement and conversation history
+        """
         if not self.client:
             raise Exception("Groq API client not initialized")
+    
+        # Ensure context is not None
+        context = context or {}  # ← ADD THIS LINE
+
+        # Enhance query with RAG context
+        rag_context = await self._get_rag_context(message, persona, intent, context or {})
+
+        # Build persona-specific system message with RAG
+        system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
         
-        context = context or {}
-        rag_context = rag_context or {"has_rag_context": False}
-        
-        system_message = self._build_system_message_with_rag(
-            persona, intent, rag_context, tool_context
-        )
+        # Create the user message
         user_message = self._build_user_message(message, persona, intent, context)
-        
+
         try:
             def sync_request():
+                # Build messages array with conversation history
                 messages = [{"role": "system", "content": system_message}]
                 
+                # ADD CONVERSATION HISTORY (last 4 messages)
                 if conversation_history:
                     logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
                     messages.extend(conversation_history)
                 
+                # Add current user message
                 messages.append({"role": "user", "content": user_message})
                 
+                # Prepare API arguments
                 kwargs = {
                     "model": self.model_name,
                     "messages": messages,
@@ -320,7 +350,6 @@ class GroqService:
         except Exception as e:
             logger.error(f"Error getting RAG context: {str(e)}")
             return {"has_rag_context": False, "error": str(e)}
-
     
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: Dict[str, Any], tool_context: Dict[str, Any]) -> str:
         """Build persona-specific system message enhanced with RAG context"""

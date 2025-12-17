@@ -190,9 +190,20 @@ class SmartRetriever:
                     logger.warning(f"⚠️ Collection {collection_name} not found, skipping")
                     return collection_name, []
                 
-                # ============ ADD DEBUG LOGGING HERE ============
                 collection = self.vector_store.collections[collection_name]
-                doc_count = collection.count()
+                # Get document count (compatible with both DBs)
+                try:
+                # Qdrant requires CountRequest
+                    if hasattr(collection, 'count') and self.vector_store.qdrant_client:
+                        from qdrant_client.models import CountRequest
+                        doc_count = collection.count(CountRequest(exact=True)).count
+                    else:
+                    # ChromaDB
+                        doc_count = collection.count()
+                except Exception as e:
+                    logger.warning(f"⚠️ Could not get count for {collection_name}, skipping count log")
+                    doc_count = "unknown"
+
                 logger.info(f"📊 Collection {collection_name}: {doc_count} documents available")
                 # ================================================
                 
@@ -204,9 +215,15 @@ class SmartRetriever:
                     where=filters
                 )
                 
-                # ============ ADD DEBUG LOGGING HERE ============
-                raw_doc_count = len(results_data.get('documents', [[]])[0])
+                # ============ SAFE LOGGING FIX ============
+                documents = results_data.get('documents')
+                if documents and len(documents) > 0 and documents[0] is not None:
+                    raw_doc_count = len(documents[0])
+                else:
+                    raw_doc_count = 0
+                
                 logger.info(f"📊 Raw query returned {raw_doc_count} results from {collection_name}")
+                # ==========================================
                 
                 if results_data.get('documents'):
                     logger.info(f"📊 Results structure: documents={len(results_data.get('documents', []))}, metadatas={len(results_data.get('metadatas', []))}, distances={len(results_data.get('distances', []))}")
