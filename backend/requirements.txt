@@ -53,7 +53,7 @@
     reportlab==4.0.9
 
     # Vector Database - Qdrant
-    qdrant-client
+    qdrant-client==1.7.3
 
 
 

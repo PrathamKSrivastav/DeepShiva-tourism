@@ -8,7 +8,15 @@ import uuid
 
 # Qdrant imports
 from qdrant_client import QdrantClient
-from qdrant_client.http.models import VectorParams, Distance, Filter, FieldCondition, MatchValue
+from qdrant_client.http.models import (
+    VectorParams, 
+    Distance, 
+    Filter, 
+    FieldCondition, 
+    MatchValue,
+    PayloadSchemaType  # ← ADD THIS
+)
+
 
 logger = logging.getLogger(__name__)
 
@@ -87,16 +95,36 @@ class VectorStoreManager:
                     )
                     
                     # === ADD THIS TO FIX 400 ERROR ===
+                    # === CREATE PAYLOAD INDEXES FOR FILTERING ===
                     try:
+                        # Index for entity_id
                         self.qdrant_client.create_payload_index(
                             collection_name=full_name,
                             field_name="entity_id",
-                            field_schema="keyword"
+                            field_schema=PayloadSchemaType.KEYWORD
                         )
-                        logger.info(f"Created index for entity_id in {full_name}")
+                        logger.info(f"✅ Created index for 'entity_id' in {full_name}")
+                        
+                        # Index for content_type
+                        self.qdrant_client.create_payload_index(
+                            collection_name=full_name,
+                            field_name="content_type",
+                            field_schema=PayloadSchemaType.KEYWORD
+                        )
+                        logger.info(f"✅ Created index for 'content_type' in {full_name}")
+                        
+                        # Index for source_type
+                        self.qdrant_client.create_payload_index(
+                            collection_name=full_name,
+                            field_name="source_type",
+                            field_schema=PayloadSchemaType.KEYWORD
+                        )
+                        logger.info(f"✅ Created index for 'source_type' in {full_name}")
+                        
                     except Exception as e:
-                        logger.warning(f"Index creation failed (might exist): {e}")
-                    # =================================
+                        logger.warning(f"⚠️ Index creation warning for {full_name}: {e}")
+                    # ===========================================
+
                     
                 return full_name
             except Exception as e:

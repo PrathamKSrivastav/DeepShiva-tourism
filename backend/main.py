@@ -2,7 +2,6 @@ from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from routers import chat, persona, mock_data, rag_admin, auth, audio, meditation
 import os
-from rag.vector_store import VectorStoreManager
 from dotenv import load_dotenv
 from utils.database import connect_to_mongo, close_mongo_connection
 from config import settings
@@ -15,22 +14,36 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-qdrant_host = os.getenv("QDRANT_HOST")
-qdrant_api_key = os.getenv("QDRANT_API_KEY")
-qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
+# ============= SINGLETON PATTERN FOR VECTOR STORE =============
+_vector_store_instance = None
 
-vector_store = VectorStoreManager(
-    persist_directory="data/vector_db",
-    embedding_model_name="all-MiniLM-L6-v2",
-    qdrant_host=qdrant_host,
-    qdrant_api_key=qdrant_api_key,
-    qdrant_dim=qdrant_dim
-)
+def get_vector_store_manager():
+    """
+    Singleton pattern to ensure only ONE VectorStoreManager instance
+    """
+    global _vector_store_instance
+    
+    if _vector_store_instance is None:
+        from rag.vector_store import VectorStoreManager
+        
+        logger.info("🔧 Initializing VectorStoreManager (SINGLETON)")
+        _vector_store_instance = VectorStoreManager(
+            persist_directory="data/vector_db",
+            embedding_model_name="all-MiniLM-L6-v2",
+            qdrant_host=os.getenv("QDRANT_HOST"),
+            qdrant_api_key=os.getenv("QDRANT_API_KEY"),
+            qdrant_dim=int(os.getenv("QDRANT_DIM", 384))
+        )
+        
+        if _vector_store_instance._cloud_available():
+            logger.info("✅ Qdrant is reachable")
+        else:
+            logger.info("⚠️ Qdrant not reachable, falling back to Chroma")
+    
+    return _vector_store_instance
 
-if vector_store._cloud_available():
-    print("✅ Qdrant is reachable")
-else:
-    print("⚠️ Qdrant not reachable, falling back to Chroma")
+# Initialize once at module load
+vector_store = get_vector_store_manager()
 
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
@@ -38,11 +51,11 @@ app = FastAPI(
     version=settings.API_VERSION
 )
 
-# CORS middleware for frontend communication
+# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173", 
+        "http://localhost:5173",
         "http://localhost:3000",
         settings.FRONTEND_URL
     ],
@@ -79,8 +92,12 @@ app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(persona.router, prefix="/api", tags=["personas"])
 app.include_router(mock_data.router, prefix="/api/mock", tags=["mock-data"])
 app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
+<<<<<<< HEAD
 app.include_router(audio.router, prefix="/api", tags=["audio"]) 
 app.include_router(meditation.router, prefix="/api", tags=["meditation"])
+=======
+app.include_router(audio.router, prefix="/api", tags=["audio"])
+>>>>>>> c4742f26cbfe8e1b872a6e185ba4f8dd84aafdbb
 
 @app.get("/")
 async def root():
