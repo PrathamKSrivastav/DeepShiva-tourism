@@ -92,12 +92,8 @@ app.include_router(chat.router, prefix="/api", tags=["chat"])
 app.include_router(persona.router, prefix="/api", tags=["personas"])
 app.include_router(mock_data.router, prefix="/api/mock", tags=["mock-data"])
 app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
-<<<<<<< HEAD
 app.include_router(audio.router, prefix="/api", tags=["audio"]) 
 app.include_router(meditation.router, prefix="/api", tags=["meditation"])
-=======
-app.include_router(audio.router, prefix="/api", tags=["audio"])
->>>>>>> c4742f26cbfe8e1b872a6e185ba4f8dd84aafdbb
 
 @app.get("/")
 async def root():
