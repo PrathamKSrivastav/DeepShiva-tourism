@@ -215,9 +215,15 @@ class SmartRetriever:
                     where=filters
                 )
                 
-                # ============ ADD DEBUG LOGGING HERE ============
-                raw_doc_count = len(results_data.get('documents', [[]])[0])
+                # ============ SAFE LOGGING FIX ============
+                documents = results_data.get('documents')
+                if documents and len(documents) > 0 and documents[0] is not None:
+                    raw_doc_count = len(documents[0])
+                else:
+                    raw_doc_count = 0
+                
                 logger.info(f"📊 Raw query returned {raw_doc_count} results from {collection_name}")
+                # ==========================================
                 
                 if results_data.get('documents'):
                     logger.info(f"📊 Results structure: documents={len(results_data.get('documents', []))}, metadatas={len(results_data.get('metadatas', []))}, distances={len(results_data.get('distances', []))}")
