@@ -1,0 +1,79 @@
+{
+  "warrior_2": {
+    "name": "Warrior II Pose",
+    "duration": 30,
+    "benefits": "Strengthens legs, opens hips and chest, improves balance and concentration",
+    "instructions": "Front knee bent at 90°, back leg straight, arms parallel to ground, gaze over front hand",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 170,
+      "left_elbow": 170,
+      "right_elbow": 170,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "tolerance": 15
+    }
+  },
+  "tree_pose": {
+    "name": "Tree Pose (Vrksasana)",
+    "duration": 30,
+    "benefits": "Improves balance, strengthens legs and core, enhances focus and concentration",
+    "instructions": "Stand on one leg, place other foot on inner thigh, hands in prayer position or overhead",
+    "reference_angles": {
+      "left_knee": 90,
+      "right_knee": 180,
+      "left_hip": 180,
+      "right_hip": 90,
+      "tolerance": 20
+    }
+  },
+  "downward_dog": {
+    "name": "Downward-Facing Dog",
+    "duration": 45,
+    "benefits": "Stretches hamstrings, calves, and spine, strengthens arms and shoulders",
+    "instructions": "Form inverted V-shape, hands shoulder-width, feet hip-width, heels reaching toward ground",
+    "reference_angles": {
+      "left_knee": 170,
+      "right_knee": 170,
+      "left_elbow": 170,
+      "right_elbow": 170,
+      "left_shoulder": 50,
+      "right_shoulder": 50,
+      "left_hip": 50,
+      "right_hip": 50,
+      "tolerance": 15
+    }
+  },
+  "plank": {
+    "name": "Plank Pose",
+    "duration": 30,
+    "benefits": "Strengthens core, arms, and shoulders, improves posture",
+    "instructions": "Body in straight line, arms straight, engage core, shoulders over wrists",
+    "reference_angles": {
+      "left_elbow": 170,
+      "right_elbow": 170,
+      "left_shoulder": 90,
+      "right_shoulder": 90,
+      "left_knee": 170,
+      "right_knee": 170,
+      "left_hip": 170,
+      "right_hip": 170,
+      "tolerance": 10
+    }
+  },
+  "child_pose": {
+    "name": "Child's Pose (Balasana)",
+    "duration": 60,
+    "benefits": "Relaxes body, stretches back and hips, calms the mind",
+    "instructions": "Knees wide, big toes touching, sit back on heels, arms extended forward",
+    "reference_angles": {
+      "left_knee": 45,
+      "right_knee": 45,
+      "left_hip": 45,
+      "right_hip": 45,
+      "left_shoulder": 20,
+      "right_shoulder": 20,
+      "tolerance": 20
+    }
+  }
+}
