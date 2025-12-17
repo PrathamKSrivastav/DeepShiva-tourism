@@ -55,12 +55,12 @@
     # Vector Database - Qdrant
     qdrant-client==1.7.3
 
-
-
     # For audio input feature (yash)
-faster-whisper==1.0.3
-pydub==0.25.1
-langdetect==1.0.9
+    faster-whisper==1.0.3
+    pydub==0.25.1
+    langdetect==1.0.9
 
-soundfile>=0.12.1
-kokoro>=0.3.0
+    soundfile>=0.12.1
+    kokoro>=0.3.0
+
+    # build = Alpha --version 2.0.0 
