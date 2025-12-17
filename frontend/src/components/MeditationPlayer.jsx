@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8000/api";
 
+// Simple in-memory URL cache (per tab)
+const ttsURLCache = new Map(); // key: `${lang}|${voice}|${speed}|${text}` -> { url, durationMs }
+
 const MeditationPlayer = ({
   chapter,
   courseTitle,
@@ -22,23 +25,27 @@ const MeditationPlayer = ({
   const [autoPlayTimer, setAutoPlayTimer] = useState(10);
   const [autoPlayStarted, setAutoPlayStarted] = useState(false);
 
+  // NEW: Prefetch state
+  const [isPrefetching, setIsPrefetching] = useState(false);
+  const [prefetchProgress, setPrefetchProgress] = useState(0);
+  const [prefetched, setPrefetched] = useState([]); // [{url, durationMs}] aligned with script indices
+
   const audioRef = useRef(null);
   const segmentTimerRef = useRef(null);
-  const utteranceRef = useRef(null);
   const autoPlayIntervalRef = useRef(null);
   const ttsAudioRef = useRef(null);
 
   const script = chapter?.script || [];
+  const voice = "af_heart";
+  const lang = "a";
+  const speed = "1.0";
 
-  // Cleanup speech on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
-       if (ttsAudioRef.current) {
-         ttsAudioRef.current.pause();
-         ttsAudioRef.current.src = "";
-       }
-      if (window.speechSynthesis.speaking) {
-        window.speechSynthesis.cancel();
+      if (ttsAudioRef.current) {
+        ttsAudioRef.current.pause();
+        ttsAudioRef.current.src = "";
       }
       if (autoPlayIntervalRef.current) {
         clearInterval(autoPlayIntervalRef.current);
@@ -49,101 +56,239 @@ const MeditationPlayer = ({
     };
   }, []);
 
-  // Handle segment progression and TTS
+  // ---------------------------------------------------------
+  // 🎵 NEW: Dedicated Effect for Background Music Control
+  // ---------------------------------------------------------
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    // 1. Set Volume Lower (15%)
+    audio.volume = 0.15;
+
+    // 2. Logic to decide if music should play
+    // It should play ONLY if: Global is playing, Not paused, Not muted, and Music exists
+    const shouldPlayMusic =
+      isPlaying && !isPaused && !isMusicMuted && chapter?.background_music;
+
+    if (shouldPlayMusic) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((e) => {
+          // Auto-play prevention or load error
+          console.warn("Background music play failed:", e);
+        });
+      }
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying, isPaused, isMusicMuted, chapter]); // Re-run whenever these states change
+
+  // Prefetch TTS for entire chapter when it loads
+  useEffect(() => {
+    let cancelled = false;
+    async function prefetchAll() {
+      if (!script.length || !isTTSEnabled) {
+        setPrefetched([]);
+        setIsPrefetching(false);
+        setPrefetchProgress(0);
+        return;
+      }
+      setIsPrefetching(true);
+      setPrefetchProgress(0);
+
+      const results = new Array(script.length).fill(null);
+
+      // Helper to load blob -> URL and duration
+      const blobToUrlWithDuration = (blob) =>
+        new Promise((resolve) => {
+          const url = URL.createObjectURL(blob);
+          const a = new Audio();
+          a.src = url;
+          a.addEventListener("loadedmetadata", () => {
+            resolve({ url, durationMs: Math.ceil((a.duration || 0) * 1000) });
+          });
+          a.addEventListener("error", () => resolve({ url, durationMs: 0 }));
+        });
+
+      // Limit concurrency to avoid flooding backend
+      const concurrency = 3;
+      let idx = 0;
+      const runNext = async () => {
+        if (cancelled || idx >= script.length) return;
+        const i = idx++;
+        const seg = script[i];
+        if (!seg?.text) {
+          results[i] = null;
+          setPrefetchProgress((p) => p + 1);
+          return runNext();
+        }
+
+        const key = `${lang}|${voice}|${speed}|${seg.text}`;
+        try {
+          // Check in-memory cache first
+          if (ttsURLCache.has(key)) {
+            results[i] = ttsURLCache.get(key);
+            setPrefetchProgress((p) => p + 1);
+            return runNext();
+          }
+          // Fetch from backend (server-side cache will speed repeats)
+          const params = new URLSearchParams({
+            text: seg.text,
+            voice,
+            lang,
+            speed,
+          });
+          const res = await fetch(`${API_BASE_URL}/tts/kokoro?${params}`);
+          if (!res.ok) throw new Error("TTS failed");
+          const blob = await res.blob();
+          const data = await blobToUrlWithDuration(blob);
+          ttsURLCache.set(key, data);
+          results[i] = data;
+        } catch (e) {
+          console.warn("Prefetch TTS error:", e);
+          results[i] = null; // fallback to on-demand later
+        } finally {
+          setPrefetchProgress((p) => p + 1);
+          if (!cancelled) await runNext();
+        }
+      };
+
+      // Kick off workers
+      await Promise.all(
+        Array.from({ length: Math.min(concurrency, script.length) }, runNext)
+      );
+      if (!cancelled) {
+        setPrefetched(results);
+        setIsPrefetching(false);
+      }
+    }
+
+    // Reset state when chapter changes
+    setCurrentSegmentIndex(0);
+    setIsPlaying(false);
+    setIsPaused(false);
+    setIsComplete(false);
+    setAutoPlayStarted(false);
+    setPrefetched([]);
+    setPrefetchProgress(0);
+
+    prefetchAll();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [chapter?.id, script, isTTSEnabled]);
+
+  // Drive progression:
+  // - If TTS is enabled: advance on TTS ended + extra pause
+  // - If TTS is disabled: use pause-only timer
   useEffect(() => {
     if (!isPlaying || isPaused) {
       if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
       return;
     }
 
-    const currentSegment = script[currentSegmentIndex];
-    if (!currentSegment) {
+    const seg = script[currentSegmentIndex];
+    if (!seg) {
       setIsPlaying(false);
       setIsComplete(true);
-      if (audioRef.current) audioRef.current.pause();
+      // audioRef pause handled by music effect now
       return;
     }
 
-    // ✅ Speak segment via Kokoro TTS
-    if (isTTSEnabled && currentSegment.text) {
-      speakSegment(currentSegment.text);
+    if (isTTSEnabled && seg.text) {
+      playSegmentFromPrefetch(currentSegmentIndex, seg.text);
+      // No timer here; we advance on onended + extra pause
+    } else {
+      // No TTS: wait for pause then advance
+      const pauseMs = (seg.pause || 2) * 1000;
+      segmentTimerRef.current = setTimeout(() => {
+        advanceOrComplete();
+      }, pauseMs);
     }
 
-    let pauseDuration = (currentSegment.pause || 2) * 1000;
-    if (isTTSEnabled && currentSegment.text) {
-      const estimatedSpeechTime = (currentSegment.text.length / 15) * 1000;
-      pauseDuration = Math.max(pauseDuration, estimatedSpeechTime + 500);
-    }
-
-    segmentTimerRef.current = setTimeout(() => {
-      if (currentSegmentIndex < script.length - 1) {
-        setCurrentSegmentIndex((prev) => prev + 1);
-      } else {
-        setIsPlaying(false);
-        setIsSpeaking(false);
-        setIsComplete(true);
-        if (audioRef.current) audioRef.current.pause();
-        setAutoPlayStarted(true);
-      }
-    }, pauseDuration);
-
-    return () => clearTimeout(segmentTimerRef.current);
+    return () => {
+      if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
+    };
   }, [isPlaying, isPaused, currentSegmentIndex, script, isTTSEnabled]);
 
-  // ✅ Kokoro TTS
-  const speakSegment = async (text) => {
+  // Play from prefetch (or fallback on-demand)
+  const playSegmentFromPrefetch = async (index, text) => {
     try {
-      // Stop previous TTS
+      // Stop previous
       if (ttsAudioRef.current) {
         ttsAudioRef.current.pause();
         ttsAudioRef.current.src = "";
       }
-
       setIsSpeaking(true);
-      const params = new URLSearchParams({
-        text,
-        voice: "af_heart", // use "hf_alpha" for Hindi
-        lang: "a",
-        speed: "1.0",
-      });
 
-      const res = await fetch(`${API_BASE_URL}/tts/kokoro?${params}`);
-      if (!res.ok) throw new Error("TTS failed");
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
+      const key = `${lang}|${voice}|${speed}|${text}`;
+      let data = prefetched[index] || ttsURLCache.get(key);
 
-      ttsAudioRef.current.src = url;
+      // Fallback: on-demand fetch if not prefetched
+      if (!data) {
+        const params = new URLSearchParams({ text, voice, lang, speed });
+        const res = await fetch(`${API_BASE_URL}/tts/kokoro?${params}`);
+        if (!res.ok) throw new Error("TTS failed");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        data = { url, durationMs: 0 };
+      }
+
+      // Set up onended to add extra pause then advance
+      const extraPauseMs = (script[index]?.pause || 2) * 1000;
+      ttsAudioRef.current.onended = () => {
+        setIsSpeaking(false);
+        if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
+        segmentTimerRef.current = setTimeout(() => {
+          advanceOrComplete();
+        }, extraPauseMs);
+      };
+
+      ttsAudioRef.current.src = data.url;
       await ttsAudioRef.current.play();
     } catch (e) {
-      console.warn("Kokoro TTS error:", e);
+      console.warn("TTS play error:", e);
       setIsSpeaking(false);
+      // If TTS fails, just wait pause then advance
+      const pauseMs = (script[index]?.pause || 2) * 1000;
+      segmentTimerRef.current = setTimeout(() => {
+        advanceOrComplete();
+      }, pauseMs);
+    }
+  };
+
+  const advanceOrComplete = () => {
+    if (currentSegmentIndex < script.length - 1) {
+      setCurrentSegmentIndex((prev) => prev + 1);
+    } else {
+      setIsPlaying(false);
+      setIsSpeaking(false);
+      setIsComplete(true);
+      // audioRef pause handled by music effect
+      setAutoPlayStarted(true);
     }
   };
 
   const handlePlayPause = () => {
-    console.log("Play/Pause clicked - Current state:", { isPlaying, isPaused });
     if (!isPlaying) {
+      // Optional: wait until at least first segment is ready
       setIsPlaying(true);
       setIsPaused(false);
       setIsComplete(false);
       setAutoPlayStarted(false);
-      if (audioRef.current && chapter?.background_music && !isMusicMuted) {
-        audioRef.current.play().catch(() => {});
-      }
+      // Note: Music play logic is now handled in useEffect
     } else if (!isPaused) {
       setIsPaused(true);
-      if (audioRef.current) audioRef.current.pause();
-      if (ttsAudioRef.current) ttsAudioRef.current.pause(); // ✅ pause TTS
-      window.speechSynthesis.pause();
+      // Note: Music pause logic is now handled in useEffect
+      if (ttsAudioRef.current) ttsAudioRef.current.pause();
     } else {
       setIsPaused(false);
-      if (audioRef.current && chapter?.background_music) {
-        audioRef.current.play().catch(() => {});
-      }
+      // Note: Music resume logic is now handled in useEffect
       if (ttsAudioRef.current && ttsAudioRef.current.src) {
-        ttsAudioRef.current.play().catch(() => {}); // ✅ resume TTS
+        ttsAudioRef.current.play().catch(() => {});
       }
-      window.speechSynthesis.resume();
     }
   };
 
@@ -155,17 +300,15 @@ const MeditationPlayer = ({
     setIsComplete(false);
     setAutoPlayStarted(false);
     setAutoPlayTimer(10);
-    if (audioRef.current) audioRef.current.pause();
+    // audioRef pause handled by music effect because isPlaying becomes false
     if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
     if (autoPlayIntervalRef.current) clearInterval(autoPlayIntervalRef.current);
-    // ✅ Stop Kokoro audio
     if (ttsAudioRef.current) ttsAudioRef.current.pause();
-    window.speechSynthesis.cancel();
   };
 
   const handleSkipNext = () => {
     if (currentSegmentIndex < script.length - 1) {
-      if (ttsAudioRef.current) ttsAudioRef.current.pause(); // ✅
+      if (ttsAudioRef.current) ttsAudioRef.current.pause();
       setIsSpeaking(false);
       setCurrentSegmentIndex((prev) => prev + 1);
     }
@@ -173,7 +316,7 @@ const MeditationPlayer = ({
 
   const handleSkipPrev = () => {
     if (currentSegmentIndex > 0) {
-      if (ttsAudioRef.current) ttsAudioRef.current.pause(); // ✅
+      if (ttsAudioRef.current) ttsAudioRef.current.pause();
       setIsSpeaking(false);
       setCurrentSegmentIndex((prev) => prev - 1);
     }
@@ -181,19 +324,17 @@ const MeditationPlayer = ({
 
   const handleToggleTTS = () => {
     if (isSpeaking && ttsAudioRef.current) {
-      ttsAudioRef.current.pause(); // ✅
+      ttsAudioRef.current.pause();
       setIsSpeaking(false);
     }
     setIsTTSEnabled(!isTTSEnabled);
   };
 
   const handleSkipToNextChapter = () => {
-    // ✅ Cancel auto-play countdown and jump immediately
     if (autoPlayIntervalRef.current) {
       clearInterval(autoPlayIntervalRef.current);
       autoPlayIntervalRef.current = null;
     }
-    console.log("⏭️ Skipping to next chapter immediately");
     onNextChapter?.();
   };
 
@@ -223,17 +364,17 @@ const MeditationPlayer = ({
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Background Music Audio */}
+        {/* Background Music Audio - Controlled by useEffect now */}
         {chapter?.background_music && (
           <audio
             ref={audioRef}
             src={chapter.background_music}
             loop
             style={{ display: "none" }}
-            volume={isMusicMuted ? 0 : 0.3}
           />
         )}
 
+        {/* Kokoro TTS audio element */}
         <audio
           ref={ttsAudioRef}
           style={{ display: "none" }}
@@ -263,6 +404,40 @@ const MeditationPlayer = ({
             />
           </svg>
         </button>
+
+        {isPrefetching && (
+          <div className="px-6 pt-4 pb-2">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span
+                  className={`text-sm font-semibold ${
+                    darkMode ? "text-emerald-300" : "text-emerald-700"
+                  }`}
+                >
+                  🎙️ Preparing narration...
+                </span>
+                <span
+                  className={`text-sm font-bold ${
+                    darkMode ? "text-emerald-400" : "text-emerald-600"
+                  }`}
+                >
+                  {prefetchProgress}/{script.length}
+                </span>
+              </div>
+              {/* ✅ Prominent progress bar */}
+              <div className="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: `${(prefetchProgress / script.length) * 100}%`,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute h-full bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Header */}
         <div
@@ -508,29 +683,44 @@ const MeditationPlayer = ({
                   </button>
 
                   {/* Play/Pause Button */}
-                  <button
-                    onClick={handlePlayPause}
-                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-all shadow-lg bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
-                    title={isPlaying ? (isPaused ? "Resume" : "Pause") : "Play"}
-                  >
-                    {!isPlaying || isPaused ? (
-                      <svg
-                        className="w-6 h-6 ml-1"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    ) : (
-                      <svg
-                        className="w-6 h-6"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                      </svg>
-                    )}
-                  </button>
+                  <div className="flex items-center justify-center gap-3 sm:gap-4">
+                    <button
+                      onClick={handlePlayPause}
+                      disabled={isPrefetching}
+                      className={`w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center transition-all shadow-lg ${
+                        isPrefetching
+                          ? "bg-gray-400 dark:bg-gray-600 text-gray-300 dark:text-gray-500 cursor-not-allowed opacity-60"
+                          : "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white"
+                      }`}
+                      title={
+                        isPrefetching
+                          ? "Loading narration..."
+                          : isPlaying
+                          ? isPaused
+                            ? "Resume"
+                            : "Pause"
+                          : "Play"
+                      }
+                    >
+                      {!isPlaying || isPaused ? (
+                        <svg
+                          className="w-6 h-6 ml-1"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      ) : (
+                        <svg
+                          className="w-6 h-6"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                        </svg>
+                      )}
+                    </button>
+                  </div>
 
                   {/* Skip Next */}
                   <button
@@ -552,6 +742,27 @@ const MeditationPlayer = ({
                     </svg>
                   </button>
                 </div>
+
+                {/* Loading indicator under controls */}
+                {isPrefetching && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`text-center py-2 px-4 rounded-lg ${
+                      darkMode
+                        ? "bg-emerald-900/30 border border-emerald-500/30"
+                        : "bg-emerald-50 border border-emerald-200"
+                    }`}
+                  >
+                    <p
+                      className={`text-xs font-medium ${
+                        darkMode ? "text-emerald-300" : "text-emerald-700"
+                      }`}
+                    >
+                      Please wait while we prepare your meditation experience...
+                    </p>
+                  </motion.div>
+                )}
 
                 {/* Utility Buttons */}
                 <div className="flex items-center justify-center gap-2 sm:gap-3">

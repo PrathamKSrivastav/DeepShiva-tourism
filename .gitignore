@@ -227,7 +227,6 @@ frontend/build
 
 # Gatsby files
 .cache/
-public
 
 # Storybook build outputs
 .out
@@ -383,3 +382,5 @@ local_settings.py
 # !README.md
 
 backend/localmodel/*.gguf
+
+backend/cache/tts/*
