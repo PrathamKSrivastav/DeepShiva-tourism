@@ -550,15 +550,18 @@ async def chat(
         except Exception as e:
             logger.warning(f"⚠️ Could not load history: {str(e)}")
     
-    # Get RAG context
+    # ⭐ OPTIMIZATION: Fetch RAG context ONCE and cache it
     rag_context = {"has_rag_context": False}
     if request.use_rag and groq_service.persona_rag:
         try:
+            logger.info("🔍 Fetching RAG context (ONE-TIME RETRIEVAL)")
             rag_context = await groq_service._get_rag_context(
                 request.message, request.persona, intent, context
             )
+            logger.info(f"✅ RAG context retrieved: {len(rag_context.get('formatted_context', ''))} chars")
         except Exception as e:
             logger.warning(f"⚠️ RAG failed: {str(e)}")
+
     
     # ==========================================
     # TRY GROQ WITH AGENTIC TOOLS FIRST

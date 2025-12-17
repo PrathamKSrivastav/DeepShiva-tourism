@@ -105,25 +105,45 @@ class GroqService:
         message: str,
         persona: str,
         intent: str,
-        context: Optional[Dict[str, Any]] = None,  # ← Changed: Optional with default
-        tool_context: Optional[Dict[str, Any]] = None,  # ← Already optional, kept
+        context: Optional[Dict[str, Any]] = None,
+        tool_context: Optional[Dict[str, Any]] = None,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         tools: Optional[List[Dict[str, Any]]] = None,
-        rag_context: Optional[Dict[str, Any]] = None
+        rag_context: Optional[Dict[str, Any]] = None,  # ← Can be pre-fetched
+        skip_rag: bool = False  # ← NEW: Explicit control to skip RAG
     ) -> Tuple[str, List[str]]:
-
-
         """
         Generate response using Groq API with RAG enhancement and conversation history
+        
+        Args:
+            message: User's input message
+            persona: Selected persona (local_guide, spiritual_teacher, etc.)
+            intent: Classified intent (spiritual, trekking, etc.)
+            context: Additional context dictionary
+            tool_context: Results from tool executions
+            conversation_history: Previous messages in conversation
+            tools: Available tools for function calling
+            rag_context: PRE-FETCHED RAG context (avoids duplicate retrieval)
+            skip_rag: Explicitly skip RAG retrieval (for offline mode)
         """
         if not self.client:
             raise Exception("Groq API client not initialized")
     
         # Ensure context is not None
-        context = context or {}  # ← ADD THIS LINE
+        context = context or {}
 
-        # Enhance query with RAG context
-        rag_context = await self._get_rag_context(message, persona, intent, context or {})
+        # ⭐ FIX: Only retrieve RAG context if not already provided
+        if rag_context is None and not skip_rag:
+            logger.info("🔍 Fetching RAG context (not pre-cached)")
+            rag_context = await self._get_rag_context(message, persona, intent, context)
+        elif rag_context:
+            logger.info("✅ Using pre-cached RAG context (no duplicate retrieval)")
+        elif skip_rag:
+            logger.info("⏭️ RAG retrieval skipped (offline mode)")
+            rag_context = {"has_rag_context": False}
+        else:
+            # Fallback
+            rag_context = {"has_rag_context": False}
 
         # Build persona-specific system message with RAG
         system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
@@ -138,7 +158,8 @@ class GroqService:
                 
                 # ADD CONVERSATION HISTORY (last 4 messages)
                 if conversation_history:
-                    logger.info(f"💬 Including {len(conversation_history)} previous messages for context")
+                    # ⭐ OPTIMIZATION: Log but don't repeat the same info
+                    logger.debug(f"💬 Including {len(conversation_history)} previous messages for context")
                     messages.extend(conversation_history)
                 
                 # Add current user message
