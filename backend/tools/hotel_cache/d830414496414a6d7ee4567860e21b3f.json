@@ -1,0 +1,43 @@
+{
+  "found": 41,
+  "city": "Amritsar",
+  "dates": "2025-12-18 to 2025-12-19",
+  "hotels": [
+    {
+      "name": "Hyatt Regency Amritsar Hotel & Spa",
+      "price": "INR 6673.86",
+      "rating": "8.4/10",
+      "image": "https://static.cupid.travel/hotels/ex_de87911d_z.jpg",
+      "address": "Amritsar, Punjab, 143001"
+    },
+    {
+      "name": "Regenta Place Amritsar by Royal Orchid Hotels Limited",
+      "price": "INR 5137.44",
+      "rating": "7.2/10",
+      "image": "https://static.cupid.travel/hotels/320732693.jpg",
+      "address": "8, G.T. Road, Model Town, Opposite Amandeep Hospital Guru Arjun Nagar, Ram Bagh"
+    },
+    {
+      "name": "Best Western Merrion",
+      "price": "INR 7678.97",
+      "rating": "8.1/10",
+      "image": "https://static.cupid.travel/hotels/412907231.jpg",
+      "address": "45,District Shopping complex,B-Block,Ranjit Avenue"
+    },
+    {
+      "name": "Radisson Blu Hotel Amritsar",
+      "price": "INR 11581.26",
+      "rating": "8.1/10",
+      "image": "https://static.cupid.travel/hotels/328862171.jpg",
+      "address": "Airport Road"
+    },
+    {
+      "name": "Ramada By Wyndham Amritsar",
+      "price": "INR 7313.81",
+      "rating": "8.3/10",
+      "image": "https://static.cupid.travel/hotels/181941021.jpg",
+      "address": "117/1 Hall Bazaar"
+    }
+  ],
+  "cached_at": "2025-12-17T23:47:09.944444"
+}

@@ -1,0 +1,530 @@
+[
+  {
+    "site_id": "islam_west_001",
+    "religion": "Islam",
+    "site_name": "Haji Ali Dargah",
+    "alternative_names": ["Haji Ali"],
+    "site_type": "Dargah and Mosque",
+    "primary_figure_or_concept": "Pir Haji Ali Shah Bukhari",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Renowned Islamic shrine located on small islet off coast of Worli in southern Mumbai. Contains tomb of Haji Ali Shah Bukhari. Established 1431 CE to honor Muslim saint Sayyed Peer Haji Ali Shah Bukhari who originated from Bukhara, now part of Uzbekistan. He renounced all material possessions prior to embarking on pilgrimage to Mecca. Bukhari journeyed across globe during early to mid-15th century and ultimately settled in Mumbai. Throughout life disseminated knowledge about Islam attracting numerous devotees. Although original Dargah dates back over 600 years, current structure erected between 1960 and 1964 after Trust legally formed as entity in 1916. Complex comprises Dargah, Masjid. One of most recognizable landmarks of Mumbai. Exemplifies beauty of Indo-Islamic architecture showcasing remarkable fusion of Mughal and Arabian styles. Spanning area of 4,500 square meters. Complex comprises three primary structures: Dargah, mosque and sanatorium. Vast courtyard adorned with immaculate white marble reflects magnificence of Mughal-era edifices.",
+    "approx_established_period": "1431, current structure 1960-1964",
+    "location": {
+      "city": "Mumbai",
+      "district": "Mumbai Suburban",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.9827",
+      "longitude": "72.8089"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Haji_Ali_Dargah"],
+      "secondary": ["https://www.hajialidargah.in"]
+    }
+  },
+  {
+    "site_id": "islam_west_002",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Ahmedabad",
+    "alternative_names": ["Jami Masjid", "Jumma Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Constructed gracefully by Ahmed Shah I in year 1423. Hollowed Islamic shrine lying within old city region of Ahmedabad on western side of Manek Chowk. Beautiful monument in Gujarat testimony to maturity Muslim architecture has received. Principal place of prayers for Muslims built during Ahmed Shah's reign in 15th century. Largest mosque in Indian subcontinent built in this period. Mosque constructed as part of larger design of city. Lies south of processional axis that runs from Maidan-i Shah with three arches called Teen Darwaza in old city. Ahmed Shah, son and grandson have mausoleums west of mosque. Spacing between pillars of mosque forms series of square bay crowned by domed roof. Decorative details like intricate terraces, beautiful arabesque and richly carved terraces enhance interiors. James Fergusson prominent historian observed Jama Masjid's resemblance to Ranakpur Jain Temple belonging to same school with more poetry in temple and sobriety about plan of mosque. Ranks as one of India's most beautiful mosques enhanced by enormous peaceful courtyard. Displays architectural fusion with Hindu and Jain religions notably in lotus-like carving of some domes similar to many Jain temples.",
+    "approx_established_period": "1423",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5714"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/gujarat/jama-masjid-ahmedabad.html"]
+    }
+  },
+  {
+    "site_id": "islam_west_003",
+    "religion": "Islam",
+    "site_name": "Sidi Saiyyed Mosque",
+    "alternative_names": ["Sidi Saiyyed ni Jali"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1572 AD. One of most famous mosques of Ahmedabad. As attested by marble tablet fixed on wall of mosque, built by Sidi Saiyyed in retinue of Bilal Jhajar Khan, general in army of last Sultan Shams-ud-Din Muzaffar Shah III of Gujarat Sultanate. Mosque built in last year of existence of Sultanate of Gujarat. Mosque entirely arcuated famous for beautifully carved ten stone latticework windows (jalis) on side and rear arches. Rear wall filled with square stone pierced panels in geometrical designs. Two bays flanking central aisle have reticulated stone slabs carved in designs of intertwined trees and foliage and palm motif. Intricately carved lattice stone window Sidi Saiyyed Jali unofficial symbol of city of Ahmedabad and inspiration for design of logo of Indian Institute of Management Ahmedabad. Represents fusion of Hindu and Islamic architectural styles showcasing syncretic culture prevalent during period.",
+    "approx_established_period": "1572",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5714"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://heritageofahmedabad.com/sidi-saiyyed-mosque/"]
+    }
+  },
+  {
+    "site_id": "islam_west_004",
+    "religion": "Islam",
+    "site_name": "Ahmed Shah's Mosque",
+    "alternative_names": ["Ahmad Shah Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Royal mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Southwest of Bhadra Fort. Built 1414 for sultan and nobles within Ahmedabad's original citadel. Mosque used by royal people for offering prayers. Prayer hall forest of beautifully carved stone pillars and jali screens. Elaborately carved ceiling has circular symmetry reminiscent of Hindu and Jain temples. Outer wall of mosque plain having pointed arches. Five large domes along with small domes beautifully ornamented supported by pillars. Considered oldest mosque of Ahmedabad.",
+    "approx_established_period": "1414",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5714"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujarattourism.com/central-zone/ahmedabad/ahmad-shah-s-mosque.html"]
+    }
+  },
+  {
+    "site_id": "islam_west_005",
+    "religion": "Islam",
+    "site_name": "Dargah of Zar Zari Zar Baksh",
+    "alternative_names": [],
+    "site_type": "Dargah",
+    "primary_figure_or_concept": "Zar Zari Zar Baksh",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Khuldabad, Maharashtra. Revered Sufi saint Zar Zari Zar Baksh whose dargah spiritual heart of Khuldabad attracting thousands seeking divine blessings. Khuldabad meaning 'Abode of Eternity' houses over 1,500 Sufi saints making it one of most spiritually significant places in India. Town's peaceful atmosphere attracts pilgrims from around world. Emperor Aurangzeb chose humble town as final resting place reflecting deep respect for Sufi saints and simple lifestyle away from grandeur of typical Mughal mausoleums. In devotional tradition, within shrine preserved hair believed to be from prophet's beard displayed during Eid-e-Milad celebrations. Shrine doors plated with plates of metal wrought into fanciful designs of trees and flowers. Mosque in front of dargah. Within town dargahs to other Muslim saints like Muntajab ud din, Sayyad Yusuf.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Khuldabad",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0333",
+      "longitude": "75.1833"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khuldabad"],
+      "secondary": ["https://www.khuldabad.in"]
+    }
+  },
+  {
+    "site_id": "islam_west_006",
+    "religion": "Islam",
+    "site_name": "Makhdoom Ali Mahimi Dargah",
+    "alternative_names": ["Mahim Dargah"],
+    "site_type": "Dargah",
+    "primary_figure_or_concept": "Hazrat Makhdum Ali Mahimi",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Islamic shrine dedicated to Hazrat Makhdum Ali Mahimi who was Islamic saint and scholar of international repute. Located in Mahim area of Mumbai. Said area itself named after great saint. He lived during Tughlaq dynasty and was Sufi scholar known to showcase extraordinary excellence in skills. In hagiographic tradition, many fables and stories tell about miracles and awe-inspiring life instances. Highly revered and sacred place for people of Islamic faith. Open 24 hours. Important pilgrimage site in Mumbai.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Mumbai",
+      "district": "Mumbai Suburban",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.0330",
+      "longitude": "72.8397"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.triphobo.com/places/mumbai-india/makhdoom-ali-shah-mahimi-dargah"]
+    }
+  },
+  {
+    "site_id": "islam_west_007",
+    "religion": "Islam",
+    "site_name": "Sarkhej Roza",
+    "alternative_names": [],
+    "site_type": "Mosque and Tomb Complex",
+    "primary_figure_or_concept": "Ahmed Khattu Ganj Baksh",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Sufi mosque and tomb complex located in village of Makarba 7 kilometres south-west of Ahmedabad in Gujarat. Most revered roza across Gujarat. Sarkhej once prominent centre of Sufi culture in country where influential Sufi saint Shaikh Ahmed Ganj Baksh lived. On saint's suggestion Sultan Ahmed Shah set up capital on banks of Sabarmati few miles away from Sarkhej. Monument of National Importance. Comprises one of most elegant and unique architectural complexes of Ahmedabad. Located 8 km southwest of old centre in Makarba. Mosque tomb and palace complex dedicated to memory of Ahmed Shah I's spiritual advisor Ahmed Khattu Ganj Baksh. Elegant though dilapidated buildings cluster around great tank constructed by Sultan Mahmud Begada in mid-15th century. Atmospheric place used as retreat by several of Ahmedabad's rulers. Mausoleums of Mahmud Begada and Ganj Baksh (largest in Gujarat) both here. Architectural style precursor to Mughal period in true amalgamation of Hindu Jain and Islamic styles. Complex built at advent of Sultanate era.",
+    "approx_established_period": "15th century CE",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0042",
+      "longitude": "72.5253"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Sarkhej_Roza"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_008",
+    "religion": "Islam",
+    "site_name": "Jami Masjid Champaner",
+    "alternative_names": ["Jama Masjid Champaner"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1508-09 by Mehmud Begda. Stands truly large and magnificent. Considered most prominent structure in Champaner. Most elaborate of all heritage structures in Champaner. Pinkish hue from sandstone used in construction. Biggest building in Champaner encloses area of 72 meters by 60 meters with huge courtyard, arcaded corridors with 52 pillars, 62 windows with Jali work on outer walls and 3 entrance pavilions in center of east north and south walls. 33 meter high minarets adorn each side of main entrance and prayer hall and four minarets at corners half its height. Masjid has 7 miharabs, central one pure marble while others local sandstone. Has 172 pillars. Numerous at least 3 layered ornately sculptured ceilings modelled after Jain temples at Dilwada. Outside masjid tank resembles Suryakund at Modhera. East side has porch with perforated stone screen. Intricately carved pillars domes and arches with Islamic as well as Hindu motifs. Part of UNESCO World Heritage Site.",
+    "approx_established_period": "1508-1509",
+    "location": {
+      "city": "Champaner",
+      "district": "Panchmahal",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.4833",
+      "longitude": "73.5333"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tripadvisor.in/Attraction_Review-g2295030-d3218653-Reviews-Jami_Masjid-Champaner_Panchmahal_District_Gujarat.html"]
+    }
+  },
+  {
+    "site_id": "islam_west_009",
+    "religion": "Islam",
+    "site_name": "Bibi Ka Maqbara",
+    "alternative_names": ["Taj of the Deccan"],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Dilras Banu Begum",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Tomb located in Chhatrapati Sambhaji Nagar (Aurangabad) in Maharashtra. Traditionally attributed to prince Azam Shah son of Mughal emperor Aurangzeb in memory of his mother Dilras Banu Begum (also known as Rabia Durrani). However, historical evidence indicates construction initiated 1653 per accounts of traveller Jean Baptiste Tavernier and completed between 1653 and 1660. Dilras Banu died 1657, making it unlikely four-year-old Azam Shah commissioned monument. His association with monument likely arises from extensive renovations he undertook as governor of Deccan in 1680. Stunning architectural masterpiece often referred to as 'Taj of Deccan'. Symbol of love and devotion much like more famous counterpart in Agra. Important Mughal monument in Deccan.",
+    "approx_established_period": "1653-1660",
+    "location": {
+      "city": "Chhatrapati Sambhaji Nagar",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.9011",
+      "longitude": "75.3300"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Bibi_Ka_Maqbara"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_010",
+    "religion": "Islam",
+    "site_name": "Panchakki",
+    "alternative_names": ["Water Mill"],
+    "site_type": "Water Mill and Dargah Complex",
+    "primary_figure_or_concept": "Baba Shah Musafir",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Water mill located in Aurangabad Maharashtra displays scientific thought process put in medieval Indian architecture. Designed to generate energy via water brought down from spring on mountain. Building attached to dargah of Baba Shah Musafir Sufi saint. Located in garden near Mahmud Darvaza consists of mosque, madrassa, kacheri, minister's house, sarai and houses for zananas. Tomb of Baba Shah Musafir who was Sufi Saint and spiritual adviser to Aurangzeb. Huge tree almost 300 years old inside complex near tank. Masjid dates back to 17th century in neighbourhood. One of few places calm and peaceful in Aurangabad helping visualize life existed during medieval period.",
+    "approx_established_period": "17th century CE",
+    "location": {
+      "city": "Chhatrapati Sambhaji Nagar",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.9011",
+      "longitude": "75.3300"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Panchakki"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_011",
+    "religion": "Islam",
+    "site_name": "Rani Sipri's Mosque",
+    "alternative_names": ["Masjid-e-Nagina", "Rani Asni's Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Medieval mosque in walled city of Ahmedabad Gujarat. Commissioned 1514 by queen Sipri wife of Mahmud Begada sultan who ruled Gujarat. Also known as Masjid-e-Nagina (Jewel of mosque) because of intricate jali carvings on walls. One of priceless gems of city located in walled city built by Queen Sipri 1514. In historical tradition, mosque built after king and queen executed their son for offence. Situated near Astodia Darwaza also houses burial remains of queen. Rani Sipri daughter of Hindu chief married one of sons of Ahmed Shah. Inter religious marriages common those days historic sites built by rulers reflected merge of Hindu Jain and Islamic styles of architecture. Mosque features striking minarets with base of south-east minaret carved in Hindu style. Prominent features columns and jali work with striking floral motifs and plants. Holds separate area of worship called Jenana in upstairs. Two windows in south end facing street reflect Hindu styles with elaborately carved brackets. Long corridor and domed roof.",
+    "approx_established_period": "1514",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5714"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tripadvisor.in/Attraction_Review-g297608-d3913202-Reviews-Rani_Sipri_s_Mosque-Ahmedabad_Ahmedabad_District_Gujarat.html"]
+    }
+  },
+  {
+    "site_id": "islam_west_012",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Burhanpur",
+    "alternative_names": ["Kali Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Sunni Friday mosque located in Burhanpur in state of Madhya Pradesh. Monument of National Importance. One of major mosques built during Faroqui rule in city. Initial Jama Masjid built by Azam Humayun 1421 CE to north of city at Etwara called Bibi Ki Masjid. Soon with growth of city ruler Adil Shah built present Jama Masjid in center of town. Construction started 1590 completed 5 years later. Built in Islamic architecture. Roofless mosque but intersecting symmetrical arches create ceiling. Facade has 15 arches flanked by two minarets 36m in height rising majestically across Burhanpur skyline. Mosque built using black stone brought from Mandu hence also called Kali Masjid. 17 Mihrab niches in mosque facing direction of Mecca. One of Mihrabs holds Arabic inscription mentions patron in Arabic along with verses of Quran cite year of construction. Calligrapher Mustafa's name also inscribed. Small pond within premises. Most striking part south end of prayer hall where bilingual inscriptions mention astronomical position date and year according to Hindu Samvat calendar. Only mosque in India with bilingual inscriptions in Sanskrit and Arabic.",
+    "approx_established_period": "1590-1595",
+    "location": {
+      "city": "Burhanpur",
+      "district": "Burhanpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "21.3086",
+      "longitude": "76.2286"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jama_Masjid,_Burhanpur"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_013",
+    "religion": "Islam",
+    "site_name": "Moti Masjid Bhopal",
+    "alternative_names": ["Pearl Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mosque located in Bhopal in state of Madhya Pradesh. Mosque commissioned by Sikandar Jahan completed 1860. Built by Sikander Jehan Begum of Bhopal. Significant historical landmark must-visit attraction in Bhopal. 19th-century white marble mosque famed for striking red towers and serene ambiance. Mosque's architecture inspired by famous Jama Masjid in Delhi featuring beautiful white marble facade with two small cupolas on top. Two dark red towers on either side of primary structure add to charm. Setting itself apart from other mosques captivates with exquisite blend of red-brick facade and white marble exterior harmonising seamlessly to create visual opulence. Two majestic dark red minarets adorned with golden spikes exude elegance and grandeur. Intricate stone carvings resembling delicate flowers lend enchanting allure. Main hall crafted from pristine white marble decorated archway. Two ablution tanks near eastern gate with marble fountains offering soothing melody. Entire mosque built on raised platform.",
+    "approx_established_period": "1860",
+    "location": {
+      "city": "Bhopal",
+      "district": "Bhopal",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.2599",
+      "longitude": "77.4126"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Moti_Masjid,_Bhopal"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_014",
+    "religion": "Islam",
+    "site_name": "Rani Rupamati's Mosque",
+    "alternative_names": ["Rani Rupavati's Mosque", "Mirzapur Queen's Mosque"],
+    "site_type": "Mosque and Dargah",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Sufi mosque and dargah complex in Mirzapur area of Ahmedabad in state of Gujarat. Monument of National Importance. Located on northern side of Ahmedabad city. Established by Sultan Mehmud Beghara. Named after Rani Rupmati wife of Sultan. Mosque constructed during 1430-1440 AD. Features impressive domes carved galleries and tall minarets. Mosque consists of three domes duly supported by pillars. Dome in central position illuminates mosque with natural light.",
+    "approx_established_period": "1430-1440",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0320",
+      "longitude": "72.5840"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Rani_Rupamati's_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_015",
+    "religion": "Islam",
+    "site_name": "Qutb Shahi Tombs",
+    "alternative_names": ["Golconda Tombs"],
+    "site_type": "Tomb Complex",
+    "primary_figure_or_concept": "Tombs of Qutb Shahi rulers",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Erected in memory of departed kings of Golconda. Magnificent monuments withstood test of time and nature's vagaries. Located one kilometer north of Golconda Fort's Banjara Darwaza. Imposing marvels of architectural excellence stand as reminders of glory of Golconda kings buried at same spot. Built by Qutub Shahis. Considered among oldest historical monuments of Hyderabad. Tombs form most reliable evidence of Qutub Shahi dynasty and architectural traditions. Exquisite structures where every arch columns dome minarets and galleries created with finesse surrounded by landscape gardens called Ibrahim Bagh. Houses seven tombs dedicated to former kings of Golconda. Tombs dome like structures built on square base surrounded by pointed arches. Surrounded by enchanting minarets. Magnificent tomb with height of 42.5 m covered by large dome. Tombs furnished with chandeliers and soft canopies on silver poles. Splendid mausoleums of Golconda Sultans. In historical tradition, during Qutub Shahi period tombs of great significance even criminals taking refuge given pardon. Tombs neglected after reign until Salar Jung III took up restoration works during early 19th century. Maintained by Department of Tourism. Popular destination in tourist circuit clubbed with Golconda fort.",
+    "approx_established_period": "16th-17th century CE",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3850",
+      "longitude": "78.3972"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://hyderabad.telangana.gov.in/tourist-place/qutub-shahi-tombs/"]
+    }
+  },
+  {
+    "site_id": "islam_west_016",
+    "religion": "Islam",
+    "site_name": "Taj-ul-Masajid",
+    "alternative_names": ["Crown of Mosques"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mosque situated in Bhopal. Largest mosque in India. Commissioned by Nawab Begum Shahjahan 1874 but remained incomplete for long time. Construction finally completed in 1980s. Can accommodate approximately 175,000 worshippers in courtyard. Spread across built-up area of 430,000 square feet. Given scale considered largest mosque in India even bigger than Jama Masjid in Delhi said to accommodate 25,000 people in courtyard. Architectural wonder built by woman. Sprawling construction situated in heart of city. Meaning of name 'Crown of Mosques' truly speaks for imperial structure topping every other mosque in India in visual appeal as well as dimensions. Impressive views contributed by huge structure made in red sandstone. Two gigantic white minarets with domes on top make well-proportioned construction. Entire mosque placed on pink facade. Floor of main hallway made of marble decorated beautifully with trellised screens with fine artwork. 11 arches make way to Quibla wall remarkably noted for huge pillars touching ceilings designed in petal motifs made in ornate. Courtyard gigantic in size capacity 175,000 people during prayer.",
+    "approx_established_period": "1874-1985",
+    "location": {
+      "city": "Bhopal",
+      "district": "Bhopal",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.2599",
+      "longitude": "77.4126"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Taj-ul-Masajid"],
+      "secondary": ["https://bhopal.nic.in/en/tourist-place/taj-ul-masajid/"]
+    }
+  },
+  {
+    "site_id": "islam_west_017",
+    "religion": "Islam",
+    "site_name": "Bhadra Fort",
+    "alternative_names": ["Aark Fort"],
+    "site_type": "Fort with Mosque",
+    "primary_figure_or_concept": "Royal fort complex",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Situated in walled city area of Ahmedabad. Built by Ahmad Shah I in 1411. With well carved royal palaces mosques gates and open spaces renovated 2014 by AMC and ASI as cultural centre for city. Housed royal palaces beautiful Nagina Baugh and royal Ahmed Shah's Mosque on west side and open area known as Maidan-Shah on east side. Had fortified city wall with 14 towers eight gates and two large openings covering area of 43 acres. Named due to presence of famed Bhadrakali temple near it. Ahmed Shah ruled over Gujarat Sultanate from 1411 till 1442. 1573 fort taken over by Mughal emperor Akbar. Under rule of Mughals Ahmedabad became leading center of textiles in Gujarat. Peshwas and Gaekwads jointly ended Mughal rule established Maratha Empire 1583 CE. Unique blend of Islamic and Hindu architectural styles reflecting cultural syncretism characterizing city. Fort expansive structure with perimeter over 4 kilometers enclosing various buildings gates and open spaces. Teen Darwaza (Three Gates) iconic structure associated with fort prominent entrance showcasing intricate carvings and ornate designs. Central arch of Teen Darwaza adorned with detailed artwork depicting scenes from Hindu mythology and Islamic calligraphy underscoring harmonious integration of different artistic traditions.",
+    "approx_established_period": "1411",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5847"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Bhadra_Fort"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_018",
+    "religion": "Islam",
+    "site_name": "Aurangzeb's Tomb",
+    "alternative_names": [],
+    "site_type": "Tomb",
+    "primary_figure_or_concept": "Tomb of Emperor Aurangzeb",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Khuldabad Maharashtra. Emperor Aurangzeb chose humble town as final resting place reflecting deep respect for Sufi saints and simple lifestyle away from grandeur of typical Mughal mausoleums. Buried in simple grave. Gateway and domed porch added 1760. Floor of marble neat railing of perforated marble on three sides and wall of Burhan-ud-din's dargah forms fourth side. Erected by Nizam at request of Lord Curzon then Viceroy of India in year 1911. Important historical site in Khuldabad.",
+    "approx_established_period": "1707 (burial), structure additions 1760 and 1911",
+    "location": {
+      "city": "Khuldabad",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0333",
+      "longitude": "75.1833"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khuldabad"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_019",
+    "religion": "Islam",
+    "site_name": "Dargah of Shaikh Burhan ud-din Gharib Chisti",
+    "alternative_names": [],
+    "site_type": "Dargah",
+    "primary_figure_or_concept": "Shaikh Burhan ud-din Gharib Chisti",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Khuldabad Maharashtra. Dargah of important Sufi saint. Part of spiritual landscape of Khuldabad which houses over 1500 Sufi saints. Important pilgrimage site. Reflects rich Sufi heritage of region.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Khuldabad",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0333",
+      "longitude": "75.1833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khuldabad"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_020",
+    "religion": "Islam",
+    "site_name": "Dargah of Shaikh Zain-ud-din Shirazi",
+    "alternative_names": [],
+    "site_type": "Dargah",
+    "primary_figure_or_concept": "Shaikh Zain-ud-din Shirazi",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Khuldabad Maharashtra. Dargah of revered Sufi saint. Part of spiritual complex of Khuldabad. Important site for pilgrims visiting valley of saints. Reflects medieval Sufi traditions of Deccan.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Khuldabad",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0333",
+      "longitude": "75.1833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khuldabad"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_021",
+    "religion": "Islam",
+    "site_name": "Asif Jah I Tomb",
+    "alternative_names": ["Tomb of Nizam-ul-Mulk"],
+    "site_type": "Tomb",
+    "primary_figure_or_concept": "Asif Jah I, first Nizam of Hyderabad",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Khuldabad Maharashtra. Tomb of Aurangzeb's trusted General Asif Jah I first Nizam of Hyderabad. Important historical monument in Khuldabad. Reflects connection between Mughal Empire and Hyderabad state. Part of historical landscape of valley of saints.",
+    "approx_established_period": "18th century CE",
+    "location": {
+      "city": "Khuldabad",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0333",
+      "longitude": "75.1833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khuldabad"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_west_022",
+    "religion": "Islam",
+    "site_name": "Bhadra Kali Temple and Khwaja Shah Dargah",
+    "alternative_names": [],
+    "site_type": "Syncretic Religious Site",
+    "primary_figure_or_concept": "Syncretic worship site",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located near Shaniwar Wada Pune. Historical site reflecting syncretic religious traditions. Bhadra Maruti Temple and Dargah located in proximity. Site demonstrates historical coexistence and shared sacred spaces. Area has historical significance in Pune's cultural landscape.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Pune",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.5196",
+      "longitude": "73.8553"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=azsr1vTpC30"]
+    }
+  }
+]

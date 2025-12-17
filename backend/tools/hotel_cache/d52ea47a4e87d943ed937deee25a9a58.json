@@ -1,0 +1,43 @@
+{
+  "found": 92,
+  "city": "Mumbai",
+  "dates": "2025-12-19 to 2025-12-20",
+  "hotels": [
+    {
+      "name": "Trident, Nariman Point Mumbai",
+      "price": "INR 26229.36",
+      "rating": "9.4/10",
+      "image": "https://static.cupid.travel/hotels/ex_b71aa880_z.jpg",
+      "address": "Mumbai, Maharashtra, 400021"
+    },
+    {
+      "name": "The Oberoi Mumbai",
+      "price": "INR 29783.8",
+      "rating": "9.3/10",
+      "image": "https://static.cupid.travel/hotels/28759044.jpg",
+      "address": "Nariman Point "
+    },
+    {
+      "name": "President - IHCL SeleQtions",
+      "price": "INR 18800.66",
+      "rating": "8.3/10",
+      "image": "https://static.cupid.travel/hotels/477800474.jpg",
+      "address": "90 Cuffe Parade, Maharashtra"
+    },
+    {
+      "name": "Hotel Marine Plaza",
+      "price": "INR 25405.21",
+      "rating": "7.9/10",
+      "image": "https://static.cupid.travel/hotels/472106161.jpg",
+      "address": "29 Marine Drive"
+    },
+    {
+      "name": "Sahara Star",
+      "price": "INR 27112.53",
+      "rating": "7.1/10",
+      "image": "https://static.cupid.travel/hotels/ex_6ba9b0ee_z.jpg",
+      "address": "Mumbai, Maharashtra, 400099"
+    }
+  ],
+  "cached_at": "2025-12-18T05:10:47.724666"
+}

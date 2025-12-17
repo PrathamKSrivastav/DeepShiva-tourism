@@ -1,0 +1,51 @@
+{
+  "state": "Tamil Nadu",
+  "region": "Western Ghats",
+  "treks": [
+    {
+      "name": "Kodaikanal Avocado Hill Trek",
+      "type": "Hill & Forest Trek",
+      "duration_days": 2,
+      "difficulty": "Easy",
+      "min_age": 6,
+      "location": "Kodaikanal, Tamil Nadu",
+      "current_status": {
+        "operated_by_indiahikes": false,
+        "note": "Indiahikes is no longer running this trek; the area can still be visited independently."
+      },
+      "best_season": ["October", "November", "December", "January", "February", "March"],
+      "avoid_season": {
+        "monsoon": {
+          "months": ["June", "July", "August"],
+          "reason": [
+            "Heavy rainfall makes trails slippery and unsafe",
+            "Low visibility due to thick mist",
+            "Waterfall and forest sections become risky"
+          ]
+        },
+        "crowds": "Long weekends and public holidays can be crowded"
+      },
+      "highlights": [
+        "Hilltop sunrise views over Elephant Valley",
+        "Coffee plantations and shola forests",
+        "Waterfall visit and forest walks",
+        "Tranquil campus setting amidst misty hills"
+      ],
+      "accessibility": {
+        "travel_time": "Overnight journey from most metro cities",
+        "weekend_friendly": true
+      },
+      "ideal_for": [
+        "Families",
+        "School students",
+        "First-time trekkers",
+        "Team-building and educational programs"
+      ],
+      "notable_activity": {
+        "program": "Outdoor Leadership Programme",
+        "institution": "PS Secondary School, Chennai",
+        "date": "September 2024"
+      }
+    }
+  ]
+}

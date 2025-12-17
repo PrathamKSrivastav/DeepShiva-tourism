@@ -1,0 +1,1202 @@
+[
+  {
+    "site_id": "hindu_south_001",
+    "religion": "Hinduism",
+    "site_name": "Sri Venkateswara Temple",
+    "alternative_names": ["Tirupati Balaji Temple", "Tirumala Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Venkateswara (Vishnu)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "Temple constructed in Dravidian style with Vijayanagara architecture. Vimana gilded with gold donated by Sri Krishna Deva Raya in 1517. Richest temple in world in terms of donations received. Located at 3,200 feet altitude on Tirumala Hills in Eastern Ghats.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Tirumala",
+      "district": "Tirupati",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "13.6833",
+      "longitude": "79.3473"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/tirupati-balaji-temple/"]
+    }
+  },
+  {
+    "site_id": "hindu_south_002",
+    "religion": "Hinduism",
+    "site_name": "Meenakshi Temple",
+    "alternative_names": ["Meenakshi Sundareswarar Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Meenakshi (Parvati) and Sundareswarar (Shiva)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams; one of the Pancha Sabhai where Shiva performed cosmic dance",
+    "historical_significance": "Temple mentioned in Tamil texts from 6th century CE. Early structures built during Pandya dynasty 12th-13th century CE. Rebuilt by Vijayanagara Empire in 14th century after destruction by Delhi Sultanate. Extensively expanded by Madurai Nayaks 16th-17th centuries. Spread over 5.7 hectares with 14 gopurams, tallest being southern tower at 170 feet built late 16th century.",
+    "approx_established_period": "6th century CE (earliest mention), present structure 12th-17th century CE",
+    "location": {
+      "city": "Madurai",
+      "district": "Madurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "9.9197",
+      "longitude": "78.1194"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Meenakshi_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_003",
+    "religion": "Hinduism",
+    "site_name": "Ramanathaswamy Temple",
+    "alternative_names": ["Rameswaram Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Ramanathaswamy (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga temples; one of the 275 Paadal Petra Sthalams; one of the Char Dham pilgrimage sites",
+    "historical_significance": "In devotional tradition, lingam established by Rama before crossing to Lanka. Expanded during 12th century by Pandya Dynasty. Sanctum renovated by Jaffna kingdom monarchs. Temple has longest corridor among all Hindu temples in India built by King Muthuramalinga Sethupathy. Contains 22 theerthams representing 22 arrows of Rama. Present structure believed built during 17th century.",
+    "approx_established_period": "12th century CE (expansion), 17th century CE (current form)",
+    "location": {
+      "city": "Rameswaram",
+      "district": "Ramanathapuram",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "9.2881",
+      "longitude": "79.3173"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ramanathaswamy_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_004",
+    "religion": "Hinduism",
+    "site_name": "Virupaksha Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Virupaksha (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "7th century Shiva temple located in Hampi on banks of Tungabhadra River. Part of Group of Monuments at Hampi designated UNESCO World Heritage Site. Temple expanded by Lakkan Dandesha under ruler Deva Raya II of Vijayanagara Empire. Uninterrupted history from 7th century CE. Krishna Devaraya commissioned central pillared hall in 1510 CE. Only well preserved temple in Hampi among numerous temples destroyed by Bahmani Sultanate.",
+    "approx_established_period": "7th century CE",
+    "location": {
+      "city": "Hampi",
+      "district": "Vijayanagara",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "15.3352",
+      "longitude": "76.4587"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Virupaksha_Temple,_Hampi"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_005",
+    "religion": "Hinduism",
+    "site_name": "Padmanabhaswamy Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Padmanabhaswamy (Vishnu)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "Temple mentioned in Sangam period literature, Vishnu Purana, Brahma Purana and other Hindu texts. According to tradition, established in 9th century. Major renovation conducted by Anizham Thirunal Marthanda Varma, idol reconsecrated in 1731 CE. Idol made from 12,008 shaligrams. In 1750, king dedicated kingdom to deity in Thrippadidanam ceremony. Tutelary deity of Travancore royal family. Temple vaults discovered in 2011 contain vast treasures estimated worth billions.",
+    "approx_established_period": "1731 CE (major renovation)",
+    "location": {
+      "city": "Thiruvananthapuram",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "8.4828",
+      "longitude": "76.9436"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Padmanabhaswamy_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_006",
+    "religion": "Hinduism",
+    "site_name": "Brihadeeswarar Temple",
+    "alternative_names": ["Peruvudaiyar Kovil", "Big Temple", "Periya Kovil"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Constructed by Chola emperor Rajaraja I between 1003-1010 CE. One of three Great Living Chola Temples designated UNESCO World Heritage Site. Temple tower 216 feet high, tallest of its kind. Complete structure made of granite. Features 13-foot-high Nandi statue carved from single rock. Exemplary specimen of Dravidian architecture.",
+    "approx_established_period": "1003-1010 CE",
+    "location": {
+      "city": "Thanjavur",
+      "district": "Thanjavur",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.7825",
+      "longitude": "79.1313"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/brihadeeswara-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_south_007",
+    "religion": "Hinduism",
+    "site_name": "Sabarimala Temple",
+    "alternative_names": ["Sabarimala Sree Dharma Sastha Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Ayyappa (Dharma Sastha)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "In devotional tradition, site where Ayyappa meditated after defeating demoness Mahishi. World's largest annual pilgrimage site attracting around 50 million devotees yearly. Temple surrounded by 18 hills. Pilgrims ascend 18 sacred steps called Pathinettam Padi. Major pilgrimage season during 41-day Mandala kaalam and Makaravilakku festival. Accessible only on foot via 4-kilometer trek from Pamba. Pilgrims required to undergo 41-day fasting before pilgrimage.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Pathanamthitta",
+      "district": "Pathanamthitta",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "9.4342",
+      "longitude": "77.0821"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Sabarimala_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_008",
+    "religion": "Hinduism",
+    "site_name": "Guruvayur Temple",
+    "alternative_names": ["Guruvayur Sri Krishna Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Guruvayurappan (Krishna)",
+    "canonical_or_religious_significance": "One of the 108 Abhimana Kshethram of Vaishnavism",
+    "historical_significance": "According to devotional tradition, temple established by Guru and Vayu, wind god. Current central shrine rebuilt in 1638 CE. Idol is four-armed form of Vishnu approximately 1.2 meters tall carved from rare black mineral Panchajanya. Features 70-foot-tall golden Dwajasthamba. Known as Bhuloka Vaikunta. Temple features traditional Kerala architecture with copper-sheeted roofs plated with gold.",
+    "approx_established_period": "1638 CE (current shrine)",
+    "location": {
+      "city": "Guruvayur",
+      "district": "Thrissur",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "10.5931",
+      "longitude": "76.0398"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Guruvayur_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_009",
+    "religion": "Hinduism",
+    "site_name": "Ranganathaswamy Temple",
+    "alternative_names": ["Srirangam Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Ranganatha (Vishnu)",
+    "canonical_or_religious_significance": "First and foremost of the 108 Divya Desam temples",
+    "historical_significance": "World's largest functioning Hindu temple. Features majestic gopurams and centuries-old architecture. Major pilgrimage center for Vaishnavism.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Srirangam",
+      "district": "Tiruchirappalli",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.8636",
+      "longitude": "78.6915"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://economictimes.com/news/india/6-famous-temples-you-must-visit-in-tamil-nadu/meenakshi-amman-temple-madurai/slideshow/116956326.cms"]
+    }
+  },
+  {
+    "site_id": "hindu_south_010",
+    "religion": "Hinduism",
+    "site_name": "Chidambaram Nataraja Temple",
+    "alternative_names": ["Thillai Nataraja Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Nataraja (Shiva)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams; one of the Pancha Sabhai where Shiva performed cosmic dance",
+    "historical_significance": "In devotional tradition, site where Shiva performed Ananda Thandava. Temple features five principal halls or Sabhas. Houses 108 karanas (dance postures) of Natya Shastra depicted in sculptures. Annual Natyanjali Festival attracts classical dance artists worldwide.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chidambaram",
+      "district": "Cuddalore",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "11.3996",
+      "longitude": "79.6947"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/tamilnadu/chidambaram/nataraja-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_south_011",
+    "religion": "Hinduism",
+    "site_name": "Mallikarjuna Swamy Temple",
+    "alternative_names": ["Srisailam Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mallikarjuna (Shiva) and Bhramaramba (Parvati)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines; considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers of Shakti Peethas",
+    "historical_significance": "Temple situated on flat top of Nallamalai Hills approximately 300 meters above sea level on right side of Krishna River. One of most ancient kshetras in India. Significant to both Shaivism and Shaktism traditions.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Srisailam",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "16.0733",
+      "longitude": "78.8678"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mallikarjuna_Temple,_Srisailam"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_012",
+    "religion": "Hinduism",
+    "site_name": "Udupi Sri Krishna Temple",
+    "alternative_names": ["Udupi Sri Krishna Matha"],
+    "site_type": "Temple and Matha",
+    "primary_figure_or_concept": "Krishna (Balakrishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple established in 13th century by Sri Madhvacharya, founder of Dvaita school of Vedanta. According to devotional tradition, idol found by Madhvacharya inside large ball of sandalwood. Unique feature: idol faces west contrary to normal practice. Traditional Kerala architecture with red tiles. Famous for Paryaya festival where administration rotates among eight mathas.",
+    "approx_established_period": "13th century CE",
+    "location": {
+      "city": "Udupi",
+      "district": "Udupi",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.3409",
+      "longitude": "74.7421"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Udupi_Sri_Krishna_Matha"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_013",
+    "religion": "Hinduism",
+    "site_name": "Shore Temple",
+    "alternative_names": ["Mamallapuram Shore Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Shiva and Vishnu",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built during reign of Pallava king Rajasimha/Narasimhavarman II in 7th-8th century CE. One of oldest temples of significance in South India. Part of Group of Monuments at Mamallapuram designated UNESCO World Heritage Site. Built of cut stones and granite blocks reflecting Dravidian architecture. Pyramidal Kutina-type tower. 2004 tsunami exposed old collapsed temple built of granite blocks. According to devotional tradition, one of Seven Pagodas of Mamallapuram with six believed submerged in sea.",
+    "approx_established_period": "7th-8th century CE",
+    "location": {
+      "city": "Mamallapuram",
+      "district": "Chengalpattu",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "12.6159",
+      "longitude": "80.1925"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/mamallapuram-shore-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_south_014",
+    "religion": "Hinduism",
+    "site_name": "Varadaraja Perumal Temple",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Varadaraja (Vishnu)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "One of principal Vishnu temples in Kanchipuram. Features 32 shrines, 19 vimanams, 389 pillared halls with elaborate yali sculptures, and sacred tank Anantha Theertham. Notable for 96 ornate sculpted pillars depicting legends of Mahabharata and Ramayana. Main idol brought out for darshan once every 40 years from temple tank. Important additions made during Vijayanagara Empire 13th-14th century.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kanchipuram",
+      "district": "Kanchipuram",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "12.8406",
+      "longitude": "79.7047"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Varadharaja_Perumal_Temple,_Kanchipuram"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_015",
+    "religion": "Hinduism",
+    "site_name": "Ekambareswarar Temple",
+    "alternative_names": ["Ekambaranathar Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Ekambareswarar (Shiva)",
+    "canonical_or_religious_significance": "One of the Pancha Bhoota Sthalas representing earth element",
+    "historical_significance": "Temple houses thousand-pillared hall built during Vijayanagara period. Also contains Nilathingal Thundam Perumal shrine, one of the Divya Desams. Major pilgrimage site in Kanchipuram representing earth among five elements.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kanchipuram",
+      "district": "Kanchipuram",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "12.8498",
+      "longitude": "79.7044"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ekambareswarar_Temple_(Kanchipuram)"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_016",
+    "religion": "Hinduism",
+    "site_name": "Simhachalam Temple",
+    "alternative_names": ["Varaha Lakshmi Narasimha Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Varaha Narasimha (Vishnu)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "Temple situated on Simhachalam Hill Range 300 meters above sea level. Only temple in India where Varaha Lakshmi Narasimha Swami, combination of third and fourth incarnations of Vishnu, appears. Deity appears in tribhanga posture with two hands, lion head on human torso. Temple embellished with detailed stone carvings.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Visakhapatnam",
+      "district": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "17.7617",
+      "longitude": "83.2519"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Varaha_Lakshmi_Narasimha_temple,_Simhachalam"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_017",
+    "religion": "Hinduism",
+    "site_name": "Azhagar Kovil",
+    "alternative_names": ["Alagar Koil", "Kallazhagar Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Alagar (Vishnu)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "Temple located 21 km northwest of Madurai on picturesque Alagarmalai hills. Surrounded by ruins of historic fort. Main tower believed built by Pandyan Kings with sculptures depicting scenes from epics. Kalyana Mandapa features beautiful Nayaka art. Main deity called Paramaswamy, processional idol called Alagar. During Chithirai festival, in devotional tradition, Alagar visits sister Meenakshi's wedding.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Alagar Kovil",
+      "district": "Madurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.0461",
+      "longitude": "78.0928"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=9cA35c_h-ok"]
+    }
+  },
+  {
+    "site_id": "hindu_south_018",
+    "religion": "Hinduism",
+    "site_name": "Kapaleeshwarar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kapaleeshwarar (Shiva) and Karpagambal (Parvati)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams",
+    "historical_significance": "Ancient temple in Mylapore, Chennai featuring vibrant Dravidian architecture. Major pilgrimage site in Chennai with significant cultural importance.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chennai",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.0339",
+      "longitude": "80.2690"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://economictimes.com/news/india/6-famous-temples-you-must-visit-in-tamil-nadu/meenakshi-amman-temple-madurai/slideshow/116956326.cms"]
+    }
+  },
+  {
+    "site_id": "hindu_south_019",
+    "religion": "Hinduism",
+    "site_name": "Thiruvannamalai Arunachaleswarar Temple",
+    "alternative_names": ["Annamalaiyar Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Arunachaleswarar (Shiva)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams; one of the Pancha Bhoota Sthalas representing fire element",
+    "historical_significance": "Temple famous for massive gopuram. One of largest temple complexes in India. Located at foot of Arunachala hill. Major pilgrimage destination during Karthigai Deepam festival.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thiruvannamalai",
+      "district": "Thiruvannamalai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "12.2314",
+      "longitude": "79.0677"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.bhaktikalpa.com/Paadal_Petra_Stahlams.aspx"]
+    }
+  },
+  {
+    "site_id": "hindu_south_020",
+    "religion": "Hinduism",
+    "site_name": "Chennakesava Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chennakesava (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Masterpiece of Hoysala architecture built during 12th century. Famous for intricate stone carvings and sculptural excellence. One of finest examples of Hoysala temple architecture in Karnataka.",
+    "approx_established_period": "12th century CE",
+    "location": {
+      "city": "Belur",
+      "district": "Hassan",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.1656",
+      "longitude": "75.8658"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_021",
+    "religion": "Hinduism",
+    "site_name": "Gokarna Mahabaleshwar Temple",
+    "alternative_names": [],
+    "site_type": "Coastal Temple",
+    "primary_figure_or_concept": "Mahabaleshwar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient coastal shrine famous for Atmalinga legend. Major pilgrimage site combining spiritual significance with scenic coastal surroundings. Pilgrims visit for rituals while temple located near famous beaches like Om Beach.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Gokarna",
+      "district": "Uttara Kannada",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "14.5494",
+      "longitude": "74.3200"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_022",
+    "religion": "Hinduism",
+    "site_name": "Vidyashankara Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple in Sringeri blending Vijayanagara and Hoysala architectural styles. Features intricately carved stone pillars with astronomical alignment marking equinoxes. Located in Western Ghats offering peaceful environment. Built in 1338 CE by Vidyaranya. Part of Sringeri Sharada Peetham, which has a tradition dating from 8th century.",
+    "approx_established_period": "1338 CE",
+    "location": {
+      "city": "Sringeri",
+      "district": "Chikkamagaluru",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.4164",
+      "longitude": "75.2520"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_023",
+    "religion": "Hinduism",
+    "site_name": "Murudeshwar Temple",
+    "alternative_names": [],
+    "site_type": "Coastal Temple",
+    "primary_figure_or_concept": "Murudeshwar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple features one of tallest Shiva statues in world at 123 feet. Located on coast of Arabian Sea with scenic views. Major pilgrimage and tourist destination in Karnataka.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Murudeshwar",
+      "district": "Uttara Kannada",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "14.0942",
+      "longitude": "74.4845"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_024",
+    "religion": "Hinduism",
+    "site_name": "Kotilingeshwara Temple",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Famous for hosting over one million small Shivalingas along with massive central Shivalinga. One of largest temple complexes in Karnataka. Devotees come for poojas and blessings. Expansive temple grounds offer peaceful contemplative experience.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kolar",
+      "district": "Kolar",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.3519",
+      "longitude": "78.3081"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_025",
+    "religion": "Hinduism",
+    "site_name": "Vitthala Temple",
+    "alternative_names": ["Vijaya Vitthala Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vitthala (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Part of Hampi UNESCO World Heritage Site. Famous for musical pillars and stone chariot. Exemplary Vijayanagara architecture. One of most iconic structures in Hampi complex.",
+    "approx_established_period": "15th-16th century CE",
+    "location": {
+      "city": "Hampi",
+      "district": "Vijayanagara",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "15.3347",
+      "longitude": "76.4728"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_026",
+    "religion": "Hinduism",
+    "site_name": "Kanaka Durga Temple",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Kanaka Durga",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Durga temple in Vijayawada located on Indrakeeladri hill on banks of Krishna River. Important pilgrimage site especially during Navaratri festival. One of most visited temples in Andhra Pradesh.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Vijayawada",
+      "district": "Krishna",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "16.5193",
+      "longitude": "80.6199"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-kerala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_027",
+    "religion": "Hinduism",
+    "site_name": "Srikalahasti Temple",
+    "alternative_names": ["Srikalahasteeswara Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Srikalahasteeswara (Shiva)",
+    "canonical_or_religious_significance": "One of the Pancha Bhoota Sthalas representing air element",
+    "historical_significance": "Ancient temple representing air among five elements. Famous for Rahu-Ketu puja. Located on banks of Swarnamukhi River. Major Shaivite pilgrimage site.",
+    "approx_established_period": "5th century CE (earliest known), major construction 10th-12th century CE",
+    "location": {
+      "city": "Srikalahasti",
+      "district": "Tirupati",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "13.7500",
+      "longitude": "79.7000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-kerala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_028",
+    "religion": "Hinduism",
+    "site_name": "Vadakkunnathan Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Shiva temple in Thrissur considered among oldest temples in Kerala. Classic example of Kerala style architecture. Temple hosts famous Thrissur Pooram festival. Important cultural and spiritual center.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thrissur",
+      "district": "Thrissur",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "10.5276",
+      "longitude": "76.2144"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-kerala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_029",
+    "religion": "Hinduism",
+    "site_name": "Chottanikkara Temple",
+    "alternative_names": ["Chottanikkara Bhagavathy Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhagavathy (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Bhagavathy temple in Kerala famous for healing powers. Devotees believe deity cures mental ailments. Important pilgrimage site near Ernakulam. Goddess worshipped in three forms throughout day.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chottanikkara",
+      "district": "Ernakulam",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "9.9679",
+      "longitude": "76.3558"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-kerala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_030",
+    "religion": "Hinduism",
+    "site_name": "Ettumanoor Mahadeva Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Shiva temple famous for murals and traditional Kerala architecture. Known for Arattu festival. Located near Kottayam. Important pilgrimage site with rich cultural heritage.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ettumanoor",
+      "district": "Kottayam",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "9.6644",
+      "longitude": "76.5500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-kerala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_031",
+    "religion": "Hinduism",
+    "site_name": "Parthasarathy Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Parthasarathy (Krishna)",
+    "canonical_or_religious_significance": "One of the 108 Divya Desam temples",
+    "historical_significance": "Ancient Vishnu temple in Triplicane, Chennai built by Pallavas in 8th century. One of oldest temples in Chennai. Features unique processional deity with mustache. Important architectural and cultural monument.",
+    "approx_established_period": "8th century CE",
+    "location": {
+      "city": "Chennai",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.0619",
+      "longitude": "80.2769"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_032",
+    "religion": "Hinduism",
+    "site_name": "Thirukadaiyur Abhirami Temple",
+    "alternative_names": ["Amritaghateswarar-Abhirami Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Amritaghateswarar (Shiva) and Abhirami (Parvati)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams",
+    "historical_significance": "Ancient temple famous for Sathabhishekam ceremony for 80th birthday. Associated with saint Abhirami Bhattar who composed Abhirami Andhadhi. Major pilgrimage site for longevity rituals.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thirukadaiyur",
+      "district": "Mayiladuthurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "11.0092",
+      "longitude": "79.6686"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_033",
+    "religion": "Hinduism",
+    "site_name": "Kumbakonam Adi Kumbeswarar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Adi Kumbeswarar (Shiva)",
+    "canonical_or_religious_significance": "One of the 275 Paadal Petra Sthalams",
+    "historical_significance": "Ancient temple associated with Mahamaham festival held once every 12 years. Located in temple town of Kumbakonam. Major architectural and pilgrimage site.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kumbakonam",
+      "district": "Thanjavur",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.9617",
+      "longitude": "79.3881"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_034",
+    "religion": "Hinduism",
+    "site_name": "Tiruttani Murugan Temple",
+    "alternative_names": ["Arulmigu Subramaniya Swamy Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Murugan (Kartikeya)",
+    "canonical_or_religious_significance": "One of the six Arupadaiveedu temples of Murugan",
+    "historical_significance": "One of six major abodes of Murugan. Temple located atop hill requiring climb of 365 steps. Ancient pilgrimage site with connection to Vallimalai marriage legend. Important Murugan worship center.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Tiruttani",
+      "district": "Tiruvallur",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.1775",
+      "longitude": "79.6189"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_035",
+    "religion": "Hinduism",
+    "site_name": "Palani Murugan Temple",
+    "alternative_names": ["Arulmigu Dhandayuthapani Swamy Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Murugan (Kartikeya)",
+    "canonical_or_religious_significance": "One of the six Arupadaiveedu temples of Murugan",
+    "historical_significance": "One of six major abodes of Murugan. Temple famous for Panchamirtham prasadam. Located on hilltop accessible by steps or winch. Major pilgrimage center attracting millions annually.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Palani",
+      "district": "Dindigul",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.4500",
+      "longitude": "77.5167"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_036",
+    "religion": "Hinduism",
+    "site_name": "Swamithope Pathi",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vaikundar (Ayya Vaikundar)",
+    "canonical_or_religious_significance": "Principal worship center of Ayyavazhi",
+    "historical_significance": "Primary pilgrimage center of Ayyavazhi faith. In devotional tradition, birthplace of Ayya Vaikundar. Important religious site for Ayyavazhi followers in South India.",
+    "approx_established_period": "19th century CE",
+    "location": {
+      "city": "Swamithope",
+      "district": "Kanyakumari",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "8.2992",
+      "longitude": "77.2622"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_037",
+    "religion": "Hinduism",
+    "site_name": "Suchindram Thanumalayan Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Thanumalayan (Brahma-Vishnu-Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Unique temple where deity represents trinity of Brahma, Vishnu and Shiva. Features musical pillars and massive Hanuman statue. Located near Kanyakumari. Important example of confluence of worship traditions.",
+    "approx_established_period": "Ancient, major construction 9th-17th century CE",
+    "location": {
+      "city": "Suchindram",
+      "district": "Kanyakumari",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "8.1550",
+      "longitude": "77.4689"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_038",
+    "religion": "Hinduism",
+    "site_name": "Yadagirigutta Temple",
+    "alternative_names": ["Lakshmi Narasimha Swamy Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Narasimha (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Narasimha temple in Telangana located on hill. Important pilgrimage site near Hyderabad. Temple underwent major renovation and expansion in recent years.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Yadagirigutta",
+      "district": "Yadadri Bhuvanagiri",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.5982",
+      "longitude": "78.8867"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_039",
+    "religion": "Hinduism",
+    "site_name": "Bhadrachalam Temple",
+    "alternative_names": ["Sri Sitaramachandra Swamy Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rama and Sita",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Rama temple in Telangana on banks of Godavari River. In devotional tradition, place where Rama and Sita stayed during exile. Famous for Sri Rama Navami celebrations. Temple rebuilt during 17th century by Kancharla Gopanna (Bhakta Ramadasu).",
+    "approx_established_period": "17th century CE (present structure)",
+    "location": {
+      "city": "Bhadrachalam",
+      "district": "Bhadradri Kothagudem",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.6688",
+      "longitude": "80.8936"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_040",
+    "religion": "Hinduism",
+    "site_name": "Dharmapuram Adhinam",
+    "alternative_names": [],
+    "site_type": "Monastery and Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Shaiva monastery and educational institution. One of important Adhinams in Tamil Nadu. Center of Shaiva Siddhanta philosophy and Tamil culture.",
+    "approx_established_period": "16th century CE",
+    "location": {
+      "city": "Dharmapuram",
+      "district": "Mayiladuthurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.9400",
+      "longitude": "79.4000"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.tn.gov.in/destinations/temples"]
+    }
+  },
+  {
+    "site_id": "hindu_south_041",
+    "religion": "Hinduism",
+    "site_name": "Ananthapura Lake Temple",
+    "alternative_names": [],
+    "site_type": "Lake Temple",
+    "primary_figure_or_concept": "Ananthapadmanabha (Vishnu)",
+    "canonical_or_religious_significance": "According to devotional tradition, original seat (Moolasthanam) of Padmanabhaswamy",
+    "historical_significance": "Only lake temple in Kerala. According to devotional tradition, original spiritual seat before Padmanabhaswamy Temple Thiruvananthapuram. Temple has vegetarian crocodile as guardian. Located in Kasaragod district.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kumbla",
+      "district": "Kasaragod",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "12.5333",
+      "longitude": "75.0667"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Padmanabhaswamy_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_south_042",
+    "religion": "Hinduism",
+    "site_name": "Poovar Shiva Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple located at confluence of Neyyar River, Karamana River and Arabian Sea. Unique location at estuary makes it significant pilgrimage site.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Poovar",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "8.3167",
+      "longitude": "77.0667"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org/destination/padmanabha-swamy-temple-thiruvananthapuram/13/"]
+    }
+  },
+  {
+    "site_id": "hindu_south_043",
+    "religion": "Hinduism",
+    "site_name": "Hoysaleswara Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Hoysaleswara (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Masterpiece of Hoysala architecture built during 12th century in Halebidu. Famous for intricate stone carvings depicting Hindu mythology. Construction began around 1121 CE under Hoysala king Vishnuvardhana. Temple features detailed sculptures on walls.",
+    "approx_established_period": "12th century CE",
+    "location": {
+      "city": "Halebidu",
+      "district": "Hassan",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.2167",
+      "longitude": "75.9956"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_044",
+    "religion": "Hinduism",
+    "site_name": "Mangaladevi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mangaladevi (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple in Mangalore from which city derives its name. Important Shakti temple in coastal Karnataka. Features Kerala style architecture.",
+    "approx_established_period": "9th-10th century CE",
+    "location": {
+      "city": "Mangalore",
+      "district": "Dakshina Kannada",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "12.8698",
+      "longitude": "74.8428"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_045",
+    "religion": "Hinduism",
+    "site_name": "Kollur Mookambika Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mookambika (Parvati)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Shakti temple in Karnataka located in Western Ghats. Important pilgrimage center. In devotional tradition, place where Adi Shankaracharya installed Sri Chakra. Temple attracts devotees from across South India.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kollur",
+      "district": "Udupi",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.8667",
+      "longitude": "74.8000"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_046",
+    "religion": "Hinduism",
+    "site_name": "Kateel Durga Parameshwari Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Durga Parameshwari",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Shakti temple in Dakshina Kannada district on small island in Nandini River. Important pilgrimage site in coastal Karnataka. Temple features traditional Kerala-Karnataka architectural style.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kateel",
+      "district": "Dakshina Kannada",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "13.0500",
+      "longitude": "74.9833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_047",
+    "religion": "Hinduism",
+    "site_name": "Kukke Subramanya Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Subrahmanya (Kartikeya)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Subrahmanya temple in Karnataka located in Western Ghats. Famous for Sarpa Samskara (serpent worship rituals). Important pilgrimage center especially for Rahu-Ketu doshas. Temple situated among Kumaradhara River.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kukke",
+      "district": "Dakshina Kannada",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "12.8500",
+      "longitude": "75.3667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.viacation.com/temples-in-karnataka"]
+    }
+  },
+  {
+    "site_id": "hindu_south_048",
+    "religion": "Hinduism",
+    "site_name": "Thiruvananthapuram Pazhavangadi Ganapathy Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ganesha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Ganesha temple in heart of Thiruvananthapuram city. One of oldest temples in capital. Major cultural and religious landmark.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thiruvananthapuram",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "8.4875",
+      "longitude": "76.9525"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org/destination/padmanabha-swamy-temple-thiruvananthapuram/13/"]
+    }
+  },
+  {
+    "site_id": "hindu_south_049",
+    "religion": "Hinduism",
+    "site_name": "Thiruvalla Sreevallabha Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Sreevallabha (Vishnu-Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Vishnu temple in Pathanamthitta district. One of oldest temples in Kerala. Important pilgrimage center with rich traditions and festivals.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thiruvalla",
+      "district": "Pathanamthitta",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "9.3833",
+      "longitude": "76.5833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org/sabarimala"]
+    }
+  },
+  {
+    "site_id": "hindu_south_050",
+    "religion": "Hinduism",
+    "site_name": "Attukal Bhagavathy Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Attukal Bhagavathy (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Bhagavathy temple in Thiruvananthapuram famous for Attukal Pongala festival. Festival holds Guinness World Record for largest annual gathering of women for religious activity. Millions of women participate in Pongala ritual.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thiruvananthapuram",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "8.5008",
+      "longitude": "76.9497"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org/destination/padmanabha-swamy-temple-thiruvananthapuram/13/"]
+    }
+  }
+]

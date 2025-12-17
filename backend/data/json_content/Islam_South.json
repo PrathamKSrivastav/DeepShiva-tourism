@@ -1,0 +1,602 @@
+[
+  {
+    "site_id": "islam_south_001",
+    "religion": "Islam",
+    "site_name": "Makkah Masjid",
+    "alternative_names": ["Mecca Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "One of oldest and largest mosques in India. Sultan Muhammad Qutb Shah laid foundation stone. Construction began 1614 under sixth ruler of Qutb Shahi dynasty with 8,000 workers employed. Completed 1694 during reign of Mughal Emperor Aurangzeb after 77 years construction. French explorer Jean-Baptiste Tavernier documented in travelogue noting mosque destined to be grandest in India. In historical records, bricks commissioned to be made from soil brought from Mecca, used in central arch construction, giving mosque its name. Complex put on UNESCO tentative list 2014 under Monuments and Forts of Deccan Sultanate. Main hall features fifteen arches. Courtyard can host large congregations during special events. In 2007 bombing during Friday prayers drew attention to mosque's historical narrative. Despite incident remains symbol of religious diversity and resilience attracting visitors globally.",
+    "approx_established_period": "1614-1694",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3616",
+      "longitude": "78.4747"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Makkah_Masjid,_Hyderabad"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_002",
+    "religion": "Islam",
+    "site_name": "Charminar",
+    "alternative_names": ["Four Minarets"],
+    "site_type": "Monument and Mosque",
+    "primary_figure_or_concept": "Monument with mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Monument and mosque synonymous with history of Hyderabad. Majestic structure completed 1591 CE. Landmark building of Hyderabad and famous monument of India. In historical tradition, Mohammed Quli Qutb Shahi, fifth sultan of Qutub Shahi dynasty, built monument to commemorate end of deadly plague menace that gripped city. Four clocks in four cardinal directions added 1889. Base has water cistern located at center with small fountain for ablutions before faithful offer prayers in mosque. Become synonymous with culture of old city Hyderabad. Area popular destination for Muslim dishes, colorful bangles, pearls, jewelry. Sanctuary of reverence with prayer spaces and mosque offering spiritual reflection. Central courtyard provides 45 prayer spaces and small vazu with fountain for purifying before prayers.",
+    "approx_established_period": "1591",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3616",
+      "longitude": "78.4747"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.incredibleindia.gov.in/en/telangana/hyderabad/charminar"]
+    }
+  },
+  {
+    "site_id": "islam_south_003",
+    "religion": "Islam",
+    "site_name": "Gol Gumbaz",
+    "alternative_names": ["Gol Gumbad", "Round Dome"],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Mohammad Adil Shah",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "17th-century mausoleum in Bijapur (now Vijayapura), Karnataka. Houses remains of Mohammad Adil Shah, seventh sultan of Adil Shahi dynasty, and some relatives. Construction started 1626 completed 1656. Designed and architected by Yakut of Dabul. Notable for scale and exceptionally large dome. Important example of Adil Shahi architecture. Monument covers area of 1,700 square meters. Most visited place in Karnataka attracting tourists worldwide. Second largest dome in world without being supported by pillars. One of biggest single-chambered structures in world. Great example of Deccan architecture. Contains cenotaphs of Mohammed Adil Shah along with wife Arus Bibi, daughter and grandson.",
+    "approx_established_period": "1626-1656",
+    "location": {
+      "city": "Vijayapura",
+      "district": "Vijayapura",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "16.8302",
+      "longitude": "75.7100"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Gol_Gumbaz"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_004",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Bijapur",
+    "alternative_names": ["Jamiya Masjid", "Jumma Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built between 1557 and 1686. Largest and first constructed mosque in Bijapur, Karnataka. One of finest mosques in India. Commissioned by Ali Adil Shah I of Bijapur Sultanate in 1576 CE. Primary reason for establishment to celebrate Sultan's victory against Vijayanagara Empire during Battle of Talikota. Mosque financed with money looted from battle. Spanning area of 54,250 square feet. Largest mosque in Bijapur accommodating up to 4,000 worshippers. Regarded as one of most exemplary representations of Adil Shahi architecture. Primary entrance located on eastern side. Layout consists of large rectangular structure measuring 492 by 262 feet featuring square courtyard of 164 feet. Main prayer hall positioned at western end crowned with hemispherical dome featuring crescent-moon finial. Dome has diameter of 57 feet rising to height of 120 feet. By 1686 mosque largely finished, only two minarets intended for eastern facade left unfinished.",
+    "approx_established_period": "1557-1686",
+    "location": {
+      "city": "Vijayapura",
+      "district": "Vijayapura",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "16.8302",
+      "longitude": "75.7100"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/karnataka/bijapur/jama-masjid"]
+    }
+  },
+  {
+    "site_id": "islam_south_005",
+    "religion": "Islam",
+    "site_name": "Cheraman Juma Masjid",
+    "alternative_names": ["Cheraman Perumal Juma Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": "In Islamic tradition, often regarded as first mosque in entire Indian subcontinent",
+    "historical_significance": "Located in Kodungallur, Kerala. Remarkable specimen of India's cultural and historical legacy. In Islamic tradition, founded 629 CE by Persian scholar Malik Bin Dinar and believed constructed during lifetime of Prophet Muhammad. However, historical research has cast doubt on these claims, with some scholars suggesting later construction date in 14th-15th century, suggesting origin story may be legendary rather than factual. Underwent multiple modifications throughout years combining elements of Middle Eastern and traditional Kerala architecture. Resembles traditional Kerala tharavad (ancestral house) with elaborate wooden doors and tiled roof, in contrast to common mosques with domes and minarets. Qibla oriented towards Mecca inside, worshippers provided with prayer mats. In local tradition, iconic oil lamp believed burning continuously for more than thousand years. Dexterous research involving inspection of old photos and historical documents employed to reconstruct building after modern additions from 1974 removed. Nearly 30-month-long effort restored mosque's former splendor.",
+    "approx_established_period": "Traditional date 629 CE contested; possibly 14th-15th century CE",
+    "location": {
+      "city": "Kodungallur",
+      "district": "Thrissur",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "10.2167",
+      "longitude": "76.2000"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Cheraman_Juma_Mosque"],
+      "secondary": ["https://www.outlooktraveller.com/experiences/heritage/cheraman-juma-masjid-in-kerala-oldest-mosque-in-india"]
+    }
+  },
+  {
+    "site_id": "islam_south_006",
+    "religion": "Islam",
+    "site_name": "Jumma Masjid Bangalore",
+    "alternative_names": ["Sangian Jamia Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "First mosque of Bangalore. Located in busy market area of K.R. Market on Old Poor House Road. Built by Haji Abdul Quddus. Historic mosque built around 1790. Elevated prayer hall features tall ornamental granite pillars. Facade showcases intricate jali-work and floral motifs in plaster. During festivals mosque beautifully adorned with lights. Oldest mosque in Bangalore holding significant cultural and religious importance attracting visitors from across city. Brick and mortar structure has impressive facade embellished with elaborate jali-work and floral motifs. Magnificent twin minarets inside masjid stretching up to spherical domes above balconies.",
+    "approx_established_period": "c. 1790",
+    "location": {
+      "city": "Bangalore",
+      "district": "Bangalore Urban",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "12.9716",
+      "longitude": "77.5946"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.theislamicheritage.com/detail/Jumma-Masjid-Banglore"]
+    }
+  },
+  {
+    "site_id": "islam_south_007",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Srirangapatna",
+    "alternative_names": ["Masjid-i-Ala"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Dream project of Tipu Sultan, ruler of Mysuru. Built by Tipu Sultan during 1786-87. Located inside Srirangapatna Fort. Despite British attacks during four Anglo-Mysore wars, fort withstood damage and mosque continued daily prayers. Mosque complex houses madrasa with huge corridor connected to several rooms for students and two prominent minarets. In local legend, Tipu built minarets to keep vigil on enemies who could attack fort. Unlike other mosques of time, Jamia Masjid two storeyed and does not have dome. Large prayer hall protected by flat roof with support of arches. Testament to secular credentials of Tipu Sultan who adopted both traditional Indian and Islamic architecture in building mosque.",
+    "approx_established_period": "1786-1787",
+    "location": {
+      "city": "Srirangapatna",
+      "district": "Mandya",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "12.4186",
+      "longitude": "76.6947"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Masjid-i-Ala"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_008",
+    "religion": "Islam",
+    "site_name": "Beemapalli Dargah Shareef",
+    "alternative_names": ["Beema Beevi Dargah"],
+    "site_type": "Dargah",
+    "primary_figure_or_concept": "Syedunnisa Beema Beevi",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Well-known place of worship for Muslims located between Valiyathura Junction and Poonthura Junction at Thiruvananthapuram. Dedicated to Beema Umma. In devotional tradition, Beema Beevi believed to be family member of Prophet Mohammed with great spiritual powers. Beema Beevi and son Syedushuhadamaheen Abubacker said to have arrived in Kerala from Arabia spreading teachings of Islam while using knowledge of traditional medicine to help sick. Many embraced Islam through their guidance. Maheen Abubacker killed during altercation with local authorities, Beema Beevi heartbroken passed away shortly after. Burial site became place of pilgrimage revered for spiritual energy. Two wells at Beemapalli, one contains cold water and other hot water. In local tradition, water in wells believed to have medicinal properties effective to cure many diseases and wells do not dry even during extreme drought. Striking pink exterior mosque captivating sight especially in golden hues of morning sun. Symbol of compassion and communal harmony. Vibrant Uroos festival celebrates life of Syedunnisa Beema Beevi.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thiruvananthapuram",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "8.5017",
+      "longitude": "76.9386"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/kerala/beemapalli-dargah-shareef.html"]
+    }
+  },
+  {
+    "site_id": "islam_south_009",
+    "religion": "Islam",
+    "site_name": "Ibrahim Rauza",
+    "alternative_names": ["Ibrahim Rawza", "Ibrahim's Garden Tomb"],
+    "site_type": "Tomb and Mosque Complex",
+    "primary_figure_or_concept": "Tomb of Ibrahim Adil Shah II",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Funerary complex featuring mausoleum, mosque and extensive gardens in Bijapur (now Vijayapura), Karnataka. Buildings very similar in style with fountain between them. Complex housing remains of sixth sultan of Adil Shahi dynasty Ibrahim Adil Shah II (r. 1580-1627) and members of family. Exemplary work of Adil Shahi architectural style. Features densely ornamented surfaces, bulbous domes, slender minarets and extensive use of brackets. Complex commissioned by Taj Sultan, second queen of Ibrahim Adil Shah II. Contains tomb of Ibrahim Adil Shah II, wife Taj Sultana and two sons. Complex designed and built by Persian architect Malik Sandal. Completed 1627 CE. Construction must have begun around 1617 CE taking 8-12 years. Sentences of Quran beautifully covered on walls. Square structure with twin buildings and delicate carvings. Among supreme achievements of Adil Shahis remarkably considered and finely decorated.",
+    "approx_established_period": "1617-1627",
+    "location": {
+      "city": "Vijayapura",
+      "district": "Vijayapura",
+      "state": "Karnataka",
+      "country": "India",
+      "latitude": "16.8302",
+      "longitude": "75.7100"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ibrahim_Rauza"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_010",
+    "religion": "Islam",
+    "site_name": "Mishkal Mosque",
+    "alternative_names": ["Mishkal Palli", "Kuttichira Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in Kuttichira neighbourhood of Kozhikode, Kerala. Medieval mosque built approximately 650 years ago. Significant cultural, historical, and architectural monument in region. One of oldest mosques in Malabar. Constructed 14th century by Nakhooda Mishkal, Arab trader and ship owner after whom mosque named. Originally had five storeys, but after fire set by Portuguese in 1510 reconstructed with four storeys. Despite damage retained historical charm continues testament to cultural exchanges between Arab traders and local Malabar community. Architectural uniqueness major draw for visitors. Unlike traditional mosques lacks minarets and domes, featuring instead gopuram-style arches at entrance reminiscent of traditional Hindu temple architecture. Structure supported by 24 intricately carved wooden pillars. Features 47 beautifully engraved doors showcasing exceptional craftsmanship of era. Spacious prayer hall capable accommodating approximately 400 worshippers. Strong influence of Kerala temple architecture visible in construction. Built extensively with wood and Italian tiles.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Kozhikode",
+      "district": "Kozhikode",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "11.2588",
+      "longitude": "75.7804"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.holiday/best-places/kozhikode/mishkal-mosque.php"]
+    }
+  },
+  {
+    "site_id": "islam_south_011",
+    "religion": "Islam",
+    "site_name": "Wallajah Big Mosque",
+    "alternative_names": ["Triplicane Big Mosque"],
+    "site_type": "Mosque and Dargah Complex",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mosque and dargah complex on Triplicane High Road in Triplicane neighbourhood of Chennai. Constructed in Mughal style. Completed 1795 by family of Muhammad Ali Khan Wallajah, Nawab of Arcot. Has large prayer hall, tank and large courtyard. Entire structure constructed with granite without use of iron or wood. Built by Nawab Wallajah Muhammad Ali Khan who ruled Carnatic kingdom during British colonial period 18th century. Played important role in religion and culture of local Muslim community for more than two centuries. One of most beautiful mosques in entire south India. Architecture embodies fusion of Indian, Islamic, and Iranian influences. Provided with two lofty minarets at front. Architecture quite typical of medieval period. Use of iron or other materials susceptible to elements completely avoided. Important Muslim site of pilgrimage in south. Complex consists of Mosque and Dargah with big open space in front. Minarets built with stucco. Minaret stupi or kalas made of Gold. Twin white minarets crowned with golden finials frame facade of majestic arches. Inside cool granite pillars and lofty vaults create calm airy prayer space anchored by gold-edged mihrab inscribed with Quranic verses.",
+    "approx_established_period": "1795",
+    "location": {
+      "city": "Chennai",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.0544",
+      "longitude": "80.2771"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Triplicane_Big_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_012",
+    "religion": "Islam",
+    "site_name": "Toli Masjid",
+    "alternative_names": ["Damri Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mosque in Hyderabad constructed during Qutb Shahi period completed 1082 AH (1671/1672 CE). Gem of Qutb Shahi architecture in Hyderabad. Testament to era's artistry. Renowned for striking decorations showcasing unique fusion of Indo-Islamic styles. Facade features intricate stucco work, latticed screens, and lotus-adorned arches. Two minarets roughly 60 feet tall flank structure, bases resembling pots in nod to Hindu influence. Architectural style culminates decorative elements seen in earlier Qutb Shahi mosques. Stands out for exuberant ornamentation attributed to extensive Hindu influences of period. Beautiful example of how artistic styles blend creating unique result. Constructed by Musa Khan from accumulated sum from discount (damri). Explains mosque's alternative name Damri Masjid. Stands tall on historic Karwan road, very route that connected Golconda Fort, seat of Qutb Shahi rulers, to Purana Pul (Old Bridge) area.",
+    "approx_established_period": "1671",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3742",
+      "longitude": "78.4397"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Toli_Masjid"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_013",
+    "religion": "Islam",
+    "site_name": "Shahi Jamia Masjid Adoni",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in city of Adoni in Andhra Pradesh. Dates back several centuries. Known for architectural beauty, spacious courtyards, and grand arches. Considered important religious and cultural site in region. Relic of architectural and cultural heritage. People from all sections of society and religions allowed to visit and take pictures. Lies in heart of town near market, very busy place within town. Built by Masud Khan, governor serving under Bijapur Sultan Sikandar Adil Shah. Masud Khan retired at Adoni in year 1683. Land purchased from Mohammed Shahnaz Namia by Masood Khan giving 77,000 rupees, spent total amount of 2,000,000 dinars to complete construction. Architects Iranian engineers headed by Malli Sandal. In architectural tradition, area of masjid claimed to be same as Kaaba in Mecca, Saudi Arabia.",
+    "approx_established_period": "1683",
+    "location": {
+      "city": "Adoni",
+      "district": "Kurnool",
+      "state": "Andhra Pradesh",
+      "country": "India",
+      "latitude": "15.6333",
+      "longitude": "77.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://seawatersports.com/places/andhra-pradesh/shahi-jamia-masjid"]
+    }
+  },
+  {
+    "site_id": "islam_south_014",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Salem",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "One of oldest mosques in Tamil Nadu. Built during reign of Mughal emperor Aurangzeb in 17th century. Famous for striking architecture showing combination of Indian and Islamic styles. Has large courtyard, place of worship, and minaret offering great views of city. Built on raised platform surrounded by high walls giving fort-like appearance. Main entrance through colossal archway adorned with floral motifs and calligraphy. Main prayer hall spacious area accommodating hundreds of worshippers. Hall supported by numerous pillars intricately carved and painted in vibrant colors. Built to serve as place of worship for Muslim community in Salem and surrounding areas. Undergone several renovations and extensions, most recent completed early 20th century.",
+    "approx_established_period": "17th century CE",
+    "location": {
+      "city": "Salem",
+      "district": "Salem",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "11.6643",
+      "longitude": "78.1460"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.com/attractions/darghas/jama-masjid.php"]
+    }
+  },
+  {
+    "site_id": "islam_south_015",
+    "religion": "Islam",
+    "site_name": "Butt Road Jumma Masjid",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Friday mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Friday mosque located in Parangimalai on outskirts of Chennai. Situated 13 kilometres from Chennai city and 2 kilometres from Guindy on Mount-Poonamallee Road. Mosque caters to Muslim population of suburb and nearby cantonment. Founded by Janab Shaikh Dawood. Features one or more domes and minarets. Important religious center for local Muslim community.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chennai",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.0092",
+      "longitude": "80.1937"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Butt_Road_Jumma_Masjid"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_south_016",
+    "religion": "Islam",
+    "site_name": "Malik Deenar Mosque",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient mosque in Kasaragod district Kerala. In Islamic tradition, associated with Malik Ibn Dinar, legendary figure who built first mosques in Kerala. Important historical mosque in northern Kerala. Traditional Kerala architecture. Part of Islamic heritage of Malabar coast.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kasaragod",
+      "district": "Kasaragod",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "12.4996",
+      "longitude": "75.0028"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org"]
+    }
+  },
+  {
+    "site_id": "islam_south_017",
+    "religion": "Islam",
+    "site_name": "Abiramam Mosque",
+    "alternative_names": ["Abiramam Juma Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in Nagapattinam district Tamil Nadu. Part of Tamil Nadu's Islamic heritage. Important mosque in coastal Tamil Nadu region. Serves local Muslim fishing community. Traditional architecture.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Nagapattinam",
+      "district": "Nagapattinam",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "10.7667",
+      "longitude": "79.8333"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.com"]
+    }
+  },
+  {
+    "site_id": "islam_south_018",
+    "religion": "Islam",
+    "site_name": "Pazhayannur Mosque",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "One of oldest mosques in Kerala. Traditional Kerala architectural style. Located in Thrissur district. Important mosque in central Kerala. Part of Malabar Islamic heritage. Active worship center.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Thrissur",
+      "district": "Thrissur",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "10.5276",
+      "longitude": "76.2144"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org"]
+    }
+  },
+  {
+    "site_id": "islam_south_019",
+    "religion": "Islam",
+    "site_name": "Palakunnu Mosque",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in Kasaragod Kerala. Known for traditional architecture. Important religious center in northern Kerala. Part of Islamic heritage of Malabar region. Active mosque serving local community.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kasaragod",
+      "district": "Kasaragod",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "12.4996",
+      "longitude": "75.0028"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org"]
+    }
+  },
+  {
+    "site_id": "islam_south_020",
+    "religion": "Islam",
+    "site_name": "Juma Masjid Malappuram",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Friday mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major mosque in Malappuram, district headquarters of Malappuram district Kerala. Important religious center in Malabar region. Serves large Muslim population. Traditional Kerala mosque architecture. Active Friday congregation mosque.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Malappuram",
+      "district": "Malappuram",
+      "state": "Kerala",
+      "country": "India",
+      "latitude": "11.0510",
+      "longitude": "76.0711"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.keralatourism.org"]
+    }
+  },
+  {
+    "site_id": "islam_south_021",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Madurai",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in Madurai Tamil Nadu. Important religious center for Madurai Muslim community. Located in old city area. Features traditional South Indian mosque architecture. Active worship center.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Madurai",
+      "district": "Madurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "9.9252",
+      "longitude": "78.1198"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.com"]
+    }
+  },
+  {
+    "site_id": "islam_south_022",
+    "religion": "Islam",
+    "site_name": "Kazimar Big Mosque",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "One of oldest mosques in Madurai Tamil Nadu. Built several centuries ago. Important landmark in Madurai. Features traditional architecture. Serves as major religious center. Active Friday mosque.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Madurai",
+      "district": "Madurai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "9.9252",
+      "longitude": "78.1198"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.com"]
+    }
+  },
+  {
+    "site_id": "islam_south_023",
+    "religion": "Islam",
+    "site_name": "Thousand Lights Mosque",
+    "alternative_names": ["Hazar Mashal Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Nawab Umdat-ul-Umara in Chennai in 19th century. Named after thousand oil lamps used to illuminate mosque. Important mosque in central Chennai. Features traditional architecture. Major religious landmark.",
+    "approx_established_period": "19th century CE",
+    "location": {
+      "city": "Chennai",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "country": "India",
+      "latitude": "13.0544",
+      "longitude": "80.2771"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tamilnadutourism.com"]
+    }
+  },
+  {
+    "site_id": "islam_south_024",
+    "religion": "Islam",
+    "site_name": "Spanish Mosque Hyderabad",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Paigah noble Nawab Ghulam Ahmed Ali Khan in 1906. Features Spanish Moorish architecture unique in India. White structure with distinctive architectural style. Important heritage mosque in Hyderabad. Popular landmark.",
+    "approx_established_period": "1906",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3850",
+      "longitude": "78.4867"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://telanganatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "islam_south_025",
+    "religion": "Islam",
+    "site_name": "Paigah Tombs Mosque",
+    "alternative_names": [],
+    "site_type": "Mosque and Tomb Complex",
+    "primary_figure_or_concept": "Tombs of Paigah nobles",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Funerary complex of Paigah nobles in Hyderabad. Built in 18th-19th centuries. Features exquisite stucco work and geometrical designs. Important example of Deccan architecture. Contains tombs of Paigah family, close associates of Nizams. Mosque part of complex. Intricate craftsmanship.",
+    "approx_established_period": "18th-19th century CE",
+    "location": {
+      "city": "Hyderabad",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "country": "India",
+      "latitude": "17.3850",
+      "longitude": "78.4867"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://telanganatourism.gov.in"]
+    }
+  }
+]

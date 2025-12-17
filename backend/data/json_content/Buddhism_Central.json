@@ -1,0 +1,730 @@
+{
+  "north": [
+    {
+      "site_id": "buddhist_north_001",
+      "religion": "Buddhism",
+      "site_name": "Mahabodhi Temple",
+      "alternative_names": ["Mahabodhi Mahavihara", "Great Awakening Temple"],
+      "site_type": "Temple Complex and UNESCO World Heritage Site",
+      "primary_figure_or_concept": "Gautama Buddha - site of enlightenment",
+      "canonical_or_religious_significance": "In Buddhist tradition, one of four holy sites related to life of Buddha; place where Buddha attained enlightenment under Bodhi Tree",
+      "historical_significance": "Ancient but restored Buddhist temple in Bodh Gaya Bihar marking location where according to Buddhist tradition Buddha attained enlightenment. Original temple built by Emperor Ashoka in 3rd century BCE. Present 50 meter high grand temple dates to 5th-6th century CE. Temple encompasses Vajrasana sacred Bodhi Tree and six other sacred sites of Buddha's enlightenment surrounded by numerous ancient votive stupas. Protected by inner middle and outer circular boundaries. UNESCO World Heritage Site declared in 2002. Tree present today descendant of original Bodhi tree. Complex includes seventh sacred place Lotus Pond located outside enclosure to south. Greatest remains of 5th-6th century CE period in Indian sub-continent.",
+      "approx_established_period": "3rd century BCE by Ashoka, present structure 5th-6th century CE",
+      "location": {
+        "city": "Bodh Gaya",
+        "district": "Gaya",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "24.6961",
+        "longitude": "84.9911"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Mahabodhi_Temple"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_002",
+      "religion": "Buddhism",
+      "site_name": "Dhamek Stupa",
+      "alternative_names": ["Dhamekh Stupa"],
+      "site_type": "Stupa",
+      "primary_figure_or_concept": "Place where Buddha delivered first sermon after enlightenment",
+      "canonical_or_religious_significance": "In Buddhist tradition, one of four revered sites related to life of Buddha; place of Dharma-Chakra-Pravartana (Turning of Wheel of Law)",
+      "historical_significance": "Located in Sarnath approximately 10 km from Varanasi in Uttar Pradesh. In Buddhist tradition, site where Buddha having attained enlightenment at Bodhgaya imparted inaugural sermon to five devoted companions. Pivotal moment in Buddhist lore hailed as Dharma-Chakra-Pravartana. Archaeological Survey of India preserves site. King Ashoka erected numerous stupas and monasteries approximately two centuries after Mahaparinirvana of Buddha. Dhamek Stupa believed constructed circa 500 CE. Crafted from red bricks and stone imposing cylindrical structure stands tall at 43.6 meters with diameter spanning 28 meters. In tradition, believed atop platform of stupa Buddha delivered inaugural sermon after attaining enlightenment. Chaukandi Stupa octagonal structure from Gupta period also present commemorating historic meeting of Buddha with five disciples.",
+      "approx_established_period": "500 CE",
+      "location": {
+        "city": "Sarnath",
+        "district": "Varanasi",
+        "state": "Uttar Pradesh",
+        "country": "India",
+        "latitude": "25.3817",
+        "longitude": "83.0217"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Dhamek_Stupa"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_003",
+      "religion": "Buddhism",
+      "site_name": "Kushinagar",
+      "alternative_names": ["Kusinara"],
+      "site_type": "Buddhist Pilgrimage Site",
+      "primary_figure_or_concept": "Parinirvana place of Buddha",
+      "canonical_or_religious_significance": "In Buddhist tradition, one of four holy sites; place where Buddha attained Parinirvana (died)",
+      "historical_significance": "Buddhist pilgrimage site 53 km east of Gorakhpur on National Highway 27 where Buddhists believe Gautama Buddha died. Archaeological evidence from 3rd century BCE suggests ancient pilgrimage site. Ashoka built stupa and placed pillar to mark site. Hindu rulers of Gupta Empire (4th-7th century) enlarged stupa and constructed temple containing reclining Buddha statue. Site abandoned by Buddhist monks around 1200 CE who fled to escape invading Muslim army. Site decayed during Islamic rule. British archaeologist Alexander Cunningham rediscovered Kushinagar in late 19th century. Colleague Archibald Carlleyle unearthed 1500-year-old reclining Buddha statue. Site since become important pilgrimage site for Buddhists. Buddhist temple offered to Dalai Lama in 1967. Namgyal Monastery maintains temple and built 16 small houses for pilgrims.",
+      "approx_established_period": "3rd century BCE, Gupta renovations 4th-7th century CE",
+      "location": {
+        "city": "Kushinagar",
+        "district": "Kushinagar",
+        "state": "Uttar Pradesh",
+        "country": "India",
+        "latitude": "26.7409",
+        "longitude": "83.8880"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Kushinagar"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_004",
+      "religion": "Buddhism",
+      "site_name": "Hemis Monastery",
+      "alternative_names": ["Hemis Gompa"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Padmasambhava",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Himalayan Buddhist monastery of Drukpa Lineage in Hemis on bank of Indus River Ladakh. Situated 45 km from Leh. Originally built before 11th century re-established in 1672 by Ladakhi king Sengge Namgyal. Annual Hemis festival honoring Padmasambhava held in early June. Belongs to Red Hat Sect or Drukpa lineage of Buddhism. Monastery holds immense religious significance in Ladakh. Famous for 2-day religious ceremony known as Hemis Festival. One of largest and wealthiest monasteries in Ladakh.",
+      "approx_established_period": "Before 11th century, re-established 1672",
+      "location": {
+        "city": "Hemis",
+        "district": "Leh",
+        "state": "Ladakh",
+        "country": "India",
+        "latitude": "33.9125",
+        "longitude": "77.7028"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Hemis_Monastery"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_005",
+      "religion": "Buddhism",
+      "site_name": "Thiksey Monastery",
+      "alternative_names": ["Thikse Gompa"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Maitreya Buddha",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Largest monastery in central Ladakh located at altitude of 3600 meters in Indus Valley. Twelve-storey complex houses many items of Buddhist art including stupas statues thangkas wall paintings and swords. Main point of interest is Maitreya Temple installed to commemorate visit of 14th Dalai Lama in 1970 containing 15 meters high statue of Maitreya largest such statue in Ladakh covering two stories. Located 18 km from Leh. Widely noted for resemblance to Potala Palace in Tibet. Monastery founded in 1433 contains exquisite age-old images stupas scroll paintings and wall paintings. Belongs to Gelugpa sect of Tibetan Buddhism Yellow-hat sect. Houses about 100 monks. Built some 600 years ago consists of 12 levels ascending hillside culminating in Incarnate Lama's private apartments at summit. Famous for morning prayers conducted daily.",
+      "approx_established_period": "1433",
+      "location": {
+        "city": "Thiksey",
+        "district": "Leh",
+        "state": "Ladakh",
+        "country": "India",
+        "latitude": "34.0544",
+        "longitude": "77.6667"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Thikse_Monastery"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_006",
+      "religion": "Buddhism",
+      "site_name": "Diskit Monastery",
+      "alternative_names": ["Disket Gompa"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Maitreya Buddha",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Oldest and largest gompa of Nubra Valley in Ladakh located in Diskit village about 120km from Leh. Founded by Changzem Tserab Zangpo disciple of Tsong Khapa founder of Gelugpa during 14th century. Monastery re-founded in 1463 by follower of Gelugpa school Sherab Zangpa on site of former royal seat of local ruler from 12th century. Formally monastery subordinate to central Thikse monastery. Diskit home to about hundred monks. Main building situated on rock separated from rest of mountain massif by steep ravine. Due to location along ancient Silk Road trade route Nubra Valley saw many invasions and conflicts. Diskit Monastery stood firm against Mughal aggression in 1684 with support from King Sengge Namgyal of Ladakh. During conflicts between India and Pakistan monastery provided shelter to people from both sides. Famous for large statue of Maitreya consecrated in 2010 by Fourteenth Dalai Lama. Hosts popular Dosmoche festival in February.",
+      "approx_established_period": "14th century, re-founded 1463",
+      "location": {
+        "city": "Diskit",
+        "district": "Leh",
+        "state": "Ladakh",
+        "country": "India",
+        "latitude": "34.5667",
+        "longitude": "77.5667"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Diskit_Monastery"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_007",
+      "religion": "Buddhism",
+      "site_name": "Key Monastery",
+      "alternative_names": ["Kye Monastery", "Ki Monastery"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Buddha and Atisha",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Famous Tibetan Buddhist monastery in Lahaul and Spiti District. Located at altitude of 4166 meters above sea level close to Spiti River in Spiti Valley of Himachal Pradesh. Also known as Monastery at Center of Mandala. Believed founded by Dromton student of famous teacher Atisha in 11th century. Enshrines Buddha idols in Dhyana position and has collection of ancient books and murals. Largest monastery in entire Spiti Valley over thousand years old. Doubles up as religious training centre for Lamas with about 300 lamas receiving education. Has long fascinating history involving numerous attacks place had to face but survived. Celebrated completion of thousand years in 2000 in presence of Dalai Lama. Home to revered reincarnations of Lochen Rinchen Zangpo known as Great Translator who lived 958-1055 CE. Strongly connected to ancient Kadampa lineage and seat of Lochen Tulkus lineage. Linked to legendary 11th century saint Srijnana Dipankara Atisha.",
+      "approx_established_period": "11th century",
+      "location": {
+        "city": "Kaza",
+        "district": "Lahaul and Spiti",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "32.3000",
+        "longitude": "78.0000"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.holidify.com/places/spiti/key-monastery-sightseeing-3607.html"]
+      }
+    },
+    {
+      "site_id": "buddhist_north_008",
+      "religion": "Buddhism",
+      "site_name": "Dhankar Monastery",
+      "alternative_names": ["Dankhar Gompa", "Drangkhar Gompa", "Dhangkar Gompa"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Vairochana (Dhyan Buddha)",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Situated in district of Lahaul and Spiti in Himachal Pradesh. At altitude of 12774 feet monastery perched unbelievably on edge of cliff offers panoramic view of Spiti valley. Built one thousand years ago on 1000 feet high mountain overlooking heart-stirring sight of confluence of Spiti and Pin rivers. Listed as one of world's 100 most endangered monuments. Monastery precariously perched on rocky spur. Views from monastery breathtaking offering panoramic sights of Spiti and Pin River valleys. Belongs to Gelugpa sect of Tibetan Buddhism same as Dalai Lama. Houses ancient murals scriptures and statues including stunning idol of Vairochana seated in meditative pose. Dhankar Lake nearby adds to spiritual significance.",
+      "approx_established_period": "11th century (1000 years old)",
+      "location": {
+        "city": "Dhankar",
+        "district": "Lahaul and Spiti",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "32.0667",
+        "longitude": "78.0500"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.holidify.com/places/spiti/dhankar-monastery-sightseeing-3604.html"]
+      }
+    },
+    {
+      "site_id": "buddhist_north_009",
+      "religion": "Buddhism",
+      "site_name": "Phugtal Monastery",
+      "alternative_names": ["Phuktal Gompa", "Cave of Liberation"],
+      "site_type": "Cave Monastery",
+      "primary_figure_or_concept": "Buddhist meditation and enlightenment",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of world's oldest and most remote monasteries situated in rugged Zanskar Valley of Ladakh in Lungnak Valley south-eastern Zanskar. 52 km southeast of Padum on Nimmu-Padum-Darcha road. Natural cave site believed in tradition to have been used by Buddhist monks and sages for meditation over 2500 years ago though monastery structure itself established in early 15th century by Jangsem Sherap Zangpo disciple of Je Tsongkhapa. Built around cave hence name Phug means cave tal means liberation. Accessible only by 3-hour trek along beautiful landscapes with stark brown mountains interspersed with lush greenery. Ibex and blue sheep graze around. Tsarap River gushes beneath. Hanging wooden bridge connects to monastery. This wooden bridge known as Phugtal bridge currently only connection between two banks of Zanskar river after 2015 heavy landslides and floods washed away all other bridges. Only medium for monks to access food supplies. Bridge and trekking path maintained by monks and locals of Cha nearest village. Solar power installed in 2016.",
+      "approx_established_period": "Early 15th century (cave usage ancient)",
+      "location": {
+        "city": "Phugtal",
+        "district": "Kargil",
+        "state": "Ladakh",
+        "country": "India",
+        "latitude": "33.4500",
+        "longitude": "76.9667"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Phugtal_Monastery"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_north_010",
+      "religion": "Buddhism",
+      "site_name": "Rumtek Monastery",
+      "alternative_names": ["Dharma Chakra Centre"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Karmapa Lama and Karma Kagyu lineage",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of most significant and largest monasteries in Sikkim perched on hill overlooking Gangtok. Originally built under direction of Changchub Dorje 12th Karmapa Lama in mid-18th century. Rumtek served as main seat of Karma Kagyu lineage in Sikkim for some time. When Rangjung Rigpe Dorje 16th Karmapa arrived in Sikkim in 1959 after fleeing Tibet monastery was in ruins. Monastery founded by Wangchuk Dorje 9th Karmapa Lama in 16th century. Includes beautiful shrine temple and monastery for monks. Shrine established to spread teachings of Buddha throughout world. Currently largest monastery in Sikkim. Home to community of monks where they perform rituals and practices of Karma Kagyu lineage. Golden stupa contains relics of 16th Karmapa. Located 24 km from Gangtok at altitude of about 1500 meters. Monastery enshrined with 4 statues Virupaksha Virudaka Dritarashtra and Vaishravana considered guardians of universe. First monastery built in India with all traditional architectural designs became model for various other monasteries built later throughout India. About 2 km away rebuilt 300 year old Rumtek monastery originally built by fourth Chogyal.",
+      "approx_established_period": "16th century, rebuilt mid-18th century",
+      "location": {
+        "city": "Rumtek",
+        "district": "East Sikkim",
+        "state": "Sikkim",
+        "country": "India",
+        "latitude": "27.2833",
+        "longitude": "88.5667"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Rumtek_Monastery"],
+        "secondary": []
+      }
+    }
+  ],
+  "east": [
+    {
+      "site_id": "buddhist_east_001",
+      "religion": "Buddhism",
+      "site_name": "Nalanda Mahavihara",
+      "alternative_names": ["Nalanda University"],
+      "site_type": "Ancient University and Monastic Center",
+      "primary_figure_or_concept": "Nagarjuna and Buddhist learning",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient university and Buddhist monastic centre southwest of Bihar Sharif in central Bihar state. Nalanda's traditional history dates to time of Buddha (6th-5th centuries BCE) and Mahavira founder of Jaina religion. According to later Tibetan source Nagarjuna (2nd-3rd century CE Buddhist philosopher) began studies there. Founded by Kumargupta I of Gupta dynasty in 427 CE located near Patna Bihar. Became prominent hub for Buddhist studies attracting students and scholars from various regions. Extensive excavations indicate monasteries built during Gupta period (5th century CE). Contribution by Palas: Palas known to be Buddhists with inscription from Nalanda recording Dharmapala and Devapala gifted villages for upkeep of monastery. Nalanda probably sacked during Muslim raids in Bihar circa 1200 and never recovered. One of three most important Buddhist monasteries in India alongside Vikramashila and Odantapuri.",
+      "approx_established_period": "427 CE",
+      "location": {
+        "city": "Rajgir",
+        "district": "Nalanda",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "25.1358",
+        "longitude": "85.4428"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://www.britannica.com/topic/Nalanda"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_002",
+      "religion": "Buddhism",
+      "site_name": "Vikramashila",
+      "alternative_names": ["Vikramashila Mahavihara"],
+      "site_type": "Ancient University",
+      "primary_figure_or_concept": "Atisha Dipankara and Buddhist Tantra",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Buddhist monastic university situated in modern-day Bihar. Founded by King Dharmapala between late 8th and early 9th century. One of largest Buddhist universities with more than one hundred teachers and about one thousand students. Produced eminent scholars often invited by foreign countries to spread Buddhist learning culture and religion. One such scholar Atisha Dipankara founder of Sarma traditions of Tibetan Buddhism. Subjects like philosophy grammar metaphysics Indian logic taught but most important branch of learning was Buddhist tantra. Located at Antichak village in Bhagalpur district of Bihar. Along with Nalanda and Odantapuri one of three most significant Buddhist monasteries under Pala Empire in late 7th century. Specialized in Vajrayana Buddhism and known for rigorous training in Buddhist philosophy and practice. Attracted scholars and students from all over India and neighboring countries making hub of knowledge during time. Established to revive and strengthen Buddhist learning perceived to be declining at Nalanda University.",
+      "approx_established_period": "Late 8th to early 9th century CE",
+      "location": {
+        "city": "Antichak",
+        "district": "Bhagalpur",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "25.3167",
+        "longitude": "87.2833"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Vikramashila"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_003",
+      "religion": "Buddhism",
+      "site_name": "Ratnagiri Mahavihara",
+      "alternative_names": ["Ratnagiri Buddhist Site"],
+      "site_type": "Monastery and University Complex",
+      "primary_figure_or_concept": "Mahayana and Tantrayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Most famous and comparatively well excavated site amongst triad of Buddhist Diamond Triangle in Odisha. Buddhist remains first noticed by archaeologist MM Chakrabarty in 1905. First systematic excavation carried out by Debala Mitra from 1958 to 1961 who dated site to 5th century CE whose development continued till 12th century CE. Downfall began in 13th century CE as result of Muslim invasion. Recent excavation by ASI team found shrine complex sacred Buddhist assembly or prayer hall. Two similar Buddha heads found during 1960s excavation currently housed in Ratnagiri museum. Considered one of most important and largest Buddhist establishments in state spread across 18 acre of land on Assia hill range on left bank of Kelua river tributary of Brahmani in Jajpur district. Earned fame as center of learning for yoga and tantra. Many historians and Mitra compared Ratnagiri with Nalanda. Site flourished as important Buddhist establishment under royal patronage of Bhaumakaras during 9th-10th century CE. Archaeological vestiges dated from 5th century CE to 13th-14th century CE. According to some Tibetan texts Mahayana and Tantrayana sect of Buddhism originated from Ratnagiri. Only monastery in India to have Curvilinear roof.",
+      "approx_established_period": "5th century CE",
+      "location": {
+        "city": "Ratnagiri",
+        "district": "Jajpur",
+        "state": "Odisha",
+        "country": "India",
+        "latitude": "20.6333",
+        "longitude": "86.3333"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://odishatourism.gov.in/content/tourism/en/discover/attractions/buddhist-sites/ratnagiri.html"]
+      }
+    },
+    {
+      "site_id": "buddhist_east_004",
+      "religion": "Buddhism",
+      "site_name": "Lalitgiri",
+      "alternative_names": [],
+      "site_type": "Buddhist Complex and Stupa",
+      "primary_figure_or_concept": "Buddha relic",
+      "canonical_or_religious_significance": "Contains relics discovered inside stone casket believed by experts to possibly be Buddha relics",
+      "historical_significance": "Believed most sacred among three sites of Buddhist Diamond Triangle as it unearthed massive stupa where relics discovered inside stone casket. During excavation structural remains of large brick built apsidal chaitya griha with circular stupa in center found. Discovery of such edifice first of its kind in Buddhist context in Odisha. Majority of sculptures unearthed from excavation are figures of Buddha in different postures belonging to Mahayanistic phase of Buddhism. Inscribed potsherds belonging to different time spans from post Mauryan period to 8th-9th century CE found suggesting Lalitgiri under occupation by both phases. Can be attributed as fountainhead of Buddhism in Odisha in true sense. Establishment traces antiquity back to Mauryan period probably earliest Buddhist establishment in Odisha. Excavation at Landa hill in 1988 led to discovery of sacred bone and tooth relics in gold caskets. Though caskets devoid of inscription experts believe relics may be of Buddha though this remains unconfirmed. Site received continued patronage throughout lifetime until left abandoned sometime around fourteenth century CE.",
+      "approx_established_period": "Mauryan period (3rd century BCE)",
+      "location": {
+        "city": "Lalitgiri",
+        "district": "Cuttack",
+        "state": "Odisha",
+        "country": "India",
+        "latitude": "20.6667",
+        "longitude": "86.1667"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Lalitagiri"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_005",
+      "religion": "Buddhism",
+      "site_name": "Dhauli Shanti Stupa",
+      "alternative_names": ["Dhauli Peace Pagoda", "Dhauligiri Stupa"],
+      "site_type": "Stupa and Historical Site",
+      "primary_figure_or_concept": "Emperor Ashoka's transformation and peace",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Located on Dhauli hill in Bhubaneswar Odisha. Site of Kalinga War where Emperor Ashoka witnessed massive bloodshed leading to his transformation from ruthless warrior to benevolent ruler dedicated to peace and spirituality. Rock edicts at base of hill dating from 260 BCE reveal Ashoka's instructions to administrators emphasizing welfare and happiness of subjects. Inscriptions highlight journey from ruthless warrior to benevolent ruler. Dhauli Shanti Stupa built in 1972 by Japan Buddha Sangha and Kalinga Nippon Buddha Sangha as symbol of peace and harmony to commemorate this transformation. White dome-shaped structure with four niches containing statues of Buddha in different postures. Stupa has stone panels depicting scenes from Buddha's life and teachings. Surrounded by garden with various plants and flowers. Rock cut elephant considered earliest Buddhist sculpture in Odisha present over edicts. Site attracts thousands of visitors each year. Continues to inspire and shed light on Ashoka's remarkable journey.",
+      "approx_established_period": "Rock edicts 260 BCE, stupa 1972",
+      "location": {
+        "city": "Bhubaneswar",
+        "district": "Khordha",
+        "state": "Odisha",
+        "country": "India",
+        "latitude": "20.1833",
+        "longitude": "85.8333"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.mypuritour.com/blog/dhauli/"]
+      }
+    },
+    {
+      "site_id": "buddhist_east_006",
+      "religion": "Buddhism",
+      "site_name": "Tawang Monastery",
+      "alternative_names": ["Golden Namgyal Lhatse"],
+      "site_type": "Monastery",
+      "primary_figure_or_concept": "Gelugpa sect of Tibetan Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of famous monasteries and tourist attractions of Arunachal Pradesh. India's largest monastery and second largest monastery of world after Potala Palace in Lhasa Tibet. Located 3000m above mean sea level. Monastery has complete control over region's 17 different gompas. Famous for architectural beauty and peaceful view of Tawang-Chu Valley. Founded by Merak Lama Lodre Gyamtso in 1680-1681 CE in accordance with wishes of 5th Dalai Lama. In 1913 monastery and region of Tawang went under control of British. In 1962 China invaded and occupied monastery. Now monastery part of Arunachal Pradesh India. Main structure holds one massive assembly hall 65 residential student and staff quarters ten functional structures water supply center for cultural studies. Ground level dedicated to practicing ritual dance forms. Every face of wall including curtains painted with religious elements or symbols. Entrance has huge doors about 925 feet long and ten to twenty feet high. Most prominent building Dukhang or assembly hall which is main building marked with magnificent art work. Inside walls of Dukhang sketches of several saints and Bodhisattvas. Court hosts religious dances and other ceremonies.",
+      "approx_established_period": "1680-1681",
+      "location": {
+        "city": "Tawang",
+        "district": "Tawang",
+        "state": "Arunachal Pradesh",
+        "country": "India",
+        "latitude": "27.5833",
+        "longitude": "91.8667"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Tawang_Monastery"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_007",
+      "religion": "Buddhism",
+      "site_name": "Udayagiri and Khandagiri Caves",
+      "alternative_names": [],
+      "site_type": "Cave Complex",
+      "primary_figure_or_concept": "Buddhist and Jain monks",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Important historical and archaeological sites near Bhubaneswar in Odisha reflecting Buddhist and Jain monastic life. Caves date back to 2nd century BCE built during reign of King Kharavela of Mahameghavahana dynasty. Excavated in 1st century BCE to 1st century CE. Udayagiri has 18 caves while Khandagiri has 15 caves with 4 of each having significant features. Rani Gumpha largest cave in Udayagiri built in 2 floors in U shape. Most important cave 14 Hathi Gumpha has 17 line inscription discussing achievements of King Kharavela since crowned at age 24 including public works and conquests. Re-discovered and brought under government control in 1825 by A Stirling. Caves honey-combed rock-cut structures commissioned by King Kharavela. Protected by Archaeological Survey of India. Contains both Buddhist and Jain elements.",
+      "approx_established_period": "2nd century BCE to 1st century CE",
+      "location": {
+        "city": "Bhubaneswar",
+        "district": "Khordha",
+        "state": "Odisha",
+        "country": "India",
+        "latitude": "20.2572",
+        "longitude": "85.7789"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://travel.bhushavali.com/2017/10/udayagiri-khandagiri-jain-caves-odisha.html"]
+      }
+    },
+    {
+      "site_id": "buddhist_east_008",
+      "religion": "Buddhism",
+      "site_name": "Barabar Caves",
+      "alternative_names": [],
+      "site_type": "Rock-cut Caves",
+      "primary_figure_or_concept": "Ajivika sect and early Buddhist ascetics",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Group of rock-cut caves located in eastern Bihar about 31 km north of Bodh Gaya. Contains total of seven caves oldest of which date to Mauryan period. Caves used by ascetics from Ajivika sect founded by Makkhali Gosala contemporary of Gautama Buddha and Mahavira. Ajivikas had many similarities with Buddhism as well as Jainism. Also present at site several rock-cut Buddhist and Hindu sculptures and inscriptions from later periods. Lomas Rishi Cave most famous of seven caves. Architecture resembles wooden huts that Buddhist monks and ascetics lived in. Cave has been argued to have association with Buddhism based on architecture. Ashokan inscriptions found at site showing dedication to Ajivika sect. Occupation of Lomas Rishi Cave by Buddhists seems exception rather than rule. Other caves dedicated to now-forgotten Indian school of thought called Ajivika. Caves represent earliest examples of rock-cut architecture in India. Important for understanding evolution of cave architecture and early monastic traditions.",
+      "approx_established_period": "Mauryan period (3rd century BCE)",
+      "location": {
+        "city": "Barabar",
+        "district": "Jehanabad",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "25.0050",
+        "longitude": "85.0619"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Barabar_Caves"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_009",
+      "religion": "Buddhism",
+      "site_name": "Kolhua Buddhist Site",
+      "alternative_names": ["Rampurva Pillar site"],
+      "site_type": "Archaeological Site",
+      "primary_figure_or_concept": "Ashoka Pillar",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Buddhist archaeological site in Vaishali district Bihar. Contains remains of ancient Buddhist structures. Site features famous Ashoka Pillar one of several pillars erected by Emperor Ashoka across his empire. Important Buddhist site in eastern India near Vaishali ancient republic where according to tradition Buddha gave last sermon. Part of Buddhist circuit in Bihar.",
+      "approx_established_period": "Mauryan period (3rd century BCE)",
+      "location": {
+        "city": "Kolhua",
+        "district": "Vaishali",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "25.9800",
+        "longitude": "85.1300"
+      },
+      "popularity_level": "Regional",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_east_010",
+      "religion": "Buddhism",
+      "site_name": "Patal Devi Cave Temple",
+      "alternative_names": [],
+      "site_type": "Cave",
+      "primary_figure_or_concept": "Ancient Buddhist meditation site",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient cave site in Bihar with Buddhist connections. Part of rich Buddhist heritage of Bihar. Cave used by Buddhist monks for meditation and religious practices. Represents early cave dwelling tradition of Buddhist ascetics in eastern India.",
+      "approx_established_period": "Ancient period",
+      "location": {
+        "city": "Rajgir",
+        "district": "Nalanda",
+        "state": "Bihar",
+        "country": "India",
+        "latitude": "25.0286",
+        "longitude": "85.4211"
+      },
+      "popularity_level": "Regional",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    }
+  ],
+  "west": [
+    {
+      "site_id": "buddhist_west_001",
+      "religion": "Buddhism",
+      "site_name": "Ajanta Caves",
+      "alternative_names": [],
+      "site_type": "Rock-cut Cave Temples",
+      "primary_figure_or_concept": "Buddha and Buddhist teachings",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient Buddhist cave temples in Maharashtra adorned with intricate sculptures and paintings dating back to 2nd century BCE. UNESCO World Heritage site. Consists of 30 rock-cut Buddhist cave monuments created mainly during Satavahana and Vakataka periods. Caves showcase exceptional rock-cut architecture. Significant cultural and historical landmarks attracting visitors from around world for artistic and religious importance. Contains beautiful murals depicting life of Buddha and Jataka tales. Represents pinnacle of ancient Indian art and architecture.",
+      "approx_established_period": "2nd century BCE onwards",
+      "location": {
+        "city": "Ajanta",
+        "district": "Aurangabad",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "20.5517",
+        "longitude": "75.7033"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Ajanta_Caves"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_west_002",
+      "religion": "Buddhism",
+      "site_name": "Ellora Buddhist Caves",
+      "alternative_names": [],
+      "site_type": "Rock-cut Cave Temples",
+      "primary_figure_or_concept": "Buddha and Mahayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Over 100 caves at site all excavated from basalt cliffs in Charanandri Hills 34 of which open to public. Contains 12 Buddhist caves (caves 1-12) along with 17 Hindu caves and 5 Jain caves. Each group representing deities and mythologies prevalent in 1st millennium CE as well as monasteries of each respective religion. Buddhist phase occurred circa 600 to 730 CE. According to Geri Malandra all Buddhist caves at Ellora intrusion in place already established Brahmanical Tirtha (Hindu pilgrimage site). Caves 11 and 12 three-storied Mahayana monastery caves with idols mandalas carved into walls numerous goddesses and Bodhisattva-related iconography belonging to Vajrayana Buddhism. Compelling evidence suggesting Vajrayana and Tantra ideas of Buddhism well established in South Asia by 8th century CE. Buddhist caves predominantly anonymous with no donative inscriptions discovered other than those of Hindu dynasties that built them. UNESCO World Heritage Site. Showcases exceptional rock-cut architecture from 5th to 10th centuries CE.",
+      "approx_established_period": "600-730 CE",
+      "location": {
+        "city": "Ellora",
+        "district": "Aurangabad",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "20.0266",
+        "longitude": "75.1792"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Ellora_Caves"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_west_003",
+      "religion": "Buddhism",
+      "site_name": "Karla Caves",
+      "alternative_names": [],
+      "site_type": "Rock-cut Cave Temples",
+      "primary_figure_or_concept": "Buddha and Theravada Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Group of ancient Buddhist rock-cut caves near Lonavala in Maharashtra dating back to 2nd century BC. Built by Buddhist monks used as meditation and worship places. Famous for large chaitya hall one of India's largest rock-cut chaitya halls. Caves built during period of Mauryan Empire ruled by Emperor Ashoka who was Buddhist and played important role in spreading Buddhism across India. Built by Buddhist monks who carved rock out of mountainside using only chisels and hammers. Used as meditation and worship places also used as residential cells for monks. Most important feature is chaitya hall large hall used for prayer and worship. Chaitya hall 45 meters long and 14 meters wide carved out of single rock. Hall has beautiful carvings and sculptures of Buddhist deities and motifs. Karla Caves served as one of key Buddhist schools spreading Buddhism in ancient times. Inscriptions and architectures suggest how local rulers and merchants supported Buddhism. Buddhist complex consists of two type of caves: chaityas (prayer halls) and viharas (dwelling places). Architectural style very similar to nearby Bhaja Caves.",
+      "approx_established_period": "2nd century BCE",
+      "location": {
+        "city": "Karla",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "18.8781",
+        "longitude": "73.4831"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://testbook.com/ias-preparation/karla-caves-bedse-caves"]
+      }
+    },
+    {
+      "site_id": "buddhist_west_004",
+      "religion": "Buddhism",
+      "site_name": "Bhaja Caves",
+      "alternative_names": [],
+      "site_type": "Rock-cut Cave Temples",
+      "primary_figure_or_concept": "Hinayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient group of rock-cut caves in Maharashtra near Lonavala. Known for beautiful carvings and historical importance. Among earliest Buddhist rock-cut structures in India. Built around 2nd century BCE during Hinayana phase of Buddhism. Created as place for Buddhist monks to live and meditate. Considered some of oldest examples of rock-cut architecture in India. Cave complex consists of group of 22 rock-cut caves. Caves divided into two main groups: Chaityas (prayer halls) and Viharas (monastic caves). Out of 22 caves Caves 12-14 are prayer halls rest are Buddhist monastic caves. Cave 12 stands out believed to be main prayer hall. This chaitya particularly notable for wooden beam imitations unique architectural feature replicating look of wooden structures despite being carved from stone. Remaining caves mostly viharas characterized by simple yet functional designs with small rooms serving as monks' living quarters. Some caves have verandas with intricate relief carvings depicting scenes from Buddhist mythology. Bhaja Caves' architectural style influenced later rock-cut cave temples across India making essential site for understanding evolution of ancient Indian cave architecture. Inscriptions and cave temple protected as Monument of National Importance by Archaeological Survey of India. Belongs to Early Buddhist schools in Maharashtra. Caves have number of stupas one of significant features. Share similarities with Ajanta and Karla caves.",
+      "approx_established_period": "2nd century BCE",
+      "location": {
+        "city": "Bhaja",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "18.7500",
+        "longitude": "73.5000"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Bhaja_Caves"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_west_005",
+      "religion": "Buddhism",
+      "site_name": "Sanchi Stupa",
+      "alternative_names": ["Great Stupa", "Stupa No. 1"],
+      "site_type": "Stupa Complex",
+      "primary_figure_or_concept": "Buddha relics",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Buddhist complex famous for Great Stupa on hilltop at Sanchi Town in Raisen District of Madhya Pradesh. Located about 23 km from Raisen town and 46 km north-east of Bhopal. One of oldest Buddhist monuments in country and largest stupa at site. Originally built in 3rd century BCE by Mauryan Emperor Ashoka. Construction in Gothic style. Extensive renovations and expansions made over time. UNESCO World Heritage Site. Buddhist complex encompasses Buddhist stupas temples and monasteries. Great Stupa built by Mauryan Emperor Ashoka most significant monument. Earliest Stupa just simple brick dome built over relics of Buddha. With history of several centuries of construction reconstruction abandonment and restoration now stands as important monument of Indian Architecture and World Heritage. Important Buddhist pilgrimage site. Site has numerous Ashoka pillars and ancient Buddhist structures. While major Buddhist pilgrimage site holds deeper ties with Emperor Ashoka rather than life of Buddha. Complex showcases evolution of Buddhist architecture over centuries.",
+      "approx_established_period": "3rd century BCE",
+      "location": {
+        "city": "Sanchi",
+        "district": "Raisen",
+        "state": "Madhya Pradesh",
+        "country": "India",
+        "latitude": "23.4792",
+        "longitude": "77.7397"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Sanchi_Stupa"],
+        "secondary": []
+      }
+    }
+  ],
+  "south": [
+    {
+      "site_id": "buddhist_south_001",
+      "religion": "Buddhism",
+      "site_name": "Amaravati Stupa",
+      "alternative_names": ["Great Stupa at Amaravathi"],
+      "site_type": "Stupa",
+      "primary_figure_or_concept": "Buddha relics",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ruined Buddhist stupa at village of Amaravathi Guntur district Andhra Pradesh. Probably built in phases between 3rd century BCE and about 250 CE. Enlarged and new sculptures replaced earlier ones beginning in about 50 CE. Site under protection of Archaeological Survey of India includes stupa itself and Archaeological Museum. Important monument of ancient Andhra Pradesh representing rich Buddhist heritage of region. One of earliest and most important stupas in South India. Represents Mahayana Buddhist tradition. Site of ancient Buddhist university where Nagarjuna founder of Mahayana school of Buddhism taught.",
+      "approx_established_period": "3rd century BCE to 250 CE",
+      "location": {
+        "city": "Amaravathi",
+        "district": "Palnadu",
+        "state": "Andhra Pradesh",
+        "country": "India",
+        "latitude": "16.5753",
+        "longitude": "80.3580"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Amaravati_Stupa"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_south_002",
+      "religion": "Buddhism",
+      "site_name": "Nagarjunakonda",
+      "alternative_names": ["Nagarjuna's Hill"],
+      "site_type": "Archaeological Site and Buddhist Complex",
+      "primary_figure_or_concept": "Nagarjuna and Mahayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Archaeological site in western Andhra Pradesh consisting of island in Nagarjuna Sagar reservoir created by damming Krishna River. Site notable for remains of ancient Buddhist monuments dating from 1st to 3rd century CE and ancient university (3rd-4th century) where Nagarjuna founder of Mahayana school of Buddhism once taught. Historic town dedicated to Buddhist philosopher Nagarjuna widely considered one of most important Buddhist figures after Buddha. He migrated to Amaravathi in Andhra Pradesh to preach Buddha's message of universal peace and Mahayana Buddhism. Revered for establishing Madhyamika Branch of Buddhism. Disciples belonged to countries like Sri Lanka and China. Literally interpreted as Nagarjuna's hill represents scintillating Buddhist legacy through monastery rich archaeological sites and sculpture. Located on island near Nagarjunasagar Dam. Buddhist heritage site depicts ancient Buddhist settlements testifying presence of Buddhist monks and monasteries. To preserve legacy several Buddhist monuments reconstructed like Anoopa monastery and museum exhibiting rare excavated gems from valley. Many artifacts housed in archaeological museum.",
+      "approx_established_period": "1st-3rd century CE",
+      "location": {
+        "city": "Nagarjunakonda",
+        "district": "Palnadu",
+        "state": "Andhra Pradesh",
+        "country": "India",
+        "latitude": "16.5167",
+        "longitude": "79.2333"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://www.britannica.com/place/Nagarjunakonda"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_south_003",
+      "religion": "Buddhism",
+      "site_name": "Sannati Buddhist Site",
+      "alternative_names": ["Chandralamba Temple Complex"],
+      "site_type": "Archaeological Site",
+      "primary_figure_or_concept": "Buddhist relics and stupas",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient Buddhist site in Karnataka on banks of Bhima River. Contains remains of Buddhist stupas and monasteries dating to early centuries CE. Important Buddhist center in ancient Karnataka. Site has yielded significant archaeological findings including sculptures and inscriptions. Represents spread of Buddhism in South India during ancient period.",
+      "approx_established_period": "Early centuries CE",
+      "location": {
+        "city": "Sannati",
+        "district": "Kalaburagi",
+        "state": "Karnataka",
+        "country": "India",
+        "latitude": "17.0667",
+        "longitude": "77.0833"
+      },
+      "popularity_level": "Regional",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_south_004",
+      "religion": "Buddhism",
+      "site_name": "Bavikonda Buddhist Complex",
+      "alternative_names": [],
+      "site_type": "Monastic Complex",
+      "primary_figure_or_concept": "Hinayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient Buddhist site located near Visakhapatnam in Andhra Pradesh. Dating to 3rd century BCE. Contains remains of Buddhist monastery with stupas chaityas and viharas. Important center for Hinayana Buddhism in ancient times. Site shows evidence of well-organized monastic complex with water management systems. Protected by Archaeological Survey of India.",
+      "approx_established_period": "3rd century BCE",
+      "location": {
+        "city": "Visakhapatnam",
+        "district": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "country": "India",
+        "latitude": "17.7833",
+        "longitude": "83.3500"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "buddhist_south_005",
+      "religion": "Buddhism",
+      "site_name": "Thotlakonda Buddhist Complex",
+      "alternative_names": [],
+      "site_type": "Monastic Complex",
+      "primary_figure_or_concept": "Hinayana Buddhism",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Ancient Buddhist monastery located on hilltop overlooking Bay of Bengal near Visakhapatnam Andhra Pradesh. Dating to 2nd century BCE. Name means Hill of Stupas. Contains remains of stupas chaitya grihas viharas and other monastic structures. Important maritime Buddhist center with trade connections to Southeast Asia. Site shows evidence of sophisticated urban planning and water conservation. Protected by Archaeological Survey of India. Represents important phase of Buddhism in coastal Andhra Pradesh.",
+      "approx_established_period": "2nd century BCE",
+      "location": {
+        "city": "Visakhapatnam",
+        "district": "Visakhapatnam",
+        "state": "Andhra Pradesh",
+        "country": "India",
+        "latitude": "17.7800",
+        "longitude": "83.4000"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    }
+  ]
+}

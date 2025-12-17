@@ -1,0 +1,1203 @@
+[
+  {
+    "site_id": "hindu_north_001",
+    "religion": "Hinduism",
+    "site_name": "Shri Mata Vaishno Devi Temple",
+    "alternative_names": ["Vaishno Devi Bhavan", "Vaishno Devi Gufa"],
+    "site_type": "Cave Temple",
+    "primary_figure_or_concept": "Vaishno Devi (manifestation of Mahakali, Mahalakshmi, and Mahasarasvati)",
+    "canonical_or_religious_significance": "Considered by the Shakti tradition to be a Shakti Pitha; various Puranas cite differing numbers (51, 64, or 108) of Shakti Peethas",
+    "historical_significance": "Temple documented in existence by 1846 when Maharaja Gulab Singh established the Dharmarth Trust to manage it. Popularity expanded significantly after 1976 renovation allowing 5,000 visitors per day. Administration transferred to Shri Mata Vaishno Devi Shrine Board in 1986.",
+    "approx_established_period": "Pre-1846, exact origin unknown",
+    "location": {
+      "city": "Katra",
+      "district": "Reasi",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "33.0299",
+      "longitude": "74.9482"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Vaishno_Devi_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_002",
+    "religion": "Hinduism",
+    "site_name": "Kashi Vishwanath Temple",
+    "alternative_names": ["Vishweshwara Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva (Vishwanath/Vishweshwara)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines",
+    "historical_significance": "Temple demolished and rebuilt multiple times between 1194 and 1777. Present structure built in 1777 by Ahilya Bai Holkar, Queen of Indore. Kashi Vishwanath Corridor project completed connecting temple and ghats.",
+    "approx_established_period": "Present structure: 1777",
+    "location": {
+      "city": "Varanasi",
+      "district": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.3109",
+      "longitude": "83.0107"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://darshan.kashi.gov.in/explore-service/shri-kashi-vishwanath-temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_003",
+    "religion": "Hinduism",
+    "site_name": "Badrinath Temple",
+    "alternative_names": ["Badrinarayan Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vishnu (Badrinath)",
+    "canonical_or_religious_significance": "One of the four Char Dham pilgrimage sites; one of the four Chota Char Dham sites in Uttarakhand",
+    "historical_significance": "Temple located at elevation of 3,133 meters. Joshimath serves as winter seat.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Badrinath",
+      "district": "Chamoli",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.7433",
+      "longitude": "79.4938"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Char_Dham"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_004",
+    "religion": "Hinduism",
+    "site_name": "Kedarnath Temple",
+    "alternative_names": ["Kedarnath Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines; one of the four Chota Char Dham sites in Uttarakhand; one of the Panch Kedar temples",
+    "historical_significance": "Located in Garhwal Himalayas near Mandakini River at elevation of approximately 3,583 meters. Affected by devastating floods in June 2013.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kedarnath",
+      "district": "Rudraprayag",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.7352",
+      "longitude": "79.0669"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Char_Dham"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_005",
+    "religion": "Hinduism",
+    "site_name": "Gangotri Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ganga (Goddess Ganga)",
+    "canonical_or_religious_significance": "One of the four Chota Char Dham sites in Uttarakhand; source region of Ganges River",
+    "historical_significance": "Located in Uttarkashi district. Part of the Char Dham pilgrimage circuit in Uttarakhand.",
+    "approx_established_period": "18th century",
+    "location": {
+      "city": "Gangotri",
+      "district": "Uttarkashi",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.9993",
+      "longitude": "78.9397"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Char_Dham"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_006",
+    "religion": "Hinduism",
+    "site_name": "Yamunotri Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Yamuna (Goddess Yamuna)",
+    "canonical_or_religious_significance": "One of the four Chota Char Dham sites in Uttarakhand; source region of Yamuna River",
+    "historical_significance": "Shrine built in 1839 by King Naresh Sudarshan Shah of Tehri. Located at altitude of 3,293 meters. Temple houses idols of both Yamuna Devi and Ganga Devi.",
+    "approx_established_period": "1839",
+    "location": {
+      "city": "Yamunotri",
+      "district": "Uttarkashi",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "31.0117",
+      "longitude": "78.4270"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Char_Dham"],
+      "secondary": ["https://www.tourmyindia.com/chardham/history-of-chardham.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_007",
+    "religion": "Hinduism",
+    "site_name": "Ram Mandir",
+    "alternative_names": ["Ram Janmabhoomi Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rama (Ram Lalla)",
+    "canonical_or_religious_significance": "In devotional tradition, located at Ram Janmabhoomi, believed to be the birthplace of Rama",
+    "historical_significance": "Construction began with Bhumi Pujan on 5 August 2020 by PM Modi. Temple consecrated on 22 January 2024. Construction formally completed on 25 November 2025. Located at former site of Babri Masjid (demolished 1992). Designed in Nagara style by Sompura family.",
+    "approx_established_period": "2020-2025",
+    "location": {
+      "city": "Ayodhya",
+      "district": "Ayodhya",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "26.7956",
+      "longitude": "82.1943"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ram_Mandir"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_008",
+    "religion": "Hinduism",
+    "site_name": "Amarnath Cave Temple",
+    "alternative_names": ["Amarnath Shrine"],
+    "site_type": "Cave Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "Considered by some devotional traditions to be a Shakti Peetha; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "Cave temple mentioned in 6th-7th century Nilamata Purana and 12th century Rajatarangini. Located at 3,888 meters elevation in Sind Valley. Natural ice stalagmite formation. Annual pilgrimage organized by Shree Amarnath Shrine Board during July-August.",
+    "approx_established_period": "Ancient, documented from 6th-7th century CE",
+    "location": {
+      "city": "Pahalgam",
+      "district": "Anantnag",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "34.2149",
+      "longitude": "75.5008"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Amarnath_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_009",
+    "religion": "Hinduism",
+    "site_name": "Jwalamukhi Temple",
+    "alternative_names": ["Jwala Devi Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Jwala Devi",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a major Shakti Pitha shrine",
+    "historical_significance": "Known for eternal flame emanating from rock fissure. Earliest textual mention in 14th century Tarikh-i-Firuz-Shahi stating Emperor Firuz Shah Tughlaq visited during campaign against Kangra. Chinese envoy c. 650 CE described place with hot and cold water from rocks, possibly this site.",
+    "approx_established_period": "Ancient, documented from c. 650 CE",
+    "location": {
+      "city": "Jwalamukhi",
+      "district": "Kangra",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "31.8752",
+      "longitude": "76.3243"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jwalamukhi_temple,_Himachal_Pradesh"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_010",
+    "religion": "Hinduism",
+    "site_name": "Naina Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Naina Devi (Shakti)",
+    "canonical_or_religious_significance": "According to devotional tradition, considered a Shakti Peetha; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "Located at 1,219 meters elevation on triangular hill. Temple rebuilt in 1842 by Moti Ram Shah, re-established in 1883 after landslides in 1880. Overlooks Govind Sagar Lake.",
+    "approx_established_period": "15th century CE (original), 1842-1883 (reconstruction)",
+    "location": {
+      "city": "Naina Devi",
+      "district": "Bilaspur",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "31.3050",
+      "longitude": "76.4750"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/naina-devi-templebilaspurhimachal-pradesh/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_011",
+    "religion": "Hinduism",
+    "site_name": "Krishna Janmabhoomi Temple",
+    "alternative_names": ["Shri Krishna Janmasthan"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Krishna",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be the site where Krishna was born",
+    "historical_significance": "According to devotional tradition, first structure built by Krishna's great-grandson Vajranabh. Temple constructed in 1618 by Raja Bir Singh Bundela, demolished by Aurangzeb in 1670. Current temple complex established in 20th century by Shri Krishna Janmasthan Trust (founded 1951).",
+    "approx_established_period": "Current structure: 20th century",
+    "location": {
+      "city": "Mathura",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.5044",
+      "longitude": "77.6725"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=w9dWc2wTgXk"]
+    }
+  },
+  {
+    "site_id": "hindu_north_012",
+    "religion": "Hinduism",
+    "site_name": "Banke Bihari Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Krishna (Banke Bihari)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Krishna temple in Vrindavan. Significant pilgrimage site during Janmashtami festival.",
+    "approx_established_period": "19th century",
+    "location": {
+      "city": "Vrindavan",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.5786",
+      "longitude": "77.6977"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-uttar-pradesh"]
+    }
+  },
+  {
+    "site_id": "hindu_north_013",
+    "religion": "Hinduism",
+    "site_name": "Har Ki Pauri",
+    "alternative_names": ["Brahmakund"],
+    "site_type": "Sacred Ghat",
+    "primary_figure_or_concept": "Ganga (River Ganges)",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be the spot where Ganga leaves mountains and enters plains",
+    "historical_significance": "Most famous ghat in Haridwar. Site of evening Ganga Aarti. Major pilgrimage destination during Kumbh Mela.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Haridwar",
+      "district": "Haridwar",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "29.9457",
+      "longitude": "78.1642"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.haridwarrishikeshtourism.com/haridwar-temples.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_014",
+    "religion": "Hinduism",
+    "site_name": "Swaminarayan Akshardham",
+    "alternative_names": ["Akshardham Delhi"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Swaminarayan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Modern temple complex inaugurated in 2005. Built by BAPS organization. Features traditional Indian architecture and cultural exhibitions.",
+    "approx_established_period": "2005",
+    "location": {
+      "city": "New Delhi",
+      "district": "East Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.6127",
+      "longitude": "77.2773"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/List_of_Hindu_temples_in_India"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_015",
+    "religion": "Hinduism",
+    "site_name": "Chhatarpur Temple",
+    "alternative_names": ["Shri Aadya Katyayani Shakti Peetham"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Katyayani (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Sant Baba Nagpal. Located on 60-acre campus with 20 temples. Features both North and South Indian architectural styles. Second largest temple complex in India.",
+    "approx_established_period": "20th century",
+    "location": {
+      "city": "New Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5065",
+      "longitude": "77.1751"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://traveltriangle.com/blog/temples-in-delhi/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_016",
+    "religion": "Hinduism",
+    "site_name": "Kalkaji Temple",
+    "alternative_names": ["Manokamna Siddha Peetha", "Kalkaji Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kali (Kalika)",
+    "canonical_or_religious_significance": "According to devotional tradition, one of five temples built by Pandavas",
+    "historical_significance": "One of the oldest temples in Delhi. Features pyramidal tower. Major pilgrimage site in Delhi.",
+    "approx_established_period": null,
+    "location": {
+      "city": "New Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5494",
+      "longitude": "77.2595"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://traveltriangle.com/blog/temples-in-delhi/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_017",
+    "religion": "Hinduism",
+    "site_name": "Mansa Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mansa Devi (Shakti)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on Bilwa Parvat hill in Haridwar. Accessible by cable car. Major pilgrimage site in Haridwar.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Haridwar",
+      "district": "Haridwar",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "29.9820",
+      "longitude": "78.1366"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.pilgrimpackages.com/blog/top-temples-to-visit-during-haridwar-rishikesh-tours.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_018",
+    "religion": "Hinduism",
+    "site_name": "Chandi Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chandi Devi (Shakti)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "According to devotional tradition, temple built in 1929 by Suchat Singh, King of Kashmir. Located on Neel Parvat hill in Haridwar.",
+    "approx_established_period": "1929",
+    "location": {
+      "city": "Haridwar",
+      "district": "Haridwar",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "29.9680",
+      "longitude": "78.1873"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.pilgrimpackages.com/blog/top-temples-to-visit-during-haridwar-rishikesh-tours.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_019",
+    "religion": "Hinduism",
+    "site_name": "Neelkanth Mahadev Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva (Neelkanth)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located at 1,330 meters elevation, approximately 32 km from Rishikesh in Pauri Garhwal district.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Rishikesh",
+      "district": "Pauri Garhwal",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.1265",
+      "longitude": "78.4378"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["http://www.vaachaspathi.com/temples_uttarakhand.php"]
+    }
+  },
+  {
+    "site_id": "hindu_north_020",
+    "religion": "Hinduism",
+    "site_name": "Baijnath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Dhauladhar Range of Himachal Pradesh. Approximately one thousand years old. Major pilgrimage site during Shivratri festival.",
+    "approx_established_period": "c. 11th century CE",
+    "location": {
+      "city": "Baijnath",
+      "district": "Kangra",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "32.0521",
+      "longitude": "76.6497"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.indianholiday.com/blog/pilgrimage-sites-in-himachal-pradesh/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_021",
+    "religion": "Hinduism",
+    "site_name": "Hadimba Devi Temple",
+    "alternative_names": ["Dhungari Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Hadimba (Hidimbi Devi)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Manali. Ancient temple built in pagoda style around a cave. Major tourist and pilgrimage destination.",
+    "approx_established_period": "1553 CE",
+    "location": {
+      "city": "Manali",
+      "district": "Kullu",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "32.2396",
+      "longitude": "77.1887"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.indianholiday.com/blog/pilgrimage-sites-in-himachal-pradesh/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_022",
+    "religion": "Hinduism",
+    "site_name": "Kurukshetra",
+    "alternative_names": ["Dharmakshetra"],
+    "site_type": "Sacred Site",
+    "primary_figure_or_concept": "Site of Kurukshetra War",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be the site of Kurukshetra War described in Mahabharata and where Krishna delivered Bhagavad Gita",
+    "historical_significance": "Major pilgrimage center with Brahma Sarovar and multiple temples. Solar eclipse bathing festival attracts millions.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kurukshetra",
+      "district": "Kurukshetra",
+      "state": "Haryana",
+      "country": "India",
+      "latitude": "29.9695",
+      "longitude": "76.8783"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-haryana"]
+    }
+  },
+  {
+    "site_id": "hindu_north_023",
+    "religion": "Hinduism",
+    "site_name": "Jageshwar Temples",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Group of over 100 ancient temples located in Almora district, 36 km northeast of Almora in Kumaon region. Important archaeological and pilgrimage site.",
+    "approx_established_period": "9th-13th century CE",
+    "location": {
+      "city": "Jageshwar",
+      "district": "Almora",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "29.6489",
+      "longitude": "79.8568"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["http://www.vaachaspathi.com/temples_uttarakhand.php"]
+    }
+  },
+  {
+    "site_id": "hindu_north_024",
+    "religion": "Hinduism",
+    "site_name": "Durgiana Temple",
+    "alternative_names": ["Lakshmi Narayan Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Durga and Lakshmi Narayan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Amritsar, Punjab. Architecture similar to Golden Temple. Major Hindu pilgrimage site in Punjab.",
+    "approx_established_period": "1921",
+    "location": {
+      "city": "Amritsar",
+      "district": "Amritsar",
+      "state": "Punjab",
+      "country": "India",
+      "latitude": "31.6225",
+      "longitude": "74.8765"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/List_of_Hindu_temples_in_India"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_025",
+    "religion": "Hinduism",
+    "site_name": "Sankat Mochan Hanuman Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Hanuman",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Varanasi. Founded by saint Tulsidas in early 16th century. Major Hanuman temple in North India.",
+    "approx_established_period": "Early 16th century CE",
+    "location": {
+      "city": "Varanasi",
+      "district": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.2677",
+      "longitude": "82.9913"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.godigit.com/explore/spiritual-places/temples-in-uttar-pradesh"]
+    }
+  },
+  {
+    "site_id": "hindu_north_026",
+    "religion": "Hinduism",
+    "site_name": "Vindhyavasini Temple",
+    "alternative_names": ["Maa Vindhyavasini Temple", "Vindhyachal Dham"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vindhyavasini (Durga)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Pitha temple; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "Temple mentioned in Durga Saptashati. According to devotional tradition, goddess Durga chose Vindhyachal to reside after killing demon Mahishasura. Vindhya Corridor project being constructed at cost of 224 crores modeled after Kashi Vishwanath Corridor. Over 10 million pilgrims visited during 2025 Prayag Maha Kumbh.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Vindhyachal",
+      "district": "Mirzapur",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.1486",
+      "longitude": "82.6042"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Vindhyachal_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_027",
+    "religion": "Hinduism",
+    "site_name": "Tungnath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "Highest of the five Panch Kedar temples",
+    "historical_significance": "One of the highest Shiva temples in the world, located in Rudraprayag district. Part of Panch Kedar circuit of temples dedicated to Shiva.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chopta",
+      "district": "Rudraprayag",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.4897",
+      "longitude": "79.2120"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Tungnath"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_028",
+    "religion": "Hinduism",
+    "site_name": "Triveni Sangam",
+    "alternative_names": ["Prayag Sangam"],
+    "site_type": "Sacred Confluence",
+    "primary_figure_or_concept": "Confluence of Ganga, Yamuna and mythical Saraswati",
+    "canonical_or_religious_significance": "One of the most sacred pilgrimage sites in Hinduism; site of Kumbh Mela",
+    "historical_significance": "According to devotional tradition, place where Lord Brahma performed first Yagna after creating universe. Allahabad Fort built by Emperor Akbar houses Akshaya Vat tree. Major pilgrimage site during Kumbh Mela attracting millions.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Prayagraj",
+      "district": "Prayagraj",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.4358",
+      "longitude": "81.8463"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.thekumbhyatra.com/attraction/triveni-sangam/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_029",
+    "religion": "Hinduism",
+    "site_name": "Kamadgiri Temple",
+    "alternative_names": [],
+    "site_type": "Sacred Hill Temple",
+    "primary_figure_or_concept": "Rama",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be original Chitrakoot where Rama, Sita and Lakshmana stayed during exile",
+    "historical_significance": "Forested hill in Chitrakoot of prime religious significance. Pilgrims perform ritual circumambulation of hill. Bharat Milap Temple located here marking spot where Bharat met Rama during exile.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chitrakoot",
+      "district": "Chitrakoot",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.1800",
+      "longitude": "80.9100"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://chitrakoot.nic.in/places-of-interest/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_030",
+    "religion": "Hinduism",
+    "site_name": "ISKCON Vrindavan",
+    "alternative_names": ["Sri Krishna Balaram Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Krishna and Balarama",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "First temple constructed by International Society for Krishna Consciousness. Built in 1975 by ISKCON. Foundation laid by Swami Prabhupada. Located at Raman Reti in Vrindavan. Complex houses Samadhi Mandir of Swami Prabhupada.",
+    "approx_established_period": "1975",
+    "location": {
+      "city": "Vrindavan",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.5786",
+      "longitude": "77.6977"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://mathura.nic.in/tourist-place/iskcon-temple-vrindavan/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_031",
+    "religion": "Hinduism",
+    "site_name": "Gorakhnath Temple",
+    "alternative_names": ["Gorakhnath Math"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Gorakhnath (manifestation of Shiva)",
+    "canonical_or_religious_significance": "Principal centre of the Nath sect",
+    "historical_significance": "Temple built to honor place where Gorakhnathji practiced austerity. Spread over 52 acres in heart of Gorakhpur. Grand construction credited to late Mahant Digvijay Nath Ji and Mahant Avaidyanath. Features white marble statue of sage Gorakhnath in meditation posture.",
+    "approx_established_period": "Ancient tradition, modern structure 20th century",
+    "location": {
+      "city": "Gorakhpur",
+      "district": "Gorakhpur",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "26.7606",
+      "longitude": "83.3732"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/gorakhnath-temple/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_032",
+    "religion": "Hinduism",
+    "site_name": "Jwalamukhi Temple",
+    "alternative_names": ["Jwala Devi Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Jwala Devi",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a major Shakti Pitha shrine",
+    "historical_significance": "Known for eternal flame emanating from rock fissure. Earliest textual mention in 14th century Tarikh-i-Firuz-Shahi stating Emperor Firuz Shah Tughlaq visited during campaign against Kangra. Chinese envoy c. 650 CE described place with hot and cold water from rocks, possibly this site.",
+    "approx_established_period": "Ancient, documented from c. 650 CE",
+    "location": {
+      "city": "Jwalamukhi",
+      "district": "Kangra",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "31.8752",
+      "longitude": "76.3243"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jwalamukhi_temple,_Himachal_Pradesh"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_033",
+    "religion": "Hinduism",
+    "site_name": "Chamunda Devi Temple",
+    "alternative_names": ["Chamunda Nandikeshwar Dham"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chamunda Devi (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple dating to 16th century. Temple dedicated to Chamunda Devi, incarnation of Goddess Durga. Located 19 km from Palampur in Dharamshala Tehsil. Temple features marble staircase leading to cave of Lord Shiva with Shiva Linga.",
+    "approx_established_period": "16th-17th century CE",
+    "location": {
+      "city": "Chamunda Devi",
+      "district": "Kangra",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "32.1160",
+      "longitude": "76.4500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Shri_Chamunda_Devi_Mandir"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_034",
+    "religion": "Hinduism",
+    "site_name": "Bajreshwari Devi Temple",
+    "alternative_names": ["Vajreshwari Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bajreshwari Devi (Sati)",
+    "canonical_or_religious_significance": "According to devotional tradition, considered a Shakti Peetha; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "According to devotional tradition, Pandavas constructed temple to ensure safety of people in Nagarkot. Located in Nagarkot town, Kangra district. Temple features three Pindi forms: Brajeshwari Devi, Bhadra Kali and Ekadashi Devi, with Lord Shiva as Lal Bhairav.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kangra",
+      "district": "Kangra",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "32.0998",
+      "longitude": "76.2693"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["http://kangratemples.hp.gov.in/shri-bajreshwari-mata-temple/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_035",
+    "religion": "Hinduism",
+    "site_name": "Prem Mandir",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Radha Krishna and Sita Ram",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Modern temple established by Jagadguru Shri Kripalu Ji Maharaj. Construction began January 2001, inaugurated February 2012. Built entirely of Italian marble at cost of 150 crore rupees. Complex spread across 55 acres featuring life-size depictions of Krishna's leelas. Involves around 1000 artisans over 12 years.",
+    "approx_established_period": "2012",
+    "location": {
+      "city": "Vrindavan",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.5724",
+      "longitude": "77.6725"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Prem_Mandir,_Vrindavan"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_036",
+    "religion": "Hinduism",
+    "site_name": "Raghunath Temple",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Rama (Raghunath)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple constructed by first Dogra ruler Maharaja Gulab Singh in 1835, completed by his son Maharaja Ranbir Singh in 1860. Complex of seven Hindu shrines with seven lofty shikharas. One of largest temple complexes of North India located in Jammu city.",
+    "approx_established_period": "1835-1860",
+    "location": {
+      "city": "Jammu",
+      "district": "Jammu",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "32.7333",
+      "longitude": "74.8667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Raghunath_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_037",
+    "religion": "Hinduism",
+    "site_name": "Chintpurni Temple",
+    "alternative_names": ["Chhinnamastika Shakti Peetha"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chintpurni Devi (Durga)",
+    "canonical_or_religious_significance": "According to devotional tradition, considered a Shakti Peetha; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "Temple founded in 16th century by devout Brahmin Mai Dass after divine visions. Located on highest peak of Sola Singhi Range in Una district. Goddess shown without head in pindi form. Name translates as remover of worries.",
+    "approx_established_period": "16th century",
+    "location": {
+      "city": "Chintpurni",
+      "district": "Una",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "31.9667",
+      "longitude": "76.2667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/chintpurni-shakti-peetha-hp/"]
+    }
+  },
+  {
+    "site_id": "hindu_north_038",
+    "religion": "Hinduism",
+    "site_name": "Lakshmi Narayan Temple",
+    "alternative_names": ["Birla Mandir Delhi"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Lakshmi and Narayana (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "First temple built by Birla dynasty in India. Foundation stone laid by Maharaja Udaybhanu Singh in 1933, inaugurated by Mahatma Gandhi in 1939. Constructed by industrialist BD Birla. Built with marble from Jaipur, stones from Agra and Jaisalmer. Side temples dedicated to Shiva, Krishna and Buddha.",
+    "approx_established_period": "1939",
+    "location": {
+      "city": "New Delhi",
+      "district": "Central Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.6328",
+      "longitude": "77.2065"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/delhi/laxminarayan-temple.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_039",
+    "religion": "Hinduism",
+    "site_name": "Mata Mansa Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Mansa Devi (Shakti)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple complex spread over 100 acres of Shivalik foothills in Bilaspur village near Panchkula. Located 10 km from Chandi Mandir, another noted Devi shrine.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Panchkula",
+      "district": "Panchkula",
+      "state": "Haryana",
+      "country": "India",
+      "latitude": "30.7100",
+      "longitude": "76.8534"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mata_Mansa_Devi_Mandir"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_040",
+    "religion": "Hinduism",
+    "site_name": "Surkanda Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Surkanda Devi (Durga)",
+    "canonical_or_religious_significance": "According to devotional tradition, considered a Shakti Pitha site; various Puranas cite differing numbers of Shakti Peethas",
+    "historical_significance": "Temple located near Dhanaulti in Tehri Garhwal district at altitude of approximately 2,756 meters. Offers panoramic views of Himalayan ranges. Ganga Dussera festival celebrated annually between May and June.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Dhanaulti",
+      "district": "Tehri Garhwal",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.4167",
+      "longitude": "78.2500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Surkanda_Devi"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_041",
+    "religion": "Hinduism",
+    "site_name": "Radha Rani Temple",
+    "alternative_names": ["Ladli Lal Ji Temple", "Shreeji Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Radha (Shri Laadli Lal)",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be located at birthplace of Radha",
+    "historical_significance": "According to devotional tradition, originally established by King Vajranabh. Icons rediscovered by Narayan Bhatt. Temple built in 1675 AD by Raja Bir Singh Deo. Present structure built by Narayan Bhatt with help of Raja Todarmal. Located on Bhanugarh hills at 250 meters height. Classic example of Rajput architecture with red sandstone.",
+    "approx_established_period": "1675 CE (current structure)",
+    "location": {
+      "city": "Barsana",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.6503",
+      "longitude": "77.3736"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Radha_Rani_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_042",
+    "religion": "Hinduism",
+    "site_name": "Nand Bhavan",
+    "alternative_names": ["Nandagram Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Nanda Maharaja and Yashoda",
+    "canonical_or_religious_significance": "In devotional tradition, believed to be site of residence of Nanda Maharaja, foster father of Krishna",
+    "historical_significance": "Temple built in 19th century by Raja Rupa Singh on spot where residence of Nand Maharaja stood. Located atop Nandishwar Hill. Only shrine where foster parents of Krishna are worshipped. Complex houses idols of Krishna, Balarama, Nanda, Yashoda, Radha and Rohini. Deities previously hidden in cave discovered by Sanatana Goswami 500 years ago.",
+    "approx_established_period": "19th century",
+    "location": {
+      "city": "Nandgaon",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.7333",
+      "longitude": "77.4167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/uttarpradesh/nand-bhavan-nandgaon.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_043",
+    "religion": "Hinduism",
+    "site_name": "Hidimba Devi Temple",
+    "alternative_names": ["Dhungari Temple", "Hadimba Temple"],
+    "site_type": "Cave Temple",
+    "primary_figure_or_concept": "Hidimba Devi",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient cave temple built in 1553 CE by Maharaja Bahadur Singh. Temple built around cave where Devi Hidimba performed meditation. According to devotional tradition, associated with Mahabharata where Hidimba married Bhima and gave birth to Ghatotkacha. Features 24-meter-tall wooden shikhara with four-tiered pagoda-style roof. Surrounded by cedar forest at foot of Himalayas.",
+    "approx_established_period": "1553 CE",
+    "location": {
+      "city": "Manali",
+      "district": "Kullu",
+      "state": "Himachal Pradesh",
+      "country": "India",
+      "latitude": "32.2424",
+      "longitude": "77.1874"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Hidimba_Devi_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_044",
+    "religion": "Hinduism",
+    "site_name": "Tapkeshwar Mahadev Temple",
+    "alternative_names": ["Drona Cave Temple"],
+    "site_type": "Cave Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Main Shiva Linga situated inside natural cave known as Drona Cave. Temple houses two Shiva Lingas believed to be self-manifested. Name derived from Hindi word Tapak meaning water drop, as water drops from ceiling continuously over Shiva Linga. Located 6.5 km from Dehradun city on bank of seasonal Asan river. Cool sulphur springs nearby.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Dehradun",
+      "district": "Dehradun",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.2700",
+      "longitude": "78.0600"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/uttarakhand/dehradun/tapkeshwar-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_north_045",
+    "religion": "Hinduism",
+    "site_name": "Lakshman Temple Rishikesh",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Lakshmana",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "According to devotional tradition, place where Lakshmana meditated to attain enlightenment. Belief states jute bridge now known as Lakshman Jhula constructed by Rama. Temple features ancient sculptures and paintings. Located near Lakshman Jhula.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Rishikesh",
+      "district": "Dehradun",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.1188",
+      "longitude": "78.3358"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/uttarakhand/lakshman-temple-rishikesh.html"]
+    }
+  },
+  {
+    "site_id": "hindu_north_046",
+    "religion": "Hinduism",
+    "site_name": "Shri Gita Birla Mandir Kurukshetra",
+    "alternative_names": ["Bhagavad Gita Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Krishna",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple constructed in 1952 by late Shri Jugal Kishore Birla as dedication to Lord Krishna. One of oldest tourist attractions in Kurukshetra. Pure marble structure surrounded by landscaped garden. Verses of Bhagavad Gita inscribed on temple walls. Located near Brahma Sarovar.",
+    "approx_established_period": "1952",
+    "location": {
+      "city": "Kurukshetra",
+      "district": "Kurukshetra",
+      "state": "Haryana",
+      "country": "India",
+      "latitude": "29.9695",
+      "longitude": "76.8783"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://devdhamyatra.com/blog/shri-geeta-birla-mandir-kurukshetra-harayna"]
+    }
+  },
+  {
+    "site_id": "hindu_north_047",
+    "religion": "Hinduism",
+    "site_name": "Durgiana Temple",
+    "alternative_names": ["Lakshmi Narayan Temple Amritsar"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Durga and Lakshmi Narayan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple established in 1921 in Amritsar, Punjab. Architecture similar to Golden Temple. Major Hindu pilgrimage site in Punjab.",
+    "approx_established_period": "1921",
+    "location": {
+      "city": "Amritsar",
+      "district": "Amritsar",
+      "state": "Punjab",
+      "country": "India",
+      "latitude": "31.6225",
+      "longitude": "74.8765"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/List_of_Hindu_temples_in_India"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_north_048",
+    "religion": "Hinduism",
+    "site_name": "Rudranath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "One of the five Panch Kedar temples",
+    "historical_significance": "Second temple in Panch Kedar circuit located in Rudraprayag district. Part of five temples dedicated to Shiva in Uttarakhand.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Gopeshwar",
+      "district": "Rudraprayag",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.5333",
+      "longitude": "79.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=mqR5tUS3X5E"]
+    }
+  },
+  {
+    "site_id": "hindu_north_049",
+    "religion": "Hinduism",
+    "site_name": "Madhyamaheshwar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "One of the five Panch Kedar temples",
+    "historical_significance": "Second Kedar temple located in Rudraprayag district. Requires 15 km trek from Ransi to reach temple. Part of Panch Kedar pilgrimage circuit.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ukhimath",
+      "district": "Rudraprayag",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.6500",
+      "longitude": "79.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=mqR5tUS3X5E"]
+    }
+  },
+  {
+    "site_id": "hindu_north_050",
+    "religion": "Hinduism",
+    "site_name": "Kalpeshwar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": "One of the five Panch Kedar temples",
+    "historical_significance": "Fifth temple in Panch Kedar circuit. Only Panch Kedar temple accessible throughout year. Part of five sacred Shiva temples in Uttarakhand.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Urgam",
+      "district": "Chamoli",
+      "state": "Uttarakhand",
+      "country": "India",
+      "latitude": "30.4667",
+      "longitude": "79.3667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=mqR5tUS3X5E"]
+    }
+  }
+
+]

@@ -1,0 +1,227 @@
+{
+  "treks": [
+    {
+      "id": 1,
+      "name": "Har Ki Dun Trek",
+      "description": "The Har Ki Dun Trek is like walking through a living 500-year-old museum of Himalayan culture. Ancient wooden villages, stone temples, and farming practices still thrive here, untouched by time. The valley itself is the highlight — vast, green, and golden — framed by towering mountains and steeped in legends. Peaks like Swargarohini rise dramatically above, while Bandarpoonch, often overlooked, quietly dominates the horizon.",
+      "duration_days": 7,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 11600,
+      "best_time": {
+        "spring": "Mar–Apr: Forests and valleys burst with greenery, villages come alive, and Swargarohini glows against clear skies.",
+        "summer": "May–June: The valley turns vibrant and lush, offering rich cultural encounters alongside panoramic Himalayan views.",
+        "autumn": "Sept–Nov: Boslo forest, golden-tinted meadows, and crystal-clear skies make the valley unforgettable."
+      },
+      "ideal_for": "Beginners who want a trek steeped in culture and history — perfect for those looking for a spiritual trekking experience."
+    },
+    {
+      "id": 2,
+      "name": "Bali Pass Trek",
+      "description": "The Bali Pass Trek is one of Uttarakhand’s grandest and most demanding trails. Starting from the meadows of Devsu Thach and the serene Ruinsara Gad valley, the trek gradually builds up to its thrilling highlight — crossing the knife-edge ridge of Bali Pass at 16,207 ft. From here, you stand in the shadow of towering Himalayan giants like Swargarohini, Bandarpoonch, and Kalanag (the highest peak of the Bandarpoonch massif).",
+      "duration_days": 8,
+      "difficulty": "Difficult",
+      "max_altitude_ft": 16207,
+      "best_time": {
+        "summer": "May–June: Valleys are lush and green, wildflowers bloom, and the weather stays clear, making the tough pass crossing more manageable and visually stunning.",
+        "autumn": "Sept–Oct: September brings fresh greenery after the monsoon, while October turns the meadows golden-brown."
+      },
+      "ideal_for": "Experienced trekkers ready for a demanding, high-altitude adventure that combines culture, landscapes, and unmatched Himalayan grandeur."
+    },
+    {
+      "id": 3,
+      "name": "Phulara Ridge Trek",
+      "description": "Most treks give you a short ridge section. But on Phulara Ridge, you walk a ridge for hours — connecting mountain tops on a seamless, undulating trail—offering 360-degree Himalayan views. The trek is named after the wildflowers our team spotted here, and it comes alive with Bhoj forests, the magical Bhoj Gadi campsite, and the vast Pushtara meadows. From the ridge, you see an incredible sweep of mountains — Swargarohini, Gangotri I, II, III, Jaonli, Bandarpoonch, and the Gangotri range rising on both sides.",
+      "duration_days": 6,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 12345,
+      "best_time": {
+        "summer": "May–June: The meadows are at their lush green best, wildflowers bloom, and skies stay remarkably clear for mountain views.",
+        "autumn": "Sept–Nov: Grasslands turn golden, forests glow in warm colours under crisp blue skies."
+      },
+      "ideal_for": "Trekkers who want a continuous, grand mountain-viewing experience without a highly technical climb. It’s also a great choice for beginners looking for their first big Himalayan views."
+    },
+    {
+      "id": 4,
+      "name": "Kedarkantha Trek",
+      "description": "Kedarkantha Trek is often called the queen of winter treks. In winter, the trails are dusted with snow, turning the forest into a sparkling winter wonderland. In autumn, you’ll discover forest paths turn golden with fallen leaves, the crisp mountain air carries silence, and every bend feels meditative. And then the summit opens up — a sea of peaks all around. Swargarohini, Bandarpoonch, Mount Kalanag, the Gangotri range… each one standing out in sharp detail.",
+      "duration_days": 6,
+      "difficulty": "Easy-Moderate",
+      "max_altitude_ft": 12500,
+      "best_time": "Kedarkantha Trek is one of the most popular winter treks in Uttarakhand. The trail comes alive in December.",
+      "ideal_for": "Best for beginners and families looking for a rewarding summit experience."
+    },
+    {
+      "id": 5,
+      "name": "Dayara Bugyal Trek",
+      "description": "The Dayara Bugyal Trek is a beginner-friendly trail that showcases some of the finest high-altitude meadows in Uttarakhand. Our team first explored it in 2010, and since then, it has redefined what a Himalayan meadow trek can offer. The rolling grasslands stretch endlessly, with a backdrop of Bandarpoonch, Gangotri I, II, III, Jaonli, and Draupadi ka Danda standing tall against the horizon. Whether you walk here in the bloom of spring, the lushness of summer, the golden glow of autumn, or the snow-covered silence of winter, Dayara Bugyal feels magical in every season.",
+      "duration_days": 6,
+      "difficulty": "Easy–Moderate",
+      "max_altitude_ft": 11830,
+      "best_time": {
+        "spring": "Mar–Apr: Meadows burst alive with wildflowers, contrasting beautifully with snow-dusted peaks.",
+        "summer": "May–June: Grasslands are lush and vibrant, with clear skies opening up uninterrupted mountain views.",
+        "autumn": "Sept–Nov: Meadows glow green and gold, while crisp skies offer sharp views of Bandarpoonch and the Gangotri range.",
+        "winter": "Dec–Feb: Snow blankets the meadows, turning them into a serene winter wonderland with crystal-clear Himalayan vistas."
+      },
+      "ideal_for": "Families and beginners seeking a gentle yet visually stunning trek."
+    },
+    {
+      "id": 6,
+      "name": "Surya Top Trek",
+      "description": "The Surya Top Trek is a mesmerising high-altitude adventure, spending two full days traversing the golden Dayara meadows with panoramic views of the Gangotri and Yamunotri ranges. The ridge walk from Devkund to Siyari is a visual treat, offering sweeping vistas of Bandarpoonch, Kalanag, and the Bhagirathi massif.",
+      "duration_days": 7,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 12900,
+      "best_time": {
+        "autumn": "September–October: The meadows turn golden, skies stay crystal clear, and mountain views stretch endlessly.",
+        "summer": "June–July: The lush green meadows, blooming flora, and clear skies enhance the summit climb, offering a scenic and accessible adventure."
+      },
+      "ideal_for": "Trekkers seeking the perfect mix of meadow walks, ridge trails, and a challenging but accessible summit climb."
+    },
+    {
+      "id": 7,
+      "name": "Aancha Top Trek",
+      "description": "Aancha Top is a hidden gem in Yamunotri. The journey takes you through serene meadows, sparkling glacial lakes, and gentle ridges that gradually lead you upward. As you approach the summit, the giants of the Garhwal Himalayas — Swargarohini, Bandarpoonch, the Gangotri peaks, Srikantha, Jogin, Jaonli, and Kedarnath — rise sharply against the sky, leaving you in awe of their sheer scale and beauty.",
+      "duration_days": 6,
+      "difficulty": "Easy–Moderate",
+      "max_altitude_ft": 12500,
+      "best_time": {
+        "spring": "Mar–May: Blooming meadows, clear skies, pleasant weather.",
+        "autumn": "Sep–Nov: Crisp air, stunning Himalayan views, perfect trekking conditions.",
+        "winter": "Dec–Feb: Frosty trails, quiet and pristine, sharp summit views, colder temperatures."
+      },
+      "ideal_for": "This trail is perfect for those looking for a quiet, beginner-friendly trek with unforgettable mountain views."
+    },
+    {
+      "id": 8,
+      "name": "Gaumukh Tapovan Trek",
+      "description": "The Gaumukh Tapovan Trek takes you right to the birthplace of the River Ganga — the Gaumukh Glacier. The trail winds through Gangotri National Park, with forests, streams, and high-altitude meadows, before opening up to the legendary Gaumukh and the vast Tapovan grasslands. From here, the views are awe-inspiring — Shivling, Meru, and Bhagirathi peaks rise in front of you, making the setting almost otherworldly.",
+      "duration_days": 8,
+      "difficulty": "Moderate–Difficult",
+      "max_altitude_ft": 14203,
+      "best_time": {
+        "summer": "May–June: Sharpest views of Shivling and the surrounding peaks. The glacier is most accessible at this time."
+      },
+      "ideal_for": "Recommended for those with prior high-altitude trekking experience, given the glacier terrain and challenging sections."
+    },
+    {
+      "id": 9,
+      "name": "Kedartal Trek",
+      "description": "The Kedartal Trek is one of the most dramatic and challenging adventures in Uttarakhand. Tucked at 16,000 ft, this high-altitude glacial lake mirrors the mighty Thalay Sagar, Bhrigupanth, and Jogin peaks in its still, blue-green waters. The climb is steep and intense, but the reward is an experience very few treks can match.",
+      "duration_days": 7,
+      "difficulty": "Difficult",
+      "max_altitude_ft": 16000,
+      "best_time": {
+        "summer": "May–June: The trail becomes accessible after winter snow. Clear skies reveal Kedartal with sharp mountain reflections on the turquoise waters.",
+        "autumn": "Sept–Oct: Forests glow golden, and spotless post-monsoon skies offer unforgettable views. The lake reflects mountain peaks."
+      },
+      "ideal_for": "Seasoned trekkers seeking a challenging, remote adventure."
+    },
+    {
+      "id": 10,
+      "name": "Kuari Pass Trek",
+      "description": "Kuari Pass Trek is one of Uttarakhand’s finest trails for big Himalayan views. From the very start at Karchi, the trail opens up into oak forests, rolling meadows, and a long ridge walk. By the time you reach Khullara Top, the mountains rise dramatically before you — Nanda Devi, Dronagiri, Kamet, Trishul, Nanda Ghunti, Pangarchulla, Doeban, Hanuman Tibba — a lineup of Uttarakhand’s greatest peaks in sharp detail.",
+      "duration_days": 6,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 12516,
+      "best_time": {
+        "autumn": "Sept–Nov: Meadows glow golden, forests shimmer with fall colours, and skies stay crystal clear, giving the sharpest mountain views.",
+        "winter": "Dec–Feb: Snow blankets the forests. The views of Nanda Devi and the surrounding peaks against the crisp winter sky are unforgettable."
+      },
+      "ideal_for": "Trekkers seeking a mix of snowy forest trails, alpine meadows, and grand Himalayan summits. Perfect for fit beginners aiming for their first big winter trek."
+    },
+    {
+      "id": 11,
+      "name": "Pangarchulla Peak Trek",
+      "description": "The Pangarchulla Peak Trek is a demanding yet exhilarating adventure in the Garhwal Himalayas. This trek combines alpine meadows, oak and rhododendron forests, and snow patches before culminating in a dramatic summit climb. From the top, Nanda Devi, India’s second-highest peak, along with Dronagiri, Chaukhamba, Hathi Parbat, and Ghori Parbat, unfolds in a breathtaking panorama.",
+      "duration_days": 7,
+      "difficulty": "Difficult",
+      "max_altitude_ft": 15069,
+      "best_time": {
+        "spring": "Mar–Apr: Rhododendrons bloom along the trail, making the summit push adventurous yet beautiful."
+      },
+      "ideal_for": "Experienced trekkers seeking a challenging high-altitude adventure."
+    },
+    {
+      "id": 12,
+      "name": "Valley of Flowers Trek",
+      "description": "The Valley of Flowers Trek is globally renowned for its vibrant wildflower blooms, but it also offers a serene Himalayan experience beyond the monsoon. The trail follows the Pushpavati River, meandering through open meadows and forests, with higher climbs toward Hemkund Sahib revealing sharp, snow-capped Himalayan peaks. Even after the monsoon, the valley retains patches of colourful flowers, making for a quieter and equally enchanting trek. The higher you climb to Hemkund Sahib, the sharper the Himalayan peaks rise around you.",
+      "duration_days": 6,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 14107,
+      "best_time": {
+        "monsoon": "July–August: Vivid wildflowers like the Brahma Kamal and misty mountains create a surreal experience.",
+        "autumn": "September: Enjoy the end of the flower season with clear skies, crisp weather, and unobstructed views of the snow-capped peaks.",
+        "summer": "June–early July: Snow melts, early blooms emerge, and clear skies showcase the surrounding Himalayan grandeur."
+      },
+      "ideal_for": "Beginners and nature lovers who want to see the famous valley and its surrounding peaks in a quieter, more serene setting."
+    },
+    {
+      "id": 13,
+      "name": "Deoriatal Chandrashila Trek",
+      "description": "The Deoriatal Chandrashila Trek spoils you from the very first day. At Deoriatal Lake, you’re greeted with the stunning reflection of the Chaukhamba massif on its still waters — a sight that stays etched in memory. From there, the trail winds through forests, meadows, and ridges before leading you to the Chandrashila summit, which opens up one of the widest Himalayan panoramas in Uttarakhand. Peaks like Nanda Devi, Mt. Trishul, Chaukhamba, and Kedar Dome stand tall in crystal clarity.",
+      "duration_days": 6,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 12083,
+      "best_time": {
+        "spring": "Mar–Apr: The forests burst into bloom with rhododendrons, and the summit views are spectacular under clear skies.",
+        "summer": "May–June: Vibrant forests, open meadows, and crisp vistas of Garhwal and Kumaon peaks make the trek a visual delight.",
+        "autumn": "Sept–Nov: Forests glow in warm fall colours, and the summit views are at their sharpest, making this one of the most rewarding treks.",
+        "winter": "Dec–Feb: The Deoriatal Lake freezes, and the summit climb feels like walking through a pristine winter wonderland."
+      },
+      "ideal_for": "Trekkers who want a perfect blend of forested trails, a tranquil lake, and a grand summit view. Perfect if you’re starting out."
+    },
+    {
+      "id": 14,
+      "name": "Brahmatal Trek",
+      "description": "The Brahmatal Trek is a perfect introduction to Himalayan trekking. It takes you through enchanting oak and rhododendron forests, past the lakes of Bekaltal and Brahmatal, and up to a thrilling summit. From Jhandi Top and the ridge, panoramic views open up—Mt. Trishul, Mt. Nanda Ghunti, Chaukhamba, Neelkanth, and Hathi Ghoda stand in full glory. At Tilandi, the sunsets paint the skies crimson, sealing memories of the trek.",
+      "duration_days": 6,
+      "difficulty": "Easy–Moderate",
+      "max_altitude_ft": 12250,
+      "best_time": {
+        "autumn": "Sept–Nov: Walk under golden oak and rhododendron canopies with skies revealing Mt. Trishul and Mt. Nanda Ghunti.",
+        "winter": "Dec–Feb: The frozen alpine Brahmatal lake you can walk on! Snow blankets the forests and peaks, making this one of India’s best winter treks.",
+        "spring": "Mar–Apr: Rhododendrons bloom, meadows come alive, and the crisp skies enhance the lake’s beauty."
+      },
+      "ideal_for": "Beginners with reasonable fitness; groups or families seeking scenic treks with grandeur in solitude."
+    },
+    {
+      "id": 15,
+      "name": "Ali Bedni Bugyal Trek",
+      "description": "The Ali Bedni Bugyal Trek opens up India’s grandest twin alpine meadows right before your eyes. The trail winds through oak forests, crosses the icy Neel Ganga, and leads to the towering faces of Mt. Trishul and Nanda Ghunti. Spending two days in the Ali and Bedni meadows, you are treated to 360° panoramic mountain views, with sunrises and sunsets that leave a lasting impression.",
+      "duration_days": 6,
+      "difficulty": "Easy-Moderate",
+      "max_altitude_ft": 12550,
+      "best_time": {
+        "autumn": "Sep–Nov: Peaks like Trishul, Nanda Ghunti, Mrigthuni, and Maiktoli stand out in sharp detail under clear skies.",
+        "spring": "Mar–Apr: Vibrant wildflowers and lush green grasslands contrast beautifully with snow-capped peaks.",
+        "summer": "May–Jun: The meadows are lush—framed by clear views of Mt. Trishul and Nanda Ghunti."
+      },
+      "ideal_for": "Beginners, families, and those seeking a classic Himalayan trek with grand mountain views, lush forests, and scenic camping experiences."
+    },
+    {
+      "id": 16,
+      "name": "Ranthan Kharak Trek",
+      "description": "The Ranthan Kharak Trek is a rare summit adventure in Kumaon that rewards trekkers with spectacular Himalayan vistas. Starting from Gogina, the trail winds through lush forests, wide meadows, and expansive kharaks (clearings) before the thrilling push to Ranthan Top. From the summit, Nanda Devi, Trishul, Panchachuli, and Rajarambha rise majestically all around.",
+      "duration_days": 7,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 12887,
+      "best_time": {
+        "autumn": "Sep–Nov: Crisp skies, golden meadows, and clear visibility. First snow may dust the peaks, enhancing the trek’s scenic beauty.",
+        "spring": "Mar–Apr: Lush forests and blooming meadows create a vibrant backdrop, making the summit visually stunning.",
+        "summer": "May–Jun: Trails are green and vibrant, with clear skies offering uninterrupted mountain views."
+      },
+      "ideal_for": "Beginners and trekkers seeking a crowd-free summit experience with iconic views across Kumaon and Garhwal."
+    },
+    {
+      "id": 17,
+      "name": "Nag Tibba Trek",
+      "description": "Nag Tibba is Uttarakhand’s classic weekend summit climb. It gives trekkers the thrill of standing on a Himalayan summit — all within just two days. You walk through oak and rhododendron forests, cross open clearings, and follow ridge walks that slowly open into wide mountain views. From the summit, the panorama is breathtaking — Swargarohini, Bandarpoonch, Kala Nag, Srikanth, Gangotri, Kedarnath, and Changabang rise. On the other side, the Doon Valley stretches endlessly.",
+      "duration_days": 2,
+      "difficulty": "Moderate",
+      "max_altitude_ft": 9915,
+      "best_time": "If you’re trekking for the first time, spring and autumn are ideal. For snow and adventure, winter is the best.",
+      "ideal_for": "Beginners, families, and trekkers looking for a quick Himalayan adventure in Uttarakhand."
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "region": "Madhya Pradesh",
+  "state": "Madhya Pradesh",
+  "treks": [
+    {
+      "name": "Pench Tiger Trail",
+      "tagline": "Trek through the jungles of Pench Tiger Reserve",
+      "difficulty": "Easy",
+      "duration": {
+        "days": 4,
+        "distance_km": 21.4
+      },
+      "basecamp": {
+        "location": "Camp 1903",
+        "state": "Madhya Pradesh"
+      },
+      "accommodation": [
+        "Tents"
+      ],
+      "closest_airport": "Nagpur",
+      "logistics": {
+        "pickup": {
+          "location": "Nagpur Railway Station and Airport",
+          "time": "11:00"
+        },
+        "dropoff": {
+          "location": "Nagpur Railway Station and Airport",
+          "time": "20:00"
+        }
+      },
+      "network": {
+        "availability": false
+      },
+      "eligibility": {
+        "minimum_age": 8,
+        "maximum_age": 62
+      },
+      "facilities": {
+        "gear_rentals": true,
+        "cloakroom": true,
+        "offloading": true
+      }
+    }
+  ]
+}
