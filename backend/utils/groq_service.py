@@ -109,16 +109,9 @@ class GroqService:
         tool_context: Optional[Dict[str, Any]] = None,
         conversation_history: Optional[List[Dict[str, Any]]] = None,
         tools: Optional[List[Dict[str, Any]]] = None,
-<<<<<<< HEAD
-        rag_context: Optional[Dict[str, Any]] = None
-    ) -> Dict[str, List[str]]:
-
-
-=======
         rag_context: Optional[Dict[str, Any]] = None,  # ← Can be pre-fetched
         skip_rag: bool = False  # ← NEW: Explicit control to skip RAG
     ) -> Tuple[str, List[str]]:
->>>>>>> c4742f26cbfe8e1b872a6e185ba4f8dd84aafdbb
         """
         Generate response using Groq API with RAG enhancement and conversation history
         
@@ -139,12 +132,6 @@ class GroqService:
         # Ensure context is not None
         context = context or {}
 
-<<<<<<< HEAD
-        # Enhance query with RAG context
-        if not rag_context: 
-            logger.info("⚠️ No RAG context provided, fetching fallback...")
-            rag_context = await self._get_rag_context(message, persona, intent, context)
-=======
         # ⭐ FIX: Only retrieve RAG context if not already provided
         if rag_context is None and not skip_rag:
             logger.info("🔍 Fetching RAG context (not pre-cached)")
@@ -157,7 +144,6 @@ class GroqService:
         else:
             # Fallback
             rag_context = {"has_rag_context": False}
->>>>>>> c4742f26cbfe8e1b872a6e185ba4f8dd84aafdbb
 
         # Build persona-specific system message with RAG
         system_message = self._build_system_message_with_rag(persona, intent, rag_context, tool_context)
