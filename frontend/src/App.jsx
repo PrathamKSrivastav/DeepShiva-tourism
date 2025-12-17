@@ -119,7 +119,10 @@ function AppContent() {
           ☰
         </button>
 
-        <div className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4 gap-2">
+        <button 
+          onClick={() => navigate("/")}
+          className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4 gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+        >
           <img
             src="/adventurer.png"
             alt="Deep Shiva Tourism"
@@ -130,7 +133,7 @@ function AppContent() {
           >
             Deep Shiva Tourism
           </h1>
-        </div>
+        </button>
 
         <div className="flex items-center gap-2 sm:gap-4">
           {/* Features button - only show on mobile when authenticated */}
