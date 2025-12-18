@@ -858,20 +858,40 @@ async def chat(
             response_source = "error"
     
     # ==========================================
-    # FINALIZE RESPONSE
+    # FINALIZE RESPONSE + ADD GEO METADATA
     # ==========================================
     end_time = asyncio.get_event_loop().time()
     response_time = int((end_time - start_time) * 1000)
-    
+
+    # 🌍 Extract coordinates from tool context (if geocode_location was called)
+    latitude = None
+    longitude = None
+    location_name = None
+
+    if tool_context.get("location"):
+        latitude = tool_context["location"].get("latitude")
+        longitude = tool_context["location"].get("longitude")
+        location_name = tool_context["location"].get("place_name") or tool_context["location"].get("city")
+        logger.info(f"📍 Coordinates found: {latitude}, {longitude} ({location_name})")
+
+    # Append geo metadata using stopword format (frontend will parse this)
+    if latitude and longitude:
+        geo_stopword = f"\n<|GEO_DATA|>{{'latitude': {latitude}, 'longitude': {longitude}, 'location': '{location_name or ''}'}}<|GEO_DATA|>"
+        final_response_text = final_response_text + geo_stopword
+        logger.info(f"✅ Geo metadata appended to response")
+
     # Save to session if authenticated
     chat_saved = False
     if current_user:
         try:
+            # Save clean version WITHOUT geo metadata to database
+            clean_response = final_response_text.split('<|GEO_DATA|>')[0].strip() if latitude else final_response_text
+            
             session_id, chat_saved = await save_to_session(
                 user_id=current_user.get("_id") or current_user.get("id"),
                 persona=request.persona,
                 user_message=request.message,
-                bot_response=final_response_text,
+                bot_response=clean_response,  # Save without stopword
                 intent=intent,
                 session_id=session_id
             )
@@ -879,19 +899,25 @@ async def chat(
                 logger.info(f"✅ Saved to session: {session_id}")
         except Exception as e:
             logger.error(f"❌ Save failed: {str(e)}")
-    
+
     return ChatResponse(
-        response=final_response_text,
+        response=final_response_text,  # Contains geo metadata for frontend
         persona=request.persona,
         intent=intent,
         suggestions=final_suggestions,
         response_source=response_source,
         response_time_ms=response_time,
         is_offline_mode=(response_source == "local"),
-        rag_info={"rag_used": rag_context.get("has_rag_context", False)},
+        rag_info={
+            "rag_used": rag_context.get("has_rag_context", False),
+            "latitude": latitude,  # Also available in structured format
+            "longitude": longitude,
+            "location_name": location_name
+        },
         chat_saved=chat_saved,
         session_id=session_id
     )
+
 
 async def _get_conversation_history(
     session_id: str,
