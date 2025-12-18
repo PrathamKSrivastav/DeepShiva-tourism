@@ -1,13 +1,44 @@
 import React, { useState, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import LocationMap from "./LocationMap";
+import "leaflet/dist/leaflet.css";
 
 function MessageBubble({ message, onSuggestionClick, darkMode }) {
   const isUser = message.sender === "user";
   const [isSpeaking, setIsSpeaking] = useState(false);
 
-  // Clean JSON code blocks from message text for display
-  const cleanText = message.text.replace(/```json[\s\S]*?```/g, "").trim();
+  // Extract geo data if present
+  const geoDataRegex = /<\|GEO_DATA\|>({[^}]+})<\|GEO_DATA\|>/;
+  const geoMatch = message.text.match(geoDataRegex);
+  console.log(message.text);
+  
+  let geoData = null;
+  if (geoMatch) {
+    try {
+      // Parse the geo data string (it's formatted as a dictionary)
+      const geoString = geoMatch[1];
+      const latMatch = geoString.match(/latitude['":\s]+([0-9.-]+)/);
+      const lonMatch = geoString.match(/longitude['":\s]+([0-9.-]+)/);
+      const locMatch = geoString.match(/location['":\s]+['"]([^'"]+)['"]/);
+      
+      if (latMatch && lonMatch) {
+        geoData = {
+          latitude: parseFloat(latMatch[1]),
+          longitude: parseFloat(lonMatch[1]),
+          location: locMatch ? locMatch[1] : ''
+        };
+      }
+    } catch (e) {
+      console.error("Failed to parse geo data:", e);
+    }
+  }
+
+  // Clean JSON code blocks and geo data from message text for display
+  const cleanText = message.text
+    .replace(/```json[\s\S]*?```/g, "")
+    .replace(geoDataRegex, "")
+    .trim();
 
   // Cleanup speech on unmount
   useEffect(() => {
@@ -271,7 +302,65 @@ const handleSpeak = () => {
               </div>
             )}
           </div>
+          {/* Map Display */}
+          {!isUser && geoData && geoData.latitude && geoData.longitude && (
+            <div
+              className={`mt-3 rounded-xl overflow-hidden border shadow-md ${
+                darkMode
+                  ? "border-dark-border shadow-gray-900/50"
+                  : "border-gray-200 shadow-gray-300/50"
+              }`}
+              style={{ width: "100%", maxWidth: "500px" }}
+            >
+              {/* Location Header */}
+              {geoData.location && (
+                <div
+                  className={`px-3 py-2 text-sm font-semibold flex items-center gap-2 ${
+                    darkMode
+                      ? "bg-dark-surface text-slate-200"
+                      : "bg-gray-50 text-gray-700"
+                  }`}
+                >
+                  <svg
+                    className="w-4 h-4"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {geoData.location}
+                </div>
+              )}
+              
+              {/* Map Container */}
+              <div style={{ height: "300px", width: "100%" }}>
+                <LocationMap
+                  latitude={geoData.latitude}
+                  longitude={geoData.longitude}
+                  location={geoData.location}
+                  darkMode={darkMode}
+                />
+              </div>
 
+              {/* Coordinates Footer */}
+              <div
+                className={`px-3 py-1.5 text-xs flex items-center justify-between ${
+                  darkMode
+                    ? "bg-dark-surface/50 text-slate-400"
+                    : "bg-gray-50/50 text-gray-500"
+                }`}
+              >
+                <span>📍 Coordinates:</span>
+                <span className="font-mono">
+                  {geoData.latitude.toFixed(4)}, {geoData.longitude.toFixed(4)}
+                </span>
+              </div>
+            </div>
+          )}
           {/* Timestamp */}
           <span
             className={`text-[10px] mt-1.5 px-1 font-medium ${
