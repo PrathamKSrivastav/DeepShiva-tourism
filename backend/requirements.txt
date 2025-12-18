@@ -1,71 +1,168 @@
-# ----------------------------
-    # Core backend
-    # ----------------------------
-    fastapi==0.104.1
-    uvicorn[standard]==0.24.0
-    pydantic==2.5.0
-    python-dotenv==1.0.0
-    httpx==0.27.2
-    aiohttp==3.9.1
-    requests==2.31.0
-    python-multipart==0.0.6
+# ============================
+# Core backend
+# ============================
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+starlette==0.27.0
+pydantic==2.5.0
+pydantic-core==2.14.1
+python-dotenv==1.0.0
+python-multipart==0.0.6
+httpx==0.27.2
+aiohttp==3.9.1
+requests==2.31.0
+anyio==3.7.1
+asgiref==3.11.0
 
-    # ----------------------------
-    # ML / Embeddings (PINNED)
-    # ----------------------------
-    torch==2.1.2
-    huggingface_hub==0.17.3
-    transformers==4.34.0
-    sentence-transformers==2.2.2
-    tiktoken==0.5.2
+# ============================
+# Numerical core (LOCKED)
+# ============================
+numpy==1.26.4
+scipy==1.16.3
+pandas==2.3.3
 
-    # ----------------------------
-    # RAG stack
-    # ----------------------------
-    chromadb==0.4.18
-    langchain==0.1.0
-    langchain-community==0.0.10
-    pypdf==3.17.4
-    beautifulsoup4==4.12.2
+# ============================
+# ML / Transformers
+# ============================
+torch==2.1.2
+torchvision==0.16.2
+transformers==4.34.0
+tokenizers==0.14.1
+sentence-transformers==2.2.2
+tiktoken==0.5.2
+huggingface-hub==0.17.3
+accelerate==0.30.1
+safetensors==0.7.0
 
-    # ----------------------------
-    # LLM client
-    # ----------------------------
-    groq>=0.13.0
+# ============================
+# RAG stack
+# ============================
+chromadb==0.4.18
+chroma-hnswlib==0.7.3
+langchain==0.1.0
+langchain-core==0.1.23
+langchain-community==0.0.10
+langsmith==0.0.87
+pypdf==3.17.4
+beautifulsoup4==4.12.2
+orjson==3.11.5
+mmh3==5.2.0
 
-    # ----------------------------
-    # Database & Auth
-    # ----------------------------
-    motor
-    pymongo
-    python-jose[cryptography]
-    passlib
-    google-auth
-    google-auth-oauthlib
-    google-auth-httplib2
+# ============================
+# Vector DB
+# ============================
+qdrant-client==1.7.3
 
-    llama-cpp-python==0.2.90
+# ============================
+# CV / Media (NO NumPy v2)
+# ============================
+opencv-python==4.9.0.80
+pillow==10.4.0
+matplotlib==3.10.8
 
-    pandas>=2.0.0
-    kagglehub>=0.2.0
+# ============================
+# Audio / Speech
+# ============================
+faster-whisper==1.0.3
+ctranslate2==4.6.2
+soundfile==0.13.1
+pydub==0.25.1
+librosa==0.11.0
+audioread==3.1.0
+soxr==1.0.0
+sounddevice==0.5.3
+phonemizer-fork==3.3.2
+espeakng-loader==0.2.4
+kokoro==0.9.4
 
-    #for pdf download (yash)
-    reportlab==4.0.9
+# ============================
+# WebRTC / Streaming
+# ============================
+# aiortc==1.14.0
+av>=11.0.0
+aioice==0.10.2
+pylibsrtp==1.0.0
+pyee==13.0.0
+ifaddr==0.2.0
 
-    # Vector Database - Qdrant
-    qdrant-client==1.7.3
+# ============================
+# NLP / spaCy
+# ============================
+spacy==3.8.11
+spacy-legacy==3.0.12
+spacy-loggers==1.0.5
+thinc==8.3.10
+srsly==2.5.2
+cymem==2.0.13
+murmurhash==1.0.15
+preshed==3.0.12
+blis==1.3.3
+catalogue==2.0.10
+confection==0.1.5
+wasabi==1.1.3
+weasel==0.4.3
+cloudpathlib==0.23.0
+smart_open==7.5.0
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 
-    # For audio input feature (yash)
-    faster-whisper==1.0.3 (#for small whisper model)
-    pydub==0.25.1
-    langdetect==1.0.9
+# ============================
+# Databases & Auth
+# ============================
+motor==3.7.1
+pymongo==4.15.5
+SQLAlchemy==2.0.45
+python-jose==3.5.0
+passlib==1.7.4
+bcrypt==5.0.0
 
-    soundfile>=0.12.1
-    kokoro>=0.3.0
+# ============================
+# Google / OAuth
+# ============================
+google-auth==2.41.1
+google-auth-oauthlib==1.2.3
+google-auth-httplib2==0.2.1
+httplib2==0.31.0
+cachetools==6.2.3
+rsa==4.9.1
+pyasn1==0.6.1
+pyasn1-modules==0.4.2
 
-    # build = Alpha --version 2.0.0 
+# ============================
+# Utilities
+# ============================
+groq==0.37.1
+loguru==0.7.3
+rich==14.2.0
+tenacity==8.5.0
+joblib==1.5.3
+regex==2025.11.3
+tqdm==4.67.1
+filelock==3.20.0
+packaging==23.2
+platformdirs==4.5.1
+psutil==7.1.3
+PyYAML==6.0.3
 
-#note when using large whisper model use these below :
+# ============================
+# PDF / Reporting
+# ============================
+reportlab==4.0.9
 
-faster-whisper>=1.1.0
-ctranslate2>=4.4.0
+# ============================
+# Networking / HTTP internals
+# ============================
+urllib3==2.3.0
+certifi==2025.11.12
+charset-normalizer==3.4.4
+idna==3.11
+h11==0.16.0
+httptools==0.7.1
+watchfiles==1.1.1
+websockets==12.0
+websocket-client==1.9.0
+multidict==6.7.0
+yarl==1.22.0
+frozenlist==1.8.0
+aiosignal==1.4.0
+attrs==25.4.0
+mediapipe==0.10.9
