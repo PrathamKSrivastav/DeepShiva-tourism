@@ -384,3 +384,5 @@ local_settings.py
 backend/localmodel/*.gguf
 
 backend/cache/tts/*
+
+backend/data/spiritual/*
