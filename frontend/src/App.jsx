@@ -95,7 +95,7 @@ function AppContent() {
 
   return (
     <div
-      className={`h-screen flex flex-col ${
+      className={`min-h-[100svh] flex flex-col overflow-hidden ${
         darkMode
           ? "bg-dark-bg text-slate-100"
           : "bg-gradient-to-br from-blue-50 to-indigo-100 text-gray-900"
@@ -119,7 +119,7 @@ function AppContent() {
           ☰
         </button>
 
-        <button 
+        <button
           onClick={() => navigate("/")}
           className="flex items-center flex-1 justify-center lg:justify-start lg:flex-initial lg:ml-4 gap-2 cursor-pointer hover:opacity-80 transition-opacity"
         >
@@ -182,8 +182,12 @@ function AppContent() {
 
       {/* Main Layout with conditional columns based on auth */}
       <main className="flex-1 overflow-hidden">
-        <div className="h-full max-w-[1920px] mx-auto px-4 py-4 lg:py-6">
-          <div className={`flex gap-4 lg:gap-6 h-full ${!isAuthenticated ? 'justify-center' : ''}`}>
+        <div className="h-[calc(100svh-80px)] max-w-[1920px] mx-auto px-4 py-4 lg:py-6">
+          <div
+            className={`flex gap-4 lg:gap-6 h-full items-stretch ${
+              !isAuthenticated ? "justify-center" : ""
+            }`}
+          >
             {/* LEFT: History Sidebar */}
             <ChatHistorySidebar
               currentPersona={selectedPersona}
@@ -202,7 +206,11 @@ function AppContent() {
             />
 
             {/* CENTER: Chat Window */}
-            <div className={`flex-1 min-w-0 ${!isAuthenticated ? 'max-w-4xl' : ''}`}>
+            <div
+              className={`flex-1 min-w-0 h-full ${
+                !isAuthenticated ? "max-w-4xl" : ""
+              }`}
+            >
               <ChatWindow
                 selectedPersona={selectedPersona}
                 selectedChat={selectedChat}
@@ -219,8 +227,8 @@ function AppContent() {
 
             {/* RIGHT: Features Sidebar - Only show when authenticated */}
             {isAuthenticated && (
-              <FeaturesSidebar 
-                darkMode={darkMode} 
+              <FeaturesSidebar
+                darkMode={darkMode}
                 isOpen={featuresSidebarOpen}
                 onToggle={setFeaturesSidebarOpen}
               />
