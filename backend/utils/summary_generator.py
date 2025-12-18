@@ -21,11 +21,11 @@ class SummaryGenerator:
     
     def __init__(self):
         """Initialize Groq client"""
-        groq_api_key = os.getenv("GROQ_API_KEY")
+        groq_api_key = os.getenv("GROQ_API_KEY2")
         if not groq_api_key:
-            raise ValueError("GROQ_API_KEY not found in environment variables")
+            raise ValueError("GROQ_API_KEY2 not found in environment variables")
         self.client = AsyncGroq(api_key=groq_api_key)
-        self.model = "moonshotai/kimi-k2-instruct-0905"  # Faster, good quality
+        self.model = "llama-3.3-70b-versatile"  # Faster, good quality
 
 
     

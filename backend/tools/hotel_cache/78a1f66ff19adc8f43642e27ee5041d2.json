@@ -1,0 +1,43 @@
+{
+  "found": 51,
+  "city": "Goa",
+  "dates": "2025-12-19 to 2025-12-20",
+  "hotels": [
+    {
+      "name": "The St. Regis Goa Resort",
+      "price": "INR 40801.08",
+      "rating": "9.2/10",
+      "image": "https://static.cupid.travel/hotels/ex_3fd34533_z.jpg",
+      "address": "Cavelossim, Goa, 403 731"
+    },
+    {
+      "name": "Goa Marriott Resort & Spa",
+      "price": "INR 23548.56",
+      "rating": "8.6/10",
+      "image": "https://static.cupid.travel/hotels/439507521.jpg",
+      "address": "Miramar Beach, PO Box No.64"
+    },
+    {
+      "name": "Sea Queen Beach Resort & Spa",
+      "price": "INR 14310.81",
+      "rating": "8.3/10",
+      "image": "https://static.cupid.travel/hotels/332085032.jpg",
+      "address": "96/5, Colva Beach, Betalbatim, Salcete"
+    },
+    {
+      "name": "The Zuri White Sands, Goa Resort & Casino",
+      "price": "INR 18767.16",
+      "rating": "8.2/10",
+      "image": "https://static.cupid.travel/hotels/309284889.jpg",
+      "address": "Pedda Varca, Salcete Goa"
+    },
+    {
+      "name": "Taj Exotica Resort & Spa, Goa",
+      "price": "INR 27228.33",
+      "rating": "9.4/10",
+      "image": "https://static.cupid.travel/hotels/515320173.jpg",
+      "address": "Benaulim Beach"
+    }
+  ],
+  "cached_at": "2025-12-18T06:44:09.072248"
+}
