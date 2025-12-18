@@ -539,6 +539,11 @@ async def chat(
             context['extracted_region'] = region
         if trek_name:
             context['extracted_trek_name'] = trek_name
+    from utils.intents import extract_location
+    query_location = extract_location(request.message)
+    if query_location:
+        context['query_location'] = query_location
+        logger.info(f"Extracted query location: {query_location}")
 
     # Fetch conversation history
     if session_id and current_user:
@@ -551,16 +556,26 @@ async def chat(
             logger.warning(f"⚠️ Could not load history: {str(e)}")
     
     # ⭐ OPTIMIZATION: Fetch RAG context ONCE and cache it
-    rag_context = {"has_rag_context": False}
+    rag_context = {'has_rag_context': False}
     if request.use_rag and groq_service.persona_rag:
         try:
-            logger.info("🔍 Fetching RAG context (ONE-TIME RETRIEVAL)")
-            rag_context = await groq_service._get_rag_context(
+            logger.info("Fetching RAG context (ONE-TIME RETRIEVAL)")
+            # Pass location info to RAG for geographical filtering
+            if 'query_location' in context:
+                rag_context['query_location'] = context['query_location']
+
+            rag_context = await groq_service.get_rag_context(
                 request.message, request.persona, intent, context
             )
-            logger.info(f"✅ RAG context retrieved: {len(rag_context.get('formatted_context', ''))} chars")
+
+            # Preserve query_location in rag_context for system prompt
+            if 'query_location' in context:
+                rag_context['query_location'] = context['query_location']
+
+            logger.info(f"RAG context retrieved: {len(rag_context.get('formatted_context', ''))} chars")
         except Exception as e:
-            logger.warning(f"⚠️ RAG failed: {str(e)}")
+            logger.warning(f"RAG failed: {str(e)}")
+
 
     
     # ==========================================
@@ -727,8 +742,19 @@ async def chat(
                                     trek_name=args.get('trek_name')
                                 )
                                 if tool_result:
-                                    tool_context["treks"] = tool_result
-                                    logger.info(f"✅ Found {tool_result.get('trek_count', 0)} treks")
+                                    # VALIDATE GEOGRAPHICAL MATCH
+                                    query_region = context.get('extractedregion', '').lower()
+                                    result_region = tool_result.get('region', '').lower()
+                                    
+                                    if query_region and result_region and query_region != result_region:
+                                        logger.warning(f"Region mismatch: query='{query_region}', result='{result_region}'")
+                                        # Keep result but flag mismatch
+                                        tool_result['region_mismatch_warning'] = True
+                                    
+                                    tool_context['treks'] = tool_result
+                                    logger.info(f"Found {tool_result.get('trekcount', 0)} treks")
+                                    
+
                             
                             # --- 🟢 OPTIMIZED HISTORY STORAGE ---
                             # We summarize what goes into history to save tokens. 
@@ -773,6 +799,25 @@ async def chat(
                 if not final_response_text:
                     final_response_text = "I'm having trouble processing your request with tools. Let me try a different approach."
                     use_local_fallback = True
+                    
+                # NEW: VERIFY RESPONSE FOR HALLUCINATIONS
+                if final_response_text and response_source == "groq" and not use_local_fallback:
+                    try:
+                        is_valid, verification_reason = await groq_service.verify_response_against_sources(
+                            user_query=request.message,
+                            response=final_response_text,
+                            rag_context=rag_context,
+                            tool_context=tool_context
+                        )
+                        
+                        if not is_valid:
+                            logger.warning(f"Hallucination detected and blocked: {verification_reason}")
+                            # Replace hallucinated response with safe fallback
+                            finalresponsetext = "I don't have enough verified information to answer that accurately. Could you try rephrasing your question or asking about a specific location?"
+                            finalsuggestions = ["Search for specific locations", "Ask about popular destinations", "Try a different query"]
+    
+                    except Exception as e:
+                        logger.error(f"Verification error (non-blocking): {str(e)}")
 
         except Exception as e:
             logger.error(f"❌ Groq agent failed: {str(e)}")
@@ -809,20 +854,40 @@ async def chat(
             response_source = "error"
     
     # ==========================================
-    # FINALIZE RESPONSE
+    # FINALIZE RESPONSE + ADD GEO METADATA
     # ==========================================
     end_time = asyncio.get_event_loop().time()
     response_time = int((end_time - start_time) * 1000)
-    
+
+    # 🌍 Extract coordinates from tool context (if geocode_location was called)
+    latitude = None
+    longitude = None
+    location_name = None
+
+    if tool_context.get("location"):
+        latitude = tool_context["location"].get("latitude")
+        longitude = tool_context["location"].get("longitude")
+        location_name = tool_context["location"].get("place_name") or tool_context["location"].get("city")
+        logger.info(f"📍 Coordinates found: {latitude}, {longitude} ({location_name})")
+
+    # Append geo metadata using stopword format (frontend will parse this)
+    if latitude and longitude:
+        geo_stopword = f"\n<|GEO_DATA|>{{'latitude': {latitude}, 'longitude': {longitude}, 'location': '{location_name or ''}'}}<|GEO_DATA|>"
+        final_response_text = final_response_text + geo_stopword
+        logger.info(f"✅ Geo metadata appended to response")
+
     # Save to session if authenticated
     chat_saved = False
     if current_user:
         try:
+            # Save clean version WITHOUT geo metadata to database
+            clean_response = final_response_text.split('<|GEO_DATA|>')[0].strip() if latitude else final_response_text
+            
             session_id, chat_saved = await save_to_session(
                 user_id=current_user.get("_id") or current_user.get("id"),
                 persona=request.persona,
                 user_message=request.message,
-                bot_response=final_response_text,
+                bot_response=clean_response,  # Save without stopword
                 intent=intent,
                 session_id=session_id
             )
@@ -830,16 +895,21 @@ async def chat(
                 logger.info(f"✅ Saved to session: {session_id}")
         except Exception as e:
             logger.error(f"❌ Save failed: {str(e)}")
-    
+
     return ChatResponse(
-        response=final_response_text,
+        response=final_response_text,  # Contains geo metadata for frontend
         persona=request.persona,
         intent=intent,
         suggestions=final_suggestions,
         response_source=response_source,
         response_time_ms=response_time,
         is_offline_mode=(response_source == "local"),
-        rag_info={"rag_used": rag_context.get("has_rag_context", False)},
+        rag_info={
+            "rag_used": rag_context.get("has_rag_context", False),
+            "latitude": latitude,  # Also available in structured format
+            "longitude": longitude,
+            "location_name": location_name
+        },
         chat_saved=chat_saved,
         session_id=session_id
     )

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import MeditationSelector from "./MeditationSelector";
 import YogaSelector from "./YogaSelector";
+import { useHolidays } from "../hooks/useHolidays";
 
 function FeaturesSidebar({ darkMode, isOpen, onToggle }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -40,13 +41,13 @@ function FeaturesSidebar({ darkMode, isOpen, onToggle }) {
       description: "Real-time weather updates for your location",
       color: "from-blue-500 to-cyan-600",
     },
-    // {
-    //   id: "festivals",
-    //   name: "Festivals",
-    //   icon: "🎉",
-    //   description: "Upcoming festivals and celebrations",
-    //   color: "from-orange-500 to-red-600",
-    // },
+    {
+      id: "holidays",
+      name: "Holidays",
+      icon: "🎉",
+      description: "Upcoming Indian holidays and festivals",
+      color: "from-orange-500 to-red-600",
+    },
     {
       id: "tips",
       name: "Travel Tips",
@@ -59,9 +60,11 @@ function FeaturesSidebar({ darkMode, isOpen, onToggle }) {
   const handleFeatureClick = (feature) => {
     if (feature.id === "meditation") {
       setShowMeditationModal(true);
+      setActiveFeature(null); // Close any expanded feature
       onToggle?.(false);
     } else if (feature.id === "yoga") {
       setShowYogaModal(true);
+      setActiveFeature(null); // Close any expanded feature
       onToggle?.(false);
     } else {
       setActiveFeature(activeFeature?.id === feature.id ? null : feature);
@@ -183,9 +186,9 @@ function FeaturesSidebar({ darkMode, isOpen, onToggle }) {
                     {feature.id === "weather" && (
                       <WeatherContent darkMode={darkMode} />
                     )}
-                    {/* {feature.id === "festivals" && (
-                      <FestivalsContent darkMode={darkMode} />
-                    )} */}
+                    {feature.id === "holidays" && (
+                      <HolidaysContent darkMode={darkMode} />
+                    )}
                     {feature.id === "tips" && (
                       <TipsContent darkMode={darkMode} />
                     )}
@@ -683,5 +686,147 @@ function TipsContent({ darkMode }) {
     </ul>
   );
 }
+
+function HolidaysContent({ darkMode }) {
+  const { holidays, isLoading, error, fetchUpcomingHolidays } = useHolidays();
+
+  useEffect(() => {
+    fetchUpcomingHolidays(3);
+  }, [fetchUpcomingHolidays]);
+
+  if (isLoading) {
+    return (
+      <div className="text-center py-6">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto mb-3" />
+        <p
+          className={`text-sm ${
+            darkMode ? "text-dark-muted" : "text-gray-600"
+          }`}
+        >
+          Loading holidays...
+        </p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center py-6">
+        <div className="text-4xl mb-3">⚠️</div>
+        <p className="text-sm text-red-500 mb-3">{error}</p>
+        <button
+          onClick={() => fetchUpcomingHolidays(3)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium ${
+            darkMode
+              ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
+              : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+          }`}
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!holidays || holidays.length === 0) {
+    return (
+      <div className="text-center py-6">
+        <div className="text-4xl mb-3">📅</div>
+        <p
+          className={`text-sm ${
+            darkMode ? "text-dark-muted" : "text-gray-600"
+          }`}
+        >
+          No upcoming holidays found
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {holidays.map((holiday, idx) => (
+        <div
+          key={idx}
+          className={`p-3 rounded-lg ${
+            darkMode
+              ? "bg-gradient-to-br from-orange-900/20 to-red-900/20 border border-orange-800/30"
+              : "bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200/50"
+          }`}
+        >
+          <div className="flex items-start justify-between mb-2">
+            <h4
+              className={`text-sm font-semibold ${
+                darkMode ? "text-orange-300" : "text-orange-700"
+              }`}
+            >
+              {holiday.name}
+            </h4>
+            {holiday.days_until !== undefined && (
+              <span
+                className={`text-xs px-2 py-1 rounded-full ${
+                  darkMode
+                    ? "bg-orange-800/50 text-orange-200"
+                    : "bg-orange-200 text-orange-800"
+                }`}
+              >
+                {holiday.days_until === 0
+                  ? "Today"
+                  : holiday.days_until === 1
+                  ? "Tomorrow"
+                  : `${holiday.days_until} days`}
+              </span>
+            )}
+          </div>
+
+          <div className="space-y-1">
+            <p
+              className={`text-xs ${
+                darkMode ? "text-slate-300" : "text-gray-700"
+              }`}
+            >
+              📅 {holiday.day_of_week},{" "}
+              {new Date(holiday.date).toLocaleDateString("en-IN", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+
+            <p
+              className={`text-xs ${
+                darkMode ? "text-dark-muted" : "text-gray-600"
+              }`}
+            >
+              {holiday.type}
+            </p>
+
+            {holiday.description && (
+              <p
+                className={`text-xs mt-2 ${
+                  darkMode ? "text-slate-400" : "text-gray-600"
+                }`}
+              >
+                {holiday.description}
+              </p>
+            )}
+          </div>
+        </div>
+      ))}
+
+      <button
+        onClick={() => fetchUpcomingHolidays(3)}
+        className={`w-full px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
+          darkMode
+            ? "bg-dark-elev hover:bg-dark-elev/80 text-slate-200"
+            : "bg-white/80 hover:bg-white text-gray-700"
+        }`}
+      >
+        🔄 Refresh Holidays
+      </button>
+    </div>
+  );
+}
+
 
 export default FeaturesSidebar;

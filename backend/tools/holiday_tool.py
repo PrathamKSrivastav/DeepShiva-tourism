@@ -1,4 +1,3 @@
-# tools/holiday_tool.py
 import os
 import json
 import httpx
@@ -6,10 +5,11 @@ from datetime import datetime
 from typing import Optional, List, Dict
 
 # --- CONFIGURATION ---
-API_KEY = os.getenv("CALLENDRIFIC_API_KEY") 
+API_KEY = os.getenv("CALLENDRIFIC_API_KEY")
 COUNTRY = "IN"
 CACHE_DIR = "cache"
 os.makedirs(CACHE_DIR, exist_ok=True)
+
 
 async def _fetch_year_data(year: int) -> List[Dict]:
     """
@@ -28,25 +28,31 @@ async def _fetch_year_data(year: int) -> List[Dict]:
     # 2. Fetch from API
     url = "https://calendarific.com/api/v2/holidays"
     params = {"api_key": API_KEY, "country": COUNTRY, "year": year}
-    
+
     print(f"🌏 Fetching holidays for {year} from Calendarific API...")
     async with httpx.AsyncClient(timeout=10) as client:
         try:
             response = await client.get(url, params=params)
             response.raise_for_status()
             data = response.json()
+
             holidays = data.get("response", {}).get("holidays", [])
-            
+
             if holidays:
                 with open(cache_file, "w", encoding="utf-8") as f:
                     json.dump(holidays, f, indent=4)
                 return holidays
         except Exception as e:
             print(f"❌ API Error: {e}")
-    
+
     return []
 
-async def get_holidays(year: Optional[int] = None, month: Optional[int] = None, quarter: Optional[int] = None) -> List[Dict]:
+
+async def get_holidays(
+    year: Optional[int] = None,
+    month: Optional[int] = None,
+    quarter: Optional[int] = None,
+) -> List[Dict]:
     """
     Main Tool: Returns holidays, optionally filtered by month or quarter.
     """
@@ -55,12 +61,12 @@ async def get_holidays(year: Optional[int] = None, month: Optional[int] = None, 
 
     # Always fetch the full year (efficient caching)
     all_holidays = await _fetch_year_data(year)
-    
+
     if not all_holidays:
         return []
 
     filtered = []
-    
+
     # Define Month Ranges
     target_months = []
     if month:
@@ -69,7 +75,7 @@ async def get_holidays(year: Optional[int] = None, month: Optional[int] = None, 
         # Q1: 1-3, Q2: 4-6, Q3: 7-9, Q4: 10-12
         start_m = (quarter - 1) * 3 + 1
         target_months = [start_m, start_m + 1, start_m + 2]
-    
+
     # Filter Logic
     if target_months:
         for h in all_holidays:
@@ -83,3 +89,46 @@ async def get_holidays(year: Optional[int] = None, month: Optional[int] = None, 
         return filtered
 
     return all_holidays
+
+
+async def get_next_holidays(limit: int = 3) -> List[Dict]:
+    """
+    Get the next N upcoming holidays from today's date.
+
+    Args:
+        limit: Number of upcoming holidays to return (default: 3)
+
+    Returns:
+        List of holiday dictionaries with name, date, type, and description
+    """
+    today = datetime.now()
+    today_str = today.strftime("%Y-%m-%d")
+    current_year = today.year
+
+    # Fetch current year holidays
+    holidays_this_year = await _fetch_year_data(current_year)
+
+    # Fetch next year holidays (in case we're near year-end)
+    holidays_next_year = await _fetch_year_data(current_year + 1)
+
+    # Combine all holidays
+    all_holidays = holidays_this_year + holidays_next_year
+
+    # Filter upcoming holidays
+    upcoming = []
+    for h in all_holidays:
+        try:
+            holiday_date = h.get("date", {}).get("iso", "9999-99-99")
+
+            # Only include holidays from today onwards
+            if holiday_date >= today_str:
+                upcoming.append(h)
+        except Exception as e:
+            print(f"⚠️ Error processing holiday: {e}")
+            continue
+
+    # Sort by date
+    upcoming.sort(key=lambda x: x.get("date", {}).get("iso", "9999-99-99"))
+
+    # Return only the requested number
+    return upcoming[:limit]

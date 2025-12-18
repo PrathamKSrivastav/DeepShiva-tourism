@@ -11,7 +11,8 @@ from routers import (
     audio,
     meditation,
     tts,
-    yoga,  # ← yoga router
+    yoga,  
+    holiday
 )
 import os
 from utils.kokoro_service import KokoroTTSService
@@ -215,7 +216,8 @@ app.include_router(rag_admin.router, prefix="/api/rag", tags=["rag-admin"])
 app.include_router(audio.router, prefix="/api", tags=["audio"])
 app.include_router(meditation.router, prefix="/api", tags=["meditation"])
 app.include_router(tts.router, prefix="/api", tags=["tts"])
-app.include_router(yoga.router, prefix="/api/yoga", tags=["yoga"])  # ← ADD yoga router
+app.include_router(yoga.router, prefix="/api/yoga", tags=["yoga"])
+app.include_router(holiday.router, prefix="/api", tags=["holidays"])
 
 
 @app.get("/")
