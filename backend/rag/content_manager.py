@@ -290,7 +290,7 @@ class ContentManager:
     
     async def add_json_file(self, file_path: Path, managed: bool = True) -> Dict[str, Any]:
         """
-        Add JSON file to RAG system
+        Add JSON file to RAG system (Updated for 4 collections)
         
         Args:
             file_path: Path to JSON file
@@ -317,44 +317,26 @@ class ContentManager:
                 logger.warning(f"No content extracted from JSON: {file_path}")
                 return {"success": False, "error": "No content extracted"}
             
-            # Determine entity type from first metadata
-            entity_type = metadata_list[0]['entity_type']
+            # ✅ FIXED: Get collection from metadata (already classified in document_processor)
+            collection_name = metadata_list[0].get('content_type', 'general')
             
-            # Add to vector store
-            doc_ids = self.vector_store.add_json_documents(
+            # Add to vector store (use standard add_documents, not add_json_documents)
+            doc_ids = self.vector_store.add_documents(
                 documents=chunks,
                 metadatas=metadata_list,
-                entity_type=entity_type
+                collection_name=collection_name
             )
             
             # Count unique entities
             unique_entities = len(set(
-                m['entity_id'] for m in metadata_list 
-                if m.get('entity_id')
+                m.get('entity_id', m.get('name', str(i))) 
+                for i, m in enumerate(metadata_list)
             ))
-            
-            # Map entity_type to collection
-            collection_map = {
-                'spiritual_site': 'spiritual_sites',
-                'festival': 'festivals',
-                'crowd_pattern': 'crowd_patterns',
-                'homestay': 'homestays',
-                'persona': 'personas',
-                'trek': 'treks',
-                'cuisine': 'cuisines',
-                'wellness': 'wellness',
-                'eco_tip': 'eco_tips',
-                'emergency_info': 'emergency_info',
-                'shloka': 'shlokas',
-                'generic': 'general'
-            }
-            collection_name = collection_map.get(entity_type, 'general')
             
             # Update registry
             json_info = {
                 "original_path": str(file_path),
                 "managed_path": str(managed_path) if managed else str(file_path),
-                "entity_type": entity_type,
                 "chunks_count": len(chunks),
                 "entity_count": unique_entities,
                 "collection": collection_name,
@@ -368,9 +350,9 @@ class ContentManager:
             self.content_registry["processing_history"].append({
                 "action": "add_json",
                 "file": file_path.name,
-                "entity_type": entity_type,
                 "entities": unique_entities,
                 "chunks": len(chunks),
+                "collection": collection_name,
                 "timestamp": datetime.now().isoformat()
             })
             
@@ -379,21 +361,23 @@ class ContentManager:
             logger.info(
                 f"Added JSON {file_path.name}: "
                 f"{unique_entities} entities → {len(chunks)} chunks "
-                f"({entity_type} → {collection_name})"
+                f"(collection: {collection_name})"
             )
             
             return {
                 "success": True,
-                "filename": file_path.name,
+                "filename": filename if managed else file_path.name,
                 "chunks_count": len(chunks),
-                "entity_count": unique_entities,
-                "entity_type": entity_type,
+                "entities_count": unique_entities,  # ✅ Use unique_entities (already calculated above)
+                "entity_type": metadata_list[0].get('entity_type', 'unknown'),  # ✅ Get from metadata
                 "collection": collection_name,
                 "document_ids": doc_ids
             }
             
         except Exception as e:
             logger.error(f"Error adding JSON {file_path}: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return {"success": False, "error": str(e)}
     
     async def batch_ingest_all_json(
@@ -436,20 +420,24 @@ class ContentManager:
             for json_file in json_files:
                 result = await self.add_json_file(json_file, managed=managed)
                 
-                if result['success']:
+                if result.get('success'):
+                    # ✅ FIX: Safely get entity count with fallback
+                    entity_count = result.get('entities_count', result.get('entity_count', 0))
+                    chunk_count = result.get('chunks_count', 0)
+                    
                     results['processed_files'].append({
                         'file': json_file.name,
-                        'chunks': result['chunks_count'],
-                        'entities': result['entity_count'],
-                        'type': result['entity_type'],
-                        'collection': result['collection']
+                        'chunks': chunk_count,
+                        'entities': entity_count,  # ✅ Use safe value
+                        'type': result.get('entity_type', 'unknown'),
+                        'collection': result.get('collection', 'unknown')
                     })
-                    results['total_chunks'] += result['chunks_count']
-                    results['total_entities'] += result['entity_count']
+                    results['total_chunks'] += chunk_count
+                    results['total_entities'] += entity_count  # ✅ Use safe value
                 else:
                     results['failed_files'].append({
                         'file': json_file.name,
-                        'error': result.get('error')
+                        'error': result.get('error', 'Unknown error')
                     })
             
             end_time = datetime.now()
@@ -462,11 +450,62 @@ class ContentManager:
                 f"{results['total_chunks']} chunks"
             )
             
+            if results['failed_files']:
+                logger.warning(f"\n⚠️  Failed {len(results['failed_files'])} files:")
+                for f in results['failed_files']:
+                    logger.warning(f"   ✗ {f['file']} → {f['error']}")
+            
             return {"success": True, **results}
             
         except Exception as e:
             logger.error(f"Error in batch JSON processing: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             return {"success": False, "error": str(e), **results}
+
+        
+    async def add_csv_file(self, file_path: Path, content_type: str = None) -> Dict[str, Any]:
+        """Add CSV file to RAG system"""
+        try:
+            # Process CSV
+            chunks, metadata_list = self.document_processor.process_csv(file_path)
+            
+            if not chunks:
+                return {"success": False, "error": "No content extracted"}
+            
+            # Override content type if specified
+            if content_type:
+                for metadata in metadata_list:
+                    metadata["content_type"] = content_type
+            
+            # Determine collection from first row
+            collection_name = metadata_list[0]["content_type"] if metadata_list else "general"
+            
+            # Add to vector store
+            doc_ids = self.vector_store.add_documents(
+                documents=chunks,
+                metadatas=metadata_list,
+                collection_name=collection_name
+            )
+            
+            # Update registry
+            file_info = {
+                "file_path": str(file_path),
+                "chunks_count": len(chunks),
+                "collection": collection_name,
+                "added_at": datetime.now().isoformat()
+            }
+            
+            self.content_registry["files"][str(file_path)] = file_info
+            self._save_content_registry()
+            
+            logger.info(f"Added CSV {file_path.name}: {len(chunks)} rows to {collection_name}")
+            return {"success": True, "chunks_count": len(chunks), "collection": collection_name}
+            
+        except Exception as e:
+            logger.error(f"Error adding CSV {file_path}: {str(e)}")
+            return {"success": False, "error": str(e)}
+
     
     # ==================== EXISTING BATCH PROCESSING ====================
     
@@ -499,6 +538,8 @@ class ContentManager:
                         result = await self.add_pdf_file(file_path, content_type)
                     elif file_path.suffix.lower() == '.json':
                         result = await self.add_json_file(file_path, managed=True)
+                    elif file_path.suffix.lower() == '.csv':
+                        result = await self.add_csv_file(file_path, content_type)
                     else:
                         # For text files, use filename as title
                         with open(file_path, 'r', encoding='utf-8') as f:

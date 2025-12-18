@@ -1,3 +1,13 @@
+"""
+OPTIMIZED SmartRetriever - Enhanced Document Retrieval
+Key Improvements:
+1. Lower relevance thresholds (0.6 → 0.45)
+2. More results per collection (2 → 3)
+3. Better distance-to-similarity conversion
+4. Less aggressive score penalties
+5. Smarter collection filtering
+"""
+
 import logging
 from typing import List, Dict, Any, Optional, Tuple
 from .vector_store import VectorStoreManager
@@ -8,59 +18,57 @@ import re
 logger = logging.getLogger(__name__)
 
 class SmartRetriever:
+    
     def __init__(self, vector_store: VectorStoreManager):
         self.vector_store = vector_store
         self.executor = ThreadPoolExecutor(max_workers=4)
         
-        # ==================== UPDATED PERSONA STRATEGIES ====================
-        # Now includes JSON entity collections
+        # ==================== OPTIMIZED PERSONA STRATEGIES ====================
         self.persona_strategies = {
             "local_guide": {
-                "primary_collections": ["spiritual_sites", "homestays", "crowd_patterns", "general", "government", "cultural", "festivals", "cuisines", "treks"],  # ← MOVED cultural HERE
-                "secondary_collections": ["trekking", "eco_tips", "wellness"],
-                "max_results": 3,
-                "relevance_threshold": 0.6
+                "primary_collections": ["cultural", "general", "government"],
+                "secondary_collections": ["trekking"],
+                "max_results": 6,  # ✅ INCREASED from 4
+                "relevance_threshold": 0.40  # ✅ LOWERED from 0.6
             },
             "spiritual_teacher": {
-                "primary_collections": ["spiritual_sites", "shlokas", "wellness", "festivals", "spiritual", "cultural"],  # ← Already has cultural ✅
-                "secondary_collections": ["crowd_patterns", "general"],
-                "max_results": 4,
-                "relevance_threshold": 0.5
+                "primary_collections": ["cultural"],
+                "secondary_collections": ["general"],
+                "max_results": 6,  # ✅ INCREASED from 5
+                "relevance_threshold": 0.40  # ✅ LOWERED from 0.5
             },
             "trek_companion": {
-                "primary_collections": ["treks", "emergency_info", "spiritual_sites", "trekking", "government", "cultural"],  # ← ADD cultural
-                "secondary_collections": ["homestays", "eco_tips", "general"],
-                "max_results": 3,
-                "relevance_threshold": 0.5
+                "primary_collections": ["trekking", "government"],
+                "secondary_collections": ["general", "cultural"],
+                "max_results": 5,  # ✅ INCREASED from 4
+                "relevance_threshold": 0.40  # ✅ LOWERED from 0.5
             },
             "cultural_expert": {
-                "primary_collections": ["festivals", "spiritual_sites", "cuisines", "cultural", "spiritual"],  # ← Already has cultural ✅
-                "secondary_collections": ["crowd_patterns", "homestays", "general", "government"],
-                "max_results": 6,
-                "relevance_threshold": 0.5
+                "primary_collections": ["cultural", "general"],
+                "secondary_collections": ["government"],
+                "max_results": 7,  # ✅ INCREASED from 6
+                "relevance_threshold": 0.40  # ✅ LOWERED from 0.5
             }
         }
-
         
-        # ==================== UPDATED INTENT COLLECTIONS ====================
-        # Mapped to include JSON collections
+        # ==================== INTENT COLLECTIONS ====================
         self.intent_collections = {
-            "weather": ["general", "government", "spiritual_sites"],
-            "itinerary": ["spiritual_sites", "homestays", "crowd_patterns", "treks", "general", "government"],
-            "spiritual": ["spiritual_sites", "shlokas", "festivals", "wellness", "spiritual", "cultural"],
-            "trekking": ["treks", "emergency_info", "spiritual_sites", "trekking", "government"],
-            "emergency": ["emergency_info", "treks", "government", "general"],
-            "festival": ["festivals", "spiritual_sites", "crowd_patterns", "cultural", "spiritual"],
-            "accommodation": ["homestays", "spiritual_sites", "general", "government"],
-            "food": ["cuisines", "homestays", "cultural", "general"],
-            "crowd": ["crowd_patterns", "festivals", "spiritual_sites", "general", "government"],
-            "planning": ["spiritual_sites", "homestays", "crowd_patterns", "festivals", "treks", "general"],
-            "wellness": ["wellness", "spiritual_sites", "homestays"],
-            "eco": ["eco_tips", "homestays", "treks"],
-            "cultural": ["festivals", "cuisines", "spiritual_sites", "cultural"]
+            "weather": ["general", "government", "trekking"],
+            "itinerary": ["cultural", "trekking", "general"],
+            "spiritual": ["cultural"],
+            "trekking": ["trekking", "government"],
+            "emergency": ["trekking", "government"],
+            "festival": ["cultural"],
+            "accommodation": ["cultural", "general"],
+            "food": ["cultural", "general"],
+            "crowd": ["cultural", "general"],
+            "planning": ["cultural", "trekking", "general"],
+            "wellness": ["trekking", "cultural"],
+            "eco": ["trekking", "cultural"],
+            "cultural": ["cultural"]
         }
         
-        # ==================== NEW: ENTITY TYPE MAPPING ====================
+        # ==================== ENTITY TYPE MAPPING ====================
         self.entity_type_collections = {
             'spiritual_site': 'spiritual_sites',
             'festival': 'festivals',
@@ -76,37 +84,26 @@ class SmartRetriever:
         }
     
     async def retrieve_contextual_documents(
-        self, 
-        query: str, 
-        persona: str, 
+        self,
+        query: str,
+        persona: str,
         intent: str,
         max_total_results: int = None,
-        expand_references: bool = True,  # NEW: Cross-reference expansion
-        filters: Optional[Dict[str, Any]] = None  # NEW: Metadata filters
+        expand_references: bool = True,
+        filters: Optional[Dict[str, Any]] = None
     ) -> List[Dict[str, Any]]:
         """
         Retrieve documents with persona and intent-aware strategy
-        
-        Args:
-            query: User's query
-            persona: Selected persona (local_guide, spiritual_teacher, etc.)
-            intent: Classified intent
-            max_total_results: Maximum total results to return
-            expand_references: Whether to expand cross-references
-            filters: Optional metadata filters (e.g., {'state': 'Uttarakhand'})
-            
-        Returns:
-            List of relevant document chunks with metadata
         """
         strategy = self.persona_strategies.get(persona, self.persona_strategies["local_guide"])
         
         if max_total_results is None:
             max_total_results = strategy["max_results"]
         
-        # Determine collections to search based on persona and intent
+        # Determine collections to search
         target_collections = self._get_target_collections(persona, intent)
         
-        # Perform parallel search across collections
+        # Perform parallel search
         search_results = await self._parallel_search(
             query=query,
             collections=target_collections,
@@ -125,12 +122,12 @@ class SmartRetriever:
         # Apply final filtering and limiting
         primary_results = merged_results[:max_total_results]
         
-        # NEW: Expand cross-references if requested
+        # Expand cross-references if requested
         if expand_references:
             final_results = await self._expand_cross_references(
                 primary_results=primary_results,
                 query=query,
-                max_expansions=5  # Limit cross-ref expansions
+                max_expansions=5
             )
         else:
             final_results = primary_results
@@ -145,37 +142,35 @@ class SmartRetriever:
     
     def _filter_non_empty_collections(self, collections: List[str]) -> List[str]:
         """
-        Filter out collections that have 0 documents
-        Reduces unnecessary API calls by 60-80%
+        ✅ OPTIMIZED: Smarter empty collection filtering
         """
         non_empty = []
         
-        # Known non-empty collections (based on your check_indexes.py output)
-        KNOWN_POPULATED = {"general", "cultural"}
+        # ✅ IMPROVED: Known populated collections based on your setup
+        KNOWN_POPULATED = {"general", "cultural", "trekking", "government"}
         
         for coll in collections:
-            # Always include known populated collections
+            # Include all known populated collections without checking
             if coll in KNOWN_POPULATED:
                 non_empty.append(coll)
                 continue
             
-            # Check if collection has data
+            # For others, do a quick check
             try:
                 stats = self.vector_store.get_collection_stats(coll)
                 doc_count = stats.get("document_count", 0)
-                
                 if doc_count > 0:
                     non_empty.append(coll)
                     logger.debug(f"✅ {coll}: {doc_count} docs")
                 else:
                     logger.debug(f"⏭️ Skipping {coll}: empty")
             except Exception as e:
+                # ✅ IMPROVED: If check fails, include anyway (fail-safe)
                 logger.warning(f"⚠️ Could not check {coll}, including anyway: {e}")
                 non_empty.append(coll)
         
         logger.info(f"📊 Filtered to {len(non_empty)}/{len(collections)} non-empty collections: {non_empty}")
         return non_empty
-
     
     def _get_target_collections(self, persona: str, intent: str) -> List[str]:
         """Determine which collections to search based on persona and intent"""
@@ -195,28 +190,11 @@ class SmartRetriever:
             for col in strategy["secondary_collections"]:
                 if col not in collections:
                     collections.append(col)
-                    if len(collections) >= 3:
-                        break
+                if len(collections) >= 3:
+                    break
         
         return collections
     
-    # async def _parallel_search(
-    #     self, 
-    #     query: str, 
-    #     collections: List[str], 
-    #     strategy: Dict[str, Any],
-    #     filters: Optional[Dict[str, Any]] = None
-    # ) -> Dict[str, List[Dict[str, Any]]]:
-    #     """Perform parallel search across multiple collections"""
-        
-    #     # ============ ADD DEBUG LOGGING HERE ============
-    #     logger.info(f"🔍 Starting parallel search")
-    #     logger.info(f"🔍 Query: {query[:100]}...")
-    #     logger.info(f"🔍 Collections to search: {collections}")
-    #     logger.info(f"🔍 Strategy max_results: {strategy.get('max_results')}")
-    #     logger.info(f"🔍 Filters: {filters}")
-    #     # ================================================
-        
     async def _parallel_search(
         self,
         query: str,
@@ -224,13 +202,14 @@ class SmartRetriever:
         strategy: Dict[str, Any],
         filters: Optional[Dict[str, Any]] = None
     ) -> Dict[str, List[Dict[str, Any]]]:
-        """Perform parallel search across multiple collections"""
-        
+        """
+        ✅ OPTIMIZED: Better parallel search with more results per collection
+        """
         logger.info(f"🔍 Starting parallel search")
         logger.info(f"🔍 Query: {query[:100]}...")
         logger.info(f"🔍 Collections requested: {collections}")
         
-        # ⭐ OPTIMIZATION 1: Filter out empty collections
+        # Filter out empty collections
         collections = self._filter_non_empty_collections(collections)
         
         if not collections:
@@ -240,7 +219,7 @@ class SmartRetriever:
         logger.info(f"🔍 Collections to search: {collections}")
         logger.info(f"🔍 Strategy max_results: {strategy.get('max_results')}")
         logger.info(f"🔍 Filters: {filters}")
-
+        
         def search_collection(collection_name: str) -> Tuple[str, List[Dict[str, Any]]]:
             try:
                 # Check if collection exists
@@ -249,35 +228,32 @@ class SmartRetriever:
                     return collection_name, []
                 
                 collection = self.vector_store.collections[collection_name]
-                # Get document count (compatible with both DBs)
+                
+                # Get document count
                 try:
-                # Qdrant requires CountRequest
                     if hasattr(collection, 'count') and self.vector_store.qdrant_client:
                         from qdrant_client.models import CountRequest
                         doc_count = collection.count(CountRequest(exact=True)).count
                     else:
-                    # ChromaDB
                         doc_count = collection.count()
                 except Exception as e:
                     logger.warning(f"⚠️ Could not get count for {collection_name}, skipping count log")
                     doc_count = "unknown"
-
-                logger.info(f"📊 Collection {collection_name}: {doc_count} documents available")
-                # ================================================
                 
-                # ⭐ OPTIMIZATION: Reduce results per collection
-                max_per_collection = min(2, strategy["max_results"] // len(collections) + 1)
+                logger.info(f"📊 Collection {collection_name}: {doc_count} documents available")
+                
+                # ✅ OPTIMIZED: Request more results per collection
+                max_per_collection = min(3, strategy["max_results"] // len(collections) + 2)  # Changed from min(2, ...)
                 logger.debug(f"📊 Requesting {max_per_collection} results from {collection_name}")
-
+                
                 results_data = self.vector_store.query(
                     query_text=query,
                     collection_name=collection_name,
                     n_results=max_per_collection,
                     where=filters
                 )
-
                 
-                # ============ SAFE LOGGING FIX ============
+                # Log raw results
                 documents = results_data.get('documents')
                 if documents and len(documents) > 0 and documents[0] is not None:
                     raw_doc_count = len(documents[0])
@@ -285,11 +261,9 @@ class SmartRetriever:
                     raw_doc_count = 0
                 
                 logger.info(f"📊 Raw query returned {raw_doc_count} results from {collection_name}")
-                # ==========================================
                 
                 if results_data.get('documents'):
                     logger.info(f"📊 Results structure: documents={len(results_data.get('documents', []))}, metadatas={len(results_data.get('metadatas', []))}, distances={len(results_data.get('distances', []))}")
-                # ================================================
                 
                 # Format results
                 formatted_results = []
@@ -301,25 +275,20 @@ class SmartRetriever:
                             'distance': results_data['distances'][0][i],
                             'collection': collection_name
                         })
-                    # ============ ADD DEBUG LOGGING HERE ============
-                    logger.info(f"✅ Formatted {len(formatted_results)} results from {collection_name}")
-                    if formatted_results:
-                        logger.info(f"   First result distance: {formatted_results[0]['distance']:.4f}")
-                        logger.info(f"   First result entity: {formatted_results[0]['metadata'].get('name', 'N/A')}")
-                    # ================================================
+                
+                logger.info(f"✅ Formatted {len(formatted_results)} results from {collection_name}")
+                if formatted_results:
+                    logger.info(f"   First result distance: {formatted_results[0]['distance']:.4f}")
+                    logger.info(f"   First result entity: {formatted_results[0]['metadata'].get('entity_id', 'N/A')}")
                 else:
-                    # ============ ADD DEBUG LOGGING HERE ============
                     logger.warning(f"⚠️ No documents found in {collection_name} for query: {query[:50]}...")
-                    # ================================================
                 
                 return collection_name, formatted_results
                 
             except Exception as e:
-                # ============ ENHANCED ERROR LOGGING ============
                 logger.error(f"❌ Error searching collection {collection_name}: {str(e)}")
                 import traceback
                 logger.error(traceback.format_exc())
-                # ================================================
                 return collection_name, []
         
         # Run searches in parallel
@@ -337,29 +306,25 @@ class SmartRetriever:
             if isinstance(result, tuple):
                 collection_name, docs = result
                 search_results[collection_name] = docs
-                # ============ ADD DEBUG LOGGING HERE ============
                 logger.info(f"📦 {collection_name}: {len(docs)} docs added to search_results")
-                # ================================================
             else:
                 logger.error(f"❌ Search task failed: {result}")
         
-        # ============ ADD FINAL SUMMARY LOGGING ============
         total_docs = sum(len(docs) for docs in search_results.values())
         logger.info(f"🎯 Parallel search complete: {total_docs} total documents from {len(search_results)} collections")
-        # ====================================================
         
         return search_results
-
     
     def _merge_and_rank_results(
-        self, 
-        search_results: Dict[str, List[Dict[str, Any]]], 
+        self,
+        search_results: Dict[str, List[Dict[str, Any]]],
         persona: str,
         intent: str,
         relevance_threshold: float
     ) -> List[Dict[str, Any]]:
-        """Merge results from multiple collections and rank by relevance"""
-        
+        """
+        ✅ OPTIMIZED: Better scoring algorithm with less aggressive penalties
+        """
         all_results = []
         
         logger.info(f"🔄 Merging and ranking results from {len(search_results)} collections")
@@ -369,28 +334,36 @@ class SmartRetriever:
             for result in results:
                 distance = result.get('distance', 1.0)
                 
-                # FIXED: ChromaDB uses cosine distance (0=identical, 2=opposite)
-                # Convert to similarity score (1=identical, 0=opposite)
-                # For cosine distance: similarity = 1 - (distance / 2)
-                # This maps [0, 2] distance to [1, 0] similarity
+                # ✅ OPTIMIZED: Better distance-to-similarity conversion
+                # ChromaDB cosine distance range: [0, 2]
+                # Convert to similarity: [1, 0]
                 base_score = max(0.0, 1.0 - (distance / 2.0))
                 
-                # Apply collection weight based on persona and intent
+                # ✅ IMPROVED: Boost low scores slightly to avoid over-penalizing
+                if 0.3 <= base_score < 0.5:
+                    base_score *= 1.1  # 10% boost for borderline scores
+                
+                # Apply collection weight (less aggressive)
                 collection_weight = self._get_collection_weight(collection_name, persona, intent)
                 
                 # Apply content relevance boost
                 content_boost = self._calculate_content_relevance(result, intent)
                 
-                # NEW: Apply entity type boost for JSON entities
+                # Apply entity type boost
                 entity_boost = self._calculate_entity_boost(result)
                 
-                # Final score
-                final_score = base_score * collection_weight * content_boost * entity_boost
+                # ✅ OPTIMIZED: Less aggressive penalty calculation
+                # Changed from multiplication to weighted average
+                weight_factor = 0.7  # Reduce impact of weights
+                final_score = base_score * (
+                    weight_factor * collection_weight * content_boost * entity_boost +
+                    (1 - weight_factor) * 1.0
+                )
                 
                 # Log scoring details
-                entity_name = result.get('metadata', {}).get('name', 'Unknown')[:40]
+                entity_id = result.get('metadata', {}).get('entity_id', 'Unknown')[:40]
                 logger.debug(
-                    f"   📝 {entity_name} [{collection_name}]: "
+                    f"  📝 {entity_id} [{collection_name}]: "
                     f"dist={distance:.3f} → base={base_score:.3f} × "
                     f"col_wt={collection_weight:.2f} × "
                     f"content={content_boost:.2f} × "
@@ -401,21 +374,21 @@ class SmartRetriever:
                 # Only include if above threshold
                 if final_score >= relevance_threshold:
                     result['final_score'] = final_score
-                    result['base_score'] = base_score  # Store for debugging
+                    result['base_score'] = base_score
                     result['collection_weight'] = collection_weight
                     result['content_boost'] = content_boost
                     result['entity_boost'] = entity_boost
                     all_results.append(result)
-                    logger.debug(f"      ✅ ACCEPTED (score={final_score:.3f} >= {relevance_threshold})")
+                    logger.debug(f"   ✅ ACCEPTED (score={final_score:.3f} >= {relevance_threshold})")
                 else:
-                    logger.debug(f"      ❌ REJECTED (score={final_score:.3f} < {relevance_threshold})")
+                    logger.debug(f"   ❌ REJECTED (score={final_score:.3f} < {relevance_threshold})")
         
         logger.info(f"🎯 After filtering: {len(all_results)}/{sum(len(r) for r in search_results.values())} documents passed threshold")
         
         # Sort by final score (descending)
         all_results.sort(key=lambda x: x['final_score'], reverse=True)
         
-        # Remove duplicates based on content similarity
+        # Remove duplicates
         unique_results = self._remove_similar_duplicates(all_results)
         
         logger.info(f"📊 After deduplication: {len(unique_results)} unique documents")
@@ -430,17 +403,16 @@ class SmartRetriever:
         if collection_name in strategy["primary_collections"]:
             base_weight = 1.0
         elif collection_name in strategy["secondary_collections"]:
-            base_weight = 0.8
+            base_weight = 0.9  # ✅ INCREASED from 0.8
         else:
-            base_weight = 0.6
+            base_weight = 0.8  # ✅ INCREASED from 0.6
         
         # Intent-based boost
         intent_boost = 1.0
         if collection_name in self.intent_collections.get(intent, []):
-            intent_boost = 1.2
+            intent_boost = 1.15  # ✅ REDUCED from 1.2 (less aggressive)
         
         return base_weight * intent_boost
-
     
     def _calculate_content_relevance(self, result: Dict[str, Any], intent: str) -> float:
         """Calculate content relevance boost based on metadata and content"""
@@ -452,64 +424,61 @@ class SmartRetriever:
         # Source type boost
         source_type = metadata.get('source_type', '')
         if source_type == 'web_page':
-            relevance_boost *= 1.1  # Prefer web content for freshness
+            relevance_boost *= 1.05  # ✅ REDUCED from 1.1
         elif source_type == 'pdf':
-            relevance_boost *= 1.05  # Slight preference for structured documents
+            relevance_boost *= 1.03  # ✅ REDUCED from 1.05
         
         # Content type alignment
         content_type = metadata.get('content_type', 'general')
         intent_content_alignment = {
-            'spiritual': {'spiritual': 1.3, 'cultural': 1.1, 'spiritual_sites': 1.3},
-            'trekking': {'trekking': 1.3, 'treks': 1.3, 'government': 1.1},
-            'cultural': {'cultural': 1.3, 'festivals': 1.3, 'spiritual': 1.1},
-            'government': {'government': 1.3},
-            'planning': {'crowd_patterns': 1.2, 'homestays': 1.2},
+            'spiritual': {'spiritual': 1.2, 'cultural': 1.1, 'spiritual_sites': 1.2, 'shlokas': 1.3},  # ✅ ADDED shlokas boost
+            'trekking': {'trekking': 1.2, 'treks': 1.2, 'government': 1.1},
+            'cultural': {'cultural': 1.2, 'festivals': 1.2, 'spiritual': 1.1},
+            'government': {'government': 1.2},
+            'planning': {'crowd_patterns': 1.15, 'homestays': 1.15},
             'festival': {'festivals': 1.3, 'spiritual_sites': 1.1}
         }
         
         if intent in intent_content_alignment:
             relevance_boost *= intent_content_alignment[intent].get(content_type, 1.0)
         
-        # Freshness boost (more recent content gets slight boost)
+        # Freshness boost
         processed_at = metadata.get('processed_at', '')
         if processed_at:
-            # Simple freshness calculation - more recent = slight boost
             try:
                 from datetime import datetime, timedelta
                 processed_date = datetime.fromisoformat(processed_at)
                 age_days = (datetime.now() - processed_date).days
-                if age_days <= 30:  # Recent content
-                    relevance_boost *= 1.05
+                if age_days <= 30:
+                    relevance_boost *= 1.03  # ✅ REDUCED from 1.05
             except:
                 pass
         
-        return min(relevance_boost, 1.5)  # Cap the boost
+        return min(relevance_boost, 1.4)  # ✅ REDUCED cap from 1.5
     
     def _calculate_entity_boost(self, result: Dict[str, Any]) -> float:
-        """
-        NEW: Calculate boost for JSON entities based on entity quality
-        """
+        """Calculate boost for JSON entities based on entity quality"""
         metadata = result.get('metadata', {})
         entity_type = metadata.get('entity_type')
         
         if not entity_type:
-            return 1.0  # No boost for non-entity documents
+            return 1.0
         
         boost = 1.0
         
-        # Boost for complete entities (not sub-chunks)
+        # Boost for complete entities
         if not metadata.get('is_sub_chunk', False):
-            boost *= 1.1
+            boost *= 1.05  # ✅ REDUCED from 1.1
         
         # Boost for entities with rich metadata
         if metadata.get('altitude_m'):
-            boost *= 1.02
+            boost *= 1.01  # ✅ REDUCED from 1.02
         if metadata.get('best_season'):
-            boost *= 1.02
+            boost *= 1.01  # ✅ REDUCED from 1.02
         if metadata.get('recommended_persona'):
-            boost *= 1.03
+            boost *= 1.02  # ✅ REDUCED from 1.03
         
-        # Boost for entities with cross-references (shows interconnected knowledge)
+        # Boost for entities with cross-references
         has_refs = any([
             metadata.get('related_festivals'),
             metadata.get('related_treks'),
@@ -517,11 +486,11 @@ class SmartRetriever:
             metadata.get('related_crowd_pattern')
         ])
         if has_refs:
-            boost *= 1.05
+            boost *= 1.03  # ✅ REDUCED from 1.05
         
-        return min(boost, 1.2)  # Cap at 1.2x
+        return min(boost, 1.15)  # ✅ REDUCED cap from 1.2
     
-    # ==================== NEW: CROSS-REFERENCE EXPANSION ====================
+    # ==================== CROSS-REFERENCE EXPANSION ====================
     
     async def _expand_cross_references(
         self,
@@ -529,9 +498,7 @@ class SmartRetriever:
         query: str,
         max_expansions: int = 5
     ) -> List[Dict[str, Any]]:
-        """
-        Expand cross-references from primary results to include related entities
-        """
+        """Expand cross-references from primary results to include related entities"""
         expanded = primary_results.copy()
         seen_entity_ids = set()
         expansion_count = 0
@@ -551,7 +518,7 @@ class SmartRetriever:
             
             # Expand festival references
             related_festivals = self._parse_array_field(metadata.get('related_festivals'))
-            for festival_id in related_festivals[:2]:  # Limit to 2 per entity
+            for festival_id in related_festivals[:2]:
                 if expansion_count >= max_expansions:
                     break
                 if festival_id and festival_id not in seen_entity_ids:
@@ -584,7 +551,7 @@ class SmartRetriever:
             
             # Expand trek references
             related_treks = self._parse_array_field(metadata.get('related_treks'))
-            for trek_id in related_treks[:1]:  # Limit to 1 trek
+            for trek_id in related_treks[:1]:
                 if expansion_count >= max_expansions:
                     break
                 if trek_id and trek_id not in seen_entity_ids:
@@ -637,13 +604,12 @@ class SmartRetriever:
             )
             
             if entity_data:
-                # Format to match search results structure
                 return {
                     'content': entity_data.get('content'),
                     'metadata': entity_data.get('metadata'),
-                    'distance': 0.0,  # Direct fetch, no distance
+                    'distance': 0.0,
                     'collection': collection_name,
-                    'final_score': 0.8,  # Give it a good score since it's referenced
+                    'final_score': 0.8,
                 }
             
             return None
@@ -657,11 +623,10 @@ class SmartRetriever:
         if isinstance(field_value, list):
             return field_value
         elif isinstance(field_value, str):
-            # Comma-separated string (from ChromaDB metadata cleaning)
             return [x.strip() for x in field_value.split(',') if x.strip()]
         return []
     
-    # ==================== NEW: ENTITY-SPECIFIC RETRIEVAL ====================
+    # ==================== ENTITY-SPECIFIC RETRIEVAL ====================
     
     async def retrieve_by_entity_id(
         self,
@@ -669,17 +634,7 @@ class SmartRetriever:
         entity_type: str,
         expand_references: bool = True
     ) -> Optional[Dict[str, Any]]:
-        """
-        Retrieve specific entity by ID with optional reference expansion
-        
-        Args:
-            entity_id: Entity ID (e.g., 'sp001')
-            entity_type: Entity type (e.g., 'spiritual_site')
-            expand_references: Whether to expand cross-references
-        
-        Returns:
-            Entity data with optional expanded references
-        """
+        """Retrieve specific entity by ID with optional reference expansion"""
         collection_name = self.entity_type_collections.get(entity_type)
         if not collection_name:
             logger.error(f"Unknown entity type: {entity_type}")
@@ -707,18 +662,7 @@ class SmartRetriever:
         collection_names: Optional[List[str]] = None,
         n_results: int = 5
     ) -> List[Dict[str, Any]]:
-        """
-        Retrieve with metadata filters
-        
-        Args:
-            query: Query text
-            filters: Metadata filters (e.g., {'state': 'Uttarakhand', 'category': 'pilgrimage_himalayan'})
-            collection_names: Collections to search (default: all entity collections)
-            n_results: Number of results
-        
-        Returns:
-            Filtered results
-        """
+        """Retrieve with metadata filters"""
         if collection_names is None:
             collection_names = list(self.entity_type_collections.values())
         
@@ -743,27 +687,26 @@ class SmartRetriever:
                             'collection': collection_name,
                             'final_score': 1.0 - results_data['distances'][0][i]
                         })
-            
+                
             except Exception as e:
                 logger.error(f"Error querying {collection_name} with filters: {str(e)}")
         
         # Sort by score
         all_results.sort(key=lambda x: x['final_score'], reverse=True)
-        
         return all_results[:n_results]
     
-    # ==================== EXISTING METHODS ====================
+    # ==================== HELPER METHODS ====================
     
     def _remove_similar_duplicates(
-        self, 
-        results: List[Dict[str, Any]], 
+        self,
+        results: List[Dict[str, Any]],
         similarity_threshold: float = 0.9
     ) -> List[Dict[str, Any]]:
         """Remove results that are too similar to avoid redundancy"""
         if not results:
             return results
         
-        unique_results = [results[0]]  # Always keep the top result
+        unique_results = [results[0]]
         
         for result in results[1:]:
             is_duplicate = False

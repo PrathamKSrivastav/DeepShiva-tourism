@@ -1,0 +1,43 @@
+{
+  "found": 44,
+  "city": "Dehradun",
+  "dates": "2025-12-19 to 2025-12-20",
+  "hotels": [
+    {
+      "name": "Sterling Mussoorie",
+      "price": "INR 7025.34",
+      "rating": "8.2/10",
+      "image": "https://static.cupid.travel/hotels/98793623.jpg",
+      "address": "Radha Bhawan Estate, Circular Road, "
+    },
+    {
+      "name": "Fortune Resort Grace, Mussoorie - Member ITC Hotels' Group",
+      "price": "INR 8369.14",
+      "rating": "7.9/10",
+      "image": "https://static.cupid.travel/hotels/189078435.jpg",
+      "address": "Library Bazaar, Gandhi Chowk"
+    },
+    {
+      "name": "Hotel Vishnu Palace",
+      "price": "INR 5783.37",
+      "rating": "8.2/10",
+      "image": "https://static.cupid.travel/hotels/106061888.jpg",
+      "address": "Gandhi Chowk"
+    },
+    {
+      "name": "The Claridges Nabha Residence",
+      "price": "INR 10538.8",
+      "rating": "8.2/10",
+      "image": "https://static.cupid.travel/hotels/545086791.jpg",
+      "address": "Airfield, Barlowgunj"
+    },
+    {
+      "name": "Welcomhotel by ITC Hotels, The Savoy, Mussoorie",
+      "price": "INR 27445.72",
+      "rating": "9.2/10",
+      "image": "https://static.cupid.travel/hotels/516275637.jpg",
+      "address": "Library Chowk"
+    }
+  ],
+  "cached_at": "2025-12-18T00:36:12.829728"
+}

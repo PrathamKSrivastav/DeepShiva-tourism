@@ -1,0 +1,124 @@
+{
+  "state": "Jammu & Kashmir",
+  "region": "Kashmir Himalayas",
+  "treks": [
+    {
+      "name": "Tarsar Marsar Trek",
+      "type": "Lake Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 13165,
+      "difficulty": "Moderate",
+      "best_season": ["July", "August", "Early September"],
+      "start_point": "Aru, Pahalgam",
+      "key_lakes": ["Tarsar", "Sundarsar", "Marsar"],
+      "highlights": [
+        "Camping beside three alpine lakes",
+        "Marsar Lake viewpoint 700 ft above the lake",
+        "Flower-filled meadows and U-shaped valleys"
+      ],
+      "ideal_for": [
+        "Beginners",
+        "Nature lovers",
+        "Photographers",
+        "Families",
+        "Solo trekkers",
+        "Experienced trekkers seeking a relaxed scenic trek"
+      ],
+      "seasonal_notes": {
+        "early_july": "Snow patches at higher camps, flowing streams, lakes turning deep blue",
+        "mid_july_august": "Peak bloom season with lush meadows and mirror-like lakes",
+        "late_august_early_september": "Golden meadows, crisp air, deep blue skies"
+      }
+    },
+    {
+      "name": "Kashmir Great Lakes Trek",
+      "type": "High-Altitude Lake Traverse",
+      "duration_days": 8,
+      "max_altitude_ft": 13715,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["July", "August", "Early September"],
+      "start_distance_from_srinagar_km": 75,
+      "key_lakes": [
+        "Vishnusar",
+        "Krishansar",
+        "Gadsar",
+        "Satsar",
+        "Gangbal",
+        "Nundkol"
+      ],
+      "highlights": [
+        "Six alpine lakes across five valleys",
+        "Long trekking days with steep ascents and descents",
+        "Vast Himalayan landscapes with wildflower meadows"
+      ],
+      "ideal_for": "Experienced trekkers seeking a challenging high-altitude Himalayan classic",
+      "seasonal_notes": {
+        "early_july": "Snow patches and partially frozen lakes",
+        "mid_july_august": "Best conditions with lush meadows and blue lakes",
+        "late_august_mid_september": "Crisp air, golden meadows, sharp views before snowfall"
+      }
+    },
+    {
+      "name": "Nafran Valley Trek",
+      "type": "Valley & Lake Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 13789,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["Mid-July", "August", "Early September"],
+      "start_point": "Aru, South Kashmir",
+      "key_lakes": ["Harnag", "Harbhagwan"],
+      "highlights": [
+        "Offbeat alpine valley",
+        "Deep-blue glacial lakes with snow patches",
+        "Rapidly changing landscapes"
+      ],
+      "ideal_for": "Experienced trekkers seeking a less-crowded but visually rich Kashmir trek",
+      "seasonal_notes": {
+        "early_july": "Partially frozen lakes and snow-covered upper reaches",
+        "mid_july_august": "Blooming meadows and thawed turquoise lakes",
+        "late_august_early_september": "Golden meadows and deep blue skies"
+      }
+    },
+    {
+      "name": "Pir Panjal Lakes Trek",
+      "type": "Multi-Lake Alpine Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 13727,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["End June", "July", "August", "Early September"],
+      "key_lakes_count": 10,
+      "key_meadows": ["Thera", "Paindhari", "Kuan", "Byad", "Sarota"],
+      "highlights": [
+        "Dense forests transitioning to vast alpine meadows",
+        "Numerous alpine lakes in varied shades of blue",
+        "Highly diverse terrain in a short duration"
+      ],
+      "ideal_for": "Experienced trekkers seeking an offbeat, grand Kashmir adventure",
+      "seasonal_notes": {
+        "end_june_mid_july": "Melting snow and floating ice in high lakes",
+        "mid_july_early_september": "Lush meadows and fully thawed lakes",
+        "late_august": "Golden meadows and deep blue skies before snowfall"
+      }
+    },
+    {
+      "name": "Tulian Lake Trek",
+      "type": "Lake Trek",
+      "duration_days": 5,
+      "max_altitude_ft": 12087,
+      "difficulty": "Moderate",
+      "best_season": ["May", "June", "July", "August", "September", "October"],
+      "start_point": "Near Pahalgam",
+      "highlights": [
+        "Dense pine, fir, and spruce forests",
+        "Wide alpine meadows",
+        "Figure-eight shaped turquoise Tulian Lake"
+      ],
+      "ideal_for": "Trekkers seeking a short yet complete Kashmir trekking experience",
+      "seasonal_notes": {
+        "may_mid_june": "Snow-lined trails and partially frozen lake",
+        "july_august": "Dry weather with lush meadows",
+        "september_october": "Golden landscapes, crisp air, excellent photography conditions"
+      }
+    }
+  ]
+}

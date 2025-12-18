@@ -1,0 +1,962 @@
+[
+  {
+    "site_id": "hindu_central_001",
+    "religion": "Hinduism",
+    "site_name": "Khajuraho Group of Monuments",
+    "alternative_names": ["Kharjuravahaka"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Shiva, Vishnu, Jain Tirthankaras",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "UNESCO World Heritage Site since 1986. Group of Hindu and Jain temples built during Chandela dynasty between 885-1000 CE. Originally 85 temples by 12th century, only about 25 survive today. Famous for Nagara-style architecture and intricate sculptures. Kandariya Mahadeva Temple decorated with profusion of sculptures among greatest masterpieces of Indian art. Temples rediscovered 1838 by British engineer T.S. Burt after centuries overgrown by jungle. Built during reigns of Hindu kings Yashovarman and Dhanga. Largest surviving temple Kandariya Mahadeva built during reign of King Vidyadhara, rises 116 feet. Temples demonstrate pinnacle of northern Indian temple architectural development with unique shikhara design. About 10% of sculptures erotic art, rest depict daily life, mythology and spiritual values.",
+    "approx_established_period": "885-1000 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://whc.unesco.org/en/list/240/", "https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_002",
+    "religion": "Hinduism",
+    "site_name": "Mahakaleshwar Temple",
+    "alternative_names": ["Mahakal Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahakaleshwar (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines; only Jyotirlinga facing south (Dakshinmukhi); considered by devotional tradition to be one of 18 Maha Shakti Peethas",
+    "historical_significance": "Located in ancient city of Ujjain on banks of Shipra River. Temple reconstructed 12th century CE under King Udayaditya and King Naravarman. Maratha commander Ranoji Shinde under Peshwa Bajirao-I renovated in 18th century CE. Diwan of Ranoji built present structure in Maratha style architecture. In Puranic tradition, three main lingas in Trilok: Taarka Ling in heaven, Hatkeshwar Ling in hell, Mahakaleswar on earth. Unique Dakshinmukhi feature important for tantric practitioners. In devotional tradition, lingam swayambhu obtaining currents of Shakti from within itself.",
+    "approx_established_period": "12th and 18th century CE renovations",
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mahakaleshwar_Jyotirlinga"],
+      "secondary": ["https://behindeverytemple.org/hindu-temples/shiva/mahakaleshwar-temple/"]
+    }
+  },
+  {
+    "site_id": "hindu_central_003",
+    "religion": "Hinduism",
+    "site_name": "Omkareshwar Temple",
+    "alternative_names": ["Amareshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Omkareshwar (Shiva)",
+    "canonical_or_religious_significance": "Fourth of the twelve Jyotirlinga shrines",
+    "historical_significance": "Located on Mandhata Island shaped like sacred Om symbol on northern bank of Narmada River approximately 77 km from Indore. In Puranic tradition, glory mentioned in Skanda Purana, Shiva Purana and Vayu Purana. In devotional tradition, swayambhu Jyotirlinga. Island at meeting point of Narmada and Kaveri rivers. Island has 6 pilgrimages and 33 deities total. Two temples form pilgrimage: Omkareshwar on island and Mamleshwar on mainland.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Omkareshwar",
+      "district": "Khandwa",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.2394",
+      "longitude": "76.1469"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Omkareshwar_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_004",
+    "religion": "Hinduism",
+    "site_name": "Mamleshwar Temple",
+    "alternative_names": ["Amleshwar Temple", "Amareshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mamleshwar (Shiva)",
+    "canonical_or_religious_significance": "Houses half of 4th Jyotirlinga, other half in Omkareshwar Temple",
+    "historical_significance": "Located on southern bank of Narmada River near Gomukh ghat. In devotional tradition, Shiva lingam built by Pandavas during exile from Mahabharata era. Another tradition proclaims existence goes back to Vedic times when Shiva manifested as jyotirlinga. Pilgrimage to Omkareshwar incomplete without visiting Mamleshwar. Maintained by ASI. Classic Nagara-style architecture with intricate stone carvings. Temple complex surrounded by small shrines with carvings and sculptures. Since reign of Maharani Ahilyabai, 22 brahmins perform daily Lingarchan rituals.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Omkareshwar",
+      "district": "Khandwa",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.2394",
+      "longitude": "76.1469"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://shrimamleshwar.org"]
+    }
+  },
+  {
+    "site_id": "hindu_central_005",
+    "religion": "Hinduism",
+    "site_name": "Chaturbhuj Temple Orchha",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chaturbhuj (Vishnu-Rama)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Bundela Rajputs during reign of Mughal emperor Akbar in 16th century. Construction begun by Madhukar Shah and completed by son Vir Singh Deo for his wife Rani Ganeshkuwari. Originally built for Rama idol which remained in palace becoming Ram Raja Temple. Temple now houses Radha Krishna image. One of tallest Vimana among Hindu temples standing 344 feet (105 meters). Multi-storied structure blending temple, fort and palatial architecture. Built on high platform 4.5 meters height. Interior has cruciform mandapa. Mix of Maru-Gurjara architecture. Exterior richly ornamented with lotus symbols. In historical accounts, towers originally covered with gold plating.",
+    "approx_established_period": "16th century CE (1558-1573)",
+    "location": {
+      "city": "Orchha",
+      "district": "Tikamgarh",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "25.3500",
+      "longitude": "78.1400"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Chaturbhuj_Temple_(Orchha)"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_006",
+    "religion": "Hinduism",
+    "site_name": "Ram Raja Temple",
+    "alternative_names": ["Orchha Temple", "Rani Mahal"],
+    "site_type": "Palace Temple",
+    "primary_figure_or_concept": "Raja Ram (Rama)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Only temple in India where Rama worshipped as king in palace. Originally constructed as palace for Raja Madhukar Shah's queen Rani Ganeshkuwari called Rani Mahal. In devotional tradition, when Rama idol brought from Ayodhya for Chaturbhuj Temple would not move from palace, palace converted to Ram Raja Temple. Guard of honour held daily with police personnel designated as guards. Armed salutation provided to God Ram daily. Annual domestic tourist number around 650,000 and foreign tourists 25,000. Daily visitors 1500-3000, thousands during major festivals. One of Orchha's finest historical buildings. Temple painted in yellow, pink and white. Annual Ram Vivah Festival in November celebrates marriage of Sita and Rama.",
+    "approx_established_period": "16th century CE",
+    "location": {
+      "city": "Orchha",
+      "district": "Tikamgarh",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "25.3500",
+      "longitude": "78.1400"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ram_Raja_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_007",
+    "religion": "Hinduism",
+    "site_name": "Kandariya Mahadeva Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Largest and most famous surviving temple at Khajuraho built during reign of King Vidyadhara around 1025-1050 CE. Represents zenith of Chandela power and architectural prowess. Pinnacle of Nagara architecture. Area about 6,500 square feet with shikhara rising 116 feet above ground and 88 feet above own floor. Plan 109 feet length by 60 feet width. Central padas surrounded by three rows of sculptured figures with over 870 statues, most half life size. Spire self-repeating fractal structure. Ground plan shaped like cruciform symbolizing cosmos with garbhagriha representing heart of universe. Dedicated to Lord Shiva. Decorated with profusion of sculptures among greatest masterpieces of Indian art.",
+    "approx_established_period": "1025-1050 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_008",
+    "religion": "Hinduism",
+    "site_name": "Maihar Sharda Devi Temple",
+    "alternative_names": ["Maa Sharda Temple"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Sharda Devi (Saraswati)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on Trikut hills approximately 600 feet above ground in Maihar. Recorded historical significance dates to 12th century. In devotional tradition, King Alha and brother Udal, warriors from Bundelkhand, first worshipped Maa Sharda here. Prominent references during Bundela and Baghel dynasty reigns 16th-17th century. 20th century saw extensive renovations and establishment of stairs and modern amenities. Typical Nagara architectural style with towering Shikhara. Built with sandstone and marble. Staircase of 1063 steps leads to temple. Ropeway developed for elderly and differently-abled devotees. Complex houses shrines to Shiva, Hanuman, Ganesh and Kali. Main idol made of black stone adorned daily with fresh clothes and ornaments. Major pilgrimage site attracting millions annually.",
+    "approx_established_period": "12th century CE, major renovations 20th century CE",
+    "location": {
+      "city": "Maihar",
+      "district": "Maihar",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.2667",
+      "longitude": "80.7667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://maihar.nic.in/en/tourist-place/maa-sharda-mata/"]
+    }
+  },
+  {
+    "site_id": "hindu_central_009",
+    "religion": "Hinduism",
+    "site_name": "Bambleshwari Temple",
+    "alternative_names": ["Badi Bambleshwari"],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Bambleshwari Devi (Bagulamukhi, Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located at Dongargarh on hilltop of 1600 feet in Rajnandgaon district. Dedicated to Maa Bagulamukhi Devi, powerful manifestation of Goddess Durga. Devotees climb 1100 stairs to reach holy destination. Temple renovated by Kalchuri King Karnadeva in 11th century. Current structure rebuilt in early 20th century by queen of princely state of Dongargarh, Rani Rupmati. Temple referred as Badi Bambleshwari. Another temple at ground level Chotti Bambleshwari situated 1/2 km from main complex. Ropeway available for devotees. Magnificent view from top. Enormous golden Buddha statue visible on opposite mountain.",
+    "approx_established_period": "11th century CE renovation, current structure early 20th century CE",
+    "location": {
+      "city": "Dongargarh",
+      "district": "Rajnandgaon",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "21.1889",
+      "longitude": "80.7539"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Bambleshwari_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_010",
+    "religion": "Hinduism",
+    "site_name": "Bhoramdeo Temple",
+    "alternative_names": ["Khajuraho of Chhattisgarh"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhoramdeo (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Thousand year old temple situated in Chouragaon 18 km from Kawardha in Kabirdham district and 125 km from Raipur. Dedicated to Lord Shiva. Temple artificially situated between mountain ranges. Built during period from 7th to 11th century. Glimpse of Khajuraho temple hence called Khajuraho of Chhattisgarh. Built by Laxman Dev Rai and Gopal Dev of Phani Naga dynasty. Complex comprises group of four temples of which earliest is brick-temple.",
+    "approx_established_period": "7th-11th century CE",
+    "location": {
+      "city": "Kawardha",
+      "district": "Kabirdham",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "21.9667",
+      "longitude": "81.2000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://kawardha.gov.in/en/tourist-place/bhoramdev-templekawardha/"]
+    }
+  },
+  {
+    "site_id": "hindu_central_011",
+    "religion": "Hinduism",
+    "site_name": "Rajivlocana Temple",
+    "alternative_names": ["Rajiv Lochan Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rajivlocana (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Vishnu temple at Rajim at confluence of rivers Pairi, Mahanadi and Sondhur. Inscription on interior wall of mandapa dates temple to 700-725 CE, recording construction by Nala Vilasatunga in memory of young son. However based on garbhagriha, shikhara, mandapa facade and few pillars, temple datable to ca 600 CE. Among Chhattisgarh's finest carved stone temples from 6th-12th centuries. Dazzles with intricate pillars and reliefs of Ganga, Yamuna, Rama, Krishna and more. Preserved Buddha statue hints at region's mixed Hindu and Buddhist heritage. Site restored with copious preservation projects and renovations. Temple today stands as ancient pilgrimage center. Rajim once capital and pilgrim stop en route to Bhubaneswar-Puri.",
+    "approx_established_period": "600-725 CE",
+    "location": {
+      "city": "Rajim",
+      "district": "Gariaband",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "20.9667",
+      "longitude": "81.8833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["http://www.sahapedia.org/rajivlocana-temple-rajim"]
+    }
+  },
+  {
+    "site_id": "hindu_central_012",
+    "religion": "Hinduism",
+    "site_name": "Harsiddhi Temple",
+    "alternative_names": ["Harsiddhi Mata Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Harsiddhi Mata (Shakti)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers; considered by some traditions to be one of 18 famous Shakti Peethas",
+    "historical_significance": "Located in Ujjain steeped in ancient history. Prominently mentioned in Shiva Purana as Shakti Peetha. In devotional tradition, temple originally built by King Vikramaditya in honour of divine feminine energy. Temple important focal point among spiritual seekers and symbol of resilience surviving various invasions and passage of time. Site intricately linked to Kumbh Mela, one of largest religious gatherings in world, drawing millions to Ujjain every twelve years. Located not far from Mahakaleshwar temple.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.youtube.com/watch?v=KXyXYoK8FV0"]
+    }
+  },
+  {
+    "site_id": "hindu_central_013",
+    "religion": "Hinduism",
+    "site_name": "Teli ka Mandir",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vishnu and Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located inside Gwalior Fort, one of tallest structures in complex. Example of Dravidian style architecture in central India. Built 8th or 9th century CE with some historians suggesting construction during reign of Pratihara king Mihir Bhoja in 6th century under patronage. Name possibly derived from oil merchant who built it. Temple developed alongside Gwalior Fort construction. Under Gurjara-Pratiharas and Kachhpaghatas, temple faced many attacks during Sultanate period in 11th-12th centuries causing damage. 15th century saw restoration. Mughal period in 16th century diminished importance, revived in 18th century when Marathas expanded and redeveloped it. Main entrance has carving of Garuda, Vishnu's vahana. One inscription dedicated to goddess Durga showing Shakti tradition influence. Nandi statue and Shivalinga still visible.",
+    "approx_established_period": "8th-9th century CE",
+    "location": {
+      "city": "Gwalior",
+      "district": "Gwalior",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "26.2295",
+      "longitude": "78.1687"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com/teli-ka-mandir-a-must-visit-in-gwalior.html"]
+    }
+  },
+  {
+    "site_id": "hindu_central_014",
+    "religion": "Hinduism",
+    "site_name": "Ramghat Chitrakoot",
+    "alternative_names": [],
+    "site_type": "Sacred Ghat",
+    "primary_figure_or_concept": "Rama",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Holy place on banks of River Mandakini also called Payaswini in Chitrakoot. Center of religious activities, one of most beautiful bathing ghats on Payaswini River. Chitrakoot revered as location where Lord Rama spent major portion of exile. In devotional tradition, Teerth available in Mandakini River at Chitrakoot considered holiest of all Teerth available elsewhere. South of main bathing area known as Raghav Prayag ghat. In devotional tradition, at Raghav-Prayag ghat there is confluence of Mandakini, Payaswini and Gayatri (or Savitri) Rivers called Triveni Sangam. Temple of Lord Kamatnath where Rama prayed and did parikrama. Ancient temples, ghats and holy caves interspersed throughout area. Spiritual ambiance complemented by serene banks. Kamadgiri Parikrama, circumambulation of sacred hill.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chitrakoot",
+      "district": "Satna",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "25.2000",
+      "longitude": "80.9000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.madhyapradeshdmc.com/spiritual/devout-chitrakoot.html"]
+    }
+  },
+  {
+    "site_id": "hindu_central_015",
+    "religion": "Hinduism",
+    "site_name": "Lakshmana Temple Khajuraho",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vaikuntha Vishnu",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 939 CE. Best exhibits legacy of King Yashovarman at Khajuraho. One of earliest temples in Western group. Dedicated to Vaikuntha Vishnu. Important example of Chandela architectural development.",
+    "approx_established_period": "939 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_016",
+    "religion": "Hinduism",
+    "site_name": "Vishvanatha Temple Khajuraho",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 999 CE. Best highlights King Dhanga's reign at Khajuraho. Important Shiva temple in Western group. Represents mature Chandela architectural style.",
+    "approx_established_period": "999 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_017",
+    "religion": "Hinduism",
+    "site_name": "Matangeshwar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1000 CE. Remains active site of worship at Khajuraho. Square grid temple with large 2.5 meters high and 1.1 meters diameter lingam placed on 7.6 meters diameter platform. Only temple at Khajuraho maintaining continuous active worship.",
+    "approx_established_period": "1000 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_018",
+    "religion": "Hinduism",
+    "site_name": "Duladeo Temple",
+    "alternative_names": ["Duladeva Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1125 CE. Last major temple constructed at Khajuraho. Located in Southern group. Represents final phase of Chandela temple building tradition.",
+    "approx_established_period": "1125 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_019",
+    "religion": "Hinduism",
+    "site_name": "Chausath Yogini Temple Khajuraho",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "64 Yoginis (Devi)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 885 CE. Earliest temple at Khajuraho. Features 64 yogini shrines. Important Tantric temple. Unique circular open-air design.",
+    "approx_established_period": "885 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_020",
+    "religion": "Hinduism",
+    "site_name": "Jagadambi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Devi Jagadambi (Parvati)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1023 CE. Dedicated to Goddess Jagadambi. Important Devi temple in Western group at Khajuraho. Features beautiful sculptures of goddess forms.",
+    "approx_established_period": "1023 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_021",
+    "religion": "Hinduism",
+    "site_name": "Chitragupta Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chitragupta (Surya)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1023 CE. Dedicated to Sun god. Important solar temple at Khajuraho. Features imagery of Surya.",
+    "approx_established_period": "1023 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_022",
+    "religion": "Hinduism",
+    "site_name": "Vamana Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vamana (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1062 CE. Dedicated to Vamana avatar of Vishnu. Important Vaishnava temple at Khajuraho.",
+    "approx_established_period": "1062 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_023",
+    "religion": "Hinduism",
+    "site_name": "Varaha Temple Khajuraho",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Varaha (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 950 CE. Dedicated to Varaha avatar of Vishnu. Features massive Varaha sculpture. Important early temple in Western group.",
+    "approx_established_period": "950 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_024",
+    "religion": "Hinduism",
+    "site_name": "Brahma Temple Khajuraho",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 925 CE. Despite name, dedicated to Shiva. Early temple in Khajuraho complex. Important example of early Chandela architecture.",
+    "approx_established_period": "925 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_025",
+    "religion": "Hinduism",
+    "site_name": "Lalguan Mahadev Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 900 CE. Early Shiva temple at Khajuraho. Important for understanding development of Chandela temple architecture.",
+    "approx_established_period": "900 CE",
+    "location": {
+      "city": "Khajuraho",
+      "district": "Chhatarpur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "24.8544",
+      "longitude": "79.9214"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Khajuraho_Group_of_Monuments"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_central_026",
+    "religion": "Hinduism",
+    "site_name": "Kamadgiri Temple Chitrakoot",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Rama",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Sacred hill in Chitrakoot. Kamadgiri Parikrama circumambulation of sacred hill. Important pilgrimage site associated with Rama's exile. Devotees perform parikrama of approximately 5 km around hill with temples along route.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chitrakoot",
+      "district": "Satna",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "25.2000",
+      "longitude": "80.9000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.madhyapradeshdmc.com/spiritual/devout-chitrakoot.html"]
+    }
+  },
+  {
+    "site_id": "hindu_central_027",
+    "religion": "Hinduism",
+    "site_name": "Bhojpur Shiva Temple",
+    "alternative_names": ["Bhojeshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Incomplete temple housing one of largest Shivalingas in India. Built by King Bhoja of Paramara dynasty in 11th century CE. Lingam 7.5 feet high on 21.5 feet square platform. Temple construction never completed. Located 28 km from Bhopal. Important archaeological site.",
+    "approx_established_period": "11th century CE",
+    "location": {
+      "city": "Bhojpur",
+      "district": "Raisen",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.2833",
+      "longitude": "77.5167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_028",
+    "religion": "Hinduism",
+    "site_name": "Kal Bhairav Temple Ujjain",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kal Bhairav (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple dedicated to Kal Bhairav, fierce form of Shiva. Located in Ujjain. Deity offered liquor as prasad. Guardian deity of Ujjain. Important Shaiva pilgrimage site. Temple associated with Tantric practices.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_029",
+    "religion": "Hinduism",
+    "site_name": "Mangalnath Temple Ujjain",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mangal (Mars)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple dedicated to planet Mars. In devotional tradition, birthplace of planet Mars (Mangal). Located on banks of Shipra River. Important for astrological remedies. Ancient temple in Ujjain. Devotees perform Mars-related rituals.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_030",
+    "religion": "Hinduism",
+    "site_name": "Bade Ganeshji ka Mandir Ujjain",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ganesha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Famous Ganesha temple in Ujjain. Houses large idol of Lord Ganesha. Important pilgrimage site in Ujjain. Devotees seek blessings before starting new ventures. Ancient temple with historical significance.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_031",
+    "religion": "Hinduism",
+    "site_name": "Chintaman Ganesh Temple Ujjain",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chintaman Ganesha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Ganesha temple in Ujjain. Chintaman Ganesha worshipped for removing worries (chinta). Important Ganesha pilgrimage site. Temple features unique idol. Major religious site in Ujjain.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_032",
+    "religion": "Hinduism",
+    "site_name": "Gopal Mandir Ujjain",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Krishna",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Maharani Bayajabai Shinde in 19th century. Dedicated to Lord Krishna. Four-pillared hall with marble pillars. Important Krishna temple in Ujjain. Maratha architecture.",
+    "approx_established_period": "19th century CE",
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_033",
+    "religion": "Hinduism",
+    "site_name": "Doodhadhari Temple Raipur",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Rama and Hanuman",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple complex in Raipur built by Seth Gulabchand Sahu in 1930s. Houses temples of Rama and Hanuman. Beautiful garden and water tanks. Important religious and tourist site in Chhattisgarh capital. Modern temple architecture.",
+    "approx_established_period": "1930s",
+    "location": {
+      "city": "Raipur",
+      "district": "Raipur",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "21.2514",
+      "longitude": "81.6296"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://chhattisgarhtourism.in"]
+    }
+  },
+  {
+    "site_id": "hindu_central_034",
+    "religion": "Hinduism",
+    "site_name": "Champaran Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vallabhacharya (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Birthplace of Vallabhacharya, founder of Pushtimarg sect. Located in Champaran village Raipur district. Important Vaishnava pilgrimage site. Temple marks birthplace of saint. Attracts Pushtimarg devotees.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Champaran",
+      "district": "Raipur",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "21.7167",
+      "longitude": "81.3500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://chhattisgarhtourism.in"]
+    }
+  },
+  {
+    "site_id": "hindu_central_035",
+    "religion": "Hinduism",
+    "site_name": "Mahamaya Temple Ratanpur",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahamaya (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple at Ratanpur, former capital of Kalchuri dynasty. Dedicated to Goddess Mahamaya. Important Shakti temple in Chhattisgarh. Major pilgrimage during Navratri. Historical capital showing Kalchuri architecture.",
+    "approx_established_period": "Kalchuri period",
+    "location": {
+      "city": "Ratanpur",
+      "district": "Bilaspur",
+      "state": "Chhattisgarh",
+      "country": "India",
+      "latitude": "22.2833",
+      "longitude": "82.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://chhattisgarhtourism.in"]
+    }
+  },
+  {
+    "site_id": "hindu_central_036",
+    "religion": "Hinduism",
+    "site_name": "Gwalior Fort Temples",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Various deities",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient fort complex with multiple temples including Teli ka Mandir, Saas Bahu temples. Built between 8th-11th centuries. Important historical and religious site. Fort called Gibraltar of India. Temples show various architectural styles.",
+    "approx_established_period": "8th-11th century CE",
+    "location": {
+      "city": "Gwalior",
+      "district": "Gwalior",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "26.2295",
+      "longitude": "78.1687"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_037",
+    "religion": "Hinduism",
+    "site_name": "Saas Bahu Temples",
+    "alternative_names": ["Sahastrabahu Temple"],
+    "site_type": "Twin Temples",
+    "primary_figure_or_concept": "Vishnu",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Twin temples inside Gwalior Fort built 11th century. Dedicated to Vishnu. Name Saas Bahu means mother-in-law and daughter-in-law. Built by King Mahipala of Kachchhapaghata dynasty. Intricate carvings and architecture. Important archaeological site.",
+    "approx_established_period": "11th century CE",
+    "location": {
+      "city": "Gwalior",
+      "district": "Gwalior",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "26.2295",
+      "longitude": "78.1687"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_038",
+    "religion": "Hinduism",
+    "site_name": "Khajrana Ganesh Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ganesha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Famous Ganesha temple in Indore. Over 200 years old. One of most visited temples in Madhya Pradesh. Devotees offer coconuts. Major pilgrimage site especially on Wednesdays and Angaraki Chaturthi. Built by Ahilyabai Holkar.",
+    "approx_established_period": "18th century CE",
+    "location": {
+      "city": "Indore",
+      "district": "Indore",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.7196",
+      "longitude": "75.8577"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_039",
+    "religion": "Hinduism",
+    "site_name": "Kashi Vishwanath Temple Amarkantak",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vishwanath (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple at Amarkantak, origin point of Narmada River. Ancient pilgrimage site. Amarkantak sacred to both Shaivas and Vaishnavas. Beautiful temple in Nagara style. Important religious center in Vindhya-Satpura ranges.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Amarkantak",
+      "district": "Anuppur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.6775",
+      "longitude": "81.7581"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  },
+  {
+    "site_id": "hindu_central_040",
+    "religion": "Hinduism",
+    "site_name": "Narmada Udgam Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Narmada (River Goddess)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple at origin point of Narmada River in Amarkantak. Sacred site marking birthplace of Narmada. Ancient pilgrimage destination. Devotees collect water from source. Important for Narmada Parikrama pilgrims. Temple complex includes multiple shrines.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Amarkantak",
+      "district": "Anuppur",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.6775",
+      "longitude": "81.7581"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mptourism.com"]
+    }
+  }
+]

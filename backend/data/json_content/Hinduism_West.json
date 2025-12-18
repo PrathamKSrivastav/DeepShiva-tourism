@@ -1,0 +1,1202 @@
+[
+  {
+    "site_id": "hindu_west_001",
+    "religion": "Hinduism",
+    "site_name": "Somnath Temple",
+    "alternative_names": ["Somanatha Temple", "Prabhas Patan Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Somnath (Shiva)",
+    "canonical_or_religious_significance": "First of the twelve Jyotirlinga shrines",
+    "historical_significance": "Temple site mentioned in Mahabharata and Bhagavata Purana as Prabhasa tirtha. Temple destroyed and rebuilt multiple times between 1026 and 1706 CE by various Muslim rulers. Present structure reconstructed 1950-1951 under direction of Vallabhbhai Patel in Maru-Gurjara architecture. Completed May 1951 with consecration by President Rajendra Prasad. Site shows archaeological evidence from pre-Harappan period.",
+    "approx_established_period": "1950-1951 (present structure)",
+    "location": {
+      "city": "Prabhas Patan",
+      "district": "Gir Somnath",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "20.8880",
+      "longitude": "70.4014"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Somnath_temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_002",
+    "religion": "Hinduism",
+    "site_name": "Dwarkadhish Temple",
+    "alternative_names": ["Jagat Mandir", "Dwarka Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Dwarkadhish (Krishna)",
+    "canonical_or_religious_significance": "One of the four Char Dham pilgrimage sites",
+    "historical_significance": "In devotional tradition, originally built 2,500 years ago by Vajranabha, great-grandson of Krishna. Current structure reconstructed 15th-16th century after multiple destructions. Five-story building supported by 72 intricately carved pillars standing approximately 51 meters high. Shikhara adorned with flag changed five times daily visible from miles away. Archaeological findings suggest original temple built 200 BCE at earliest.",
+    "approx_established_period": "15th-16th century CE (current structure)",
+    "location": {
+      "city": "Dwarka",
+      "district": "Devbhoomi Dwarka",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.2442",
+      "longitude": "68.9685"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Dwarkadhish_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_003",
+    "religion": "Hinduism",
+    "site_name": "Siddhivinayak Temple",
+    "alternative_names": ["Shri Siddhivinayak Ganapati Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Siddhivinayak (Ganesha)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple originally built by Laxman Vithu and Deubai Patil on 19 November 1801. Located in Prabhadevi, Mumbai. Wooden doors carved with images of Ashtavinayak. Inner roof of sanctum plated with gold. One of most popular and richest Hindu temples in Mumbai. Receives donations of approximately 100-150 million rupees annually. Temple governed by Shri Siddhi Vinayak Ganpati Temple Trust established under Bombay Public Trusts Act 1950.",
+    "approx_established_period": "1801",
+    "location": {
+      "city": "Mumbai",
+      "district": "Mumbai",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.0169",
+      "longitude": "72.8304"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Siddhivinayak_Temple,_Mumbai"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_004",
+    "religion": "Hinduism",
+    "site_name": "Trimbakeshwar Temple",
+    "alternative_names": ["Trimbak Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Trimbakeshwar (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines",
+    "historical_significance": "Located approximately 28 km from Nashik near Brahmagiri mountain from which Godavari River flows. Jyotirlinga has extraordinary three faces embodying Brahma, Vishnu and Rudra. In devotional tradition, those who visit Trimbakeshwar attain moksha. Temple maintained by Trimbakeshwar Temple Trust.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Trimbak",
+      "district": "Nashik",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.9333",
+      "longitude": "73.5333"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://nashik.gov.in/en/tourist-place/trimbakeshwar-temple/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_005",
+    "religion": "Hinduism",
+    "site_name": "Bhimashankar Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhimashankar (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines",
+    "historical_significance": "Ancient shrine situated in Sahyadri hills in Bhorgiri village 50 km northwest of Khed. Located 110-125 km from Pune in ghat region. Temple vicinity has rare plant and animal species part of Bhimashankar forest range.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Bhimashankar",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.0707",
+      "longitude": "73.5325"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Bhimashankar_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_006",
+    "religion": "Hinduism",
+    "site_name": "Grishneshwar Temple",
+    "alternative_names": ["Ghrneshwar Temple", "Dhushmeshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Grishneshwar (Shiva)",
+    "canonical_or_religious_significance": "Twelfth and last of the twelve Jyotirlinga shrines",
+    "historical_significance": "Located at Verul near Ellora Caves UNESCO World Heritage Site in Aurangabad. Smallest of Jyotirlingas. Built from red rocks with five-tier shikhara. In devotional tradition, temple built in 18th century by Ahilyabai Holkar of Holkar dynasty. Temple walls feature intricate carvings depicting various deities and scenes from Hindu mythology. Rare opportunity for devotees to physically touch Shiva Lingam during darshan.",
+    "approx_established_period": "18th century CE",
+    "location": {
+      "city": "Verul",
+      "district": "Aurangabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.0242",
+      "longitude": "75.1789"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Grishneshwar_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_007",
+    "religion": "Hinduism",
+    "site_name": "Mahalaxmi Temple Kolhapur",
+    "alternative_names": ["Ambabai Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahalaxmi (Lakshmi)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers of Shakti Peethas",
+    "historical_significance": "Temple belongs architecturally to Chalukya empire, may have been first built circa 700 CE. Temple beautified in 11th century by King Gandharaditya of Silahara dynasty who built circumambulation path. King Singhan of Yadav dynasty built Kurma Mandap and Ganapati. Garuda Mandapa added by Daji Pandit between 1838-1843. Image of Mahalaxmi carved in black stone 2 feet 8.5 inches in height. Four-armed crowned goddess made of sandstone mounted on stone platform.",
+    "approx_established_period": "c. 700 CE",
+    "location": {
+      "city": "Kolhapur",
+      "district": "Kolhapur",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "16.7050",
+      "longitude": "74.2433"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mahalaxmikolhapur.com/about-temple.php"]
+    }
+  },
+  {
+    "site_id": "hindu_west_008",
+    "religion": "Hinduism",
+    "site_name": "Vithoba Temple Pandharpur",
+    "alternative_names": ["Vitthal Rukmani Temple", "Pandharpur Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vithoba (Vishnu-Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on bank of Bhima river also known as Chandrabhaga in Pandharpur. Pandharpur considered spiritual capital of Maharashtra and called South Kashi. Primary place of worship attracting millions annually. Annual Pandharpur Yatra during Ashadhi Ekadashi witnesses colossal gathering. Exquisite craftsmanship and intricate carvings.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Pandharpur",
+      "district": "Solapur",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "17.6792",
+      "longitude": "75.3333"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Pandharpur"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_009",
+    "religion": "Hinduism",
+    "site_name": "Shri Sai Baba Temple Shirdi",
+    "alternative_names": ["Shirdi Sai Baba Samadhi Mandir"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Sai Baba of Shirdi",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple dedicated to 19th-century saint Sai Baba of Shirdi. One of most visited pilgrimage sites in India attracting millions annually from India and abroad. Samadhi Mandir houses Sai Baba's sacred tomb. Complex includes Dwarkamai Mosque where Sai Baba spent significant part of life with eternal Dhuni fire still burning. Chavadi where Baba rested alternate nights. Gurusthan where Sai Baba first appeared as young ascetic.",
+    "approx_established_period": "Early 20th century CE (after Sai Baba's Samadhi in 1918)",
+    "location": {
+      "city": "Shirdi",
+      "district": "Ahmednagar",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.7645",
+      "longitude": "74.4777"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Shri_Sai_Baba_Temple,_Shirdi"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_010",
+    "religion": "Hinduism",
+    "site_name": "Ambaji Temple",
+    "alternative_names": ["Arasuri Amba Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ambaji (Durga)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers of Shakti Peethas",
+    "historical_significance": "Principal shrine of goddess worshipped since pre-Vedic period. Referred to as Arasuri Amba named for location in Arasur hills near source of Saraswati river at southwestern end of Aravali mountain range. Made of white marble with gold cones. Red flag above temple dances in wind. Temple originally built by Nagar Brahmins. Main entrance in front with only small side-door as Mataji forbidden addition of other doors. Major pilgrimage during Navratri and annual Bhadarvi Purnima Fair.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ambaji",
+      "district": "Banaskantha",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "24.3300",
+      "longitude": "72.8500"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ambaji_Mata_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_011",
+    "religion": "Hinduism",
+    "site_name": "Brahma Temple Pushkar",
+    "alternative_names": ["Jagatpita Brahma Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Brahma",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "One of very few existing temples dedicated to Brahma in India and most prominent among them. Temple structure dates to 14th century CE with later partial rebuilding. Made of marble and stone slabs with distinct red pinnacle and hamsa bird motif. In devotional tradition, built by sage Vishwamitra after Brahma's yagna. In devotional tradition, 8th century philosopher Adi Shankara renovated temple. Maharaja Jawat Raj of Ratlam made additions and repairs retaining original design.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Pushkar",
+      "district": "Ajmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.4899",
+      "longitude": "74.5511"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Brahma_Temple,_Pushkar"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_012",
+    "religion": "Hinduism",
+    "site_name": "Shrinathji Temple Nathdwara",
+    "alternative_names": ["Nathdwara Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shrinathji (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Principal shrine of Shrinathji form of Krishna. Important Vaishnavite pilgrimage site in Rajasthan. Nathdwara popular for distinctive style of painting. Acquiring paintings of Shrinathji by local artists important part of devotees' pilgrimage.",
+    "approx_established_period": "17th century CE",
+    "location": {
+      "city": "Nathdwara",
+      "district": "Rajsamand",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "24.9333",
+      "longitude": "73.8167"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://indiasomeday.com/en/popular-places-of-worship-in-rajasthan/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_013",
+    "religion": "Hinduism",
+    "site_name": "Eklingji Temple",
+    "alternative_names": ["Kailashpuri Temple"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Eklingji (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located 22 km from Udaipur on bank of Indersagar Lake. Built in 734 CE by Bappa Rawal. Eklingji ruling deity of Mewar rulers. Temple complex includes 108 temples within high walls made of marble and sandstone. Main shrine double-storied building with pyramidal roof and beautifully carved tower. Sanctum houses four-faced black stone statue with Brahma facing west, Vishnu north, Shiva south and Surya east. Garlanded by silver snake. Later restructured by various kings.",
+    "approx_established_period": "734 CE",
+    "location": {
+      "city": "Eklingji",
+      "district": "Udaipur",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "24.6500",
+      "longitude": "73.6500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/rajasthan/eklingji-temple-udaipur.html"]
+    }
+  },
+  {
+    "site_id": "hindu_west_014",
+    "religion": "Hinduism",
+    "site_name": "Mahakaleshwar Temple",
+    "alternative_names": ["Mahakal Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahakaleshwar (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines; only Jyotirlinga facing south (Dakshinmukhi)",
+    "historical_significance": "Located in historical city of Ujjain in Madhya Pradesh on banks of holy Shipra river. Temple reconstructed in 12th century CE under King Udayaditya and King Naravarman. Maratha commander Ranoji Shinde under Peshwa Bajirao-I renovated in 18th century CE. According to Vedic texts, three main lingas in Trilok: Taarka Ling in heaven, Hatkeshwar Ling in hell, Mahakaleswar on earth. Unique Dakshinmukhi feature important for tantric practitioners.",
+    "approx_established_period": "12th century CE (major reconstruction)",
+    "location": {
+      "city": "Ujjain",
+      "district": "Ujjain",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "23.1765",
+      "longitude": "75.7685"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.artofliving.org/in-en/mahashivratri/mahakaleshwar-jyotirlinga"]
+    }
+  },
+  {
+    "site_id": "hindu_west_015",
+    "religion": "Hinduism",
+    "site_name": "Omkareshwar Temple",
+    "alternative_names": ["Amareshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Omkareshwar (Shiva)",
+    "canonical_or_religious_significance": "Fourth of the twelve Jyotirlinga shrines",
+    "historical_significance": "Situated on northern bank of Narmada River approximately 77 km from Indore. Glory mentioned in Skanda Purana, Shiva Purana and Vayu Purana. Two temples near each other: Amareshwar Jyotirlinga on mainland and Omkareshwar on island. Mandhata Island shaped like sacred Om symbol. Temple at meeting point of Narmada and Kaveri rivers. Island has total of 6 pilgrimages and 33 deities.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Omkareshwar",
+      "district": "Khandwa",
+      "state": "Madhya Pradesh",
+      "country": "India",
+      "latitude": "22.2394",
+      "longitude": "76.1469"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Omkareshwar_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_016",
+    "religion": "Hinduism",
+    "site_name": "Shani Shingnapur Temple",
+    "alternative_names": [],
+    "site_type": "Open Air Shrine",
+    "primary_figure_or_concept": "Shani (Saturn deity)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Ahmednagar district approximately 35 km from Shirdi. Five and half feet high black rock standing on platform believed to be swayambhu. In devotional tradition, shepherd found black stone in river during thunderstorm, Lord Shani appeared in dream instructing installation without shelter above. Idol stands uncovered under open sky. Village famous for houses without doors based on belief Shani protects from theft. Simplicity makes it extraordinary with only black stone idol on raised platform under sky.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Shani Shingnapur",
+      "district": "Ahmednagar",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.3800",
+      "longitude": "74.7100"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://maharashtratourism.gov.in/temple/shani-shinganapur/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_017",
+    "religion": "Hinduism",
+    "site_name": "Karni Mata Temple",
+    "alternative_names": ["Madh Deshnoke", "Temple of Rats"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Karni Mata",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Prominent temple at Deshnoke 30 km south of Bikaner. Most important pilgrimage site for devotees of Charani sagatis after access to Hinglaj restricted following partition. Famous for approximately 25,000 black rats called kabbas living and revered in temple. Many travel great distances to pay respects to holy rats. Marble structure with intricate carvings on main gate. Silver doors, gold umbrellas and silver vessels for rat prasad notable features.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Deshnoke",
+      "district": "Bikaner",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "27.7972",
+      "longitude": "73.3406"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Karni_Mata_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_018",
+    "religion": "Hinduism",
+    "site_name": "Swaminarayan Akshardham Gandhinagar",
+    "alternative_names": ["Akshardham Gandhinagar"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Swaminarayan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by BAPS over 13 years in capital of Gujarat. Tribute to Swaminarayan and his teachings. Center of 23-acre complex has Akshardham mandir built from 6,000 metric tons pink sandstone from Rajasthan. Name refers to divine abode of Swaminarayan in BAPS philosophy. Complex inaugurated early 1990s under guidance of Pramukh Swami Maharaj. Includes cultural exhibitions, gardens and water show.",
+    "approx_established_period": "1992",
+    "location": {
+      "city": "Gandhinagar",
+      "district": "Gandhinagar",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.2467",
+      "longitude": "72.6560"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Swaminarayan_Akshardham_(Gandhinagar)"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_019",
+    "religion": "Hinduism",
+    "site_name": "Jagannath Temple Ahmedabad",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Jagannath (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Prominent temple in Ahmedabad constructed by Sadhu Sarangdasji approximately 450 years ago. Primary venue for famous Rath Yatra chariot festival, second most prominent after Puri. In devotional tradition, Shri Hanuman Das Ji had vision of Lord Jagannath instructing to install idols of Jagannath, Baldevji and Subhadra. Temple houses cow shed. Opens daily 4:30 AM to 9:00 PM.",
+    "approx_established_period": "c. 16th century CE",
+    "location": {
+      "city": "Ahmedabad",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.0225",
+      "longitude": "72.5714"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/jagannath-temple-ahmedabad/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_020",
+    "religion": "Hinduism",
+    "site_name": "Mangeshi Temple",
+    "alternative_names": ["Shri Mangesh Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mangeshi (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located at Mangeshi village in Priol, Ponda taluk, 21 km from Panaji, 26 km from Margao. In 1560 when Portuguese started Christian conversions, Saraswats moved Mangesh Linga from original site at Cortalim to present location in Priol village ruled by Hindu kings of Sonde. Current structure built under Maratha rule 150 years after relocation. Peshwas donated village of Mangeshi to temple in 1739. 450-year-old temple features several domes, pilasters and balustrades. Prominent Nandi Bull and beautiful seven-story deepstambha. Magnificent water tank believed oldest part.",
+    "approx_established_period": "16th century CE (relocation), 18th century CE (current structure)",
+    "location": {
+      "city": "Priol",
+      "district": "North Goa",
+      "state": "Goa",
+      "country": "India",
+      "latitude": "15.4167",
+      "longitude": "73.9667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/manguesh-temple-goa/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_021",
+    "religion": "Hinduism",
+    "site_name": "Mayureshwar Temple Moregaon",
+    "alternative_names": ["Moreshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mayureshwar (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples; foremost among Ashtavinayak",
+    "historical_significance": "First temple visited in Ashtavinayak pilgrimage circuit. One of eight sacred Ganesha temples in Maharashtra spread across Pune, Raigad and Ahmednagar districts. Each temple has swayambhu idol with unique trunk direction, posture and features.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Moregaon",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.6167",
+      "longitude": "74.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ashtavinayaka"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_022",
+    "religion": "Hinduism",
+    "site_name": "Siddhivinayak Temple Siddhatek",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Siddhivinayak (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Second temple visited in Ashtavinayak Yatra according to Shastras. Only Ashtavinayak shrine in Ahmednagar district. Part of eight revered Ganesha shrines in Maharashtra.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Siddhatek",
+      "district": "Ahmednagar",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.8667",
+      "longitude": "74.7167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://shreeganesh.com/site/about/2686/ashtavinayaka-8-shrines-of-ganesha-in-maharashtra-india"]
+    }
+  },
+  {
+    "site_id": "hindu_west_023",
+    "religion": "Hinduism",
+    "site_name": "Ballaleshwar Temple Pali",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ballaleshwar (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples; only Ganesha incarnation known by devotee's name",
+    "historical_significance": "Located in Konkan area of Raigad district. Among Ashtavinayak temples, only incarnation known by devotee Ballal's name. Third temple in Ashtavinayak circuit.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Pali",
+      "district": "Raigad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.0833",
+      "longitude": "73.3500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://shreeganesh.com/site/about/2686/ashtavinayaka-8-shrines-of-ganesha-in-maharashtra-india"]
+    }
+  },
+  {
+    "site_id": "hindu_west_024",
+    "religion": "Hinduism",
+    "site_name": "Varadavinayak Temple Mahad",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Varadavinayak (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Fourth temple in Ashtavinayak pilgrimage. Located in Raigad district. Part of eight sacred Ganesha temples circuit in Maharashtra.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Mahad",
+      "district": "Raigad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.0833",
+      "longitude": "73.4167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ashtavinayaka"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_025",
+    "religion": "Hinduism",
+    "site_name": "Chintamani Temple Theur",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chintamani (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Fifth temple in Ashtavinayak circuit. Located in Pune district near Pune city. Part of eight revered Ganesha shrines.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Theur",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.6167",
+      "longitude": "74.0333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ashtavinayaka"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_026",
+    "religion": "Hinduism",
+    "site_name": "Girijatmaj Temple Lenyadri",
+    "alternative_names": ["Lenyadri Ganpati"],
+    "site_type": "Cave Temple",
+    "primary_figure_or_concept": "Girijatmaj (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Only Ashtavinayak temple located on mountain. Sixth temple in Ashtavinayak pilgrimage. Built in locale of Buddhist caves in Pune district. Girijatmaj means Parvati's son.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Lenyadri",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.1833",
+      "longitude": "73.8500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://shreeganesh.com/site/about/2686/ashtavinayaka-8-shrines-of-ganesha-in-maharashtra-india"]
+    }
+  },
+  {
+    "site_id": "hindu_west_027",
+    "religion": "Hinduism",
+    "site_name": "Vighnahar Temple Ozar",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vighnahar (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Seventh temple in Ashtavinayak circuit. Located in Pune district. Part of eight sacred Ganesha temples in Maharashtra.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ozar",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.1000",
+      "longitude": "73.9333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Ashtavinayaka"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_west_028",
+    "religion": "Hinduism",
+    "site_name": "Mahaganapati Temple Ranjangaon",
+    "alternative_names": ["Ranjangaon Ganpati"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahaganapati (Ganesha)",
+    "canonical_or_religious_significance": "One of the eight Ashtavinayak temples",
+    "historical_significance": "Eighth and final temple in Ashtavinayak pilgrimage circuit. Located in Shirur Taluka, Pune district. Idol represents Mahaganapati, most powerful representation of Ganesha. Famous for sweet Pedha prasad during Ganesh Jayanti.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ranjangaon",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.8667",
+      "longitude": "74.1333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://shreeganesh.com/site/about/2686/ashtavinayaka-8-shrines-of-ganesha-in-maharashtra-india"]
+    }
+  },
+  {
+    "site_id": "hindu_west_029",
+    "religion": "Hinduism",
+    "site_name": "Nageshwar Jyotirlinga",
+    "alternative_names": ["Nagnath Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Nageshwar (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines",
+    "historical_significance": "Located on route between Dwarka and Bet Dwarka near Gomti creek in Gujarat. Important Jyotirlinga shrine in Saurashtra region.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Dwarka",
+      "district": "Devbhoomi Dwarka",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.2667",
+      "longitude": "68.9500"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.myyatradiary.com/2024/08/2-jyotirlingas-in-gujarat-list-itinerary-map-tour-package.html"]
+    }
+  },
+  {
+    "site_id": "hindu_west_030",
+    "religion": "Hinduism",
+    "site_name": "Becharaji Temple",
+    "alternative_names": ["Bahucharaji Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bahucharaji (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Shakti temple in Gujarat. Important pilgrimage site in Mehsana district. Temple dedicated to Goddess Bahucharaji form of Durga.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Becharaji",
+      "district": "Mehsana",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.6167",
+      "longitude": "72.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_031",
+    "religion": "Hinduism",
+    "site_name": "Rukmini Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rukmini",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple dedicated to Rukmini, consort of Krishna, located approximately 2 km from Dwarka. Important temple associated with Krishna legend in Gujarat.",
+    "approx_established_period": "12th century CE",
+    "location": {
+      "city": "Dwarka",
+      "district": "Devbhoomi Dwarka",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.2333",
+      "longitude": "68.9667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_032",
+    "religion": "Hinduism",
+    "site_name": "Gopinath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Gopinath (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple located at Bet Dwarka island near Dwarka. In devotional tradition, place where Krishna played with Gopis. Accessible by boat from Okha.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Bet Dwarka",
+      "district": "Devbhoomi Dwarka",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.4167",
+      "longitude": "69.1167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_033",
+    "religion": "Hinduism",
+    "site_name": "Shantadurga Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shantadurga (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Durga temple in Goa. Most popular temple in Goa region. Located in Ponda. Temple features typical Goan Hindu architecture.",
+    "approx_established_period": "18th century CE (current structure)",
+    "location": {
+      "city": "Kavlem",
+      "district": "South Goa",
+      "state": "Goa",
+      "country": "India",
+      "latitude": "15.3833",
+      "longitude": "74.0000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/manguesh-temple-goa/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_034",
+    "religion": "Hinduism",
+    "site_name": "Mahalsa Narayani Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mahalsa (Mohini, Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Important temple in Goa dedicated to Mahalsa form of Mohini avatar of Vishnu. Located in Mardol, Ponda. One of principal deities of Goan Hindus.",
+    "approx_established_period": "18th century CE (current structure)",
+    "location": {
+      "city": "Mardol",
+      "district": "North Goa",
+      "state": "Goa",
+      "country": "India",
+      "latitude": "15.4167",
+      "longitude": "73.9500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.travelogyindia.com/goa/shri-mangueshi-temple.html"]
+    }
+  },
+  {
+    "site_id": "hindu_west_035",
+    "religion": "Hinduism",
+    "site_name": "Nagueshi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Nagueshi (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Important Shiva temple in Goa. Located near Mangeshi in Ponda taluk. One of principal temples in Goa featuring typical Goan architecture with deepstambha.",
+    "approx_established_period": "18th century CE (current structure)",
+    "location": {
+      "city": "Bandora",
+      "district": "North Goa",
+      "state": "Goa",
+      "country": "India",
+      "latitude": "15.3833",
+      "longitude": "73.9667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.templepurohit.com/hindu-temple/manguesh-temple-goa/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_036",
+    "religion": "Hinduism",
+    "site_name": "Savitri Temple Pushkar",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Savitri (Brahma's consort)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple located on Ratnagiri hill, popular pilgrimage site. Dedicated to Goddess Savitri. In devotional tradition, houses idols of both wives of Brahma: Savitri and Gayatri. Savitri worshipped first per tradition. Accessible by trekking 200 stairs or cable car. Ropeway ride offers view of Pushkar city.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Pushkar",
+      "district": "Ajmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.4900",
+      "longitude": "74.5400"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourmyindia.com/states/rajasthan/savitri-temple-pushkar.html"]
+    }
+  },
+  {
+    "site_id": "hindu_west_037",
+    "religion": "Hinduism",
+    "site_name": "Jalore Fort Temple",
+    "alternative_names": ["Suvarnagiri Fort"],
+    "site_type": "Fort Temple Complex",
+    "primary_figure_or_concept": "Various deities",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient hill fort with temples in Jalore district Rajasthan. Important historical and religious site. Fort contains temples dedicated to various deities.",
+    "approx_established_period": "8th-12th century CE",
+    "location": {
+      "city": "Jalore",
+      "district": "Jalore",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "25.3500",
+      "longitude": "72.6167"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://indiasomeday.com/en/popular-places-of-worship-in-rajasthan/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_038",
+    "religion": "Hinduism",
+    "site_name": "Tanot Mata Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Tanot Mata (Hinglaj)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple located near India-Pakistan border in Jaisalmer district. Famous for miraculous protection during 1965 and 1971 wars when bombs failed to explode. Managed by Border Security Force. Important pilgrimage site in desert region.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Tanot",
+      "district": "Jaisalmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "27.8833",
+      "longitude": "70.8833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://indiasomeday.com/en/popular-places-of-worship-in-rajasthan/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_039",
+    "religion": "Hinduism",
+    "site_name": "Osian Temples",
+    "alternative_names": ["Osiyan Temples"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Various deities (Vishnu, Shiva, Surya)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Group of ancient temples 65 km from Jodhpur. Important archaeological site with temples from 8th-12th century CE. Includes Hindu and Jain temples featuring Pratihara architecture.",
+    "approx_established_period": "8th-12th century CE",
+    "location": {
+      "city": "Osian",
+      "district": "Jodhpur",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.7333",
+      "longitude": "72.9000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://indiasomeday.com/en/popular-places-of-worship-in-rajasthan/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_040",
+    "religion": "Hinduism",
+    "site_name": "Neelkanth Mahadev Temple Alwar",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Neelkanth (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Shiva temple in Sariska Tiger Reserve area of Alwar district. Located amidst natural surroundings. Important pilgrimage site especially during Mahashivratri.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Sariska",
+      "district": "Alwar",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "27.2833",
+      "longitude": "76.4167"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://indiasomeday.com/en/popular-places-of-worship-in-rajasthan/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_041",
+    "religion": "Hinduism",
+    "site_name": "Ranchhodraiji Temple Dakor",
+    "alternative_names": ["Dakor Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ranchhodraiji (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major Krishna temple in Gujarat. Important Vaishnavite pilgrimage center in Kheda district. Temple associated with legend of Bodana, devotee who brought idol from Dwarka. Celebrates major festivals including Janmashtami.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Dakor",
+      "district": "Kheda",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "22.7500",
+      "longitude": "73.1500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_042",
+    "religion": "Hinduism",
+    "site_name": "Shamlaji Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shamlaji (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient Vishnu temple on banks of Meshwo River in Aravalli district Gujarat. Black marble idol of Shamlaji. Important tribal pilgrimage center. Temple fair attracts devotees during Kartik Purnima.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Shamlaji",
+      "district": "Aravalli",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "23.6167",
+      "longitude": "73.0667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_043",
+    "religion": "Hinduism",
+    "site_name": "Kirti Mandir Porbandar",
+    "alternative_names": [],
+    "site_type": "Memorial Temple",
+    "primary_figure_or_concept": "Mahatma Gandhi memorial",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Memorial temple at birthplace of Mahatma Gandhi in Porbandar built in 1950. Houses Gandhi museum and ancestral home. Important national heritage site.",
+    "approx_established_period": "1950",
+    "location": {
+      "city": "Porbandar",
+      "district": "Porbandar",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "21.6417",
+      "longitude": "69.6293"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_044",
+    "religion": "Hinduism",
+    "site_name": "Tulsi Shyam Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Tulsi Shyam (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ancient temple located in Danta taluka of Banaskantha district. Known for hot water springs. Temple surrounded by hills. Important pilgrimage site in North Gujarat.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Danta",
+      "district": "Banaskantha",
+      "state": "Gujarat",
+      "country": "India",
+      "latitude": "24.2000",
+      "longitude": "72.7667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.gujaratexpert.com/blog/temples-of-gujarat/"]
+    }
+  },
+  {
+    "site_id": "hindu_west_045",
+    "religion": "Hinduism",
+    "site_name": "Tulja Bhavani Temple",
+    "alternative_names": ["Tuljapur Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Tulja Bhavani (Durga)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers of Shakti Peethas",
+    "historical_significance": "Important Shakti temple in Osmanabad district Maharashtra. Tulja Bhavani considered family deity of Bhosale dynasty including Chhatrapati Shivaji Maharaj. Major pilgrimage center in Maharashtra.",
+    "approx_established_period": "12th century CE",
+    "location": {
+      "city": "Tuljapur",
+      "district": "Osmanabad",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.0167",
+      "longitude": "76.0667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  },
+  {
+    "site_id": "hindu_west_046",
+    "religion": "Hinduism",
+    "site_name": "Jejuri Khandoba Temple",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Khandoba (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Important temple in Pune district dedicated to Khandoba form of Shiva. Family deity of many Maratha clans. Located on hill requiring climb of approximately 200 steps. Famous for yellow turmeric powder offered to deity.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Jejuri",
+      "district": "Pune",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "18.2833",
+      "longitude": "74.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  },
+  {
+    "site_id": "hindu_west_047",
+    "religion": "Hinduism",
+    "site_name": "Mahur Renuka Devi Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Renuka Devi (Shakti)",
+    "canonical_or_religious_significance": "One of the three and half Shakti Peethas in Maharashtra",
+    "historical_significance": "Located in Nanded district. One of three and half Shakti Peethas in Maharashtra with special religious importance. Important pilgrimage site in Marathwada region.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Mahur",
+      "district": "Nanded",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.0833",
+      "longitude": "77.5833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  },
+  {
+    "site_id": "hindu_west_048",
+    "religion": "Hinduism",
+    "site_name": "Saptashrungi Temple",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Saptashrungi Nivasini (Durga)",
+    "canonical_or_religious_significance": "One of the three and half Shakti Peethas in Maharashtra",
+    "historical_significance": "Located on seventh peak of Sahyadri ranges in Nashik district. One of three and half Shakti Peethas in Maharashtra. Temple requires climb of approximately 500 steps. Major pilgrimage during Navratri.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Vani",
+      "district": "Nashik",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "20.4167",
+      "longitude": "74.0833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  },
+  {
+    "site_id": "hindu_west_049",
+    "religion": "Hinduism",
+    "site_name": "Aundha Nagnath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Nagnath (Shiva)",
+    "canonical_or_religious_significance": "One of the twelve Jyotirlinga shrines",
+    "historical_significance": "Located in Hingoli district Maharashtra. One of twelve Jyotirlingas with ancient history. Temple features Hemadpanthi architectural style. Important pilgrimage center in Marathwada.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Aundha Nagnath",
+      "district": "Hingoli",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "19.5333",
+      "longitude": "77.0333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  },
+  {
+    "site_id": "hindu_west_050",
+    "religion": "Hinduism",
+    "site_name": "Parashuram Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Parashuram (Vishnu avatar)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Chiplun, Ratnagiri district Maharashtra. One of few temples dedicated to Parashuram, sixth avatar of Vishnu. Temple situated on banks of Vashishti river in Konkan region.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Chiplun",
+      "district": "Ratnagiri",
+      "state": "Maharashtra",
+      "country": "India",
+      "latitude": "17.5333",
+      "longitude": "73.5167"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/maharashtra/pilgrimages"]
+    }
+  }
+]

@@ -1,0 +1,362 @@
+[
+  {
+    "site_id": "islam_east_001",
+    "religion": "Islam",
+    "site_name": "Adina Mosque",
+    "alternative_names": ["Adina Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Royal congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historical mosque in Malda District, West Bengal. Largest structure of its kind in Indian subcontinent during Bengal Sultanate period. Built by Sikandar Shah who also buried inside. Mosque situated in Pandua, former royal capital. Inscriptions on mosque proclaimed Sikandar Shah as exalted Sultan and Caliph of faithful. Sultan buried in tomb chamber attached to wall facing direction of Mecca. Mosque located in historic city of Pandua, thriving and cosmopolitan trading center during period of sultanate. Total area about 500-metre-long and 300-metre-wide with 260 pillars and 387 domed bay. Stated to be similar in plan to Great Mosque of Damascus. Consists of bricks designed with stones. Built by Sikandar Shah in 14th century, second sultan of Ilyas dynasty. Was largest mosque in India at that time. Walls and doors have carvings of Hindu deities showing architectural material from earlier structures was used.",
+    "approx_established_period": "1364-1375",
+    "location": {
+      "city": "Pandua",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.1523",
+      "longitude": "88.1647"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Adina_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_002",
+    "religion": "Islam",
+    "site_name": "Hooghly Imambara",
+    "alternative_names": [],
+    "site_type": "Imambara and Mosque",
+    "primary_figure_or_concept": "Twelver Shia congregation hall",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Twelver Shia congregation hall and mosque located in Hooghly, West Bengal. Construction of building started by Muhammad Mohsin in 1841 and completed in 1861. Building two-storied structure with tall clock tower over entrance gate. Mosque has intricate designs and texts from Quran engraved on wall. Interior of mosque decorated with marbles, candles and hanging lanterns. Important Shia Muslim religious site in West Bengal.",
+    "approx_established_period": "1841-1861",
+    "location": {
+      "city": "Hooghly",
+      "district": "Hooghly",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.9042",
+      "longitude": "88.3984"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Hooghly_Imambara"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_003",
+    "religion": "Islam",
+    "site_name": "Qadam Rasul Mosque",
+    "alternative_names": ["Kadam Rasul Mosque"],
+    "site_type": "Mosque and Shrine",
+    "primary_figure_or_concept": "Mosque housing relic",
+    "canonical_or_religious_significance": "In Islamic tradition, houses stone tablet believed to bear footprint of Prophet Muhammad",
+    "historical_significance": "Built 1530-1531 by Sultan Nusrat Shah (r. 1519-1533) in ancient city of Gaur. Historic single-domed mosque. Mosque set amidst lush garden. Significant heritage and cultural site maintained by Archaeological Survey of India. Single-domed square structure built by Sultan Nusrat Shah in 1530 to enshrine stone tablet. In local tradition, footprint came from Khanqah of 13th century saint Jalaluddin Tabrizi of Pandua and was moved to Lakhnauti (Gaur) by Sultan Alauddin Husain Shah. Some examples of similar shrines housing claimed footprint impressions are in Delhi and Cuttack, India and displays in Topkapi Palace and Eyup Sultan Mosque at Istanbul, Turkey. Four corners have towers built of black stone with spires having intricate designs. Made of bricks which still carry traces of ornamented brick work. In front of Mosque are rest shelters which are in ruins.",
+    "approx_established_period": "1530-1531",
+    "location": {
+      "city": "Gaur",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.0000",
+      "longitude": "88.1667"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Qadam_Rasul_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_004",
+    "religion": "Islam",
+    "site_name": "Tantipara Mosque",
+    "alternative_names": ["Tantipada Mosque", "Tantipura Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located between Lattan Mosque on south and Chhota Sagardighi on north within mud-walled city of Gaur, now in district of Malda, West Bengal. Mirsad Khan, high ranking noble of Sultan Yusuf Shah, erected building according to inscription in 1480. One of prettiest mosques in ruined capital built by Sultans of Bengal. Considering graceful ornamentation and perfection of architectural details mosque regarded as finest edifice in Gaur. Important example of Bengal Sultanate architecture.",
+    "approx_established_period": "1480",
+    "location": {
+      "city": "Gaur",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.0000",
+      "longitude": "88.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://en.banglapedia.org/index.php/Tantipada_Mosque"]
+    }
+  },
+  {
+    "site_id": "islam_east_005",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Patna",
+    "alternative_names": ["Sir Fakhruddin Masjid"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Prominent mosque located in Patna, Bihar. Stands as key landmark in Patna reflecting religious heritage of region. Located near New Market at Patna Junction. Pre-existing mosque near Patna Railway Junction reconstructed by Sir Muhammad Fakhruddin, Bihar's first education minister, who spent 20,000-25,000 rupees from personal funds to rebuild mosque during 1920s era. For long time mosque called 'Sir Fakhruddin Masjid'. Sir Fakhruddin served as member of Bihar and Orissa Legislative Council and minister of education 1921-1933. Important religious site in Patna.",
+    "approx_established_period": "1920s reconstruction",
+    "location": {
+      "city": "Patna",
+      "district": "Patna",
+      "state": "Bihar",
+      "country": "India",
+      "latitude": "25.6093",
+      "longitude": "85.1376"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mpositive.in/tag/jama-masjid-of-patna/"]
+    }
+  },
+  {
+    "site_id": "islam_east_006",
+    "religion": "Islam",
+    "site_name": "Tomb of Sher Shah Suri",
+    "alternative_names": ["Sher Shah Suri Mausoleum"],
+    "site_type": "Tomb",
+    "primary_figure_or_concept": "Tomb of Sher Shah Suri",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mausoleum located in Sasaram in state of Bihar. Sher Shah Suri, founder of Sur Empire, commissioned tomb for himself. Completed 16 August 1545, about three months after his death. Tomb commissioned by Sher Shah during lifetime, possibly in 1542. Three months before completion of tomb, Sher Shah died 22 May 1545 in accidental gunpowder explosion outside Kalinjar Fort whose siege he had been leading. Construction continued during reign of Islam Shah Suri. At time of completion, was largest mausoleum in all of India. Majestic example of ancient architecture. Has elements of Indo-Islamic architecture which include large open courtyards, high domes, and pillars with hints of Afghan architecture. Three-storeyed high mausoleum approximately one hundred twenty-two feet. Stands in middle of artificial square-shaped lake. Architectural masterpiece. Surrounded by large water tank. Showcases grandeur of Suri dynasty. Intricate carvings, symmetry and historical relevance make it key attraction.",
+    "approx_established_period": "1542-1545",
+    "location": {
+      "city": "Sasaram",
+      "district": "Rohtas",
+      "state": "Bihar",
+      "country": "India",
+      "latitude": "24.9481",
+      "longitude": "84.0092"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Tomb_of_Sher_Shah_Suri"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_007",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Murshidabad",
+    "alternative_names": ["Kala Masjid", "Motijheel Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Friday mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Friday mosque located on western bank of Motijhil in historical city of Murshidabad, West Bengal. Built by Nawajish Muhammad Khan in 1749-50. Construction date mentioned in Persian inscription embedded in wall of mosque. Mosque rectangular in plan and has three domes. Mosque rests on several octagonal drums which are plain and devoid of any decoration. Domes crowned by lotus and kalasha (pot) finials. Has four octagonal minarets at four corners which taper upwards and topped by bulbous kiosks supported on slender pillars. Minaret shafts decorated. Facade also ornamented. Three arched doorways on east open to prayer hall. Copy of Quran calligraphed by Nawazish Muhammad Khan himself kept preserved inside mosque. Plinth area of mosque 5986 square feet.",
+    "approx_established_period": "1749-1750",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1833",
+      "longitude": "88.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jama_Masjid,_Motijheel"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_008",
+    "religion": "Islam",
+    "site_name": "Pathar Ki Masjid",
+    "alternative_names": ["Stone Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Stands on bank of river Ganges near Takht Shri Harmandir Saheb in city of Patna. Established by Parviz Mirza, son of Jahangir, in 1621. Structure made of stone, hence name Pathar Ki Masjid (Stone Mosque). Important historical mosque in Patna. Mughal period architecture. Structure built entirely of stone setting it apart from other mosques of period.",
+    "approx_established_period": "1621",
+    "location": {
+      "city": "Patna",
+      "district": "Patna",
+      "state": "Bihar",
+      "country": "India",
+      "latitude": "25.6200",
+      "longitude": "85.1376"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_009",
+    "religion": "Islam",
+    "site_name": "Eklakhi Mausoleum",
+    "alternative_names": [],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Sultan Jalaluddin Muhammad Shah",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mausoleum located at Pandua in Malda district, West Bengal. Built around 1425. Houses three tombs, possibly belonging to Sultan Jalaluddin Muhammad Shah, his wife, and son Shamsuddin Ahmad Shah, but identification disputed. Structure represents village hut with sloping roof and serves as prototype for various other buildings constructed during Bengal Sultanate. Gets name from reputed 1 lakh (100,000 rupees) cost of building it back in 1431. Domed brick square with octagonal interior chamber and exquisite tile and brick ornamentation on outside. Large beautiful structure. Important example of Bengal Sultanate architecture.",
+    "approx_established_period": "1425-1431",
+    "location": {
+      "city": "Pandua",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.1523",
+      "longitude": "88.1647"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Eklakhi_Mausoleum"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_010",
+    "religion": "Islam",
+    "site_name": "Nizamat Imambara",
+    "alternative_names": ["Nizamat Kila"],
+    "site_type": "Imambara",
+    "primary_figure_or_concept": "Shia congregation hall",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Shi'ite imambara (congregation hall) located in Murshidabad, West Bengal. Present Nizamat Imambara built in 1847 by Nawab Mansur Ali Khan. Built after old Imambara built by Nawab Siraj ud-Daulah destroyed by fires of 1842 and 1846. Largest Imambara in India and Bengal. Shia Muslim congregation hall based in Murshidabad. Stands parallel to north face of Hazarduari Palace. Religious and historical site for Shias. Structure founded by Siraj-ud-Daula (1733-1757), Nawab of Mughal Empire in Bengal. In 1846 Imambara destroyed due to fire. Nawab Mansur Ali Khan Bahadur (1830-1884) reconstructed building in 1847. Imambara congregation hall for Shia commemoration ceremonies, especially those associated with remembrance of Muharram. Opens only during first ten days of Muharram. Contains breathtaking chandeliers and largest cannon in India displayed on grounds.",
+    "approx_established_period": "1740, rebuilt 1847",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1883",
+      "longitude": "88.2686"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Nizamat_Imambara"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_011",
+    "religion": "Islam",
+    "site_name": "Firoz Minar",
+    "alternative_names": ["Firuz Minar"],
+    "site_type": "Victory Tower",
+    "primary_figure_or_concept": "Victory monument",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Five-storeyed tower situated at Gaur, West Bengal. Built by Sultan Saifuddin Firuz Shah of Habshi dynasty between 1485 and 1489. Built in Tughlaqi style of architecture. Although first three storeys dodecagonal, final two circular in shape. Located one kilometre away from Dakhil Darwaza at city of Gaur. Gaur at distance of 16 kilometres from city of Malda. Tower commemorates Firuz Shah's victories in battlefield. Colloquially tower referred to as Pir Asa Mandir and Chiragh Dani. Five-storey-high structure estimated built in Gaur during late 15th century by Saifuddin Firuz Shah, most revered of Habshi rulers of Bengal. Much like Qutub Minar to which often compared, structure built to be victory tower.",
+    "approx_established_period": "1485-1489",
+    "location": {
+      "city": "Gaur",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.0000",
+      "longitude": "88.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Firoz_Minar"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_012",
+    "religion": "Islam",
+    "site_name": "Dakhil Darwaza",
+    "alternative_names": ["Salami Darwaza"],
+    "site_type": "Gateway",
+    "primary_figure_or_concept": "Fortification gateway",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Grand 15th-16th century gateway located in Gaur, Malda district, West Bengal. Served as main northern entrance to citadel of Lakhnauti, capital of Bengal Sultanate. Constructed primarily with red bricks and terracotta, often attributed to Hussain Shahi dynasty (c. 1494-1538). Exemplifies Bengal style of architecture blending Islamic and regional elements. Gateway also called Salami Darwaza due to cannons fired from it as salute. Remains significant historical monument protected by Archaeological Survey of India. Largest structure of its kind in architectural history of Sultanate Bengal. Main entrance to citadel of Lakhnauti, Muslim name of Gaur. Gateway most solid and most elegant entrance portal ever erected in Bengal.",
+    "approx_established_period": "1494-1538",
+    "location": {
+      "city": "Gaur",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.0000",
+      "longitude": "88.1667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Dakhil_Darwaza"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_013",
+    "religion": "Islam",
+    "site_name": "Katra Masjid Murshidabad",
+    "alternative_names": [],
+    "site_type": "Caravanserai, Mosque and Tomb",
+    "primary_figure_or_concept": "Tomb of Nawab Murshid Quli Khan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built between 1723 and 1724 by Nawab Murshid Quli Khan. Significant religious site showcasing unique blend of Indo-Islamic architecture. One of largest caravanserais in Indian subcontinent. Exceptional black basalt pillars and wonderfully crafted domes make it true visual delight. Pink facade glows in soft light especially during sunset. Oldest and most imposing Islamic structure in Murshidabad. Mosque originally had five domes of which central three have collapsed. Important example of early 18th century Bengal architecture.",
+    "approx_established_period": "1723-1724",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1833",
+      "longitude": "88.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Katra_Masjid"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_014",
+    "religion": "Islam",
+    "site_name": "Yellow Mosque Murshidabad",
+    "alternative_names": ["Zurud Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Situated in Hazarduari Palace complex at Murshidabad, West Bengal. Said to have been built by Nawab Siraj ud-Daulah in 1756-57. Located in Hazarduari Palace complex on banks of Bhagirathi River. Important mosque from Nawabi period. Part of historic complex of Murshidabad. Monument of National Importance recognized by Archaeological Survey of India.",
+    "approx_established_period": "1756-1757",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1883",
+      "longitude": "88.2686"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Yellow_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_east_015",
+    "religion": "Islam",
+    "site_name": "Hazarduari Palace",
+    "alternative_names": ["Bara Kothi", "Palace of Thousand Doors"],
+    "site_type": "Palace with Mosque Complex",
+    "primary_figure_or_concept": "Royal palace",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Former palace and now national monument and public cultural museum located in campus of Kila Nizamat in Murshidabad, West Bengal. Situated near bank of river Ganges. Based on designs by Colonel Duncan McLeod, palace built in nineteenth-century Neoclassical Italianate style with Doric order influences by Nawab Nazim Humayun Jah, Nawab of Bengal, Bihar and Orissa between 1824 and 1838. Located adjacent to palace are Nizamat Imambara, Murshidabad Clock Tower, both old and new Madina Mosque, Chawk Masjid, Bacchawali Tope, Shia complex, Wasif Manzil, two Zurud Mosques and Nizamat College. Famously known as palace with thousand doors. Once residence of Nawabs, palace now serves as museum featuring impressive collection of artworks, weapons, artefacts and historical relics. 100 doors of palace out of 1000 falsely built to leave robbers muddled and get caught by guards easily.",
+    "approx_established_period": "1824-1838",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1883",
+      "longitude": "88.2686"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Hazarduari_Palace"],
+      "secondary": []
+    }
+  }
+]

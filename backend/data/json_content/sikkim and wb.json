@@ -1,0 +1,89 @@
+{
+  "region": "Sikkim & West Bengal",
+  "treks": [
+    {
+      "name": "Goechala Trek",
+      "tagline": "The closest you can get to Mt. Kanchenjunga without climbing it",
+      "difficulty": "Difficult",
+      "duration": {
+        "days": 10,
+        "distance_km": 73
+      },
+      "basecamp": {
+        "location": "Yuksom",
+        "state": "Sikkim"
+      },
+      "accommodation": [
+        "Tents"
+      ],
+      "altitude": {
+        "highest_ft": 15100
+      },
+      "fitness_criteria": {
+        "requirement": "10 km in 60 minutes"
+      },
+      "logistics": {
+        "pickup": {
+          "location": "2 Mile Check Post, Bhakti Nagar Police Station",
+          "time": "09:00"
+        },
+        "dropoff": {
+          "location": "2 Mile Check Post, Bhakti Nagar Police Station",
+          "time": "17:00"
+        }
+      },
+      "eligibility": {
+        "minimum_age": 15
+      },
+      "facilities": {
+        "gear_rentals": true,
+        "cloakroom": true,
+        "offloading": true
+      }
+    },
+    {
+      "name": "Sandakphu Phalut Trek",
+      "tagline": "Trek alongside the Sleeping Buddha and 5 highest summits of the world",
+      "difficulty": "Moderate",
+      "duration": {
+        "days": 7,
+        "distance_km": 68
+      },
+      "basecamp": {
+        "location": "Sepi",
+        "state": [
+          "West Bengal",
+          "Sikkim"
+        ]
+      },
+      "accommodation": [
+        "Gender-specific tea houses",
+        "Tents"
+      ],
+      "altitude": {
+        "highest_ft": 11930
+      },
+      "fitness_criteria": {
+        "requirement": "5 km in 35 minutes"
+      },
+      "logistics": {
+        "pickup": {
+          "location": "Bhakti Nagar Police Station, Siliguri",
+          "time": "09:00"
+        },
+        "dropoff": {
+          "location": "Bhakti Nagar Police Station, Siliguri",
+          "time": "21:00"
+        }
+      },
+      "eligibility": {
+        "minimum_age": 11
+      },
+      "facilities": {
+        "gear_rentals": true,
+        "cloakroom": true,
+        "offloading": true
+      }
+    }
+  ]
+}

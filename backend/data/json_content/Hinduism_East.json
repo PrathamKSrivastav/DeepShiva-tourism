@@ -1,0 +1,1178 @@
+[
+  {
+    "site_id": "hindu_east_001",
+    "religion": "Hinduism",
+    "site_name": "Jagannath Temple",
+    "alternative_names": ["Puri Jagannath Temple", "Shri Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Jagannath (Vishnu-Krishna)",
+    "canonical_or_religious_significance": "One of the four Char Dham pilgrimage sites; one of 108 Abhimana Kshethram of Sri Vaishnavism",
+    "historical_significance": "Present structure rebuilt from 11th century CE onwards by Anantavarman Chodaganga, first ruler of Eastern Ganga dynasty. Temple construction completed or renovated during reign of his son Anangabhima in 12th century. Temple chronicles record eighteen invasions and plundering. Famous for annual Ratha Yatra festival. Unique wooden deities replaced every 12 or 19 years through Nabakalebara ceremony. Tower rises 65 meters above inner sanctum. Complex contains over 120 temples and shrines covering 400,000 square feet enclosed by Meghanada Pacheri wall 6.1 meters high. Temple kitchen is second largest in world.",
+    "approx_established_period": "11th-12th century CE",
+    "location": {
+      "city": "Puri",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.8047",
+      "longitude": "85.8183"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jagannath_Temple,_Puri"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_002",
+    "religion": "Hinduism",
+    "site_name": "Lingaraja Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Lingaraja (Shiva as Harihara)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Largest temple in Bhubaneswar with central tower 180 feet tall. Represents quintessence of Kalinga architecture culminating medieval stages of architectural tradition. Built by kings from Somavamsi dynasty with later additions from Ganga rulers in 11th century CE. Temple construction initiated by Jajati Keshari. In devotional tradition, deity originally worshipped under mango tree (Ekamra) as noted in 13th century Ekamra Purana. Temple complex has 108 other shrines enclosed by large compound wall. Built in Deula style with four components: vimana, jagamohana, natamandira and bhoga-mandapa. Receives average 6,000 visitors daily; Shivaratri 2012 witnessed 200,000 visitors. Active worship center unlike most ancient Bhubaneswar temples.",
+    "approx_established_period": "11th century CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2383",
+      "longitude": "85.8336"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Lingaraja_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_003",
+    "religion": "Hinduism",
+    "site_name": "Konark Sun Temple",
+    "alternative_names": ["Surya Devalaya", "Black Pagoda"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Surya (Sun God)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 13th century CE by King Narasimha Deva I of Eastern Ganga Dynasty celebrating military successes and naval victories. Pinnacle of Odisha temple architecture and UNESCO World Heritage Site since 1984. Structure features 24 colossal wheels and meticulously carved horses. Location already renowned as sacred site for sun god worship before temple construction. Maintained by Archaeological Survey of India. Represents culmination of seven hundred years of architectural refinement.",
+    "approx_established_period": "13th century CE",
+    "location": {
+      "city": "Konark",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.8876",
+      "longitude": "86.0945"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in/content/tourism/en/discover/attractions/temples-monuments/konark.html"]
+    }
+  },
+  {
+    "site_id": "hindu_east_004",
+    "religion": "Hinduism",
+    "site_name": "Kamakhya Temple",
+    "alternative_names": ["Kamakhya Mandir"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Kamakhya (Shakti)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers and body parts of Shakti Peethas",
+    "historical_significance": "Most important pilgrimage site considered one of sacred Shakti Peethas. Located at Nilachal Hill in Guwahati. Complex includes temples dedicated to Mahavidyas and other forms of goddess, as well as Shiva, Ganesha and Vishnu. Considered vibrant center for Shakta Tantrism known for unique form of Kulachara Tantra Marga. Ancient temples complex preserving traditional worship and rituals. Millions of devotees visit annually from around world.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Guwahati",
+      "district": "Kamrup Metropolitan",
+      "state": "Assam",
+      "country": "India",
+      "latitude": "26.1664",
+      "longitude": "91.7055"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://kamakhya.org/home/"]
+    }
+  },
+  {
+    "site_id": "hindu_east_005",
+    "religion": "Hinduism",
+    "site_name": "Dakshineswar Kali Temple",
+    "alternative_names": ["Dakshineswar Kalibari"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhavatarini (Kali)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Navaratna style temple on eastern bank of Hooghly River in Kolkata. Construction took 8 years. Temple formally inaugurated 31 May 1855 on sacred snana-yatra day when idols were installed. One hundred thousand Brahmins graced festivities. Formally named Sri Sri Jagadishwari Mahakali temple. Garbha Griha houses idol of Kali/Bhavatarini standing on Shiva's chest, both placed on thousand-petaled lotus of pure silver. Courtyard contains 12 smaller shrines each dedicated to Shiva with Shivlinga carved from black stone depicting Aat Chala Bengali architecture. Complex also holds idols of Radha and Krishna in Radha Kanta temple. Famous as residence of Ramakrishna Paramahamsa.",
+    "approx_established_period": "1855",
+    "location": {
+      "city": "Kolkata",
+      "district": "North 24 Parganas",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.6547",
+      "longitude": "88.3589"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Dakshineswar_Kali_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_006",
+    "religion": "Hinduism",
+    "site_name": "Kalighat Kali Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kalika (Kali)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers and body parts of Shakti Peethas",
+    "historical_significance": "Located on banks of Adi Ganga canal connecting to Hooghly River. Adi Ganga was original course of Hooghly River. Presiding deity Kalika gave name to city Kolkata. Present structure completed 1809 under patronage of Sabarna Roy Chowdhury family. Temple has sanctum sanctorum with huge hall named Nat Mandir. One of most important pilgrimage sites in India.",
+    "approx_established_period": "1809 (present structure)",
+    "location": {
+      "city": "Kolkata",
+      "district": "Kolkata",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.5186",
+      "longitude": "88.3426"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://kolkatatourism.travel/kalighat-kali-temple-kolkata"]
+    }
+  },
+  {
+    "site_id": "hindu_east_007",
+    "religion": "Hinduism",
+    "site_name": "Vishnupad Temple",
+    "alternative_names": ["Vishnupad Mandir"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vishnu",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Temple erected in 1787 by Queen Ahilyabai Holkar. Beautiful sacred place on banks of Phalgu River surrounded by rugged rocks on three sides and water on fourth. Ancient shrine famous for sacred 40 cm footprint of Vishnu enshrined in rock. In devotional tradition, represents Vishnu subduing demon Gayasura by placing foot on his chest. Footprint imprinted in solid rock surrounded by silver-plated basin. Major site for performing Pind Daan, Hindu ritual for salvation of ancestors. Gaya mentioned in Ramayana and Mahabharata. Site witnessed enlightenment of Gautama Buddha. 1000 stone steps lead to top of Brahmajuni hill on southwest giving view of Gaya city and temple.",
+    "approx_established_period": "1787",
+    "location": {
+      "city": "Gaya",
+      "district": "Gaya",
+      "state": "Bihar",
+      "country": "India",
+      "latitude": "24.7500",
+      "longitude": "84.9833"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Vishnupad_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_008",
+    "religion": "Hinduism",
+    "site_name": "Baidyanath Temple",
+    "alternative_names": ["Baba Baidyanath Dham", "Vaidyanath Jyotirlinga"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Baidyanath (Shiva)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Jyotirlinga shrine; disputed with Vaijnath temple at Parli, Maharashtra; considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers and locations",
+    "historical_significance": "Located in Deoghar in Santhal Parganas division. Temple complex consisting of main temple where Jyotirlinga installed and 21 other temples. In devotional tradition, demon king Ravana worshipped Shiva at current site. Annual Kanwar Yatra witnesses millions of devotees fetching holy waters from Ganges at Sultanganj (108 km away) to offer at temple. Baidyanatham identified as being in Chidabhoomi, ancient name of Deoghar. Same shrine considered Shakti Peetha in tradition. Temple doors open 4 AM with Sarkari Pooja by head priest. Unique feature allows devotees to offer Abhishek directly on Jyotirlinga.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Deoghar",
+      "district": "Deoghar",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "24.4833",
+      "longitude": "86.7000"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Baidyanath_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_009",
+    "religion": "Hinduism",
+    "site_name": "Tarapith Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Tara (Kali)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; Siddha Pith granting enlightenment and siddhis; various texts cite differing numbers and body parts of Shakti Peethas",
+    "historical_significance": "Located in Birbhum district. One of most powerful and mystic Shakti Peethas dedicated to Goddess Tara, fierce form of Kali. Revered by tantrics and spiritual seekers. Known for intense sadhana and cremation ground (Maha Smashan) rituals. Current temple over 200 years old built by Rani Bhabani of Natore, though site sacred for longer. Considered spiritual capital for Tantric sadhana in Bengal. In devotional tradition, sage Vasishtha practiced austerities and recited Tara mantra.",
+    "approx_established_period": "Current structure over 200 years old",
+    "location": {
+      "city": "Tarapith",
+      "district": "Birbhum",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1450",
+      "longitude": "87.9683"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://exploreoffbeat.com/the-indian-temples/tarapith-west-bengal-history-shakti-peetha-significance-travel-guide-rituals"]
+    }
+  },
+  {
+    "site_id": "hindu_east_010",
+    "religion": "Hinduism",
+    "site_name": "Belur Math",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Ramakrishna Paramahamsa",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Headquarters of Ramakrishna Math and Ramakrishna Mission founded by Swami Vivekananda, chief disciple of Ramakrishna Paramahamsa. Located on west bank of Hooghly River. Heart of Ramakrishna movement. Notable for architecture symbolizing unity of all religions: Hindu, Islamic, Buddhist and Christian. In 2003 Belur Math Railway Station inaugurated dedicated to temple. Main temple houses holy relics of Ramakrishna Paramahamsa considered prophet of Ramakrishnan mission. Dr. A.P.J. Abdul Kalam mentioned Belur Math as place of heritage and national importance. Temple celebrates all faiths equally and visited by people from all over world seeking spiritual fulfillment.",
+    "approx_established_period": "1897 (Mission founded)",
+    "location": {
+      "city": "Belur",
+      "district": "Howrah",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.6328",
+      "longitude": "88.3574"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Belur_Math"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_011",
+    "religion": "Hinduism",
+    "site_name": "Mukteshwar Temple",
+    "alternative_names": ["Mukteswara Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mukteshwar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 10th century CE, dates to 950-975 CE. Considered 'Gem of Odisha' for splendid architecture, exquisite sculpture work and intricate carvings. Built during Somavamsi dynasty. In devotional tradition, sculpted by Yayati. Monument of importance in study of development of Hindu temples in Odisha. Showcases Kalinga architecture innovation. Torana (elaborately decorated arch) main feature reflecting heavy Buddhist architecture influences. Vimana has square shape with raised platform. Shikhara about 34 feet decorated with carvings of four natrajas with kirthimukhas. Inner sanctum doorway has image of Ketu with three hooded snakes. Built of red sandstone, marks culmination of all previous temple developments. Second most famous temple in Bhubaneswar after Lingaraja.",
+    "approx_established_period": "950-975 CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2440",
+      "longitude": "85.8361"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mukteshvara_Temple,_Bhubaneswar"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_012",
+    "religion": "Hinduism",
+    "site_name": "Rajarani Temple",
+    "alternative_names": ["Indresvara Shiva Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Shiva",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 11th century CE. Referred in traditional Sanskrit texts as Indresvara Shiva Temple. Name Rajarani derived from local sandstone used to build it called rajaraniya. Known for sculptural excellence, profusion of ornaments, exuberant architectural features and multiple scroll work. Also called 'Love Temple' because contains erotic carvings of women and couples. No longer has deity within, now monument under Archaeological Survey of India. Built in pancha ratha style on raised platform with two structures: central shrine (Vimana) with curvilinear spire rising 18 m and jagamohana with pyramidal roof. Range of smaller carved spires on main spire.",
+    "approx_established_period": "11th century CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2525",
+      "longitude": "85.8394"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/orissa/bhubaneswar/rajarani-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_east_013",
+    "religion": "Hinduism",
+    "site_name": "Parashurameswara Temple",
+    "alternative_names": ["Parsurameswar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Parashurameswar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 650 CE. Small but marvelously decorated shrine dated to Shailodbhava period. Considered oldest Kalinga architecture temple. One among Parashurameswara group of temples. Excellent specimen of Kalinga architectural style. Contains vimana and jagamohana. Features miniature shrines and carvings of Parvati and Shiva. Oldest living temple in Bhubaneswar maintaining active worship from 7th century.",
+    "approx_established_period": "650 CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2450",
+      "longitude": "85.8372"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://chalbanjare.com/odisha-tour-packages-2025-26/parsurameswar-temple"]
+    }
+  },
+  {
+    "site_id": "hindu_east_014",
+    "religion": "Hinduism",
+    "site_name": "Ananta Vasudeva Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Ananta Vasudeva (Vishnu-Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 13th century CE by Queen Chandrika Devi of Eastern Ganga dynasty. In devotional tradition, idol of Vishnu worshipped at same place prior to temple construction. Renovated by Marathas in late 17th century when they extended reign to Odisha. Worship place of complete idols of Krishna, Balarama and Subhadra. Architecture similar to Lingaraja Temple with Vaishnavite sculptures. Has longitudinal shikharas with beautiful carvings. Contains three-chambered frontal adjunct: Jagamohana, Natamandira and Bhogamandapa. Positioned in walled compound with abundant structures. Image on wall displays legend of Vishnu appearing as Varaha avatar.",
+    "approx_established_period": "13th century CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2431",
+      "longitude": "85.8383"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://bhubaneswartourism.in/ananta-vasudeva-temple-bhubaneswar"]
+    }
+  },
+  {
+    "site_id": "hindu_east_015",
+    "religion": "Hinduism",
+    "site_name": "Brahmeswara Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Brahmeswara (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 1058 CE during 18th regnal year of Somavamsi king Udyotakesari by his mother Kolavati Devi according to inscriptions. Erected at end of 9th century CE, richly carved inside and out. Dated with fair accuracy by use of inscriptions originally on temple now lost but records preserved. Built in traditional Kalinga architecture style using stones. Classified as panchatanaya temple where four subsidiary shrines situated in four corners of main shrine. First temple where iron beams used by builders. Pyramid shape temple has two parts: Vimana (around 18.96 m) and Jagamohana. Jagamohana famous for lion head idols first found at Mukteswar Temple. Sandstone walls and wooden interior structures notable. Stands in courtyard flanked by four smaller temples.",
+    "approx_established_period": "1058 CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2442",
+      "longitude": "85.8361"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Brahmeswara_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_016",
+    "religion": "Hinduism",
+    "site_name": "Mundeshwari Temple",
+    "alternative_names": ["Mandaleshwar Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mundeshwari (Durga) and Mandaleshwar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Kaimur district on hillock. ASI and Bihar State Religious Trust Board claim temple dates to 108 CE. However historians argue existing architectural elements and sculptures not older than 6th-7th century, present octagonal shrine possibly built or rebuilt 16th-17th century incorporating elements from earlier temples. Ancient temple dedicated to worship of Durga and Shiva. Findings established site was religious and educational center spread over hillock. Aboriginal Cheros tribe worshipped Shakti as Mundeshwari/Durga made main deity while Mukhalingam (Shiva) also occupies center stage. Chatur Mukhalingam (Lingam with four faces) worshipped. Rituals performed non-stop throughout years. Ancient Hindu inscriptions found in temple.",
+    "approx_established_period": "Ancient site, existing architecture 6th-7th century CE, current octagonal structure possibly 16th-17th century CE",
+    "location": {
+      "city": "Ramgarh",
+      "district": "Kaimur",
+      "state": "Bihar",
+      "country": "India",
+      "latitude": "24.9500",
+      "longitude": "83.5667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mundeshwari_Temple"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_017",
+    "religion": "Hinduism",
+    "site_name": "Dhauli Shanti Stupa",
+    "alternative_names": ["Peace Pagoda"],
+    "site_type": "Stupa",
+    "primary_figure_or_concept": "Buddha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 1972 by Japan Buddha Sangha and Kalinga Nippon Buddha Sangha as symbol of peace and harmony commemorating Emperor Ashoka's transformation. Rock edicts at base of hill dating from 260 BCE reveal Ashoka's instructions to administrators emphasizing welfare and happiness of subjects. Inscriptions highlight journey from ruthless warrior to benevolent ruler dedicated to peace and spirituality after Kalinga War. White dome-shaped structure with four niches containing Buddha statues in different postures. Stone panels depict scenes from Buddha's life and teachings. Site with ancient rock edicts and sculptures continues to inspire. Features rock cut elephant considered earliest Buddhist sculpture in Odisha. Surrounded by garden with various plants and flowers. Attracts thousands of visitors annually.",
+    "approx_established_period": "1972",
+    "location": {
+      "city": "Dhauli",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.1875",
+      "longitude": "85.8472"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mypuritour.com/blog/dhauli/"]
+    }
+  },
+  {
+    "site_id": "hindu_east_018",
+    "religion": "Hinduism",
+    "site_name": "Udayagiri and Khandagiri Caves",
+    "alternative_names": [],
+    "site_type": "Cave Complex",
+    "primary_figure_or_concept": "Various Jain and Hindu deities",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Partly natural and partly artificial cave shelters carved during 2nd century BCE. Most caves on both hills are chambers with carved architectural facades. Located 6 km from Bhubaneswar. Udayagiri means Sunrise Hill with 18 caves. Khandagiri or broken hill has 15 caves. Caves were residential blocks for Jain monks. Important archaeological site with inscriptions providing historical information about King Kharavela of Mahameghavahana dynasty. Rani Gumpha largest and most ornate cave.",
+    "approx_established_period": "2nd century BCE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2697",
+      "longitude": "85.7856"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Udayagiri_and_Khandagiri_Caves"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_019",
+    "religion": "Hinduism",
+    "site_name": "Maa Tara Tarini Temple",
+    "alternative_names": ["Taratarini Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Tara Tarini (Twin Goddesses)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers and body parts",
+    "historical_significance": "Ancient temple situated on Kumari hills on bank of Rushikulya River near Brahmapur. One of oldest pilgrimage centers for Tantric worshippers. Twin goddesses Tara and Tarini worshipped. Major Shakti Peetha in Odisha. Temple accessed by climbing 999 steps. Annual Chaitra Parva fair attracts lakhs of devotees.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Berhampur",
+      "district": "Ganjam",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.2883",
+      "longitude": "84.8572"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_020",
+    "religion": "Hinduism",
+    "site_name": "Biraja Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Biraja (Durga)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; various texts cite differing numbers and body parts",
+    "historical_significance": "Located in Jajpur, ancient capital of Odisha. One of major Shakti Peethas. Temple dedicated to Goddess Durga worshipped as Girija or Sthaneshwari. Jajpur was capital of Kalinga. Temple has great archaeological and religious importance. Worshipped by devotees across eastern India.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Jajpur",
+      "district": "Jajpur",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.8550",
+      "longitude": "86.3267"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_021",
+    "religion": "Hinduism",
+    "site_name": "Vimala Temple",
+    "alternative_names": ["Bimala Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Vimala (Shakti)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha; food offered to Jagannath not considered Mahaprasad until offered to Vimala",
+    "historical_significance": "Located within Jagannath Temple complex near Rohini Kund in Puri. Regarded as one of most important Shakta pithas. Integral part of Jagannath temple rituals. Temple plays crucial role where all temple food offerings must first be presented to goddess before being considered sanctified Mahaprasad. Important subsidiary shrine within main temple complex.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Puri",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.8047",
+      "longitude": "85.8183"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jagannath_Temple,_Puri"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_022",
+    "religion": "Hinduism",
+    "site_name": "Sakshi Gopal Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Sakshi Gopal (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located 20 km from Puri on Puri-Khurda Road. Temple dedicated to Krishna as Sakshi Gopal (witnessing Krishna). In devotional tradition, deity acted as witness for Brahmin devotee. Important pilgrimage site associated with Chaitanya Mahaprabhu who visited temple. Popular among Gaudiya Vaishnavas.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Satyabadi",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.9500",
+      "longitude": "85.6833"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_023",
+    "religion": "Hinduism",
+    "site_name": "Alarnath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Alarnath (Vishnu)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located at Brahmagiri 23 km from Puri. Four-handed Vishnu icon regarded as manifestation of Jagannath. Devotees worship here during Anavasara period when main Jagannath deities not visible for 15 days after Snana Yatra. Important subsidiary pilgrimage associated with Jagannath worship. Chaitanya Mahaprabhu stayed here during Anavasara period.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Brahmagiri",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.7917",
+      "longitude": "85.7139"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jagannath_Temple,_Puri"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "hindu_east_024",
+    "religion": "Hinduism",
+    "site_name": "Chausathi Yogini Temple Hirapur",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "64 Yoginis",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located 20 km from Bhubaneswar. Circular open-air temple dedicated to 64 Yoginis. One of only four Yogini temples remaining in India. Built in 9th century CE. Unique hypaethral (roofless) design. Contains images of 64 yoginis carved in black chlorite standing in dancing poses along circular wall. Central shrine has image of Mahamaya. Important Tantric worship center.",
+    "approx_established_period": "9th century CE",
+    "location": {
+      "city": "Hirapur",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.1908",
+      "longitude": "85.7250"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_025",
+    "religion": "Hinduism",
+    "site_name": "Vaital Deul Temple",
+    "alternative_names": ["Vaitala Deula"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chamunda (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 8th century CE in Bhubaneswar. Dedicated to Goddess Chamunda. Unique example of Tantric architecture. Only temple in Bhubaneswar with semi-cylindrical wagon vault roof (Khakhara type). Interior contains sculptures depicting Tantric cult. Image of eight-armed Chamunda seated on corpse. Important specimen of early Kalinga architecture with Tantric influences.",
+    "approx_established_period": "8th century CE",
+    "location": {
+      "city": "Bhubaneswar",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.2447",
+      "longitude": "85.8369"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_026",
+    "religion": "Hinduism",
+    "site_name": "Chitrakarini Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chitrakarini (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located inside Baripada town in Mayurbhanj district. Ancient temple dedicated to Goddess Durga. Presiding deity of Mayurbhanj royal family. Important Shakti temple in northern Odisha. Temple witnesses large gathering during Durga Puja.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Baripada",
+      "district": "Mayurbhanj",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "21.9333",
+      "longitude": "86.7333"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_027",
+    "religion": "Hinduism",
+    "site_name": "Maa Bhattarika Temple",
+    "alternative_names": ["Bhattarika Shakti Peetha"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhattarika (Durga)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha",
+    "historical_significance": "Located in Badamba, Cuttack district. Ancient Shakti Peetha temple. Goddess worshipped as Bhattarika. Important pilgrimage center in coastal Odisha. Temple has historical significance in region.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Badamba",
+      "district": "Cuttack",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.4667",
+      "longitude": "85.1833"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_028",
+    "religion": "Hinduism",
+    "site_name": "Kapilash Temple",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Kapilash (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on Kapilash hill in Dhenkanal district. Ancient Shiva temple on hilltop. Important pilgrimage site in central Odisha. Major gathering during Shivaratri. Temple requires climbing steps to hilltop. Scenic location with panoramic views.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Dhenkanal",
+      "district": "Dhenkanal",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.7500",
+      "longitude": "85.7333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_029",
+    "religion": "Hinduism",
+    "site_name": "Akhandalamani Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Akhandalamani (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Aradi village near Bhadrak. Ancient Shiva temple with large Shivalinga. Important pilgrimage center in northern Odisha. Temple known for unique rock formation housing naturally formed lingam. Attracts devotees throughout year especially during Shivaratri.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Aradi",
+      "district": "Bhadrak",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "21.0667",
+      "longitude": "86.5000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_030",
+    "religion": "Hinduism",
+    "site_name": "Maa Bhagabati Temple Banapur",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhagabati (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Banapur near Puri. Ancient temple dedicated to Goddess Bhagabati. Important Shakti temple in southern Odisha. Temple part of historical Banapur which was ancient Buddhist center. Goddess revered by local population.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Banapur",
+      "district": "Khordha",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.7783",
+      "longitude": "85.1717"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_031",
+    "religion": "Hinduism",
+    "site_name": "Dhabaleswar Temple",
+    "alternative_names": [],
+    "site_type": "Island Temple",
+    "primary_figure_or_concept": "Dhabaleswar (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on island in Mahanadi River near Cuttack. Shiva temple accessible by suspension bridge. Scenic pilgrimage site. Temple known for natural Shivalinga. Popular destination combining pilgrimage with natural beauty. Suspension bridge built connecting island to mainland.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Cuttack",
+      "district": "Cuttack",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "20.3667",
+      "longitude": "85.9167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_032",
+    "religion": "Hinduism",
+    "site_name": "Mangala Temple Kakatpur",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Mangala (Durga)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Kakatpur near Puri-Konark marine drive. Ancient temple dedicated to Goddess Mangala. Pilgrims visiting Puri traditionally stop here first. Important Shakti temple on pilgrimage route. Temple has historical and religious significance in coastal Odisha.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kakatpur",
+      "district": "Puri",
+      "state": "Odisha",
+      "country": "India",
+      "latitude": "19.7667",
+      "longitude": "86.0333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://odishatourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_033",
+    "religion": "Hinduism",
+    "site_name": "Bhattarika Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Bhattarika (Kali)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Important Kali temple in Kolkata. One of oldest Kali temples in city. Known for unique rituals and tantric practices. Important pilgrimage site for Shakta devotees in Bengal. Temple maintains traditional Bengal Hindu worship practices.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Kolkata",
+      "district": "Kolkata",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.5667",
+      "longitude": "88.3667"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_034",
+    "religion": "Hinduism",
+    "site_name": "Adyapith Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Adyashakti (Kali)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Malda district. Temple founded by Swami Nigamananda Paramahansa in early 20th century. Important spiritual center in northern Bengal. Headquarters of Nilachal Saraswat Sangha. Combines worship of Kali with spiritual teachings. Attracts devotees from across Bengal.",
+    "approx_established_period": "Early 20th century CE",
+    "location": {
+      "city": "Malda",
+      "district": "Malda",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "25.0000",
+      "longitude": "88.1500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_035",
+    "religion": "Hinduism",
+    "site_name": "Kankalitala Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kankalitala (Kali)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha",
+    "historical_significance": "Located in Birbhum district. Important Shakti Peetha temple. Goddess worshipped in fierce form. Significant Tantric pilgrimage site. Temple known for cremation ground location and Tantric practices. Attracts Tantric practitioners and devotees.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Bolpur",
+      "district": "Birbhum",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "23.6667",
+      "longitude": "87.7000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_036",
+    "religion": "Hinduism",
+    "site_name": "Jairambati Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Sarada Devi shrine",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Bankura district. Birthplace of Sarada Devi, spiritual consort of Ramakrishna Paramahamsa. Temple and shrine complex built at her birthplace. Important pilgrimage site for Ramakrishna Mission devotees. Houses relics and memorabilia of Sarada Devi. Maintained by Ramakrishna Math.",
+    "approx_established_period": "20th century CE",
+    "location": {
+      "city": "Jairambati",
+      "district": "Bankura",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "23.0833",
+      "longitude": "87.6000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_037",
+    "religion": "Hinduism",
+    "site_name": "Mangal Pandey Park Temple",
+    "alternative_names": [],
+    "site_type": "Memorial Temple",
+    "primary_figure_or_concept": "Mangal Pandey memorial",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Barrackpore. Memorial and temple complex dedicated to Mangal Pandey, freedom fighter who sparked 1857 rebellion. Combines patriotic memorial with religious shrine. Important historical site in Bengal. Maintained as heritage site.",
+    "approx_established_period": "20th century CE",
+    "location": {
+      "city": "Barrackpore",
+      "district": "North 24 Parganas",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.7633",
+      "longitude": "88.3739"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_038",
+    "religion": "Hinduism",
+    "site_name": "Mayapur Chandrodaya Mandir",
+    "alternative_names": ["ISKCON Mayapur"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Radha Madhava (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Mayapur, Nadia district. Birthplace of Chaitanya Mahaprabhu. Headquarters of ISKCON in India. Major Gaudiya Vaishnava pilgrimage center. Temple complex attracts devotees from around world. Construction of world's tallest temple building underway. Important center for Hare Krishna movement.",
+    "approx_established_period": "1972 (ISKCON center)",
+    "location": {
+      "city": "Mayapur",
+      "district": "Nadia",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "23.4222",
+      "longitude": "88.3889"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_039",
+    "religion": "Hinduism",
+    "site_name": "Kalna Temples",
+    "alternative_names": ["108 Shiva Temples"],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Shiva and Krishna",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Purba Bardhaman district. Complex of temples including unique circular 108 Shiva temple complex built in 1809. Also houses Lalji Temple and Krishnachandra Temple. Built by Bardhaman Raj family. Important architectural heritage site. Temples built in Bengal terracotta style. Popular pilgrimage and tourist destination.",
+    "approx_established_period": "18th-19th century CE",
+    "location": {
+      "city": "Kalna",
+      "district": "Purba Bardhaman",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "23.2167",
+      "longitude": "88.3667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_040",
+    "religion": "Hinduism",
+    "site_name": "Hanseswari Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Hanseswari (Kali)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Bansberia, Hooghly district. Built in 1814 by Rani Sankari. Unique 13-towered temple with blend of European and Bengali architectural styles. Each tower has lotus with 13 petals. Important example of late medieval Bengali temple architecture. Famous for annual Kali Puja celebrations.",
+    "approx_established_period": "1814",
+    "location": {
+      "city": "Bansberia",
+      "district": "Hooghly",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "22.9667",
+      "longitude": "88.4000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_041",
+    "religion": "Hinduism",
+    "site_name": "Bishnupur Temples",
+    "alternative_names": [],
+    "site_type": "Temple Complex",
+    "primary_figure_or_concept": "Krishna and Radha",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Bankura district. Group of terracotta temples built by Malla dynasty from 17th-18th centuries. Famous for unique terracotta architecture depicting scenes from Ramayana and Mahabharata. UNESCO World Heritage Site tentative list. Includes Rasmancha, Jor Bangla, Shyam Rai and Madanmohan temples. Important example of Bengal temple architecture. Major cultural heritage site.",
+    "approx_established_period": "17th-18th century CE",
+    "location": {
+      "city": "Bishnupur",
+      "district": "Bankura",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "23.0750",
+      "longitude": "87.3194"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.wbtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_042",
+    "religion": "Hinduism",
+    "site_name": "Pareshnath Temple Giridih",
+    "alternative_names": [],
+    "site_type": "Hill Temple",
+    "primary_figure_or_concept": "Pareshnath (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on Parasnath hill in Giridih district. Important Jain pilgrimage site but also has Shiva temple. Highest mountain peak in Jharkhand. Sacred to both Jains and Hindus. Pilgrims climb to hilltop temples. Important multi-faith pilgrimage center.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Madhuban",
+      "district": "Giridih",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.9667",
+      "longitude": "86.1500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_043",
+    "religion": "Hinduism",
+    "site_name": "Rajrappa Temple",
+    "alternative_names": ["Chhinnamasta Temple"],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Chhinnamasta (Shakti)",
+    "canonical_or_religious_significance": "Considered by devotional tradition to be a Shakti Peetha",
+    "historical_significance": "Located at confluence of Bhera and Damodar rivers in Ramgarh district. Considered one of Shakti Peethas. Goddess Chhinnamasta depicted in self-decapitated form. Important Tantric pilgrimage site. Temple attracts devotees year-round. Scenic location at river confluence. Major religious center in Jharkhand.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Rajrappa",
+      "district": "Ramgarh",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.6167",
+      "longitude": "85.5667"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_044",
+    "religion": "Hinduism",
+    "site_name": "Jagannath Temple Ranchi",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Jagannath (Krishna)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Ranchi city. Replica of Puri Jagannath temple built in 1691. Built on hilltop offering panoramic views of Ranchi. Important landmark and pilgrimage site in Jharkhand capital. Annual Rath Yatra celebrated. Popular religious and tourist destination.",
+    "approx_established_period": "1691",
+    "location": {
+      "city": "Ranchi",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.3667",
+      "longitude": "85.3333"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_045",
+    "religion": "Hinduism",
+    "site_name": "Sun Temple Bundu",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Surya (Sun God)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Bundu near Ranchi. Ancient sun temple with 18 wheels representing chariot of sun god. Similar design concept to Konark. Important archaeological site in Jharkhand. Temple maintained as heritage monument. Attracts archaeology enthusiasts and pilgrims.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Bundu",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.1667",
+      "longitude": "85.5833"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_046",
+    "religion": "Hinduism",
+    "site_name": "Rankini Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rankini (Kali)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located near Ranchi. Important tribal goddess temple. Rankini worshipped as form of Kali by tribal communities. Sacred to Oraon tribe. Temple witnesses large gathering during festivals. Combines tribal and Hindu worship traditions. Important cultural heritage site representing tribal-Hindu syncretism.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Ranchi",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.3000",
+      "longitude": "85.3500"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_047",
+    "religion": "Hinduism",
+    "site_name": "Dewri Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Rukmini Kali",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Deoghar. Ancient temple dedicated to Goddess Rukmini Kali. Built during Pala dynasty. Important Shakti temple in Jharkhand. Temple architecture shows Pala period influence. Major pilgrimage site especially during Navratri. Located near Baidyanath Jyotirlinga temple.",
+    "approx_established_period": "Pala period (8th-12th century CE)",
+    "location": {
+      "city": "Deoghar",
+      "district": "Deoghar",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "24.4833",
+      "longitude": "86.7000"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_048",
+    "religion": "Hinduism",
+    "site_name": "Basukinath Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Basukinath (Shiva)",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Dumka district. Important Shiva temple. Pilgrims visiting Baidyanath Jyotirlinga traditionally complete pilgrimage by visiting Basukinath. Temple dedicated to Shiva with serpent Vasuki. Significant pilgrimage site during Shravan month. Part of traditional pilgrimage circuit in Jharkhand.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Basukinath",
+      "district": "Dumka",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "24.2333",
+      "longitude": "87.0167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "hindu_east_049",
+    "religion": "Hinduism",
+    "site_name": "Maithon Temple",
+    "alternative_names": [],
+    "site_type": "Temple",
+    "primary_figure_or_concept": "Kali",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located near Maithon Dam in Dhanbad district. Temple situated on banks of Damodar River. Important local pilgrimage site. Scenic location near dam. Temple known for Kali worship. Popular destination combining religious pilgrimage with natural beauty of dam area.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Maithon",
+      "district": "Dhanbad",
+      "state": "Jharkhand",
+      "country": "India",
+      "latitude": "23.8333",
+      "longitude": "86.8333"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jharkhandtourism.gov.in"]
+    }
+  }
+]
