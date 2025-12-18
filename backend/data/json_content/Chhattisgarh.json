@@ -1,0 +1,41 @@
+{
+  "region": "Central India",
+  "state": "Chhattisgarh",
+  "treks": [
+    {
+      "name": "Chhattisgarh Jungle Trek",
+      "tagline": "Why this is India’s best-kept jungle secret",
+      "difficulty": "Easy",
+      "duration": {
+        "days": 4,
+        "distance_km": 23
+      },
+      "basecamp": {
+        "location": "Turpunji",
+        "state": "Chhattisgarh"
+      },
+      "accommodation": [
+        "Tents"
+      ],
+      "closest_airport": "Raipur",
+      "logistics": {
+        "pickup": {
+          "location": "Raipur Railway Station",
+          "time": "06:00"
+        },
+        "dropoff": {
+          "location": "Raipur Airport and Railway Station",
+          "time": "23:00"
+        }
+      },
+      "eligibility": {
+        "minimum_age": 7
+      },
+      "facilities": {
+        "gear_rentals": true,
+        "cloakroom": true,
+        "offloading": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,722 @@
+[
+  {
+    "site_id": "islam_north_001",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Delhi",
+    "alternative_names": ["Masjid-i-Jahan-Numa", "Friday Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1650-1656 by Mughal emperor Shah Jahan, noted patron of Islamic architecture. Second largest mosque on Indian subcontinent. Situated in Mughal capital Shahjahanabad (Old Delhi). Served as imperial mosque until demise of Mughal empire 1857. Regarded as symbolic gesture of Mughal power across India. Site of political significance during British rule. Khutba recited by Mughal emperor during Friday noon prayer legitimising his rule. Last monument built under Shah Jahan. Monument of National Importance. Remains active use, one of Delhi's most iconic sites closely identified with methods of Old Delhi.",
+    "approx_established_period": "1650-1656",
+    "location": {
+      "city": "Delhi",
+      "district": "Central Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.6507",
+      "longitude": "77.2334"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Jama_Masjid,_Delhi"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_002",
+    "religion": "Islam",
+    "site_name": "Ajmer Sharif Dargah",
+    "alternative_names": ["Dargah of Khwaja Moinuddin Chishti"],
+    "site_type": "Dargah (Sufi Shrine)",
+    "primary_figure_or_concept": "Khwaja Moinuddin Chishti",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Among holiest Muslim shrines in India. Famous landmark in Ajmer. Khwaja Moin-ud-din Chishti, Sufi saint from Persia enshrined here. In 13th century sent for preaching Islam in India. Came to Ajmer and started preaching with quality of compassion. Established popular Chishtiyya order in Sunni class. Following death March 1236, site became highly revered location. Doors open to people of all faiths per secular teachings. In hagiographic accounts, urged by Muhammad in dream to visit India, reached via Lahore, made Ajmer home 1192 till death 1236 CE. In devotional tradition, claimed to be direct descendant of Muhammad through Hasani-Husayni lineage.",
+    "approx_established_period": "After 1236",
+    "location": {
+      "city": "Ajmer",
+      "district": "Ajmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.4564",
+      "longitude": "74.6217"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Mu'in_al-Din_Chishti"],
+      "secondary": ["https://ajmerdargahsharif.com", "https://www.tourism.rajasthan.gov.in/the-ajmer-sharif-dargah.html"]
+    }
+  },
+  {
+    "site_id": "islam_north_003",
+    "religion": "Islam",
+    "site_name": "Buland Darwaza",
+    "alternative_names": ["Victory Gate", "Gate of Victory"],
+    "site_type": "Gateway and Mosque",
+    "primary_figure_or_concept": "Victory monument",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built 1601 by Mughal Emperor Akbar to commemorate victory over Gujarat. Took 12 years to build. Highest gateway in world, 54 meters high, 35 meters wide. Southern entrance of city Fatehpur Sikri. Approached by 42 steps. Astounding example of Mughal architecture. Made of red and buff sandstone decorated with white and black marble. 15 storied high gateway. Inscriptions from Holy Quran visible on pillars at front. Persian inscription on eastern archway records Akbar's conquest over Uttar Pradesh and victory in Gujarat 1601. Mix of Hindu and Persian architectural styles. Semi octagonal plan topped by pillars and chhatris. Thirteen smaller domed kiosks on roof. Stylized battlement and small turrets with inlay work of white and black marble.",
+    "approx_established_period": "1601",
+    "location": {
+      "city": "Fatehpur Sikri",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.0945",
+      "longitude": "77.6619"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.trawell.in/uttar-pradesh/fatehpur-sikri/buland-darwaza-jama-masjid"]
+    }
+  },
+  {
+    "site_id": "islam_north_004",
+    "religion": "Islam",
+    "site_name": "Hazratbal Shrine",
+    "alternative_names": ["Dargah Sharif", "Hazratbal Mosque"],
+    "site_type": "Dargah and Mosque",
+    "primary_figure_or_concept": "Holy Relic of Prophet Muhammad",
+    "canonical_or_religious_significance": "In Islamic tradition, houses Moi-e-Muqaddas, relic believed to be sacred hair of Prophet Muhammad",
+    "historical_significance": "Kashmir's holiest Muslim shrine. Located on northern bank of Dal Lake in Srinagar. Only domed mosque in Srinagar. Contains holy relic Moi-e-Muqqadas. In devotional tradition, relic brought to India in 1635 by Syed Abdullah. Took approximately 11 years to complete mosque. Silvery white mosque revered for housing relic. Situated near Dal Lake. Place of serenity. Women allowed only till first part of mosque. Lends historic and divine appeal to Srinagar. Intricate Persian and Iranian architectural influences. Majestic and architecturally unique.",
+    "approx_established_period": "Modern structure 20th century CE",
+    "location": {
+      "city": "Srinagar",
+      "district": "Srinagar",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "34.1289",
+      "longitude": "74.8656"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Hazratbal_Shrine"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_005",
+    "religion": "Islam",
+    "site_name": "Nizamuddin Dargah",
+    "alternative_names": ["Hazrat Nizamuddin Dargah"],
+    "site_type": "Dargah (Sufi Shrine)",
+    "primary_figure_or_concept": "Hazrat Nizamuddin Auliya",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Testament to rich Sufi heritage thriving in heart of India's capital for centuries. Nestled within bustling lanes of Nizamuddin West. Dedicated to 14th-century Sufi saint Hazrat Nizamuddin Auliya. Towering figure in Chishti Sufi order. Teachings emphasized love, compassion and pursuit of inner spiritual enlightenment transcending barriers of religion, caste and creed. Message of inclusivity and devotion attracted disciples from all walks of life. Vibrant center of Sufi mysticism drawing pilgrims from across globe. Mystical atmosphere heightened by qawwalis held every Thursday evening, soul-stirring experience invoking communion with divine. Luminaries include Hazrat Amir Khusro, legendary Sufi poet and disciple. Living breathing testament to resilience of Sufism. Spiritual oasis offering solace.",
+    "approx_established_period": "14th century CE",
+    "location": {
+      "city": "Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5894",
+      "longitude": "77.2502"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://toliday.in/blog/sufi-heritage-of-delhis-nizamuddin-dargah/"]
+    }
+  },
+  {
+    "site_id": "islam_north_006",
+    "religion": "Islam",
+    "site_name": "Tomb of Salim Chishti",
+    "alternative_names": ["Sheikh Salim Chishti Dargah"],
+    "site_type": "Tomb",
+    "primary_figure_or_concept": "Sheikh Salim Chishti",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Revered mausoleum located in historic city Fatehpur Sikri. Built late 16th century to honor memory of esteemed Sufi saint Sheikh Salim Chishti (1478-1572). Revered by Mughal Emperor Akbar for spiritual guidance and blessings. Located within Fatehpur Sikri complex, UNESCO World Heritage Site, once capital of Mughal Empire under Akbar's reign. Burial place of Sufi Saint Salim Chisti. Considered one of finest examples of Mughal architecture in India. Mausoleum built 1580-1581 by Akbar. Constructed as mark of respect for Salim Chisti. In court chronicles, saint foretold birth of Akbar's son Prince Salim who succeeded Akbar to throne. Beautiful tomb made with white marble, precious gems and stones. Women hoping to have children come to tie thread to jalis (carved lattice screens).",
+    "approx_established_period": "1580-1581",
+    "location": {
+      "city": "Fatehpur Sikri",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.0945",
+      "longitude": "77.6619"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Tomb_of_Salim_Chishti"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_007",
+    "religion": "Islam",
+    "site_name": "Qutub Minar",
+    "alternative_names": ["Qutb Minar", "Qutab Minar"],
+    "site_type": "Minaret and Victory Tower",
+    "primary_figure_or_concept": "Minaret for call to prayer",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Minaret and victory tower built during Delhi sultanate. Part of Qutb complex, UNESCO World Heritage Site in Mehrauli, South Delhi. Mostly built 1199-1220. Contains 399 steps. One of most-frequented heritage spots in city. Red sandstone tower 72.5 m high tapering from 2.75 m diameter at peak to 14.32 m at base. Foundation laid by Qutbu'd-Din Aibak AD 1199 for use of mu'azzin (crier) to give calls for prayer. Raised first storey, three more added by successor son-in-law Shamsu'd-Din Iltutmish (AD 1211-36). All storeys surrounded by projected balcony encircling minar supported by stone brackets decorated with honeycomb design. Quwwat-ul-Islam Mosque to north-east built by Qutbu'd-Din Aibak AD 1198. Earliest extant mosque built by Delhi Sultans. Consists of rectangular courtyard enclosed by cloisters erected with carved columns and architectural members of 27 Hindu and Jaina temples demolished. Can be compared to 62 meter Minaret of Jam in Afghanistan from 1190. Usually thought tower named for Qutb-ud-din Aibak. Also possible named after Khwaja Qutbuddin Bakhtiar Kaki, 13th-century sufi saint.",
+    "approx_established_period": "1199-1220",
+    "location": {
+      "city": "Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5244",
+      "longitude": "77.1855"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Qutb_Minar", "https://whc.unesco.org/en/list/233/"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_008",
+    "religion": "Islam",
+    "site_name": "Taj Mahal",
+    "alternative_names": ["Crown of the Palace"],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Mumtaz Mahal",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Ivory-white marble mausoleum on right bank of Yamuna River in Agra. Commissioned 1631 by fifth Mughal emperor Shah Jahan (r. 1628-1658) to house tomb of beloved wife Mumtaz Mahal. Also houses tomb of Shah Jahan himself. Tomb centrepiece of 17-hectare complex including mosque and guest house, set in formal gardens bounded on three sides by crenellated wall. Calligraphy on marble cenotaphs particularly detailed and delicate. While cenotaphs similar to Mughal era ones, no other tombs from era adorned with such exquisite decoration. On Mumtaz's sarcophagus decoration consists of natural plum fruits, buds and flower blossoms inlaid with Quranic inscriptions with epitaph reading 'The illumined grave of Arjumand Bano Begam, entitled Mumtaz Mahal, who died in year 1631'. UNESCO World Heritage Site.",
+    "approx_established_period": "1631-1648",
+    "location": {
+      "city": "Agra",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.1751",
+      "longitude": "78.0421"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Taj_Mahal"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_009",
+    "religion": "Islam",
+    "site_name": "Moti Masjid Red Fort",
+    "alternative_names": ["Pearl Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Imperial mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "17th-century historical mosque inside Red Fort complex in Old Delhi. Not open for worship. Built by Mughal emperor Aurangzeb. Damaged during Siege of Delhi, subsequently restored by British. Named for white marble. Features ornate floral carvings. Important example of Mughal architecture during Aurangzeb's reign. Commissioned by Aurangzeb shortly after accession. Purpose to provide emperor mosque for prayer closer to private chambers within Red Fort. At time fort did not contain mosque; Shah Jahan instead offered prayers at nearby Jama Masjid. Construction took five years completing 1663 CE at Aurangzeb's personal expense. Court chronicle Ma'asir-i-Alamgiri describes cost 1 lakh 60 thousand rupees. Following construction Aurangzeb began offering zuhr prayer at mosque with state officials introducing new ceremonial practice.",
+    "approx_established_period": "1659-1663",
+    "location": {
+      "city": "Delhi",
+      "district": "Central Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.6562",
+      "longitude": "77.2410"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Moti_Masjid_(Red_Fort)"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_010",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Agra",
+    "alternative_names": ["Jami Masjid", "Friday Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "17th-century congregational mosque located in historic core of Agra. Built by Jahanara Begum, eldest surviving child of Emperor Shah Jahan and Mumtaz Mahal, during reign of father Shah Jahan. One of largest mosques in India. Construction commissioned 1643. Took six years until 1648, over 5000 labourers and artisans to complete. In use today serving as principal mosque for city of Agra. Combines elements of Persian and Islamic styles reflecting grandeur of Mughal architecture. Boasts large central dome flanked by smaller domes, tall minarets and expansive courtyard. Showcases detailed carvings, inscriptions and colourful tiles. Every Friday special prayers conducted called Friday Mosque. Open rectangular courtyard with fountain in center. Five archways connecting prayer hall to courtyard. Central archway has large iwan portico and white marble facade with Persian calligraphy and geometric patterns. Two slender minarets on either side. Interior walls and ceilings painted blue. West side has beautiful mihrab and pulpit in white marble.",
+    "approx_established_period": "1643-1648",
+    "location": {
+      "city": "Agra",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.1833",
+      "longitude": "78.0167"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://agratourism.in/jama-masjid-agra"]
+    }
+  },
+  {
+    "site_id": "islam_north_011",
+    "religion": "Islam",
+    "site_name": "Bara Imambara",
+    "alternative_names": ["Asafi Imambara"],
+    "site_type": "Imambara and Mosque",
+    "primary_figure_or_concept": "Shia congregation hall",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Significant imambara and mosque complex located in Lucknow. Built by Asaf-ud-Daula, Nawab of Awadh, in 1784. World's second largest imambara after Nizamat Imambara. Complex comprises two stepped gardens with tall gateways and series of arched doorways (ghulam gardish) in boundary. Has big mosque known as Asafi masjid. Shia Muslims gather to offer prayers every Friday and hold annual namaaz on occasion of Eid and Bakrid. Important architectural landmark in Lucknow.",
+    "approx_established_period": "1784",
+    "location": {
+      "city": "Lucknow",
+      "district": "Lucknow",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "26.8697",
+      "longitude": "80.9119"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Bara_Imambara"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_012",
+    "religion": "Islam",
+    "site_name": "Chota Imambara",
+    "alternative_names": ["Hussainabad Imambara", "Palace of Lights"],
+    "site_type": "Imambara",
+    "primary_figure_or_concept": "Shia congregation hall and mausoleum",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Muhammad Ali Shah, third Nawab of Awadh, in 1838. Initially intended as congregation hall for Shia Muslims during Muharram. Later became final resting place of Nawab and family. Houses grave of Nawab Muhammad Ali Shah alongside mother's. Serves as place for Mourning of Muharram and other rituals among Shia Muslim sect. Has two main halls: Shenasheen and Azakhana. Stellar example of Nawabi grandeur in Lucknow, one of most popular tourist attractions. Stunning example of Indo-Islamic architecture infused with Persian influences. Pristine white facade, domes and minarets create ethereal charm. Grand entrance greeted by majestic gateway adorned with intricate floral motifs. Main hall boasts exquisite chandeliers, mirrors and calligraphy earning nickname 'Palace of Lights'. Glittering interiors especially enchanting during special occasions. Golden dome crowning jewel reflecting artistic sensibilities. Pair of water channels flanking monument adds serene ambiance. Beyond architectural allure holds religious and cultural importance. Hub for Shia rituals during Muharram where devotees gather to honor sacrifices of Imam Hussain.",
+    "approx_established_period": "1838",
+    "location": {
+      "city": "Lucknow",
+      "district": "Lucknow",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "26.8697",
+      "longitude": "80.9156"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Chota_Imambara"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_013",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Fatehpur Sikri",
+    "alternative_names": ["Jami Masjid", "Friday Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Emperor Akbar as part of Fatehpur Sikri complex. Also known as Jami Masjid. Mosque took almost 6 years to complete employing around 5000 workers. Built under supervision of saint Salim Chisti. Beautiful immense mosque completed 1571 containing elements of Persian and Indian design. Main entrance at top of flight of stone steps through spectacular 54m-high Buland Darwaza (Victory Gate) built to celebrate Akbar's conquest in Gujarat. Inside colossal courtyard with white striped and two red sandstone minarets capping main prayer hall on west side facing holy pilgrimage Mecca. Mosque covered with elaborated carvings with verses written from Holy Quran. Placed on elevated platform. Five main entrances to praying area. Walls comprise delicate and intricate carvings and inscription from Holy Quran. Exterior built with attractive red sandstone and white marble with detailed finishing. Center courtyard vast and open accommodating almost 25,000 people at time. Inside stunning white marble tomb of Sufi saint Shaikh Salim Chishti. Part of UNESCO World Heritage Site.",
+    "approx_established_period": "1571-1575",
+    "location": {
+      "city": "Fatehpur Sikri",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.0945",
+      "longitude": "77.6619"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.mapsofindia.com/agra/jama-masjid-fatehpur-sikri.html"]
+    }
+  },
+  {
+    "site_id": "islam_north_014",
+    "religion": "Islam",
+    "site_name": "Moti Masjid Agra Fort",
+    "alternative_names": ["Pearl Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Royal mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Sunni Friday mosque situated in Agra Fort, UNESCO World Heritage Site. Built 17th-century by Mughal Emperor Shah Jahan. Made entirely of white marble. Monument of National Importance administered by Archaeological Survey of India. Built during 1648-54 CE as place of worship for royal members of court. Mosque shines like pearl in moonlit night hence name Pearl Mosque. One of oldest mosques in city. Glorious mosque took nearly four years to complete built in style typical to Shah Jahan's era. Stands on ground sloping from east to west to north of Diwan-i-Am complex. Contains three huge domes of high architectural value. Three Hindu style domed kiosks constructed using white marble, rest of exterior made of red sandstone. Twenty-one bays of which three have vaulted soffits. In center of court marble tank situated, sundial made on octagonal marble pillar standing in corner. Western wall has inlaid mihrab beautifully carved with six niches corresponding to arches. Main prayer chamber has lattice screens of marble on either side to separate portions used by women. Above parapet seven chhatris beautifully designed with octagonal tower and domed marble structures at each corner. Three main gates of which eastern gate grandest entrance intricately designed. Northern and southern gateways consist of ornamental designs crowned by three square chhatris. Currently closed for visitors but viewable from outside.",
+    "approx_established_period": "1648-1654",
+    "location": {
+      "city": "Agra",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.1791",
+      "longitude": "78.0211"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Moti_Masjid_(Agra_Fort)"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_015",
+    "religion": "Islam",
+    "site_name": "Katra Masjid",
+    "alternative_names": [],
+    "site_type": "Caravanserai, Mosque and Tomb",
+    "primary_figure_or_concept": "Tomb of Nawab Murshid Quli Khan",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Former Shia caravanserai, mosque and tomb in partial ruinous state. Located in north eastern side of city of Murshidabad, West Bengal. Complex contains tomb of founder Nawab Murshid Quli Khan. One of largest caravanserais in Indian subcontinent with capacity for 700 readers at any time. Built between 1723-1724. Most striking feature two large corner towers having loopholes for musketry. Site maintained and protected by Archaeological Survey of India and Government of West Bengal.",
+    "approx_established_period": "1723-1724",
+    "location": {
+      "city": "Murshidabad",
+      "district": "Murshidabad",
+      "state": "West Bengal",
+      "country": "India",
+      "latitude": "24.1833",
+      "longitude": "88.2833"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Katra_Masjid"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_016",
+    "religion": "Islam",
+    "site_name": "Khanqah of Shah Hamdan",
+    "alternative_names": ["Shah-E-Hamdan Mosque", "Khanqah-e-Molla"],
+    "site_type": "Mosque and Khanqah",
+    "primary_figure_or_concept": "Mir Syed Ali Hamdani",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located on banks of Jhelum River. One of oldest Islamic sites in Srinagar. Built during latter half of 1300s. First mosque in Jammu and Kashmir. Constructed by Shah Sikander (Sultan Sikandar Butshikan) in 1395 CE in memory of Islamic preacher Mir Sayyid Ali Hamdani, central figure involved in widespread conversion to Islam in Kashmir. Situated on right bank of river Jhelum between Fateh Kadal and Zaina Kadal bridges. Subject to several fire disasters over centuries. Nonetheless still emits splendid Kashmiri craftsmanship through intricate wooden carvings. Present-day mosque revamped and reconstructed by Abu Barkat Khan in 1731. Death anniversary of Mir Syed Ali Hamdani major event celebrated on sixth day of Dul-Haj, last month of Islamic Lunar calendar drawing large number of devotees. Open only to Muslims. Non-Muslims not allowed to enter but can view from outside.",
+    "approx_established_period": "1395 CE, renovated 1731",
+    "location": {
+      "city": "Srinagar",
+      "district": "Srinagar",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "34.0911",
+      "longitude": "74.8147"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.holidify.com/places/srinagar/khanqah-of-shah-hamdan-sightseeing-3652.html"]
+    }
+  },
+  {
+    "site_id": "islam_north_017",
+    "religion": "Islam",
+    "site_name": "Quwwat-ul-Islam Mosque",
+    "alternative_names": ["Might of Islam Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "To north-east of Qutub Minar. Built by Qutbu'd-Din Aibak in AD 1198. Earliest extant mosque built by Delhi Sultans. Consists of rectangular courtyard enclosed by cloisters erected with carved columns and architectural members of 27 Hindu and Jaina temples demolished by Qutbu'd-Din Aibak as recorded in inscription on main eastern entrance. Part of Qutb complex UNESCO World Heritage Site. Important example of early Islamic architecture in India.",
+    "approx_established_period": "1198",
+    "location": {
+      "city": "Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5244",
+      "longitude": "77.1855"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://asi.nic.in/pages/WorldHeritageQutbMinar"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_018",
+    "religion": "Islam",
+    "site_name": "Humayun's Tomb",
+    "alternative_names": [],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Emperor Humayun",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Tomb of Mughal Emperor Humayun in Delhi. Commissioned by Humayun's first wife Empress Bega Begum in 1558, designed by Mirak Mirza Ghiyas, Persian architect. First garden-tomb on Indian subcontinent. UNESCO World Heritage Site. Precedent for subsequent Mughal architecture typified by Taj Mahal. Tomb declared UNESCO World Heritage Site in 1993. Inspired several major architectural innovations culminating in construction of Taj Mahal.",
+    "approx_established_period": "1558-1572",
+    "location": {
+      "city": "Delhi",
+      "district": "South Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.5933",
+      "longitude": "77.2507"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": ["https://whc.unesco.org/en/list/232/"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_019",
+    "religion": "Islam",
+    "site_name": "Itmad-ud-Daulah Tomb",
+    "alternative_names": ["Baby Taj"],
+    "site_type": "Mausoleum",
+    "primary_figure_or_concept": "Tomb of Mirza Ghiyas Beg",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Mausoleum in Agra. Often regarded as draft of Taj Mahal. Tomb of Mirza Ghiyas Beg, father of Nur Jahan, wife of Emperor Jahangir. Built by Nur Jahan between 1622-1628. First Mughal structure built entirely of white marble with extensive use of pietra dura inlay decoration. Marks important transition in Mughal architecture. Called Baby Taj.",
+    "approx_established_period": "1622-1628",
+    "location": {
+      "city": "Agra",
+      "district": "Agra",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.2083",
+      "longitude": "78.0250"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://agra.nic.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_020",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Srinagar",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Nowhatta area of Old City Srinagar. One of oldest mosques in Kashmir. Built by Sultan Sikandar in 1400 CE, enlarged by son Zain-ul-Abidin. Large open courtyard capable of accommodating thousands. Features Indo-Saracenic architecture with 370 wooden pillars. Important Friday congregation mosque.",
+    "approx_established_period": "1400 CE",
+    "location": {
+      "city": "Srinagar",
+      "district": "Srinagar",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "34.0911",
+      "longitude": "74.8147"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jktdc.co.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_021",
+    "religion": "Islam",
+    "site_name": "Akbari Mosque Ajmer",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Emperor Akbar during 16th century. Located near Ajmer Sharif Dargah. Important mosque in Ajmer. Features blend of Hindu and Islamic architectural styles typical of Akbar's reign. Active place of worship.",
+    "approx_established_period": "16th century CE",
+    "location": {
+      "city": "Ajmer",
+      "district": "Ajmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.4564",
+      "longitude": "74.6217"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourism.rajasthan.gov.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_022",
+    "religion": "Islam",
+    "site_name": "Adhai Din Ka Jhonpra",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Located in Ajmer. Built in 1153 as Sanskrit college, converted to mosque in 1192 by Qutb-ud-din-Aibak. Name literally means hut of two and half days. In local tradition, mosque built in two and half days. Features exquisite Indo-Islamic architecture. Seven-arched wall remains standing. Protected monument under Archaeological Survey of India.",
+    "approx_established_period": "1192",
+    "location": {
+      "city": "Ajmer",
+      "district": "Ajmer",
+      "state": "Rajasthan",
+      "country": "India",
+      "latitude": "26.4564",
+      "longitude": "74.6217"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://www.tourism.rajasthan.gov.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_023",
+    "religion": "Islam",
+    "site_name": "Moti Masjid Lahore Fort",
+    "alternative_names": ["Pearl Mosque Lahore"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Royal mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Small white marble mosque built by Shah Jahan 1630-1635. Located inside Lahore Fort. Designed for royal family's private use. Features five elegant domes and three prayer halls. Constructed entirely of white marble. Example of Shah Jahan's architectural patronage.",
+    "approx_established_period": "1630-1635",
+    "location": {
+      "city": "Lahore",
+      "district": "Lahore",
+      "state": "Punjab",
+      "country": "Pakistan",
+      "latitude": "31.5883",
+      "longitude": "74.3154"
+    },
+    "popularity_level": "Pan-India",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://whc.unesco.org"]
+    }
+  },
+  {
+    "site_id": "islam_north_024",
+    "religion": "Islam",
+    "site_name": "Gyanvapi Mosque",
+    "alternative_names": ["Aurangzeb Mosque"],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built by Mughal Emperor Aurangzeb. Located adjacent to Kashi Vishwanath Temple in Varanasi. In September 1669, Aurangzeb ordered demolition of temple; mosque constructed in place circa 1678 CE. Features two tall minarets. Subject of ongoing legal disputes. Protected by court orders. Important historical monument.",
+    "approx_established_period": "1669-1678",
+    "location": {
+      "city": "Varanasi",
+      "district": "Varanasi",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "25.3109",
+      "longitude": "83.0107"
+    },
+    "popularity_level": "State",
+    "sources": {
+      "primary": ["https://en.wikipedia.org/wiki/Gyanvapi_Mosque"],
+      "secondary": []
+    }
+  },
+  {
+    "site_id": "islam_north_025",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Mathura",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built during reign of Aurangzeb in 17th century. Located in Mathura. Features typical Mughal architectural elements including domes and minarets. Important Friday mosque for local Muslim community. Active place of worship.",
+    "approx_established_period": "17th century CE",
+    "location": {
+      "city": "Mathura",
+      "district": "Mathura",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.4924",
+      "longitude": "77.6737"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://mathura.nic.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_026",
+    "religion": "Islam",
+    "site_name": "Fatehpuri Masjid",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built in 1650 by Fatehpuri Begum, one of wives of Mughal emperor Shah Jahan. Located at western end of Chandni Chowk in Old Delhi. Red sandstone mosque. Important Mughal-era mosque. Active place of worship.",
+    "approx_established_period": "1650",
+    "location": {
+      "city": "Delhi",
+      "district": "Central Delhi",
+      "state": "Delhi",
+      "country": "India",
+      "latitude": "28.6562",
+      "longitude": "77.2275"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://delhitourism.gov.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_027",
+    "religion": "Islam",
+    "site_name": "Ziarat Bal Shrine",
+    "alternative_names": [],
+    "site_type": "Shrine",
+    "primary_figure_or_concept": "Holy relics",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Holy shrine in Srinagar. Houses sacred relics. Important pilgrimage site for Kashmiri Muslims. Located on banks of Dal Lake. Features traditional Kashmiri architecture. Site of religious gatherings.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Srinagar",
+      "district": "Srinagar",
+      "state": "Jammu and Kashmir",
+      "country": "India",
+      "latitude": "34.1289",
+      "longitude": "74.8656"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://jktdc.co.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_028",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Bareilly",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Built during Rohilla period in 18th century. Important mosque in Bareilly region. Features Afghan architectural influences. Built by Rohilla chiefs. Reflects regional Islamic architectural traditions. Active Friday mosque.",
+    "approx_established_period": "18th century CE",
+    "location": {
+      "city": "Bareilly",
+      "district": "Bareilly",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "28.3670",
+      "longitude": "79.4304"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://bareilly.nic.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_029",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Aligarh",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Historic mosque in Aligarh. Important religious center. Features Mughal architectural elements. Serves large Muslim population of Aligarh. Active Friday mosque. Part of city's Islamic heritage.",
+    "approx_established_period": null,
+    "location": {
+      "city": "Aligarh",
+      "district": "Aligarh",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "27.8974",
+      "longitude": "78.0880"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://aligarh.nic.in"]
+    }
+  },
+  {
+    "site_id": "islam_north_030",
+    "religion": "Islam",
+    "site_name": "Jama Masjid Kanpur",
+    "alternative_names": [],
+    "site_type": "Mosque",
+    "primary_figure_or_concept": "Congregational mosque",
+    "canonical_or_religious_significance": null,
+    "historical_significance": "Major mosque in Kanpur. Built during 19th century. Important religious center for Kanpur Muslims. Features typical north Indian mosque architecture. Active place of worship. Serves as main Friday mosque.",
+    "approx_established_period": "19th century CE",
+    "location": {
+      "city": "Kanpur",
+      "district": "Kanpur Nagar",
+      "state": "Uttar Pradesh",
+      "country": "India",
+      "latitude": "26.4499",
+      "longitude": "80.3319"
+    },
+    "popularity_level": "Regional",
+    "sources": {
+      "primary": [],
+      "secondary": ["https://kanpur.nic.in"]
+    }
+  }
+]

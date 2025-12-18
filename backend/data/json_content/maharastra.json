@@ -1,0 +1,177 @@
+{
+  "state": "Maharashtra",
+  "category": "Forts Trekking Guide",
+  "treks": {
+    "easy": [
+      {
+        "name": "Sinhagad Fort",
+        "location": "37 km southwest of Pune",
+        "elevation_m": 1312,
+        "trek_duration_hours": 1,
+        "highlights": [
+          "Historic battle site",
+          "Panoramic views"
+        ],
+        "history": "Site of the 1670 battle led by Tanaji Malusare under Chhatrapati Shivaji Maharaj."
+      },
+      {
+        "name": "Lohagad Fort",
+        "location": "64 km northwest of Pune",
+        "elevation_m": 1033,
+        "trek_duration_hours": 1.5,
+        "highlights": [
+          "Vinchu Kata ridge",
+          "Monsoon beauty"
+        ],
+        "history": "Built in the 18th century; used by Chhatrapati Shivaji Maharaj to store treasury."
+      },
+      {
+        "name": "Tikona Fort",
+        "location": "60 km northwest of Pune",
+        "elevation_m": 1097,
+        "trek_duration_hours": 1.5,
+        "highlights": [
+          "Triangular fort",
+          "Pawna Lake views"
+        ],
+        "history": "Conquered by Malik Ahmad Nizam Shah I in 1585; later under Maratha control."
+      },
+      {
+        "name": "Korigad Fort",
+        "location": "90 km northwest of Pune",
+        "elevation_m": 923,
+        "trek_duration_hours": 2,
+        "highlights": [
+          "Intact fort walls",
+          "Scenic surroundings"
+        ],
+        "history": "Built during the Maratha rule; offers panoramic views of the region."
+      },
+      {
+        "name": "Sondai Fort",
+        "location": "110 km northwest of Pune",
+        "elevation_m": 366,
+        "trek_duration_hours": 1.5,
+        "highlights": [
+          "Overlooks Morbe Dam",
+          "Serene environment"
+        ],
+        "history": "Served as a watchtower for the region; offers views of the Matheran range."
+      }
+    ],
+    "moderate": [
+      {
+        "name": "Rajmachi Fort",
+        "location": "80 km northwest of Pune",
+        "elevation_ft": 2710,
+        "trek_duration_hours": 2.5,
+        "highlights": [
+          "Twin forts",
+          "Lush greenery"
+        ],
+        "history": "Consists of Shrivardhan and Manaranjan forts; strategic location overlooking Bor Ghat."
+      },
+      {
+        "name": "Mahuli Fort",
+        "location": "130 km north of Pune",
+        "elevation_ft": 2815,
+        "trek_duration_hours": 3,
+        "highlights": [
+          "Highest point in Thane",
+          "Rock formations"
+        ],
+        "history": "Important fort during the Maratha era; known for complex rock formations."
+      },
+      {
+        "name": "Visapur Fort",
+        "location": "65 km northwest of Pune",
+        "elevation_m": 1084,
+        "trek_duration_hours": 2,
+        "highlights": [
+          "Expansive plateau",
+          "Historic ruins"
+        ],
+        "history": "Built in the early 18th century; larger than Lohagad."
+      },
+      {
+        "name": "Sudhagad Fort",
+        "location": "110 km west of Pune",
+        "elevation_m": 620,
+        "trek_duration_hours": 2,
+        "highlights": [
+          "Bhoraidevi temple",
+          "Panoramic views"
+        ],
+        "history": "Dates back to 2nd century B.C.; considered a Maratha capital."
+      },
+      {
+        "name": "Irshalgad Fort",
+        "location": "100 km northwest of Pune",
+        "elevation_ft": 3700,
+        "trek_duration_hours": 2,
+        "highlights": [
+          "Pinnacle climb",
+          "Scenic vistas"
+        ],
+        "history": "Served as a watchtower; offers views of Morbe Dam."
+      }
+    ],
+    "difficult": [
+      {
+        "name": "Harihar Fort",
+        "location": "250 km north of Pune",
+        "elevation_ft": 3676,
+        "trek_duration_hours": 3.5,
+        "highlights": [
+          "Steep rock-cut steps",
+          "Thrilling ascent"
+        ],
+        "history": "Built during the Yadava period; famous for its staircase carved into the rock face."
+      },
+      {
+        "name": "Ratangad Fort",
+        "location": "180 km north of Pune",
+        "elevation_ft": 4255,
+        "trek_duration_hours": 3.5,
+        "highlights": [
+          "Nedhe rock hole",
+          "Panoramic views"
+        ],
+        "history": "Over 400 years old; captured by Shivaji Maharaj; overlooks Bhandardara."
+      },
+      {
+        "name": "Pratapgad Fort",
+        "location": "140 km southwest of Pune",
+        "elevation_ft": 3540,
+        "trek_duration_hours": 3,
+        "highlights": [
+          "Historic battle site",
+          "Dense forests"
+        ],
+        "history": "Built by Shivaji Maharaj in 1656; site of the battle against Afzal Khan."
+      },
+      {
+        "name": "Vasota Fort",
+        "location": "170 km south of Pune",
+        "elevation_ft": 3842,
+        "trek_duration_hours": 4.5,
+        "highlights": [
+          "Jungle trek",
+          "Boat ride"
+        ],
+        "history": "Also known as Vyaghragad; unconquered by the British due to dense forests."
+      },
+      {
+        "name": "Gambhirgad Fort",
+        "location": "200 km northwest of Pune",
+        "elevation_ft": 2000,
+        "trek_duration_hours": 3,
+        "highlights": [
+          "Remote location",
+          "Serene environment"
+        ],
+        "history": "Less explored fort offering solitude and panoramic views."
+      }
+    ]
+  }
+}

@@ -2,6 +2,8 @@ import os
 import asyncio
 import logging
 from typing import Tuple, List, Optional, Dict, Any
+
+from sklearn import base
 from groq import Groq
 from rag.persona_rag import PersonaRAG
 from rag.vector_store import VectorStoreManager
@@ -16,9 +18,9 @@ class GroqService:
         
         self.api_key = os.getenv("GROQ_API_KEY")
         self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
-        self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7"))
+        self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7")) # 0.7 -> 0.3 -> 0.5
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
-        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "90")) #10-> 30 -> 60 -> 90
+        self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "120")) #10-> 30 -> 60 -> 90 ->120
         logger.info(f"🤖 Groq Model: {self.model_name}")
         
         # Initialize RAG components
@@ -294,7 +296,7 @@ class GroqService:
             
             # PRIORITY 2: Handle Open-Ended XML style (Missing closing tag)
             # Matches: <function=name>{args}
-            # This is common with Llama-3-8b-instant
+            # This is common with Llama-3-8b-instruct
             xml_open_pattern = r'<function=([a-zA-Z0-9_]+)>.*?({.*})'
             xml_match = re.search(xml_open_pattern, failed_gen)
             
@@ -367,7 +369,7 @@ class GroqService:
             # ✅ TRUNCATE RAG CONTEXT TO SAVE TOKENS
             if rag_context.get("formatted_context"):
                 original_length = len(rag_context["formatted_context"])
-                rag_context["formatted_context"] = rag_context["formatted_context"][:1000]  # Max 1200 chars ----- 1200 -> 1000
+                rag_context["formatted_context"] = rag_context["formatted_context"][:2000]  # Max 1200 chars ----- 1200 -> 1000 -> 2000
                 logger.debug(f"RAG context truncated: {original_length} → {len(rag_context['formatted_context'])} chars")
             
             logger.debug(f"RAG docs: {rag_context.get('retrieved_doc_count', 0)}")
@@ -377,77 +379,176 @@ class GroqService:
             logger.error(f"Error getting RAG context: {str(e)}")
             return {"has_rag_context": False, "error": str(e)}
     
+    # def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: dict, tool_context: dict) -> str:
+    #     """
+    #     Builds a highly optimized system prompt for RAG + Agents.
+    #     """
+    #     # 1. Base Identity
+    #     base_prompt = f"You are a {persona} guide for India. Intent: {intent}.\n"
+
+    #     # 2. Inject RAG Context (The "Truth")
+    #     if rag_context and rag_context.get("has_rag_context"):
+    #         # Truncate to avoid token overflow (~6000 chars is plenty for Llama3-70b)
+    #         context_text = rag_context.get("formatted_context", "")[:6000]
+    #         base_prompt += f"\n### OFFICIAL KNOWLEDGE BASE (PRIORITY):\n{context_text}\n"
+    #         base_prompt += "INSTRUCTION: Answer strictly using this Knowledge Base(if possible). IMPORTANT But use tools whenever possible.\n"
+    #         # GEOGRAPHICAL VALIDATION
+    #         if rag_context.get('query_location'):
+    #             base_prompt += f"\n\nCRITICAL LOCATION FILTER: User asked about {rag_context['query_location']}. REJECT any information about other locations. Only use data specifically about {rag_context['query_location']}."
+
+    #     # 3. Inject Tool Results (Real-time Data)
+    #     if tool_context:
+    #         import json
+    #         # Filter huge lists to save tokens (e.g. only top 5 treks)
+    #         clean_tool_context = tool_context.copy()
+    #         if "treks" in clean_tool_context:
+    #             # Keep only summary info for treks to save space
+    #             trek_data = clean_tool_context["treks"]
+    #             clean_tool_context["treks"] = {
+    #                 "count": trek_data.get("trek_count"),
+    #                 "region": trek_data.get("region"),
+    #                 "top_treks": trek_data.get("treks", [])[:5] # Only top 5
+    #             }
+
+    #         base_prompt += f"\n### LIVE TOOL RESULTS:\n{json.dumps(clean_tool_context, indent=2)}\n"
+    #         base_prompt += "INSTRUCTION: Use these results to answer specific questions (e.g., weather, prices).\n"
+
+    #     # 4. Hinglish Support
+    #     if rag_context and rag_context.get("response_language") == "hinglish":
+    #         base_prompt += """
+    #         IMPORTANT: RESPONSE LANGUAGE - HINGLISH
+    #         The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
+    #         - Use simple English words mixed with Hindi.
+    #         - Use Roman script (English letters).
+    #         - Example: "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
+    #         """
+
+    #     # 5. Persona Instructions
+    #     persona_instructions = {
+    #         "local_guide": """
+    #         STYLE: Friendly, casual, for example- "Hey there!", "Pro tip".
+    #         Focus on practical logistics, costs, and insider tips. Act as a Local tour guide
+    #         """,
+    #         "spiritual_teacher": """
+    #         STYLE: Serene, wise, philosophical.
+    #         Include Sanskrit phrases with translations. Focus on inner transformation.
+    #         """,
+    #         "trek_companion": """
+    #         STYLE: Energetic, safety-focused, concise. be like a trek instructor.
+    #         Focus on gear, difficulty, weather, and safety.
+    #         """,
+    #         "cultural_expert": """
+    #         STYLE: Scholarly yet engaging storyteller. act as someone who has deep knowledge about indian culture and history.
+    #         Focus on history, legends, and cultural significance.
+    #         """
+    #     }
+    #     base_prompt += f"\n### PERSONA GUIDELINES:\n{persona_instructions.get(persona, persona_instructions['local_guide'])}\n"
+
+    #     # 6. Final Rules
+    #     base_prompt += """
+    #     # FINAL RULES - ANTI-HALLUCINATION
+    #     1. ONLY answer if the KNOWLEDGE BASE or LIVE TOOL RESULTS explicitly contain the information.
+    #     2. If you lack specific information, say: "I don't have verified information about [topic]. Please refine your query."
+    #     3. NEVER invent place names, prices, addresses, phone numbers, or specific details. try to call geocoding tool if location is not found in rag context.
+    #     4. NEVER extrapolate from similar contexts (e.g., don't suggest Sikkim locations for Delhi queries)
+    #     5. If tool results are empty or irrelevant, explicitly state: "No relevant information found for your query." then and only then proceed to general advice through rag content.
+    #     6. STRICTLY respect geographical boundaries - only suggest places in the queried location
+    #     7. If LIVE TOOL RESULTS contains the info, ANSWER the user. DO NOT call the tool again.
+    #     8. Keep answers concise (under 4 sentences unless asked for details).
+    #     """
+
+        
+    #     return base_prompt
+
     def _build_system_message_with_rag(self, persona: str, intent: str, rag_context: dict, tool_context: dict) -> str:
         """
-        Builds a highly optimized system prompt for RAG + Agents.
+        Optimized system prompt for RAG + Agents (token-efficient) with CORRECT tool names.
         """
-        # 1. Base Identity
-        base_prompt = f"You are a {persona} guide for India. Intent: {intent}.\n"
-
-        # 2. Inject RAG Context (The "Truth")
+        base_prompt = f"You are a {persona} guide for India (Intent: {intent}). You're AGENTIC - call tools to get real-time data.\n"
+        
+        # ✅ CORRECTED: Intent-Based Tool Enforcement (EXACT function names from your tools)
+        REQUIRED_TOOLS = {
+            "itinerary": ["get_holidays", "get_weather", "get_hotel_rates", "geocode_location"],
+            "accommodation": ["get_hotel_rates", "geocode_location"],
+            "trekking": ["search_treks", "get_weather", "geocode_location"],
+            "weather": ["get_weather", "geocode_location"],
+            "events": ["get_holidays"],
+            "navigation": ["geocode_location"]
+        }
+        
+        required = REQUIRED_TOOLS.get(intent, [])
+        if required and not tool_context:
+            base_prompt += f"\n🚨 MUST CALL TOOLS: {', '.join(required)}. Don't answer generically - call tools NOW!\n"
+        
+        # RAG Context
         if rag_context and rag_context.get("has_rag_context"):
-            # Truncate to avoid token overflow (~6000 chars is plenty for Llama3-70b)
-            context_text = rag_context.get("formatted_context", "")[:6000]
-            base_prompt += f"\n### OFFICIAL KNOWLEDGE BASE (PRIORITY):\n{context_text}\n"
-            base_prompt += "INSTRUCTION: Answer strictly using this Knowledge Base if possible.\n"
-
-        # 3. Inject Tool Results (Real-time Data)
+            context_text = rag_context.get("formatted_context", "")[:5000]
+            base_prompt += f"\n### KNOWLEDGE BASE:\n{context_text}\n"
+            if rag_context.get('query_location'):
+                base_prompt += f"⚠️ LOCATION FILTER: Only info about {rag_context['query_location']} - reject others.\n"
+        
+        # Tool Results
         if tool_context:
             import json
-            # Filter huge lists to save tokens (e.g. only top 5 treks)
-            clean_tool_context = tool_context.copy()
-            if "treks" in clean_tool_context:
-                # Keep only summary info for treks to save space
-                trek_data = clean_tool_context["treks"]
-                clean_tool_context["treks"] = {
-                    "count": trek_data.get("trek_count"),
-                    "region": trek_data.get("region"),
-                    "top_treks": trek_data.get("treks", [])[:5] # Only top 5
-                }
-
-            base_prompt += f"\n### LIVE TOOL RESULTS:\n{json.dumps(clean_tool_context, indent=2)}\n"
-            base_prompt += "INSTRUCTION: Use these results to answer specific questions (e.g., weather, prices).\n"
-
-        # 4. Hinglish Support
-        if rag_context and rag_context.get("response_language") == "hinglish":
-            base_prompt += """
-            IMPORTANT: RESPONSE LANGUAGE - HINGLISH
-            The user spoke in Hindi. Please respond in HINGLISH (Hindi-English mix):
-            - Use simple English words mixed with Hindi.
-            - Use Roman script (English letters).
-            - Example: "Weather abhi bahut accha hai. Temperature 15°C ke around hai."
-            """
-
-        # 5. Persona Instructions
-        persona_instructions = {
-            "local_guide": """
-            STYLE: Friendly, casual, "Hey there!", "Pro tip".
-            Focus on practical logistics, costs, and insider tips.
-            """,
-            "spiritual_teacher": """
-            STYLE: Serene, wise, philosophical.
-            Include Sanskrit phrases with translations. Focus on inner transformation.
-            """,
-            "trek_companion": """
-            STYLE: Energetic, safety-focused, concise.
-            Focus on gear, difficulty, weather, and safety.
-            """,
-            "cultural_expert": """
-            STYLE: Scholarly yet engaging storyteller.
-            Focus on history, legends, and cultural significance.
-            """
-        }
-        base_prompt += f"\n### PERSONA GUIDELINES:\n{persona_instructions.get(persona, persona_instructions['local_guide'])}\n"
-
-        # 6. Final Rules
+            clean_ctx = tool_context.copy()
+            if "treks" in clean_ctx:
+                trek_data = clean_ctx["treks"]
+                clean_ctx["treks"] = {"count": trek_data.get("trek_count"), "region": trek_data.get("region"), "top_treks": trek_data.get("treks", [])[:5]}
+            base_prompt += f"\n### LIVE TOOL DATA:\n{json.dumps(clean_ctx, indent=2)}\n✅ Use these real-time results.\n"
+        
+        # Critical Rules (condensed)
         base_prompt += """
-        ### FINAL RULES:
-        1. If the answer is in the KNOWLEDGE BASE, use it. DO NOT invent facts.
-        2. If 'LIVE TOOL RESULTS' contains the info, ANSWER the user. DO NOT call the tool again.
-        3. Keep answers concise (under 4 sentences unless asked for details).
-        """
+    ### PRIORITY RULES:
+    **USE TOOLS (not RAG) for:** Hotels, Weather, Events, Navigation, Current Prices
+    **USE RAG for:** History, Culture, Temples, Scriptures, Trekking Peaks (mountaineering)
+
+    **TOOL USAGE GUIDE:**
+    - Hotels → get_hotel_rates(city) - Required for accommodation queries
+    - Weather → get_weather(lat, lon) - Get coords first with geocode_location(city)
+    - Events/Holidays → get_holidays(year, month, quarter)
+    - Navigation/Coords → geocode_location(query)
+    - Treks/Hiking → search_treks(region, trek_name) - For hiking trails only
+    - Peaks/Mountaineering → Use RAG (ingested CSV data)
+
+    **MULTI-STEP WORKFLOW:**
+    1. For hotels: geocode_location(city) → get_weather(lat, lon) → get_hotel_rates(city)
+    2. For trip planning: get_holidays() → geocode_location() → get_weather() → get_hotel_rates()
+    3. For trekking: geocode_location(region) → search_treks(region) → get_weather()
+
+    **IMPORTANT:**
+    - If RAG lacks info → Call tools
+    - Already have tool results? → Use them (don't re-call)
+    - For mountaineering PEAKS → Use RAG (your CSV data with exact heights)
+    - For hiking TRAILS → Use search_treks tool
+    """
+        
+        # Hinglish
+        if rag_context and rag_context.get("response_language") == "hinglish":
+            base_prompt += "🇮🇳 RESPOND IN HINGLISH (Hindi-English mix, Roman script).\n"
+        
+        # Persona (ultra-condensed)
+        persona_styles = {
+            "local_guide": "Friendly, practical tips. Focus: logistics, costs, safety.",
+            "spiritual_teacher": "Serene, wise. Focus: inner wisdom, Sanskrit teachings.",
+            "trek_companion": "Energetic, safety-first. Focus: gear, difficulty, permits.",
+            "cultural_expert": "Scholarly storyteller. Focus: history, legends, traditions."
+        }
+        base_prompt += f"\n**PERSONA:** {persona_styles.get(persona, persona_styles['local_guide'])}\n"
+        
+        # Anti-Hallucination (compressed)
+        base_prompt += """
+    ### NO HALLUCINATIONS:
+    ❌ Never invent: names, prices, addresses, dates
+    ❌ Never extrapolate across locations
+    ✅ Only answer from Knowledge Base OR Tool Results
+    ⚠️ No info? Say: "No verified info for [query]"
+    📏 Keep concise (3-4 sentences unless asked)
+    """
         
         return base_prompt
+
+
+
 
     def _build_user_message(self, message: str, persona: str, intent: str, context: Dict[str, Any]) -> str:
         """Build the complete user message with context"""
@@ -486,6 +587,71 @@ class GroqService:
             return response_text + citation_note
         
         return response_text
+    
+    async def verify_response_against_sources(self, user_query: str, response: str, rag_context: dict, tool_context: dict) -> tuple[bool, str]:
+        """
+        Verify if response contains hallucinations by checking against sources.
+        Returns: (is_valid, explanation)
+        """
+        if not self.client:
+            return True, "verification_skipped_no_client"
+        
+        # Skip verification if no sources to check against
+        if not rag_context.get('hasragcontext') and not tool_context:
+            return True, "no_sources_to_verify"
+        
+        source_text = ""
+        if rag_context.get('hasragcontext'):
+            source_text += f"RAG CONTEXT: {rag_context.get('formatted_context', '')[:1500]}\n\n"
+        if tool_context:
+            import json
+            source_text += f"TOOL RESULTS: {json.dumps(tool_context, indent=2)[:1500]}"
+        
+        verification_prompt = f"""You are a strict hallucination detector for a travel chatbot.
+
+        USER QUERY: {user_query}
+
+        ASSISTANT RESPONSE:
+        {response}
+
+        SOURCE DATA:
+        {source_text}
+
+        TASK: Check if the response contains FABRICATED INFORMATION (invented places, fake names, wrong locations, made-up numbers).
+
+        IMPORTANT RULES:
+        - Paraphrasing is ALLOWED (e.g., "magical" for "special")
+        - Related nearby attractions are ALLOWED if contextually relevant
+        - General travel advice is ALLOWED
+        - Minor stylistic differences are ALLOWED
+        - ONLY flag as hallucination if: invented place names, wrong city/location, fake specific details (prices, addresses, phone numbers)
+
+        Answer in ONE of these formats:
+        - "VALID" - if response is grounded in sources or reasonable travel advice
+        - "HALLUCINATION: [brief 1-sentence explanation of what was invented]" - ONLY for serious fabrications
+        """
+        
+        try:
+            result = await self._raw_generate(
+                system_prompt="You are a hallucination detector. Only flag serious fabrications, not stylistic choices.",
+                user_prompt=verification_prompt
+            )
+            
+            verification_result = result[0].strip()
+            
+            # Only flag if explicitly says HALLUCINATION
+            if verification_result.startswith("HALLUCINATION:"):
+                # Extract just the brief explanation
+                explanation = verification_result.replace("HALLUCINATION:", "").strip()
+                logger.warning(f"🚫 Hallucination: {explanation[:200]}")  # Limit log length
+                return False, explanation
+            
+            return True, "VALID"
+            
+        except Exception as e:
+            logger.error(f"Verification failed: {str(e)}")
+            return True, "verification_error"  # Don't block response on verification errors
+
     
     async def _generate_suggestions_with_rag(
         self, 

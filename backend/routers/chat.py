@@ -5,7 +5,7 @@ import asyncio
 import logging
 from datetime import datetime
 from utils.groq_service import GroqService
-from utils.intents import classify_intent, extract_trek_info, is_trek_query
+from utils.intents import classify_intent, extract_trek_info, is_trek_query, extract_location
 from utils.persona_templates import generate_response as generate_local_response
 from utils.connection_checker import check_internet_connection
 from utils.database import get_database
@@ -30,6 +30,9 @@ from fastapi.responses import FileResponse
 # ADD THESE IMPORTS (after line ~20)
 from utils.summary_generator import get_summary_generator
 from utils.summary_pdf_generator import SummaryPDFGenerator
+
+# import warnings
+# warnings.filterwarnings("ignore")
 
 
 # Setup logging
@@ -185,16 +188,17 @@ def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
     # Base instructions for offline mode
     base_prompt = """You are a helpful tourism assistant for India.
 
-CRITICAL RULES:
-1. You do NOT have access to real-time data (weather, current events, prices)
-2. If asked about current/live information, clearly state: "I don't have access to real-time data. Please check online sources for current information."
-3. Do NOT invent specific numbers, dates, temperatures, or prices
-4. Do NOT generate code or tool usage examples
-5. Only use information from the provided CONTEXT below
-6. Keep responses SHORT (2-4 sentences maximum)
-7. Be honest when you don't know something
-
-"""
+    CRITICAL ANTI-HALLUCINATION RULES:
+    1. You do NOT have access to real-time data (weather, current events, prices)
+    2. If asked about current/live information, clearly state: "I don't have access to real-time data. Please check online sources for current information."
+    3. NEVER invent place names, addresses, hotel names, or specific details
+    4. NEVER suggest places from different cities (e.g., don't suggest Sikkim locations for Delhi queries)
+    5. Only use information from the provided CONTEXT below - if it's not there, say so
+    6. Do NOT generate code or tool usage examples
+    7. Keep responses SHORT (2-4 sentences maximum)
+    8. If you lack specific information, say: "I don't have verified information about that. Please try a more specific query."
+    9. STRICTLY respect geographical boundaries mentioned in the query
+    """
     
     # Add RAG context if available
     if rag_context.get("has_rag_context"):
@@ -913,6 +917,7 @@ async def chat(
         chat_saved=chat_saved,
         session_id=session_id
     )
+
 
 async def _get_conversation_history(
     session_id: str,

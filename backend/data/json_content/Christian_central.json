@@ -1,0 +1,756 @@
+{
+  "south_india": [
+    {
+      "site_id": "christian_south_001",
+      "religion": "Christianity",
+      "site_name": "Basilica of Our Lady of Good Health",
+      "alternative_names": ["Velankanni Basilica", "Arokiya Matha Church"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Our Lady of Good Health (Virgin Mary)",
+      "canonical_or_religious_significance": "Major Marian pilgrimage site; one of most visited pilgrimage centers in India",
+      "historical_significance": "Started as thatched chapel in 16th century became parish church in 1771. Special status granted as Minor Basilica by Pope John XXIII on 3 November 1962. Built in Gothic style of architecture extended from time to time. In Catholic tradition, three miracles attributed to Virgin Mary at site: appearance to shepherd boy offering milk to child, healing crippled boy who gave buttermilk, saving Portuguese sailors from violent storm in 17th century who constructed larger chapel. Located in Velankanni Tamil Nadu. Contains three chapels Our Lady's Tank Church Museum Priests' Residence Offering Center Stations of Cross Stations of Rosary Shrine Mega Mahal and Vailankanni Beach. Structure painted white with roof covered by striking red tiles.",
+      "approx_established_period": "16th century, Minor Basilica 1962",
+      "location": {
+        "city": "Velankanni",
+        "district": "Nagapattinam",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "latitude": "10.6833",
+        "longitude": "79.8500"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Basilica_of_Our_Lady_of_Good_Health"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_002",
+      "religion": "Christianity",
+      "site_name": "St Francis Church",
+      "alternative_names": ["Santo Antonio Church"],
+      "site_type": "Church",
+      "primary_figure_or_concept": "St Francis of Assisi",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Oldest existing European church in India located in Fort Kochi. Church's history dates back to 1503 built by Portuguese Franciscan Friars who reached Kochi with Pedro Alvarez Cabral. Originally made of wood and mud situated in middle of fort constructed by Portuguese with permission of Cochin Raja dedicated to St Bartholomew. Reconstructed and reopened in 1516 dedicated to patron saint of Portugal Santo Antonio. Legendary Portuguese explorer Vasco Da Gama died in Kochi and was buried here in 1524 though remains later taken to Portugal in 1538. Burial spot and tombstone still present inside church. Rebuilt in 1779 by Protestant Dutch later becoming Anglican church under British rule in 1795. Now under Church of South India. War memorial built in front of church in memory of soldiers from Kochi who lost lives during World War I.",
+      "approx_established_period": "1503",
+      "location": {
+        "city": "Kochi",
+        "district": "Ernakulam",
+        "state": "Kerala",
+        "country": "India",
+        "latitude": "9.9658",
+        "longitude": "76.2428"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Church_of_Saint_Francis,_Kochi"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_003",
+      "religion": "Christianity",
+      "site_name": "San Thome Basilica",
+      "alternative_names": ["St Thomas Cathedral Basilica", "National Shrine of Saint Thomas"],
+      "site_type": "Basilica and Cathedral",
+      "primary_figure_or_concept": "St Thomas the Apostle",
+      "canonical_or_religious_significance": "One of only three churches worldwide built over apostle tombs alongside Rome's St Peter's Basilica and Santiago de Compostela Cathedral in Spain",
+      "historical_significance": "Roman Catholic minor Basilica located in Mylapore Chennai dedicated to St Thomas Apostle and Patron Saint of India. According to Christian tradition, St Thomas travelled to India in 52 AD as part of missionary efforts bringing Christianity, though historical evidence for this is debated by scholars. Portuguese sailors discovered site believed to be St Thomas tomb in 1498 AD. Present church reconstruction by British began in 1893 completed in 1896. Tomb dedicated to Saint Thomas built and consecrated by Dom Henrique Jose Reed da Silva first Bishop of Roman Catholic Archdiocese in India. Pope Pius XII conferred status of minor basilica in 1956. Pope John Paul II only pope to visit church in 1986. Built in Gothic style. Main area called nave measures 112 feet by 33 feet holds awe-inspiring chandeliers. Stained glass windows behind main altar showcase lives of St Thomas and other apostles. Two chapels: main chapel above ground and tomb chapel built underground. Statue of saint inside glass case at final resting place.",
+      "approx_established_period": "1896",
+      "location": {
+        "city": "Chennai",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "latitude": "13.0334",
+        "longitude": "80.2772"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._Thomas_Cathedral_Basilica,_Chennai"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_004",
+      "religion": "Christianity",
+      "site_name": "St Philomena's Cathedral",
+      "alternative_names": ["Cathedral of St Joseph and St Philomena", "St Joseph's Cathedral"],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Philomena",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Catholic church and cathedral of Diocese of Mysore. Neo Gothic in style constructed in 1936 during reign of Maharaja Krishnaraja Wadiyar IV. Architecture inspired by Cologne Cathedral in Germany. One of tallest churches in Asia. Maharaja laid foundation stone of church on 28 October 1933. Construction completed under Bishop Rene Feuga's supervision. Relic of Saint Philomena preserved in catacomb below main altar. Blend of local culture with some female statues in sarees traditional Indian attire. Twin spires 175 feet in height. Cathedral has crypt housing beautiful statue of St Philomena 3rd century saint from Greece. Built by Maharaja as gift to large number of European populations residing in Mysuru in 19th century. Beautiful paintings inside depict life of Jesus Christ including Christ's birth and Baptism.",
+      "approx_established_period": "1936",
+      "location": {
+        "city": "Mysore",
+        "district": "Mysore",
+        "state": "Karnataka",
+        "country": "India",
+        "latitude": "12.3100",
+        "longitude": "76.6394"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._Philomena's_Cathedral,_Mysore"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_005",
+      "religion": "Christianity",
+      "site_name": "Santa Cruz Cathedral Basilica",
+      "alternative_names": ["Kotta Palli", "Kottepalli"],
+      "site_type": "Cathedral Basilica",
+      "primary_figure_or_concept": "Holy Cross",
+      "canonical_or_religious_significance": "One of eight basilicas in India granted status by Vatican",
+      "historical_significance": "Located in Fort Kochi. Heritage edifice of Kerala renowned for Indo-European and Gothic architectural style. Serves as cathedral church of Diocese of Cochin. Foundation laid on 4 May 1505 aligning with feast of invention of Holy Cross. Upon completion church named Santa Cruz meaning Holy Cross. Originally built by Portuguese in 1505 elevated to cathedral status in 1558 by Pope Paul IV. Destroyed by British in 1795. Present structure rebuilt 1887-1905 elevated to Minor Basilica by Pope John Paul II in 1984. Distinguished by predominantly white exterior contrasting with pastel-colored interior. Two imposing spires. Blend of Gothic and Indo-European architectural influences. Columns adorned with intricate frescoes and murals. Seven large canvas paintings portraying passion and death on Cross including captivating rendition of Last Supper inspired by Leonardo da Vinci's masterpiece. Ceilings adorned with scenes from Via Crucis.",
+      "approx_established_period": "1505, rebuilt 1887-1905",
+      "location": {
+        "city": "Kochi",
+        "district": "Ernakulam",
+        "state": "Kerala",
+        "country": "India",
+        "latitude": "9.9658",
+        "longitude": "76.2428"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Santa_Cruz_Cathedral_Basilica,_Kochi"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_006",
+      "religion": "Christianity",
+      "site_name": "Medak Cathedral",
+      "alternative_names": ["Cathedral Church of Medak"],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "Jesus Christ",
+      "canonical_or_religious_significance": "Single largest diocese in Asia at time of construction",
+      "historical_significance": "Seat of Bishop in Medak for Church of South India. Largest of all churches in Telangana. Built by British Wesleyan Methodists. Consecrated on 25 December 1924. Now under jurisdiction of Church of South India. Characterized by majestic Gothic Revival architecture spans 100 feet in width and 200 feet in length with capacity to hold 5000 people. Structure features imported mosaic tiles and decorative flooring laid by Italian masons. Bell tower stands at 175 feet reportedly taller than Charminar. Designed by John Bradshaw Gass constructed by British engineers completed in 1924. Biggest attraction is stained glass windows depicting different scenes from Christ's life: Ascension behind altar Nativity in west transept and Crucifixion in east transept. Funded by Reverend Charles Walker Posnett and family. Attracts more than three million tourists per annum.",
+      "approx_established_period": "1924",
+      "location": {
+        "city": "Medak",
+        "district": "Medak",
+        "state": "Telangana",
+        "country": "India",
+        "latitude": "18.0500",
+        "longitude": "78.2667"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Medak_Cathedral"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_007",
+      "religion": "Christianity",
+      "site_name": "Infant Jesus Church",
+      "alternative_names": ["Infant Jesus Shrine"],
+      "site_type": "Shrine Church",
+      "primary_figure_or_concept": "Infant Jesus of Prague",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Roman Catholic church in Bangalore established in 1971 in Neelasandra near Vivek Nagar area. Dedicated to Infant Jesus of Prague. In 1969 plot measuring 4.5 acres of agricultural land in Sonnanahalli bought after prayer to Infant Jesus. Most Rev Dr D S Lourduswamy then Archbishop of Bangalore laid foundation for new church on 18 April 1969. Important pilgrimage site in Bangalore. Popular shrine attracting devotees throughout year.",
+      "approx_established_period": "1971",
+      "location": {
+        "city": "Bangalore",
+        "district": "Bangalore Urban",
+        "state": "Karnataka",
+        "country": "India",
+        "latitude": "12.9716",
+        "longitude": "77.5946"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Infant_Jesus_Church,_Bengaluru"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_008",
+      "religion": "Christianity",
+      "site_name": "St Andrew's Church",
+      "alternative_names": ["The Kirk"],
+      "site_type": "Church",
+      "primary_figure_or_concept": "St Andrew",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Built by Scottish community in Chennai in 1821. Also known as The Kirk. Church built around dome. Pews arranged in half circle formation like Indian Parliament. Neo-classical and Georgian architecture modelled on London's St Martin-in-the-Fields church. Impressive portico entrance fronted by Corinthian-style columns. Tall bell tower visible from many parts of Egmore neighbourhood. Interior decorated with curved roof at impressive height elegant blue-painted dome. Circle of 16 magnificent Corinthian pillars supporting dome. Elegant mahogany furnishings and marble checkerboard floor. Sculpted icons adorn walls and colourful stained-glass windows portray religious scenes. 18th century English-built pipe organ at main altar. Located stone's throw from Egmore Railway Station.",
+      "approx_established_period": "1821",
+      "location": {
+        "city": "Chennai",
+        "district": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "latitude": "13.0732",
+        "longitude": "80.2609"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.tripadvisor.in/ShowUserReviews-g304556-d3654485-r693686195-St_Andrews_Church-Chennai_Madras_Chennai_District_Tamil_Nadu.html"]
+      }
+    },
+    {
+      "site_id": "christian_south_009",
+      "religion": "Christianity",
+      "site_name": "Immaculate Conception Cathedral",
+      "alternative_names": ["Samba Kovil"],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "Immaculate Conception of Virgin Mary",
+      "canonical_or_religious_significance": "Mother church for Roman Catholic Archdiocese of Pondicherry and Cuddalore",
+      "historical_significance": "300-year-old cathedral in Puducherry. Originally built in 1692 but demolished by Dutch rebuilt demolished again rebuilt and demolished by British. Rebuilt in 1791 in present shape by Bishop Champenois after Jesuits returned following British departure. Bell tower built later. Loft added in 1905 parts remodeled in 1970 and 1987. Design closely resembles churches of 17th-century Portuguese colonies. Beautiful white and blue color scheme with golden accents. Mix of Herrian French and Portuguese style architecture. Grand façade painted in soft cream with pastel highlights. Towering Corinthian pillars intricate cornices and scroll-shaped curves. Large niche houses beautiful statue of Virgin Mary crowned by two angels. Triangular pediment richly adorned with motifs like crosses roosters chalices and palm leaves. Visited by Mother Theresa.",
+      "approx_established_period": "1791",
+      "location": {
+        "city": "Pondicherry",
+        "district": "Puducherry",
+        "state": "Puducherry",
+        "country": "India",
+        "latitude": "11.9333",
+        "longitude": "79.8333"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Immaculate_Conception_Cathedral,_Pondicherry"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_010",
+      "religion": "Christianity",
+      "site_name": "All Saints Church",
+      "alternative_names": [],
+      "site_type": "Church",
+      "primary_figure_or_concept": "All Saints",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Anglican church located in Coonoor. Constructed in 1851. One of oldest churches in Nilgiris. English-style Anglican church characterized by cream-colored façade. Originally part of Church of England now associated with Church of South India. Adjacent to Taj Garden Retreat Hotel near Sim's Park. Features exquisite interiors and stained glass windows evoking ambiance of traditional British countryside complemented by grand dome-like structures. Houses ancient pipe organ and antique wooden elements. Surrounded by tall pine trees exudes rustic charm. Graveyard serves as poignant reminder of those who served in military.",
+      "approx_established_period": "1851",
+      "location": {
+        "city": "Coonoor",
+        "district": "Nilgiris",
+        "state": "Tamil Nadu",
+        "country": "India",
+        "latitude": "11.3500",
+        "longitude": "76.8000"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.trawell.in/tamilnadu/coonoor/all-saints-church"]
+      }
+    },
+    {
+      "site_id": "christian_south_011",
+      "religion": "Christianity",
+      "site_name": "St Mary's Basilica",
+      "alternative_names": ["Basilica of Our Lady of the Assumption"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Our Lady of the Assumption",
+      "canonical_or_religious_significance": "First Church in Andhra Pradesh and Telangana declared Basilica by Vatican",
+      "historical_significance": "Grand cathedral built during Nizam's reign in Secunderabad. Oldest Roman Catholic church in city. Located on Sarojini Naidu Road near Hyderabad. In 1839 Father Daniel Murphy began searching for land. Served as principal Church of Vicariate of Hyderabad formerly known as St Mary's Cathedral. Entire walls plastered externally polished stones laid at side altars and Sanctuary extended. Star-shaped Grotto and Infant Jesus Shrine erected. In 2007 decorated with prestigious 12th Indian National Trust for Art and Cultural Heritage INTACH Award. On 25 December 2012 during Mid-night Mass Archbishop made Official Announcement that St Mary's Church raised to level of Minor Basilica. Important imposing landmark and magnificent sight.",
+      "approx_established_period": "19th century, Basilica 2012",
+      "location": {
+        "city": "Secunderabad",
+        "district": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "latitude": "17.4400",
+        "longitude": "78.5000"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://archdioceseofhyderabad.org/secunderabad-st-marys-minor-basilica.html"]
+      }
+    },
+    {
+      "site_id": "christian_south_012",
+      "religion": "Christianity",
+      "site_name": "Our Lady of Dolours Basilica",
+      "alternative_names": ["Puthen Pally"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Our Lady of Dolours",
+      "canonical_or_religious_significance": "Most famous Marian pilgrim centre in Thrissur",
+      "historical_significance": "Has distinction of being biggest church in India with tower said to be third tallest in Asia. Area of 25000 sq ft and 261 ft tall. Construction in Gothic style began in 1929 completed after 11 years. As many as 30000 people can be accommodated at time. Other than main altar church has five small altars. Bible Tower with murals depicting various phases of Christ's life unique feature. Bell tower has eight bells imported from Germany. Foundation laid in 1929 sanctified in 1940 by Bishop Mar Francis Vazhappilly. Prominence elevated in 1992 when Pope John Paul II conferred status of Basilica. Showcases unique blend of Dutch Portuguese French and Kerala architectural styles. Towering 260-feet high Bible Tower tallest of its kind in Asia along with two 140-feet high bell towers. Inside church boasts eleven altars with intricate murals images of saints and scenes from scriptures. Double-storeyed aisles along nave and transepts. Feast of St Mary in September main event.",
+      "approx_established_period": "1940",
+      "location": {
+        "city": "Thrissur",
+        "district": "Thrissur",
+        "state": "Kerala",
+        "country": "India",
+        "latitude": "10.5276",
+        "longitude": "76.2144"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://www.keralatourism.org/christianity/dolours-basilica-thrissur/75"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_013",
+      "religion": "Christianity",
+      "site_name": "St Mary's Orthodox Syrian Church",
+      "alternative_names": ["Kottayam Cheriapally"],
+      "site_type": "Church",
+      "primary_figure_or_concept": "Virgin Mary",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Malankara Orthodox Syrian Church located in Kottayam Kerala. Commonly known as Kottayam Cheriapally. Built in 1579 by Thekkumkoor Maharajah. Ancient Orthodox Syrian church representing ancient Christian tradition in Kerala. Important religious and cultural heritage site for Syrian Christian community in Kerala.",
+      "approx_established_period": "1579",
+      "location": {
+        "city": "Kottayam",
+        "district": "Kottayam",
+        "state": "Kerala",
+        "country": "India",
+        "latitude": "9.5916",
+        "longitude": "76.5222"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._Mary's_Orthodox_Church,_Kottayam"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_014",
+      "religion": "Christianity",
+      "site_name": "CSI Garrison Wesley Church",
+      "alternative_names": [],
+      "site_type": "Church",
+      "primary_figure_or_concept": "Wesleyan Methodist tradition",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Built in 1853 located in Trimulgherry among oldest churches in Secunderabad under auspices of Protestant Church of South India CSI within ecclesiastical jurisdiction of Diocese of Medak. Situated in Lal Bazar civilian area of Secunderabad Cantonment. Near vicinity of Military College of Electronics and Mechanical Engineering MCEME. Attracts regular worshipers and new visitors from nearby military stations of Indian Army and Indian Air Force. British Indian Army stationed in Secunderabad by 1798. Christians of British origin including Wesleyan Methodists already worshiping following traditions. Military troops led by Presbyter laid cornerstone in 1853.",
+      "approx_established_period": "1853",
+      "location": {
+        "city": "Secunderabad",
+        "district": "Hyderabad",
+        "state": "Telangana",
+        "country": "India",
+        "latitude": "17.4833",
+        "longitude": "78.5000"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/CSI_Garrison_Wesley_Church"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_south_015",
+      "religion": "Christianity",
+      "site_name": "CSI St Mark's Cathedral",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Mark",
+      "canonical_or_religious_significance": "Cathedral of Karnataka Central Diocese",
+      "historical_significance": "Important cathedral of Church of South India in Bangalore. Part of Bangalore Civil Area of Karnataka Central Diocese. Serves as major center for Anglican and Protestant Christian worship in Bangalore. Important landmark church representing Church of South India traditions in Karnataka.",
+      "approx_established_period": "20th century",
+      "location": {
+        "city": "Bangalore",
+        "district": "Bangalore Urban",
+        "state": "Karnataka",
+        "country": "India",
+        "latitude": "12.9716",
+        "longitude": "77.5946"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://csikarnatakacentraldiocese.org/content/bangalore-civil-area"]
+      }
+    }
+  ],
+  "west_india": [
+    {
+      "site_id": "christian_west_001",
+      "religion": "Christianity",
+      "site_name": "Basilica of Bom Jesus",
+      "alternative_names": ["Basílica do Bom Jesus", "Borea Jezuchi Bajilika"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Jesus Christ and St Francis Xavier",
+      "canonical_or_religious_significance": "Houses mortal remains of St Francis Xavier; UNESCO World Heritage Site",
+      "historical_significance": "Catholic Basilica located in Goa in Konkan region. Iconic church is pilgrimage centre recognised by UNESCO as World Heritage Site. Located in Old Goa former capital of Portuguese India. One of oldest churches in Goa and India. Construction began 1594 consecrated 1605. Raised to status of minor Basilica in 1946. Outstanding example of Renaissance Baroque and Portuguese colonial architecture. Cruciform in plan facade combines Ionic Doric Corinthian and composite styles. Three elegant entrances surmounted by three large rectangular windows then three smaller circular windows culminating in richly carved central gable. Floor of marble inlaid with precious stones. Interior simple apart from elaborate gilded altars. Main altar holds large statue of St Ignatius of Loyola founder of Society of Jesus Jesuits. Only church in Goa not plastered from outside. Foundation stone laid by Archbishop Fr Alexia de Menezes on 24 November 1594.",
+      "approx_established_period": "1594-1605",
+      "location": {
+        "city": "Old Goa",
+        "district": "North Goa",
+        "state": "Goa",
+        "country": "India",
+        "latitude": "15.5008",
+        "longitude": "73.9111"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Basilica_of_Bom_Jesus"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_west_002",
+      "religion": "Christianity",
+      "site_name": "Se Cathedral",
+      "alternative_names": ["Sé Cathedral of Santa Catarina"],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Catherine of Alexandria",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Located in Old Goa. In 1510 Alfonso Albuquerque defeated Muslim rulers of Goa and became territory's undisputed king. Church built as dedication to St Catherine because victory of Portuguese came on feast day of St Catherine of Alexandria. Construction initiated in 1562 finished in 1619 consecrated in 1640 but main altars came alive only in 1652. Tower houses large bell known as Golden Bell on account of rich tone. Said to be largest in Goa and one of best in world. Main altar dedicated to Catherine of Alexandria with several old paintings on either side. Chapel of Cross of Miracles on right where according to tradition vision of Christ said to have appeared in 1619. Six main panels on which scenes from life of Saint Catherine carved. Huge gilded reredos above main altar.",
+      "approx_established_period": "1562-1619",
+      "location": {
+        "city": "Old Goa",
+        "district": "North Goa",
+        "state": "Goa",
+        "country": "India",
+        "latitude": "15.5008",
+        "longitude": "73.9111"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Se_Cathedral"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_west_003",
+      "religion": "Christianity",
+      "site_name": "Basilica of Our Lady of the Mount",
+      "alternative_names": ["Mount Mary Church"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Virgin Mary",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Roman Catholic Basilica located in Bandra Mumbai. Perched atop hillock about 80 meters above sea level overlooking Arabian Sea. History dates back to 16th century when Portuguese missionaries first erected chapel at site. Church named after statue of Virgin Mary brought by Portuguese from Portugal in 16th century. Originally built in 1640 AD. Destroyed in 1738 AD during raid by Marathas then rebuilt in 1761 AD. Architecture reflects semi-Gothic style boasting four-storey structure spanning 65 feet in breadth. Gothic influence evident in craftsmanship showcased in impressive front towers towering at 98 feet in height and 18 feet in breadth. Grand entrance adorned with massive door in Gothic style. Features exquisite fiberglass murals depicting stories from Mary's life. Central nave measures 67 feet in length and 38 feet in breadth with lofty ceiling up to 42 feet crafted from teakwood and capped with roof of Mangalore tiles. One of most well-known churches in Mumbai.",
+      "approx_established_period": "1640, rebuilt 1761",
+      "location": {
+        "city": "Mumbai",
+        "district": "Mumbai Suburban",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "19.0503",
+        "longitude": "72.8235"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Basilica_of_Our_Lady_of_the_Mount,_Bandra"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_west_004",
+      "religion": "Christianity",
+      "site_name": "St Thomas Cathedral",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Thomas the Apostle",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "300-year old cathedral church of Anglican Diocese of Mumbai of Church of North India. Named in honour of Saint Thomas Apostle believed to have first brought Christianity to India. Located in Horniman Circle historic centre of Mumbai. First Anglican church in Mumbai within walls of fortified British settlement. One of oldest churches in India. Foundation stone first laid in 1676 although church only finally consecrated for divine service on Christmas day 1718. Richard Cobbe chaplain completed construction between 1715 and 1718. In 1816 church dedicated to St Thomas by Thomas Middleton first Bishop of Kolkata. Standing under white façade shaped in Neo Gothic style bears stark resemblance with St Thomas Cathedral of Ireland. Entrance decorated with fountain and memorial for first Bishop of Bombay. Interiors made of brass glass work plaster of paris with arch shaped windows and cannon-ball-proof terrace. Received UNESCO Asia-Pacific Heritage Award in 2004.",
+      "approx_established_period": "1718",
+      "location": {
+        "city": "Mumbai",
+        "district": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "18.9322",
+        "longitude": "72.8331"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._Thomas_Cathedral,_Mumbai"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_west_005",
+      "religion": "Christianity",
+      "site_name": "Afghan Church",
+      "alternative_names": ["Church of St John the Evangelist"],
+      "site_type": "Church",
+      "primary_figure_or_concept": "St John the Evangelist",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Anglican church belonging to Mumbai diocese of Church of North India. Located in Mumbai Maharashtra. Built by British between 1847 and 1858 to commemorate dead of First Afghan War and disastrous 1842 retreat from Kabul. Foundation stone laid on February 1 1847 consecrated on January 7 1858. Testament to Anglican heritage within Mumbai diocese.",
+      "approx_established_period": "1847-1858",
+      "location": {
+        "city": "Mumbai",
+        "district": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "18.9522",
+        "longitude": "72.8081"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Afghan_Church"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_west_006",
+      "religion": "Christianity",
+      "site_name": "St Patrick's Cathedral",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Patrick",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Neo-Gothic cathedral built in 1850 mainly to cater Irish Catholic soldiers and other Catholics settled in Wanwadi and nearby areas. Earlier mass celebrated for troops mainly Irish and other Catholics in chapel at end of Right Flank Lines in Wanwadi. Bishop Anastasius Hartmann OFM Cap Apostolic Vicar of Bombay and Poona wanted better place of worship. At request of bishop government allotted land. Chapel built with contributions from people and soldiers who contributed month's salary. On 8 December 1850 first mass celebrated in new chapel now St Patrick's Cathedral. Diocese of Poona created in 1886 and Jesuit missionary Bernard Beider Linden appointed first bishop. Thus St Patrick's Church became St Patrick's Cathedral in 1887.",
+      "approx_established_period": "1850, Cathedral 1887",
+      "location": {
+        "city": "Pune",
+        "district": "Pune",
+        "state": "Maharashtra",
+        "country": "India",
+        "latitude": "18.5204",
+        "longitude": "73.8567"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.stpatrickspune.in/about-cathedral.php"]
+      }
+    }
+  ],
+  "north_india": [
+    {
+      "site_id": "christian_north_001",
+      "religion": "Christianity",
+      "site_name": "Sacred Heart Cathedral",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "Sacred Heart of Jesus",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Spread over area of 14 acres located on Bhai Vir Singh Marg near Gol Post Office in Connaught Place New Delhi. One of emblems of British Raj in India. Henry Medd famous British architect designed church predominantly on Italian Architecture. Interior decorated with curved roof at impressive height. Frontage comprises canopy supported by white pillars. Entrance adorned by circular turrets which rise above roof. Floor made of polished stone. Huge fresco located behind marble altar depicts last supper. Towards left large statue of Virgin Mary alongside huge crucifix beside Chapel. Must visit to understand Delhi's historicity.",
+      "approx_established_period": "Early 20th century",
+      "location": {
+        "city": "New Delhi",
+        "district": "Central Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "latitude": "28.6289",
+        "longitude": "77.2065"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://delhitourism.travel/sacred-heart-cathedral-delhi"]
+      }
+    },
+    {
+      "site_id": "christian_north_002",
+      "religion": "Christianity",
+      "site_name": "St John in the Wilderness Church",
+      "alternative_names": [],
+      "site_type": "Church",
+      "primary_figure_or_concept": "St John the Baptist",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Protestant church dedicated to John the Baptist. Built in 1852 located near Dharamshala on way to McLeod Ganj at Forsyth Gunj. Set amidst deodar forest built in neo-Gothic architecture. Known for Belgian stained-glass windows donated by Lady Elgin Mary Louisa Lambton wife of Lord Elgin. Under Diocese of Amritsar. Built by Reverend John Henry Kerr who arrived from England during British rule. Design follows neo-Gothic architecture featuring pointed arches and stained glass windows. Interior adorned with beautiful murals painted by Kerr depicting life of Jesus Christ and Biblical stories. Original bell tower still stands at entrance. Memorial stones dedicated to those who served during WWI and WWII. Plaques honouring famous individuals including Lord Elgin Governor General of India from 1862-1864.",
+      "approx_established_period": "1852",
+      "location": {
+        "city": "Dharamshala",
+        "district": "Kangra",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "32.2190",
+        "longitude": "76.3234"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._John_in_the_Wilderness_Church_(Dharamshala)"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_north_003",
+      "religion": "Christianity",
+      "site_name": "St James Church",
+      "alternative_names": ["Skinner's Church"],
+      "site_type": "Church",
+      "primary_figure_or_concept": "St James",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Founded by Colonel James Skinner in Delhi in 1836. Prominent landmark near Kashmere Gate. Built by James Skinner on his own expense. Architectural design given by Major Robert Smith. Built on cruciform plan boasts basic Renaissance Revival architectural design with three porticoes entrances central dome in octagon shape and circular space under it and stained glass windows placed above altar. Building includes cross on top and copper ball believed to be exact replication of church in Venice. During 1857 revolt both copper ball and cross damaged later replaced. Complex has lawns with capacity of accommodating around 1200 people. Over past two years 187-year old church building suffering badly from water seepage and cracked masonry thoroughly overhauled under auspices of Delhi Chapter of INTACH with funds from DDA. On Sunday 6 August 2023 Bishop Paul Swarup rededicated Church and reopened it to public.",
+      "approx_established_period": "1836",
+      "location": {
+        "city": "New Delhi",
+        "district": "North Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "latitude": "28.6692",
+        "longitude": "77.2289"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.bacsa.org.uk/st-james-church-delhi/"]
+      }
+    },
+    {
+      "site_id": "christian_north_004",
+      "religion": "Christianity",
+      "site_name": "All Saints Cathedral",
+      "alternative_names": ["Patthar Girja"],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "All Saints",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Historic Anglican church in Allahabad Uttar Pradesh built in 1871. Known locally as Patthar Girja Stone Church. Designed by architect William Emerson. Gothic Revival architecture with tall spire reaching 134 feet. Built using Chunar sandstone. One of finest examples of Gothic Revival architecture in India. Cathedral church of Diocese of Allahabad Church of North India. Important colonial era monument in Allahabad.",
+      "approx_established_period": "1871",
+      "location": {
+        "city": "Allahabad",
+        "district": "Prayagraj",
+        "state": "Uttar Pradesh",
+        "country": "India",
+        "latitude": "25.4358",
+        "longitude": "81.8463"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/All_Saints_Cathedral,_Allahabad"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_north_005",
+      "religion": "Christianity",
+      "site_name": "Christ Church",
+      "alternative_names": [],
+      "site_type": "Church",
+      "primary_figure_or_concept": "Jesus Christ",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Historic Anglican church in Shimla Himachal Pradesh. Built in 1857 during British colonial period. Second oldest church in North India. Neo-Gothic architectural style. Located on Ridge near Mall Road in heart of Shimla. Clock tower added later. Beautiful stained glass windows depicting faith hope charity fortitude and patience. Important landmark representing British colonial heritage in Shimla.",
+      "approx_established_period": "1857",
+      "location": {
+        "city": "Shimla",
+        "district": "Shimla",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "31.1048",
+        "longitude": "77.1734"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Christ_Church,_Shimla"],
+        "secondary": []
+      }
+    }
+  ],
+  "east_india": [
+    {
+      "site_id": "christian_east_001",
+      "religion": "Christianity",
+      "site_name": "St Paul's Cathedral",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "St Paul the Apostle",
+      "canonical_or_religious_significance": "First Anglican cathedral in Asia",
+      "historical_significance": "Anglican cathedral of Diocese of Calcutta Church of North India in Kolkata. First Anglican cathedral built in Asia consecrated in 1847. Construction began in 1839 designed by architect Major William Nairn Forbes. Indo-Gothic architecture with lofty central tower 201 feet high based on design of Canterbury Cathedral. Foundation stone laid by Bishop Daniel Wilson on 8 October 1839. Beautiful stained glass windows and Gothic arches. Library containing rare collection of theological books and manuscripts. Important colonial era monument in Kolkata representing Anglican heritage.",
+      "approx_established_period": "1847",
+      "location": {
+        "city": "Kolkata",
+        "district": "Kolkata",
+        "state": "West Bengal",
+        "country": "India",
+        "latitude": "22.5448",
+        "longitude": "88.3426"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/St._Paul's_Cathedral,_Kolkata"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_east_002",
+      "religion": "Christianity",
+      "site_name": "Basilica of the Sacred Heart of Jesus",
+      "alternative_names": [],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Sacred Heart of Jesus",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Roman Catholic minor basilica located in Pondicherry. One of 22 basilicas in India. Construction began in 1902 completed in 1908. Built in Gothic architectural style with twin spires. Located on Boulevard of South Beach Road. Beautiful stained glass windows depicting life of Jesus Christ and saints. Interior features vaulted ceilings and elegant columns. Important pilgrimage site for Catholics in Pondicherry region.",
+      "approx_established_period": "1908",
+      "location": {
+        "city": "Pondicherry",
+        "district": "Puducherry",
+        "state": "Puducherry",
+        "country": "India",
+        "latitude": "11.9333",
+        "longitude": "79.8290"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Sacred_Heart_Basilica,_Puducherry"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_east_003",
+      "religion": "Christianity",
+      "site_name": "Bandel Church",
+      "alternative_names": ["Basilica of the Holy Rosary"],
+      "site_type": "Basilica",
+      "primary_figure_or_concept": "Our Lady of the Rosary",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of oldest Christian churches in West Bengal located in Bandel. Originally built by Portuguese in 1599. Destroyed by Mughal Emperor Shah Jahan in 1632 later rebuilt in 1660. Elevated to Minor Basilica status by Pope Pius XII in 1988. Known for annual feast of Our Lady of Bandel celebrated in November. Important pilgrimage site for Catholics. Church houses shrine of infant Jesus and Our Lady. Portuguese architectural style with baroque elements.",
+      "approx_established_period": "1660",
+      "location": {
+        "city": "Bandel",
+        "district": "Hooghly",
+        "state": "West Bengal",
+        "country": "India",
+        "latitude": "22.9700",
+        "longitude": "88.3700"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Bandel_Church"],
+        "secondary": []
+      }
+    }
+  ],
+  "central_india": [
+    {
+      "site_id": "christian_central_001",
+      "religion": "Christianity",
+      "site_name": "Cathedral of Our Lady of Perpetual Succour",
+      "alternative_names": [],
+      "site_type": "Cathedral",
+      "primary_figure_or_concept": "Our Lady of Perpetual Succour",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Roman Catholic cathedral in Bhopal Madhya Pradesh. Seat of Archdiocese of Bhopal. Built during British colonial period. Neo-Gothic architectural style. Important center of Catholic worship in central India. Serves large Catholic community in Madhya Pradesh region.",
+      "approx_established_period": "19th-20th century",
+      "location": {
+        "city": "Bhopal",
+        "district": "Bhopal",
+        "state": "Madhya Pradesh",
+        "country": "India",
+        "latitude": "23.2599",
+        "longitude": "77.4126"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "christian_central_002",
+      "religion": "Christianity",
+      "site_name": "Christ Church Jabalpur",
+      "alternative_names": [],
+      "site_type": "Church",
+      "primary_figure_or_concept": "Jesus Christ",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Historic Anglican church in Jabalpur Madhya Pradesh. Built during British colonial period. Part of Church of North India. Important Christian heritage site in central India. Serves local Christian community with regular worship services.",
+      "approx_established_period": "19th century",
+      "location": {
+        "city": "Jabalpur",
+        "district": "Jabalpur",
+        "state": "Madhya Pradesh",
+        "country": "India",
+        "latitude": "23.1815",
+        "longitude": "79.9864"
+      },
+      "popularity_level": "Regional",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    }
+  ]
+}

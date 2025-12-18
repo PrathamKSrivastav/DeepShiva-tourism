@@ -1,0 +1,180 @@
+{
+  "state": "Himachal Pradesh",
+  "region": "Western Himalayas",
+  "treks": [
+    {
+      "name": "Kanamo Peak",
+      "type": "Summit Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 19553,
+      "difficulty": "Difficult",
+      "best_season": ["July", "August", "September", "October"],
+      "start_point": "Kibber, Spiti",
+      "highlights": [
+        "High-altitude summit at 19,553 ft",
+        "360-degree views of 60+ Himalayan peaks",
+        "Rain-shadow region with minimal monsoon impact"
+      ],
+      "notable_peaks_visible": [
+        "Shilla",
+        "Indrasan",
+        "Kalanag",
+        "Papsura"
+      ],
+      "ideal_for": "Experienced trekkers seeking an extreme high-altitude Himalayan adventure",
+      "notes": "After mid-October temperatures drop sharply and water sources dry up. Region remains cut off once snow sets in."
+    },
+    {
+      "name": "Beas Kund Trek",
+      "type": "Lake Trek",
+      "duration_days": 4,
+      "max_altitude_ft": 12772,
+      "difficulty": "Moderate",
+      "best_season": ["June", "August", "September"],
+      "start_point": "Manali region",
+      "highlights": [
+        "Source of the Beas River",
+        "Grasslands below Pir Panjal range",
+        "Views of Friendship Peak, Mt. Shitidhar, and Hanuman Tibba"
+      ],
+      "ideal_for": [
+        "Beginners wanting high-altitude exposure",
+        "Short-trek enthusiasts",
+        "Photography lovers"
+      ]
+    },
+    {
+      "name": "Chandrakhani Pass Trek",
+      "type": "High-Altitude Pass",
+      "duration_days": 5,
+      "max_altitude_ft": 12185,
+      "difficulty": "Easy-Moderate",
+      "best_season": ["May", "June", "September", "October"],
+      "start_point": "Rumsu, Kullu",
+      "highlights": [
+        "Dense pine, maple, and oak forests",
+        "Views of Pir Panjal and Dhauladhar ranges",
+        "Historic Himalayan pass"
+      ],
+      "ideal_for": "Beginners and families seeking a non-technical Himalayan pass trek"
+    },
+    {
+      "name": "Hampta Pass Trek",
+      "type": "Crossover Pass",
+      "duration_days": 6,
+      "max_altitude_ft": 14065,
+      "difficulty": "Moderate",
+      "best_season": ["May", "June", "September", "October"],
+      "start_point": "Kullu Valley",
+      "highlights": [
+        "Transition from green Kullu to barren Lahaul",
+        "Meadows, glaciers, and river crossings",
+        "Highly varied terrain"
+      ],
+      "ideal_for": "Beginners and fit trekkers seeking dramatic landscape changes"
+    },
+    {
+      "name": "Buran Ghati Trek",
+      "type": "High-Altitude Pass",
+      "duration_days": 8,
+      "max_altitude_ft": 15000,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["May", "June", "September", "October"],
+      "start_point": "Janglik village",
+      "highlights": [
+        "Dayara alpine meadows",
+        "Snow-slide descent from Buran Ghati",
+        "Traditional villages and forest trails"
+      ],
+      "ideal_for": "Trekkers wanting a mix of challenge, meadows, and cultural experience"
+    },
+    {
+      "name": "Rupin Pass Trek",
+      "type": "High-Altitude Pass",
+      "duration_days": 7,
+      "max_altitude_ft": 15279,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["June", "July", "August", "September"],
+      "highlights": [
+        "Rupin waterfall climb",
+        "Rupin Gully ascent",
+        "Views of Kinnaur Kailash range"
+      ],
+      "ideal_for": "Trekkers seeking a challenging and visually diverse Himalayan trek"
+    },
+    {
+      "name": "Chandrabhaga Glaciers Trek",
+      "type": "Glacier Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 17200,
+      "difficulty": "Moderate-Difficult",
+      "best_season": ["June", "July", "August", "September"],
+      "start_altitude_ft": 16000,
+      "highlights": [
+        "Chandra River origin",
+        "Kya Tso and Ga Tso glacial lakes",
+        "Views of Mt. Yunam"
+      ],
+      "ideal_for": "Experienced trekkers looking for a raw, offbeat high-altitude expedition"
+    },
+    {
+      "name": "Pin Bhaba Pass Trek",
+      "type": "Crossover Pass",
+      "duration_days": 9,
+      "max_altitude_ft": 16105,
+      "difficulty": "Difficult",
+      "best_season": ["July", "August", "September"],
+      "highlights": [
+        "Bhaba Valley to Pin Valley transition",
+        "River delta at Phutsirang",
+        "Highly contrasting landscapes"
+      ],
+      "ideal_for": "Experienced trekkers seeking a demanding and diverse adventure"
+    },
+    {
+      "name": "Miyar Valley Trek",
+      "type": "Valley Trek",
+      "duration_days": 7,
+      "max_altitude_ft": 13202,
+      "difficulty": "Moderate",
+      "best_season": ["June", "July", "August", "September"],
+      "highlights": [
+        "Remote Himalayan valley",
+        "Miyar Glacier",
+        "Alpine flowers and village trails"
+      ],
+      "ideal_for": [
+        "Fit beginners",
+        "Trekkers exploring offbeat Himalayan valleys"
+      ]
+    },
+    {
+      "name": "Bhrigu Lake Trek",
+      "type": "Lake Trek",
+      "duration_days": 4,
+      "max_altitude_ft": 14009,
+      "difficulty": "Moderate",
+      "best_season": ["May", "June", "September", "October"],
+      "highlights": [
+        "Expansive alpine meadows",
+        "Sacred high-altitude lake",
+        "Panoramic mountain views"
+      ],
+      "ideal_for": "Trekkers seeking a short high-altitude trek with dramatic scenery"
+    },
+    {
+      "name": "Bijli Mahadev Trek",
+      "type": "Temple Trek",
+      "duration_days": 2,
+      "max_altitude_ft": 8120,
+      "difficulty": "Easy",
+      "best_season": ["April", "May", "June", "September", "October", "November"],
+      "highlights": [
+        "Bijli Mahadev temple",
+        "Views of four valleys",
+        "Short forest hike"
+      ],
+      "ideal_for": "Beginners, families, and weekend trekkers"
+    }
+  ]
+}

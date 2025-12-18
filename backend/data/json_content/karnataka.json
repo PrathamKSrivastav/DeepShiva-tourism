@@ -1,0 +1,56 @@
+{
+  "state": "Karnataka",
+  "region": "Southern India",
+  "treks": [
+    {
+      "name": "Channarayana Durga Trek",
+      "type": "Fort Trek",
+      "duration_days": 2,
+      "difficulty": "Easy",
+      "min_age": 7,
+      "location": "Tumkur district, Karnataka",
+      "best_season": ["October", "November", "December", "January", "February"],
+      "avoid_season": {
+        "summer": "March to May afternoons can be very hot",
+        "monsoon": "June to September trails can be slippery during heavy rains"
+      },
+      "highlights": [
+        "16th-century hill fort",
+        "Layered gateways and hidden passageways",
+        "False doors used as defensive structures",
+        "Views of Madhugiri monolith and surrounding hills"
+      ],
+      "ideal_for": [
+        "Families",
+        "Beginners",
+        "Weekend explorers",
+        "History enthusiasts"
+      ]
+    },
+    {
+      "name": "Coorg Nelji Hill Trek",
+      "type": "Forest & Hill Trek",
+      "duration_days": 2,
+      "difficulty": "Easy-Moderate",
+      "min_age": 8,
+      "location": "Coorg (Kodagu), Karnataka",
+      "best_season": ["September", "October", "November", "December", "January", "February"],
+      "avoid_season": {
+        "monsoon": "June to August due to heavy rain and leeches"
+      },
+      "highlights": [
+        "Coffee plantations and shola forests",
+        "Rolling grasslands with ridge walks",
+        "Views of Brahmagiri and Tadiandamol peaks",
+        "Camping beside a crystal-clear stream",
+        "Rich birdlife and wildlife signs"
+      ],
+      "ideal_for": [
+        "Beginners in South India",
+        "Families with children",
+        "Weekend adventurers",
+        "Nature lovers"
+      ]
+    }
+  ]
+}

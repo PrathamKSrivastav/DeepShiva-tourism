@@ -1,0 +1,292 @@
+{
+  "north_india": [
+    {
+      "site_id": "sikh_north_001",
+      "religion": "Sikhism",
+      "site_name": "Harmandir Sahib",
+      "alternative_names": ["Golden Temple", "Darbar Sahib"],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Central Sikh house of worship",
+      "canonical_or_religious_significance": "Pre-eminent spiritual site of Sikhism; one of holiest sites alongside Gurdwara Darbar Sahib Kartarpur and Gurdwara Janam Asthan Nankana Sahib",
+      "historical_significance": "Chief gurdwara and holiest pilgrimage site of Sikhism located in Amritsar Punjab. Construction initiated by Guru Ram Das fourth Sikh Guru in 16th century. According to tradition, foundation stone laid by Hazrat Mian Mir respected Muslim saint in December 1588, though some scholars note historical evidence for this is uncertain. Guru Arjan Dev completed construction in 1604 CE. Extensive renovations and expansions made over time. Central religious place of Sikhs and symbol of human brotherhood and equality. Everybody irrespective of cast creed or race can seek spiritual solace without hindrance. Gurdwara set in middle of sacred pool Amrit Sarovar from which city derives name. Structure covered with gold plating giving it distinctive golden appearance during reign of Maharaja Ranjit Singh. Houses Guru Granth Sahib Sikh holy scripture.",
+      "approx_established_period": "1604 CE",
+      "location": {
+        "city": "Amritsar",
+        "district": "Amritsar",
+        "state": "Punjab",
+        "country": "India",
+        "latitude": "31.6200",
+        "longitude": "74.8765"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Golden_Temple"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_002",
+      "religion": "Sikhism",
+      "site_name": "Anandpur Sahib",
+      "alternative_names": ["Takht Sri Keshgarh Sahib"],
+      "site_type": "Gurdwara Complex",
+      "primary_figure_or_concept": "Birthplace of Khalsa",
+      "canonical_or_religious_significance": "One of five Takhts (seats of temporal authority) in Sikhism; place where Guru Gobind Singh established Khalsa on Vaisakhi 1699",
+      "historical_significance": "Sacred town in Punjab receiving thousands of Sikh pilgrims throughout year. Best known for countless gurdwaras located here bordered by Sutlej river and Shivalik mountains. Primary reason for tourist interest is Anandpur Sahib Gurdwara. Glowing courtyard has striking white building and Takht office. Gurdwara building has relics from Guru Gobind Singh's Khalsa including weapons and Sikh scriptures. Miri and Piri aspects of Sikh faith reflected beautifully in sanctum. Visitors can enjoy holy langar feast or meditate in calm complex. Guru Gobind Singh founded Khalsa Panth in Anandpur on Vaisakhi festival 13 April 1699 after elaborate ceremony and gathered large armed militia. One of most important Sikh pilgrimage sites.",
+      "approx_established_period": "17th century CE",
+      "location": {
+        "city": "Anandpur Sahib",
+        "district": "Rupnagar",
+        "state": "Punjab",
+        "country": "India",
+        "latitude": "31.2395",
+        "longitude": "76.5009"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Anandpur_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_003",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Hemkund Sahib",
+      "alternative_names": ["Hemkunt Sahib"],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Guru Gobind Singh meditation site",
+      "canonical_or_religious_significance": "In Sikh tradition, place where Guru Gobind Singh meditated in previous incarnation; mentioned in Dasam Granth",
+      "historical_significance": "Sikh place of worship and pilgrimage site in Chamoli district Uttarakhand. Devoted to Guru Gobind Singh tenth Sikh Guru. Finds mention in Dasam Granth where Guru Gobind Singh describes meditating at Hemkund mountain. Situated at height of over 15000 feet above sea level in Himalayan ranges. Located at elevation of 4632 meters (15197 feet) according to Survey of India. Setting of glacial lake surrounded by seven mountain peaks each adorned by Nishan Sahib on cliff. Important pilgrimage site for Sikhs in Himalayas.",
+      "approx_established_period": "Modern gurdwara 20th century",
+      "location": {
+        "city": "Hemkund",
+        "district": "Chamoli",
+        "state": "Uttarakhand",
+        "country": "India",
+        "latitude": "30.7217",
+        "longitude": "79.6322"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Gurdwara_Hemkund_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_004",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Bangla Sahib",
+      "alternative_names": [],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Guru Har Krishan eighth Sikh Guru",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of most prominent Sikh gurdwaras in Delhi known for association with eighth Sikh Guru Har Krishan and holy pond Sarovar inside complex. Originally bungalow of Raja Jai Singh I of Amber. Rebuilt as small shrine by Sikh General Sardar Baghel Singh in 1783. Eighth Sikh Guru Har Krishan stayed at bungalow after being invited to Delhi by Jai Singh. Guru summoned to Delhi by Aurangzeb as legitimacy challenged by Ram Rai. Raja Jai Singh offered guru his bungalow as residence. Since Guru Har Kishan stayed at Raja Jai Singh's bungalow (pronounced bangla in local vernacular) converted to gurdwara called Bangla Sahib to memorialise Guru's stay there. Complex has golden dome and Sarovar. Famous for large langar hall serving free meals.",
+      "approx_established_period": "1783",
+      "location": {
+        "city": "New Delhi",
+        "district": "Central Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "latitude": "28.6262",
+        "longitude": "77.2088"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Gurdwara_Bangla_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_005",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Sis Ganj Sahib",
+      "alternative_names": [],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Martyrdom site of Guru Tegh Bahadur",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of nine historical gurdwaras in Delhi. First constructed in 1783 by Baghel Singh to commemorate martyrdom site of ninth Sikh Guru Tegh Bahadur. Situated in Chandni Chowk in Old Delhi marks site where ninth Sikh Guru beheaded on orders of Mughal Emperor Aurangzeb. Guru Tegh Bahadur executed in 1675 for refusing to convert to Islam and defending freedom of religion. Beautiful gurdwara with white facade and golden dome showcasing traditional Sikh design. Complex includes Darbar Sahib main prayer hall housing Guru Granth Sahib. Features distinctive langar community kitchen offering free meals to all promoting Sikh principles of service and equality. Important symbol of religious freedom and tolerance.",
+      "approx_established_period": "1783",
+      "location": {
+        "city": "New Delhi",
+        "district": "Central Delhi",
+        "state": "Delhi",
+        "country": "India",
+        "latitude": "28.6562",
+        "longitude": "77.2323"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Gurdwara_Sis_Ganj_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_006",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Fatehgarh Sahib",
+      "alternative_names": [],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Martyrdom site of younger Sahibzadas",
+      "canonical_or_religious_significance": "Martyrdom site of two youngest sons of Guru Gobind Singh",
+      "historical_significance": "Major landmark in Fatehgarh Sahib city in Punjab. Marks location where two youngest sons of Guru Gobind Singh - Baba Fateh Singh and Baba Zorawar Singh - betrayed by cook Gangu to Mughal army seized asked to convert to Islam and when refused executed under orders of Wazir Khan. Martyrdom on 12 December 1705 remembered by Sikhs by naming site Fatehgarh after youngest boy killed and building large gurdwara in 1843. Town also location where Sikhs took revenge by capturing from Wazir Khan in 1710 and killing him. Bhora Sahib underground location within Fatehgarh Sahib Gurdwara associated with two sons' execution. Monument built by Karam Singh of Patiala in early 19th century. Gurdwara has Indo-Islamic architecture with square plan ribbed lotus dome and cusped arches. Annual pilgrimage site for Shaheedi Jor Mela between 25-27 December.",
+      "approx_established_period": "1843",
+      "location": {
+        "city": "Fatehgarh Sahib",
+        "district": "Fatehgarh Sahib",
+        "state": "Punjab",
+        "country": "India",
+        "latitude": "30.6467",
+        "longitude": "76.3981"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Gurdwara_Fatehgarh_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_007",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Paonta Sahib",
+      "alternative_names": [],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Place where Dasam Granth composed",
+      "canonical_or_religious_significance": "Place where Guru Gobind Singh composed Dasam Granth",
+      "historical_significance": "Important place of worship for Sikhs in Paonta Sahib industrial city of Himachal Pradesh. Located in south of Sirmaur district on National Highway 72 in Kyarda Doon valley on banks of river Yamuna. Gurdwara built in memory of Guru Gobind Singh tenth guru of Sikhs. Dasam Granth written here by Guru Gobind Singh. Hence gurdwara enjoys high historic and religious importance among followers of Sikh religion worldwide. Gurdwara has palanquin Palki made of pure gold donated by devotees. Popular pilgrimage site for Sikhs.",
+      "approx_established_period": "17th century site, modern structure",
+      "location": {
+        "city": "Paonta Sahib",
+        "district": "Sirmaur",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "30.4391",
+        "longitude": "77.6214"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Paonta_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_008",
+      "religion": "Sikhism",
+      "site_name": "Manikaran Sahib",
+      "alternative_names": ["Sri Guru Nanak Dev Ji Gurudwara"],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Guru Nanak Dev visited during travels",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Significant religious site for both Sikhs and Hindus located in Parvati Valley of Himachal Pradesh. Nestled amidst scenic beauty of Himalayas. Sacred Sikh pilgrimage site steeped in history and legends dating back to time of Guru Nanak Dev founder of Sikhism. In tradition, believed to have been visited by Guru Nanak Dev during journey to Himalayas in early 16th century. Famous for natural hot springs believed to have healing properties attracting devotees and tourists. Gurdwara holds immense importance for Sikhs. Located on banks of River Parvati surrounded by lush greenery and towering mountains adding to serene ambiance. Offers trekking and hiking trails to explore natural beauty of Himalayas. Hosts festivals including Guru Nanak Jayanti attracting devotees from different parts of country.",
+      "approx_established_period": "16th century site, modern gurdwara",
+      "location": {
+        "city": "Manikaran",
+        "district": "Kullu",
+        "state": "Himachal Pradesh",
+        "country": "India",
+        "latitude": "32.0167",
+        "longitude": "77.3500"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": [],
+        "secondary": ["https://www.holidify.com/places/manikaran-sahib/"]
+      }
+    },
+    {
+      "site_id": "sikh_north_009",
+      "religion": "Sikhism",
+      "site_name": "Datun Sahib",
+      "alternative_names": ["Gurdwara Datun Sahib"],
+      "site_type": "Sacred Tree Site",
+      "primary_figure_or_concept": "Tree planted by Guru Nanak",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Name of tree in main bazaar at Leh Ladakh. Guru Nanak visited site around 1516-17. According to tradition, sacred Datun tree believed to be biggest and oldest tree alive actually planted by Guru Nanak during missionary travels or Udasis. Considered sacred by city's residents regardless of religion. In tradition, tree was first tree to grow in area. Guru Nanak revered by both Buddhists and Muslims. At time of Guru's visit high desert had no trees as only small shrubs and bushes would grow at high arid altitude but according to tradition Guru Nanak blessed city with greenery by planting meswak tree. Today Guru's sapling grown to be biggest tree in city. No gurdwara building at site but remains of large meswak tree located behind Jamia Masjid in main bazaar. Nishan Sahib erected by local Sikh Sangat. Reminder of abiding message of Guru Nanak to spread greenery and harmony.",
+      "approx_established_period": "1516-1517",
+      "location": {
+        "city": "Leh",
+        "district": "Leh",
+        "state": "Ladakh",
+        "country": "India",
+        "latitude": "34.1642",
+        "longitude": "77.5845"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Datun_Sahib"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_010",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Talab Tillo",
+      "alternative_names": ["Gurdwara Tahli Sahib"],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Guru Hargobind sixth Sikh Guru",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "Historic gurdwara in Jammu marking visit of Guru Hargobind sixth Sikh Guru during visit to Jammu. Guru Hargobind stayed at place below Tahli tree called Pacca Gharat Talab Tillo. Beautiful gurdwara built by Jammu Sikh Sangat. Small canal near gurdwara situated in heart of Jammu city. Every year Parkash Utsav (birth anniversary) of Guru celebrated here with enthusiasm and zeal. Important Sikh heritage site in Jammu and Kashmir.",
+      "approx_established_period": "17th century site, modern structure",
+      "location": {
+        "city": "Jammu",
+        "district": "Jammu",
+        "state": "Jammu and Kashmir",
+        "country": "India",
+        "latitude": "32.7333",
+        "longitude": "74.8667"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_011",
+      "religion": "Sikhism",
+      "site_name": "Kartarpur Corridor",
+      "alternative_names": ["Dera Baba Nanak"],
+      "site_type": "Pilgrimage Corridor",
+      "primary_figure_or_concept": "Corridor to Gurdwara Darbar Sahib Kartarpur",
+      "canonical_or_religious_significance": "Connects to Gurdwara Darbar Sahib Kartarpur where Guru Nanak spent last 18 years of life",
+      "historical_significance": "Landmark corridor linking Gurdwara Darbar Sahib in Pakistan's Kartarpur to Dera Baba Nanak shrine in India's Gurdaspur district Punjab. Foundation stones laid in November 2018 on two sides of border by Pakistan PM Imran Khan and Indian VP Venkaiah Naidu. First phase of construction completed in early November 2019. Inaugurated November 9 2019 by PM Narendra Modi on Indian side and PM Imran Khan on Pakistani side. Allows Indian Sikh pilgrims visa-free access to Gurdwara Darbar Sahib in Kartarpur Pakistan where Guru Nanak spent last years of life. Important symbol of Sikh heritage and cross-border cooperation.",
+      "approx_established_period": "2019",
+      "location": {
+        "city": "Dera Baba Nanak",
+        "district": "Gurdaspur",
+        "state": "Punjab",
+        "country": "India",
+        "latitude": "32.0333",
+        "longitude": "75.0167"
+      },
+      "popularity_level": "Pan-India",
+      "sources": {
+        "primary": ["https://en.wikipedia.org/wiki/Kartarpur_Corridor"],
+        "secondary": []
+      }
+    },
+    {
+      "site_id": "sikh_north_012",
+      "religion": "Sikhism",
+      "site_name": "Gurdwara Chatti Patshahi",
+      "alternative_names": [],
+      "site_type": "Gurdwara",
+      "primary_figure_or_concept": "Guru Hargobind sixth Sikh Guru",
+      "canonical_or_religious_significance": null,
+      "historical_significance": "One of most revered Sikh shrines in Kashmir located in Rainawari Srinagar. Commemorates visit of Guru Hargobind sixth Guru of Sikhism to region in 1620 CE during reign of Emperor Jahangir. Gurdwara steeped in history and spirituality serves as reminder of Guru's teachings interactions with devotees and compassion for humanity. During travels to spread message of Sikhism Guru stopped at Kashmir encountering local population and interacting with prominent figures like Bhai Ram Dass and Mata Bhag Bhari. Visit became transformative moment in Sikh history marked by acts of compassion. Showcases harmonious blend of traditional Sikh and Kashmiri architectural styles with intricate wooden carvings and modest dome. According to tradition, site where Guru performed miracle of restoring Mata Bhag Bhari's eyesight marked within premises. Continues to be lively hub of Sikh spiritual life with daily prayers kirtan and langar.",
+      "approx_established_period": "1620 CE site, modern structure",
+      "location": {
+        "city": "Srinagar",
+        "district": "Srinagar",
+        "state": "Jammu and Kashmir",
+        "country": "India",
+        "latitude": "34.0837",
+        "longitude": "74.7973"
+      },
+      "popularity_level": "State",
+      "sources": {
+        "primary": [],
+        "secondary": []
+      }
+    }
+  ]
+}
