@@ -23,13 +23,13 @@ async def _fetch_year_data(year: int) -> List[Dict]:
             with open(cache_file, "r", encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
-            print(f"⚠️ Cache read error: {e}")
+            print(f"Cache read error: {e}")
 
     # 2. Fetch from API
     url = "https://calendarific.com/api/v2/holidays"
     params = {"api_key": API_KEY, "country": COUNTRY, "year": year}
 
-    print(f"🌏 Fetching holidays for {year} from Calendarific API...")
+    print(f" Fetching holidays for {year} from Calendarific API...")
     async with httpx.AsyncClient(timeout=10) as client:
         try:
             response = await client.get(url, params=params)
@@ -43,7 +43,7 @@ async def _fetch_year_data(year: int) -> List[Dict]:
                     json.dump(holidays, f, indent=4)
                 return holidays
         except Exception as e:
-            print(f"❌ API Error: {e}")
+            print(f"API Error: {e}")
 
     return []
 
@@ -124,7 +124,7 @@ async def get_next_holidays(limit: int = 3) -> List[Dict]:
             if holiday_date >= today_str:
                 upcoming.append(h)
         except Exception as e:
-            print(f"⚠️ Error processing holiday: {e}")
+            print(f"Error processing holiday: {e}")
             continue
 
     # Sort by date

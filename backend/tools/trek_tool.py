@@ -41,11 +41,11 @@ class IndianTrekTool:
             if kaggle_username and kaggle_key:
                 os.environ['KAGGLE_USERNAME'] = kaggle_username
                 os.environ['KAGGLE_KEY'] = kaggle_key
-                logger.info("✅ Kaggle credentials loaded")
+                logger.info("Kaggle credentials loaded")
             else:
-                logger.error("❌ KAGGLE_USERNAME or KAGGLE_KEY not found in .env")
+                logger.error("KAGGLE_USERNAME or KAGGLE_KEY not found in .env")
         except Exception as e:
-            logger.error(f"❌ Error loading credentials: {e}")
+            logger.error(f"Error loading credentials: {e}")
 
     def _load_kaggle_cache(self):
         """Load Kaggle dataset from cache or download"""
@@ -55,10 +55,10 @@ class IndianTrekTool:
         if os.path.exists(cache_file):
             try:
                 self.kaggle_data = pd.read_csv(cache_file)
-                logger.info(f"✅ Loaded {len(self.kaggle_data)} treks from cache: {cache_file}")
+                logger.info(f"Loaded {len(self.kaggle_data)} treks from cache: {cache_file}")
                 return
             except Exception as e:
-                logger.warning(f"⚠️ Cache read failed: {e}")
+                logger.warning(f" Cache read failed: {e}")
         
         # Try downloading fresh
         self._download_kaggle_dataset(cache_file)
@@ -122,7 +122,7 @@ class IndianTrekTool:
             return trek_data
             
         except Exception as e:
-            logger.warning(f"⚠️ Failed to parse {filepath}: {e}")
+            logger.warning(f" Failed to parse {filepath}: {e}")
             return None
 
     def _download_kaggle_dataset(self, cache_file: str):
@@ -130,7 +130,7 @@ class IndianTrekTool:
         try:
             # Check credentials first
             if not os.getenv('KAGGLE_USERNAME') or not os.getenv('KAGGLE_KEY'):
-                logger.error("❌ Cannot download: Kaggle credentials missing")
+                logger.error("Cannot download: Kaggle credentials missing")
                 logger.error("  Add KAGGLE_USERNAME and KAGGLE_KEY to your .env file")
                 return
 
@@ -150,7 +150,7 @@ class IndianTrekTool:
                         txt_files.append(os.path.join(root, file))
             
             if not txt_files:
-                logger.error(f"❌ No .txt files found in {download_path}")
+                logger.error(f"No .txt files found in {download_path}")
                 return
                 
             logger.info(f"📄 Found {len(txt_files)} trek text files")
@@ -164,7 +164,7 @@ class IndianTrekTool:
                     trek_list.append(trek_data)
             
             if not trek_list:
-                logger.error("❌ Failed to parse any trek files")
+                logger.error("Failed to parse any trek files")
                 return
             
             # Create DataFrame
@@ -174,16 +174,16 @@ class IndianTrekTool:
             df.to_csv(cache_file, index=False)
             self.kaggle_data = df
             
-            logger.info(f"✅ Parsed {len(df)} treks from Kaggle")
-            logger.info(f"✅ Cached to: {cache_file}")
+            logger.info(f"Parsed {len(df)} treks from Kaggle")
+            logger.info(f"Cached to: {cache_file}")
             logger.info(f"📊 Columns: {list(df.columns)}")
             logger.info(f"📊 Regions found: {df['Region'].value_counts().to_dict()}")
             
         except ImportError:
-            logger.error("❌ kagglehub not installed")
+            logger.error("kagglehub not installed")
             logger.error("  Install: pip install kagglehub")
         except Exception as e:
-            logger.error(f"❌ Kaggle download failed: {str(e)}")
+            logger.error(f"Kaggle download failed: {str(e)}")
             logger.error(f"  Error type: {type(e).__name__}")
             import traceback
             logger.error(f"  Traceback:\n{traceback.format_exc()}")
@@ -192,33 +192,33 @@ class IndianTrekTool:
         """Search treks by Indian region with broad matching"""
         logger.info(f"🗺️  Searching: {region}")
         if self.kaggle_data is None:
-            logger.error("❌ Kaggle dataset not loaded - cannot search")
+            logger.error("Kaggle dataset not loaded - cannot search")
             return []
 
         # Search Kaggle
         results = self._search_kaggle_by_region(region)
         
         if results:
-            logger.info(f"✅ Found {len(results)} treks in {region}")
+            logger.info(f"Found {len(results)} treks in {region}")
             return results
         
-        logger.warning(f"⚠️  No results for {region}")
+        logger.warning(f"  No results for {region}")
         return []
 
     async def search_trek_by_name(self, trek_name: str) -> Optional[Dict]:
         """Search for specific trek"""
         logger.info(f"🏔️  Searching: '{trek_name}'")
         if self.kaggle_data is None:
-            logger.error("❌ Kaggle dataset not loaded")
+            logger.error("Kaggle dataset not loaded")
             return None
             
         result = self._search_kaggle_by_name(trek_name)
         
         if result:
-            logger.info(f"✅ Found: {result['name']}")
+            logger.info(f"Found: {result['name']}")
             return result
         
-        logger.warning(f"⚠️  '{trek_name}' not found")
+        logger.warning(f"  '{trek_name}' not found")
         return None
 
     def _search_kaggle_by_region(self, region: str) -> List[Dict]:
@@ -345,12 +345,12 @@ async def search_treks(region: Optional[str] = None, trek_name: Optional[str] = 
                     'source': 'India Treks Database'
                 }
             
-            logger.warning(f"⚠️ No treks found for {region}")
+            logger.warning(f" No treks found for {region}")
             return None
 
-        logger.warning("⚠️ No region or trek_name provided")
+        logger.warning(" No region or trek_name provided")
         return None
 
     except Exception as e:
-        logger.error(f"❌ Search error: {str(e)}")
+        logger.error(f"Search error: {str(e)}")
         return None

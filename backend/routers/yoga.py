@@ -24,7 +24,7 @@ import base64
 from pydantic import BaseModel
 import asyncio
 
-# ✅ Import utility functions
+#  Import utility functions
 from utils.angle_calculator import calculate_body_angles as calc_angles_util
 from utils.pose_validator import PoseValidator
 
@@ -44,7 +44,7 @@ pose_detector = mp_pose.Pose(
 # Load reference poses
 POSE_DATA_PATH = Path(__file__).parent.parent / "pose_data" / "reference_poses.json"
 
-# ✅ Initialize PoseValidator utility
+#  Initialize PoseValidator utility
 pose_validator = PoseValidator(poses_json_path=str(POSE_DATA_PATH))
 
 # Store active WebSocket sessions
@@ -58,14 +58,14 @@ def load_reference_poses() -> Dict[str, Any]:
             with open(POSE_DATA_PATH, "r", encoding="utf-8") as f:
                 data = json.load(f)
                 logger.info(
-                    f"✅ Loaded {len(data)} reference poses from {POSE_DATA_PATH}"
+                    f" Loaded {len(data)} reference poses from {POSE_DATA_PATH}"
                 )
                 return data
         else:
-            logger.warning(f"⚠️ Reference poses file not found: {POSE_DATA_PATH}")
+            logger.warning(f"------Reference poses file not found: {POSE_DATA_PATH}")
             return {}
     except Exception as e:
-        logger.error(f"❌ Failed to load reference poses: {str(e)}")
+        logger.error(f" Failed to load reference poses: {str(e)}")
         return {}
 
 
@@ -239,7 +239,7 @@ def validate_pose_with_feedback(
         return format_validation_feedback(validation_result)
 
     except Exception as e:
-        logger.error(f"❌ Validation error: {str(e)}")
+        logger.error(f" Validation error: {str(e)}")
         return ValidationResult(
             valid=False,
             accuracy=0.0,
@@ -358,7 +358,7 @@ def process_video_frame(image_data: str, pose_name: str) -> Dict[str, Any]:
             }
 
     except Exception as e:
-        logger.error(f"❌ Frame processing error: {str(e)}")
+        logger.error(f" Frame processing error: {str(e)}")
         return {
             "error": str(e),
             "landmarks": [],
@@ -402,7 +402,7 @@ async def websocket_yoga_analysis(websocket: WebSocket):
     await websocket.accept()
     client_id = id(websocket)
 
-    logger.info(f"✅ WebSocket client connected: {client_id}")
+    logger.info(f" WebSocket client connected: {client_id}")
 
     # Initialize session
     active_sessions[str(client_id)] = {
@@ -496,7 +496,7 @@ async def websocket_yoga_analysis(websocket: WebSocket):
                         else 0
                     )
                     logger.info(
-                        f"📊 {pose_name} | Accuracy: {accuracy}% | Frames: {session['frame_count']}"
+                        f"{pose_name} | Accuracy: {accuracy}% | Frames: {session['frame_count']}"
                     )
 
             elif action == "get_pose_info":
@@ -531,9 +531,9 @@ async def websocket_yoga_analysis(websocket: WebSocket):
                 )
 
     except WebSocketDisconnect:
-        logger.info(f"❌ WebSocket client disconnected: {client_id}")
+        logger.info(f" WebSocket client disconnected: {client_id}")
     except Exception as e:
-        logger.error(f"❌ WebSocket error: {str(e)}")
+        logger.error(f" WebSocket error: {str(e)}")
         try:
             await websocket.send_json({"type": "error", "message": str(e)})
         except:
@@ -558,7 +558,7 @@ async def get_available_poses():
     try:
         poses = []
 
-        # ✅ Use PoseValidator utility to list poses
+        #  Use PoseValidator utility to list poses
         available_poses = pose_validator.list_all_poses()
 
         for pose_name in available_poses:
@@ -579,11 +579,11 @@ async def get_available_poses():
                     )
                 )
 
-        logger.info(f"✅ Returning {len(poses)} available poses")
+        logger.info(f" Returning {len(poses)} available poses")
         return PoseListResponse(poses=poses, total=len(poses))
 
     except Exception as e:
-        logger.error(f"❌ Error fetching poses: {str(e)}")
+        logger.error(f" Error fetching poses: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error fetching poses: {str(e)}")
 
 
@@ -591,13 +591,13 @@ async def get_available_poses():
 async def get_pose_details(pose_name: str):
     """Get detailed information about a specific pose"""
     try:
-        # ✅ Use PoseValidator utility
+        #  Use PoseValidator utility
         pose_info = pose_validator.get_pose_info(pose_name)
 
         if not pose_info:
             raise HTTPException(status_code=404, detail=f"Pose '{pose_name}' not found")
 
-        logger.info(f"✅ Returning details for pose: {pose_name}")
+        logger.info(f" Returning details for pose: {pose_name}")
         return {
             "name": pose_name,
             "display_name": pose_info.get("name", pose_name.replace("_", " ").title()),
@@ -614,7 +614,7 @@ async def get_pose_details(pose_name: str):
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Error fetching pose details: {str(e)}")
+        logger.error(f" Error fetching pose details: {str(e)}")
         raise HTTPException(
             status_code=500, detail=f"Error fetching pose details: {str(e)}"
         )
@@ -675,16 +675,16 @@ async def analyze_pose(pose_name: str = Form(...), image: UploadFile = File(...)
             for lm in results.pose_landmarks.landmark
         ]
 
-        # ✅ Use utility function for angle calculation
+        #  Use utility function for angle calculation
         detected_angles = calc_angles_util(results.pose_landmarks)
 
         if not detected_angles:
             raise HTTPException(status_code=500, detail="Failed to calculate angles")
 
-        # ✅ Use PoseValidator for intelligent feedback
+        #  Use PoseValidator for intelligent feedback
         validation = validate_pose_with_feedback(detected_angles, pose_name)
 
-        logger.info(f"✅ Analysis complete - Accuracy: {validation.accuracy}%")
+        logger.info(f" Analysis complete - Accuracy: {validation.accuracy}%")
 
         return PoseAnalysisResponse(
             pose_name=pose_name,
@@ -696,7 +696,7 @@ async def analyze_pose(pose_name: str = Form(...), image: UploadFile = File(...)
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Pose analysis error: {str(e)}")
+        logger.error(f" Pose analysis error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Pose analysis failed: {str(e)}")
 
 
@@ -735,7 +735,7 @@ async def analyze_pose_base64(request: PoseAnalysisRequest):
             detected_angles = calc_angles_util(results.pose_landmarks)
 
         logger.info(
-            f"✅ Base64 analysis complete - Accuracy: {result['feedback'].accuracy}%"
+            f" Base64 analysis complete - Accuracy: {result['feedback'].accuracy}%"
         )
 
         return PoseAnalysisResponse(
@@ -748,7 +748,7 @@ async def analyze_pose_base64(request: PoseAnalysisRequest):
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Base64 analysis error: {str(e)}")
+        logger.error(f" Base64 analysis error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
 
 
@@ -775,5 +775,5 @@ async def yoga_health_check():
         return status
 
     except Exception as e:
-        logger.error(f"❌ Health check failed: {str(e)}")
+        logger.error(f" Health check failed: {str(e)}")
         return {"status": "unhealthy", "error": str(e)}

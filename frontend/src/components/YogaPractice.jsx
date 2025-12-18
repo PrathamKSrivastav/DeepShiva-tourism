@@ -34,7 +34,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
 
   // Log state changes for debugging
   useEffect(() => {
-    console.log("🔍 [STATE] useWebcam:", useWebcam, "| isRealtimeMode:", isRealtimeMode, "| webcamReady:", webcamReady, "| isConnected:", isConnected);
+    console.log("[STATE] useWebcam:", useWebcam, "| isRealtimeMode:", isRealtimeMode, "| webcamReady:", webcamReady, "| isConnected:", isConnected);
   }, [useWebcam, isRealtimeMode, webcamReady, isConnected]);
 
   // Cleanup WebSocket when component unmounts or real-time mode ends
@@ -51,7 +51,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   // Start analysis when WebSocket connects (if pending)
   useEffect(() => {
     if (isConnected && pendingStart && isRealtimeMode) {
-      console.log("🎯 [AUTO START] WebSocket connected, starting analysis for:", poseName);
+      console.log("[AUTO START] WebSocket connected, starting analysis for:", poseName);
       setPendingStart(false);
       startRealtimeAnalysis(poseName);
     }
@@ -61,12 +61,12 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   useEffect(() => {
     // Listen for connection confirmation
     const unsubConnected = onWebSocketMessage("connected", (data) => {
-      console.log("✅ WebSocket connected:", data);
+      console.log("WebSocket connected:", data);
     });
 
     // Listen for analysis started
     const unsubStarted = onWebSocketMessage("analysis_started", (data) => {
-      console.log("🎯 Analysis started:", data);
+      console.log("Analysis started:", data);
       setIsAnalyzing(true);
     });
 
@@ -83,13 +83,13 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
 
     // Listen for analysis stopped
     const unsubStopped = onWebSocketMessage("analysis_stopped", () => {
-      console.log("⏸️ Analysis stopped");
+      console.log("Analysis stopped");
       setIsAnalyzing(false);
     });
 
     // Listen for errors
     const unsubError = onWebSocketMessage("error", (data) => {
-      console.error("❌ WebSocket error:", data.message);
+      console.error(" WebSocket error:", data.message);
       alert(`Error: ${data.message}`);
     });
 
@@ -106,7 +106,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
 
   // Real-time frame capture and send
   useEffect(() => {
-    console.log("📹 [FRAME EFFECT] Conditions:", {
+    console.log("[FRAME EFFECT] Conditions:", {
       isRealtimeMode,
       useWebcam,
       webcamReady,
@@ -114,11 +114,11 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
     });
 
     if (isRealtimeMode && useWebcam && webcamReady && webcamRef.current) {
-      console.log("📹 [FRAME CAPTURE] Starting frame capture at 10 FPS");
+      console.log("[FRAME CAPTURE] Starting frame capture at 10 FPS");
       
       // Wait a moment for webcam to fully stabilize
       const startDelay = setTimeout(() => {
-        console.log("📹 [FRAME CAPTURE] Delay complete, setting up interval");
+        console.log("[FRAME CAPTURE] Delay complete, setting up interval");
         let framesSent = 0;
         
         frameIntervalRef.current = setInterval(() => {
@@ -126,57 +126,57 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
           if (imageSrc) {
             framesSent++;
             if (framesSent % 30 === 0) { // Log every 30 frames (3 seconds)
-              console.log("📹 [FRAME CAPTURE] Frames sent:", framesSent);
+              console.log("[FRAME CAPTURE] Frames sent:", framesSent);
             }
             sendFrame(imageSrc, poseName);
           } else {
-            console.warn("⚠️ [FRAME CAPTURE] Failed to get screenshot");
+            console.warn("[FRAME CAPTURE] Failed to get screenshot");
           }
         }, 100);
       }, 500);
 
       return () => {
-        console.log("📹 [FRAME CAPTURE] Cleanup - stopping frame capture");
+        console.log("[FRAME CAPTURE] Cleanup - stopping frame capture");
         clearTimeout(startDelay);
         if (frameIntervalRef.current) {
           clearInterval(frameIntervalRef.current);
         }
       };
     } else {
-      console.log("📹 [FRAME CAPTURE] Conditions not met, not starting capture");
+      console.log("[FRAME CAPTURE] Conditions not met, not starting capture");
     }
   }, [isRealtimeMode, useWebcam, webcamReady, sendFrame, poseName]);
 
   // Start real-time analysis
   const handleStartRealtime = useCallback(() => {
-    console.log("🚀 [START REALTIME] Button clicked");
-    console.log("🚀 [START REALTIME] Current state:", {
+    console.log("[START REALTIME] Button clicked");
+    console.log("[START REALTIME] Current state:", {
       isConnected,
       useWebcam,
       webcamReady,
       hasWebcamRef: !!webcamRef.current
     });
     
-    console.log("🚀 [START REALTIME] Setting states for real-time mode");
+    console.log("[START REALTIME] Setting states for real-time mode");
     setIsRealtimeMode(true);
     setUseWebcam(true);
     setRealtimeFeedback(null);
     setFrameCount(0);
     
     if (!isConnected) {
-      console.log("🚀 [START REALTIME] Not connected yet, will start after connection");
+      console.log("[START REALTIME] Not connected yet, will start after connection");
       setPendingStart(true);
       connectWebSocket();
     } else {
-      console.log("🚀 [START REALTIME] Already connected, starting analysis immediately");
+      console.log("[START REALTIME] Already connected, starting analysis immediately");
       startRealtimeAnalysis(poseName);
     }
   }, [isConnected, connectWebSocket, startRealtimeAnalysis, poseName]);
 
   // Stop real-time analysis
   const handleStopRealtime = useCallback(() => {
-    console.log("🛑 [STOP REALTIME] Button clicked");
-    console.log("🛑 [STOP REALTIME] Clearing states and stopping analysis");
+    console.log("[STOP REALTIME] Button clicked");
+    console.log("[STOP REALTIME] Clearing states and stopping analysis");
     
     setIsRealtimeMode(false);
     setUseWebcam(false);
@@ -186,7 +186,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
     stopRealtimeAnalysis();
     
     if (frameIntervalRef.current) {
-      console.log("🛑 [STOP REALTIME] Clearing frame interval");
+      console.log("[STOP REALTIME] Clearing frame interval");
       clearInterval(frameIntervalRef.current);
     }
   }, [stopRealtimeAnalysis]);
@@ -195,7 +195,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   const capturePhoto = useCallback(() => {
     const imageSrc = webcamRef.current?.getScreenshot();
     if (imageSrc) {
-      console.log("📸 Photo captured");
+      console.log("Photo captured");
 
       // Convert base64 to blob
       fetch(imageSrc)
@@ -212,7 +212,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   const handleFileUpload = useCallback((event) => {
     const file = event.target.files[0];
     if (file) {
-      console.log("📁 File selected:", file.name);
+      console.log("File selected:", file.name);
       setCapturedImage(file);
       analyzeImage(file);
     }
@@ -221,14 +221,14 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   // Analyze captured/uploaded image (REST API)
   const analyzeImage = async (imageBlob) => {
     setIsAnalyzing(true);
-    console.log("🔍 Analyzing pose:", poseName);
+    console.log("Analyzing pose:", poseName);
 
     try {
       const result = await analyzePose(imageBlob, poseName);
       setAnalysisResult(result);
-      console.log("✅ Analysis complete:", result);
+      console.log("Analysis complete:", result);
     } catch (err) {
-      console.error("❌ Analysis failed:", err);
+      console.error(" Analysis failed:", err);
       alert("Analysis failed. Please try again.");
     } finally {
       setIsAnalyzing(false);
@@ -386,11 +386,11 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                         mirrored={true}
                         className="w-full h-full object-cover"
                         onUserMedia={() => {
-                          console.log("📹 [WEBCAM] onUserMedia - Webcam is ready!");
+                          console.log("[WEBCAM] onUserMedia - Webcam is ready!");
                           setWebcamReady(true);
                         }}
                         onUserMediaError={(error) => {
-                          console.error("❌ [WEBCAM] onUserMediaError:", error);
+                          console.error(" [WEBCAM] onUserMediaError:", error);
                           setWebcamReady(false);
                         }}
                       />
@@ -459,7 +459,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           onClick={() => {
-                            console.log("📸 [BUTTON] Take Photo clicked");
+                            console.log("[BUTTON] Take Photo clicked");
                             setUseWebcam(true);
                             setWebcamReady(false); // Reset ready state when opening webcam
                           }}
@@ -470,7 +470,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                               : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
                           } disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
-                          📹 Take Photo
+                          Take Photo
                         </button>
                         <button
                           onClick={() => fileInputRef.current?.click()}
@@ -481,7 +481,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                               : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
                           } disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
-                          📁 Upload
+                          Upload
                         </button>
                       </div>
                       <input
@@ -500,7 +500,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                         onClick={capturePhoto}
                         className="px-4 py-3 rounded-xl font-medium transition-all bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg"
                       >
-                        📸 Capture
+                        Capture
                       </button>
                       <button
                         onClick={() => {
@@ -556,8 +556,8 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                     }`}
                   >
                     {isConnected
-                      ? "✅ Connected to WebSocket"
-                      : "⚠️ Connecting..."}
+                      ? "Connected to WebSocket"
+                      : "Connecting..."}
                   </div>
                 )}
 
@@ -647,7 +647,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                           darkMode ? "text-white" : "text-gray-900"
                         }`}
                       >
-                        📊 Accuracy Score
+                         Accuracy Score
                       </h3>
                       <div className="flex items-center gap-4 mb-3">
                         <div className="flex-1">
@@ -688,7 +688,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                           ? "Excellent form! 🌟"
                           : currentFeedback.accuracy >= 60
                           ? "Good effort! Keep practicing 💪"
-                          : "Needs improvement - check feedback below 📝"}
+                          : "Needs improvement - check feedback below "}
                       </p>
                     </div>
 
@@ -884,7 +884,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                             darkMode ? "text-emerald-400" : "text-emerald-600"
                           }`}
                         >
-                          📸 Single Photo Mode
+                          Single Photo Mode
                         </p>
                         <p
                           className={`text-xs ${

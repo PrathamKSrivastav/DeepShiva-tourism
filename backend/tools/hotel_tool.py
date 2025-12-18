@@ -21,7 +21,7 @@ class HotelRateTool:
 
     def _get_cache_key(self, city: str, checkin_date: str) -> str:
         """Create a unique filename"""
-        # 🟢 FIX: Normalize inputs (lowercase, strip spaces)
+        #  FIX: Normalize inputs (lowercase, strip spaces)
         city_clean = city.strip().lower()
         date_clean = checkin_date.strip()
         
@@ -38,7 +38,7 @@ class HotelRateTool:
             if age_hours > 24: return None
             with open(cache_file, 'r') as f:
                 data = json.load(f)
-                logger.info(f"✅ Loaded hotel data from cache: {cache_file}")
+                logger.info(f"Loaded hotel data from cache: {cache_file}")
                 return data
         except: return None
 
@@ -47,7 +47,7 @@ class HotelRateTool:
             with open(cache_file, 'w') as f:
                 json.dump(data, f, indent=2)
         except Exception as e:
-            logger.error(f"❌ Cache write error: {e}")
+            logger.error(f"Cache write error: {e}")
 
     async def search_hotels(self, city: str, checkin_date: str = None, checkout_date: str = None):
         """
@@ -69,7 +69,7 @@ class HotelRateTool:
         cached = self._read_from_cache(cache_file)
         if cached: return cached
 
-        logger.info(f"🏨 Fetching LiteAPI data for: {city}")
+        logger.info(f"Fetching LiteAPI data for: {city}")
 
         async with aiohttp.ClientSession() as session:
             headers = {
@@ -91,7 +91,7 @@ class HotelRateTool:
                             place_id = places[0]['placeId']
                             logger.info(f"📍 Found Place ID: {place_id} ({places[0]['displayName']})")
                     else:
-                        logger.error(f"❌ Place Search Failed: {resp.status}")
+                        logger.error(f"Place Search Failed: {resp.status}")
                         return {"error": "Could not find city ID"}
             except Exception as e:
                 return {"error": str(e)}
@@ -156,10 +156,10 @@ class HotelRateTool:
                         return result
                     else:
                         text = await resp.text()
-                        logger.error(f"❌ Rates Search Failed: {text}")
+                        logger.error(f"Rates Search Failed: {text}")
                         return {"error": "Failed to fetch hotel rates"}
             except Exception as e:
-                logger.error(f"❌ Exception: {e}")
+                logger.error(f"Exception: {e}")
                 return {"error": str(e)}
 
 async def get_hotel_rates(city: str, checkin_date: str = None):

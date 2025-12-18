@@ -79,7 +79,7 @@ def get_tools_schema():
         {
             "type": "function",
             "function": {
-                "name": "get_holidays",  # 🟢 FIX 1: Name must match the import
+                "name": "get_holidays",  #  FIX 1: Name must match the import
                 "description": "Get public holidays for India. To see the whole year, fetch by QUARTERS (Q1, Q2, Q3, Q4) to avoid data truncation.",
                 "parameters": {
                     "type": "object",
@@ -152,29 +152,29 @@ async def execute_tool(func_name: str, args: Dict) -> Optional[Dict]:
     """
     try:
         if func_name == "geocode_location":
-            logger.info(f"📍 Calling Geocode: {args.get('query')}")
+            logger.info(f"----TOOL----Calling Geocode: {args.get('query')}")
             return await geocode_location(args.get('query'))
         
         elif func_name == "get_weather":
-            logger.info(f"🌦️ Calling Weather: {args}")
+            logger.info(f"----TOOL----Calling Weather: {args}")
             return await get_weather(
                 latitude=args.get('latitude'),
                 longitude=args.get('longitude')
             )
         
         elif func_name == "search_treks":
-            logger.info(f"🏔️ Calling Trek Search: {args}")
+            logger.info(f"----TOOL----Calling Trek Search: {args}")
             return await search_treks(
                 region=args.get('region'),
                 trek_name=args.get('trek_name')
             )
         
         else:
-            logger.error(f"❌ Unknown tool: {func_name}")
+            logger.error(f" Unknown tool: {func_name}")
             return None
     
     except Exception as e:
-        logger.error(f"❌ Tool execution failed for {func_name}: {str(e)}")
+        logger.error(f" Tool execution failed for {func_name}: {str(e)}")
         return None
 
 def build_offline_system_prompt(persona: str, rag_context: dict) -> str:
@@ -298,7 +298,7 @@ async def create_new_chat_session(
         result = await db.chats.insert_one(new_session)
         session_id = str(result.inserted_id)
         
-        logger.info(f"✅ New chat session created: {session_id}")
+        logger.info(f" New chat session created: {session_id}")
         
         return {
             "session_id": session_id,
@@ -308,7 +308,7 @@ async def create_new_chat_session(
         }
         
     except Exception as e:
-        logger.error(f"❌ Error creating session: {str(e)}")
+        logger.error(f" Error creating session: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -323,7 +323,7 @@ async def get_all_chat_sessions(
     """
     try:
         logger.info("=" * 50)
-        logger.info("📥 GET /chat/sessions called")
+        logger.info("GET /chat/sessions called")
         
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
@@ -337,7 +337,7 @@ async def get_all_chat_sessions(
         if persona:
             query["persona"] = persona
         
-        logger.info(f"📊 Query: {query}")
+        logger.info(f"Query: {query}")
         
         # Fetch sessions
         sessions = await db.chats.find(query).sort("updated_at", -1).limit(limit).to_list(length=limit)
@@ -347,7 +347,7 @@ async def get_all_chat_sessions(
             session["_id"] = str(session["_id"])
             session["user_id"] = str(session["user_id"])
         
-        logger.info(f"✅ Found {len(sessions)} sessions")
+        logger.info(f" Found {len(sessions)} sessions")
         
         return {
             "sessions": sessions,
@@ -355,7 +355,7 @@ async def get_all_chat_sessions(
         }
         
     except Exception as e:
-        logger.error(f"❌ Error fetching sessions: {str(e)}")
+        logger.error(f" Error fetching sessions: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -392,8 +392,8 @@ async def get_chat_session(
         return session
         
     except Exception as e:
-        # logger.error(f"❌ Error fetching session: {str(e)}")
-        logger.exception("❌ Error fetching sessions")
+        # logger.error(f" Error fetching session: {str(e)}")
+        logger.exception(" Error fetching sessions")
 
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -424,12 +424,12 @@ async def update_session_title(
         if result.matched_count == 0:
             raise HTTPException(status_code=404, detail="Session not found")
         
-        logger.info(f"✅ Session title updated: {session_id}")
+        logger.info(f" Session title updated: {session_id}")
         
         return {"message": "Title updated", "title": request.title}
         
     except Exception as e:
-        logger.error(f"❌ Error updating title: {str(e)}")
+        logger.error(f" Error updating title: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 # ============= PDF Export =============
@@ -447,10 +447,10 @@ async def export_session_as_pdf(
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
         
-        logger.info(f"📥 Exporting session to PDF: {session_id}")
+        logger.info(f"Exporting session to PDF: {session_id}")
         
         db = get_database()
-        # ✅ FIXED: Use string type to match how sessions are stored
+        #  FIXED: Use string type to match how sessions are stored
         user_id = str(current_user.get("_id") or current_user.get("id"))
         
         # Fetch session
@@ -460,11 +460,11 @@ async def export_session_as_pdf(
         })
         
         if not session:
-            logger.warning(f"⚠️ Session not found: {session_id}")
-            logger.warning(f"⚠️ Searched for user_id: {user_id}")
+            logger.warning(f"------Session not found: {session_id}")
+            logger.warning(f"------Searched for user_id: {user_id}")
             raise HTTPException(status_code=404, detail="Session not found")
         
-        logger.info(f"✅ Session found with {len(session.get('messages', []))} messages")
+        logger.info(f" Session found with {len(session.get('messages', []))} messages")
         
         # Create temp directory if it doesn't exist
         temp_dir = "temp_pdfs"
@@ -475,7 +475,7 @@ async def export_session_as_pdf(
         filename = f"{safe_title}_{session_id[:8]}.pdf"
         filepath = os.path.join(temp_dir, filename)
         
-        logger.info(f"📄 Generating PDF: {filepath}")
+        logger.info(f"------Generating PDF: {filepath}")
         
         # Generate PDF
         pdf_generated = ChatPDFGenerator.create_pdf(
@@ -486,10 +486,10 @@ async def export_session_as_pdf(
         )
         
         if not pdf_generated:
-            logger.error("❌ PDF generation returned False")
+            logger.error(" PDF generation returned False")
             raise HTTPException(status_code=500, detail="PDF generation failed")
         
-        logger.info(f"✅ PDF ready for download: {filepath}")
+        logger.info(f" PDF ready for download: {filepath}")
         
         # Return file for download
         return FileResponse(
@@ -502,7 +502,7 @@ async def export_session_as_pdf(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Export error: {str(e)}")
+        logger.error(f" Export error: {str(e)}")
         logger.exception("Full traceback:")
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -520,7 +520,7 @@ async def chat(
     2. If Groq fails → fallback to local LLM (no tools)
     """
     logger.info("==" * 35)
-    logger.info("💬 CHAT ENDPOINT (AGENT MODE WITH FALLBACK) CALLED")
+    logger.info("------CHAT ENDPOINT (AGENT MODE WITH FALLBACK) CALLED")
     start_time = asyncio.get_event_loop().time()
     session_id = request.session_id
     
@@ -535,7 +535,7 @@ async def chat(
     # Update context for trek queries
     if intent == "trekking" or is_trek_query(request.message):
         trek_name, region = extract_trek_info(request.message)
-        logger.info(f"🏔️ Trek Query Detected!")
+        logger.info(f"----TOOL----Trek Query Detected!")
         logger.info(f"   - Extracted Trek Name: {trek_name or 'Not specified'}")
         logger.info(f"   - Extracted Region: {region or 'Not specified'}")
         
@@ -555,11 +555,11 @@ async def chat(
             conversation_history = await _get_conversation_history(
                 session_id, current_user, limit=4
             )
-            logger.info(f"📜 Loaded {len(conversation_history)} messages for context")
+            logger.info(f"------Loaded {len(conversation_history)} messages for context")
         except Exception as e:
-            logger.warning(f"⚠️ Could not load history: {str(e)}")
+            logger.warning(f"------Could not load history: {str(e)}")
     
-    # ⭐ OPTIMIZATION: Fetch RAG context ONCE and cache it
+    # ------OPTIMIZATION: Fetch RAG context ONCE and cache it
     rag_context = {'has_rag_context': False}
     if request.use_rag and groq_service.persona_rag:
         try:
@@ -590,14 +590,14 @@ async def chat(
     final_suggestions = []
     response_source = "groq"
     
-    # 🟢 OPTIMIZATION: Track called tools to prevent loops
+    #  OPTIMIZATION: Track called tools to prevent loops
     called_tools = set()
 
     if not use_local_fallback:
         try:
             # Check if Groq is available
             if not await groq_service.health_check():
-                logger.warning("⚠️ Groq health check failed, switching to local")
+                logger.warning("------Groq health check failed, switching to local")
                 use_local_fallback = True
             else:
                 # ==========================================
@@ -609,7 +609,7 @@ async def chat(
                 
                 while current_turn < max_turns:
                     current_turn += 1
-                    logger.info(f"🔄 Agent Turn {current_turn}/{max_turns}")
+                    logger.info(f"----Turn---- Agent Turn {current_turn}/{max_turns}")
                     
                     # Call Groq
                     result = await groq_service.generate_persona_response(
@@ -628,13 +628,13 @@ async def chat(
                         tool_calls = result["tool_calls"]
                         llm_message = result["message"]
                         
-                        # 🟢 CRITICAL FIX: Filter out duplicate calls to prevent loops
+                        #  CRITICAL FIX: Filter out duplicate calls to prevent loops
                         unique_tool_calls = []
                         for tc in tool_calls:
                             # Create a unique signature: func_name + arguments
                             call_signature = f"{tc.function.name}:{tc.function.arguments}"
                             if call_signature in called_tools:
-                                logger.warning(f"⚠️ Skipping duplicate tool call: {call_signature}")
+                                logger.warning(f"------Skipping duplicate tool call: {call_signature}")
                                 continue
                             
                             called_tools.add(call_signature)
@@ -642,7 +642,7 @@ async def chat(
                         
                         # If no new tools to call, break the loop or force an answer
                         if not unique_tool_calls:
-                            logger.info("🛑 No new tool calls needed. Forcing completion.")
+                            logger.info("------------No new tool calls needed. Forcing completion.")
                             # Add a system nudge to history to force an answer next turn
                             conversation_history.append({
                                 "role": "tool", # Pretend to be a tool system message
@@ -674,20 +674,20 @@ async def chat(
                             try:
                                 args = json.loads(tool_call.function.arguments)
                             except json.JSONDecodeError:
-                                logger.error(f"❌ Failed to decode args for {func_name}")
+                                logger.error(f" Failed to decode args for {func_name}")
                                 continue
                             
                             tool_result = None
                             
                             # --- Tool Execution Logic ---
                             if func_name == "geocode_location":
-                                logger.info(f"📍 Calling Geocode: {args.get('query')}")
+                                logger.info(f"----TOOL----Calling Geocode: {args.get('query')}")
                                 tool_result = await geocode_location(args.get('query'))
                                 if tool_result:
                                     tool_context["location"] = tool_result
                             
                             elif func_name == "get_weather":
-                                logger.info(f"🌦️ Calling Weather: {args}")
+                                logger.info(f"----TOOL----Calling Weather: {args}")
                                 tool_result = await get_weather(
                                     latitude=args.get('latitude'),
                                     longitude=args.get('longitude')
@@ -696,7 +696,7 @@ async def chat(
                                     tool_context["weather"] = tool_result
                             
                             elif func_name == "get_hotel_rates":
-                                logger.info(f"🏨 Calling Hotels: {args}")
+                                logger.info(f"----TOOL----Calling Hotels: {args}")
                                 # Import it at the top of chat.py first: from tools.hotel_tool import get_hotel_rates
                                 tool_result = await get_hotel_rates(
                                     city=args.get('city'),
@@ -713,7 +713,7 @@ async def chat(
                                 
                                 holidays_data = await get_holidays(year=year, month=month, quarter=quarter)
                                 
-                                # 🟢 Date Filtering Logic
+                                #  Date Filtering Logic
                                 from datetime import datetime
                                 today_str = datetime.now().strftime("%Y-%m-%d")
                                 current_year = datetime.now().year
@@ -740,7 +740,7 @@ async def chat(
                                     tool_result = "\n".join(simplified_list[:50])
 
                             elif func_name == "search_treks":
-                                logger.info(f"🏔️ Calling Trek Search: {args}")
+                                logger.info(f"----TOOL----Calling Trek Search: {args}")
                                 tool_result = await search_treks(
                                     region=args.get('region'),
                                     trek_name=args.get('trek_name')
@@ -760,7 +760,7 @@ async def chat(
                                     
 
                             
-                            # --- 🟢 OPTIMIZED HISTORY STORAGE ---
+                            # ---  OPTIMIZED HISTORY STORAGE ---
                             # We summarize what goes into history to save tokens. 
                             # Full data is in tool_context for the system prompt.
                             
@@ -824,14 +824,14 @@ async def chat(
                         logger.error(f"Verification error (non-blocking): {str(e)}")
 
         except Exception as e:
-            logger.error(f"❌ Groq agent failed: {str(e)}")
+            logger.error(f" Groq agent failed: {str(e)}")
             use_local_fallback = True
     
     # ==========================================
     # FALLBACK TO LOCAL LLM (NO TOOLS)
     # ==========================================
     if use_local_fallback:
-        logger.warning("⚠️ Using local LLM fallback (no tools available)")
+        logger.warning("------Using local LLM fallback (no tools available)")
         try:
             system_prompt = build_offline_system_prompt(
                 persona=request.persona,
@@ -849,7 +849,7 @@ async def chat(
             response_source = "local"
             
         except Exception as e:
-            logger.error(f"❌ Local LLM also failed: {str(e)}")
+            logger.error(f" Local LLM also failed: {str(e)}")
             final_response_text = (
                 "I apologize, but I'm currently experiencing technical difficulties "
                 "with both my online and offline systems. Please try again in a moment."
@@ -863,7 +863,7 @@ async def chat(
     end_time = asyncio.get_event_loop().time()
     response_time = int((end_time - start_time) * 1000)
 
-    # 🌍 Extract coordinates from tool context (if geocode_location was called)
+    # ------------Extract coordinates from tool context (if geocode_location was called)
     latitude = None
     longitude = None
     location_name = None
@@ -872,13 +872,13 @@ async def chat(
         latitude = tool_context["location"].get("latitude")
         longitude = tool_context["location"].get("longitude")
         location_name = tool_context["location"].get("place_name") or tool_context["location"].get("city")
-        logger.info(f"📍 Coordinates found: {latitude}, {longitude} ({location_name})")
+        logger.info(f"----TOOL----Coordinates found: {latitude}, {longitude} ({location_name})")
 
     # Append geo metadata using stopword format (frontend will parse this)
     if latitude and longitude:
         geo_stopword = f"\n<|GEO_DATA|>{{'latitude': {latitude}, 'longitude': {longitude}, 'location': '{location_name or ''}'}}<|GEO_DATA|>"
         final_response_text = final_response_text + geo_stopword
-        logger.info(f"✅ Geo metadata appended to response")
+        logger.info(f" Geo metadata appended to response")
 
     # Save to session if authenticated
     chat_saved = False
@@ -896,9 +896,9 @@ async def chat(
                 session_id=session_id
             )
             if chat_saved:
-                logger.info(f"✅ Saved to session: {session_id}")
+                logger.info(f" Saved to session: {session_id}")
         except Exception as e:
-            logger.error(f"❌ Save failed: {str(e)}")
+            logger.error(f" Save failed: {str(e)}")
 
     return ChatResponse(
         response=final_response_text,  # Contains geo metadata for frontend
@@ -944,7 +944,7 @@ async def _get_conversation_history(
             for msg in messages
         ]
     except Exception as e:
-        logger.error(f"❌ Error fetching history: {str(e)}")
+        logger.error(f" Error fetching history: {str(e)}")
         return []
 
 
@@ -1002,7 +1002,7 @@ async def save_to_session(
         return str(result.inserted_id), True
         
     except Exception as e:
-        logger.error(f"❌ Save failed: {str(e)}")
+        logger.error(f" Save failed: {str(e)}")
         return None, False
 
 # ============= Helper Functions =============
@@ -1080,7 +1080,7 @@ async def delete_chat_session(
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
 
-        logger.info(f"🗑️ Deleting chat session: {session_id}")
+        logger.info(f"-------- Deleting chat session: {session_id}")
 
         db = get_database()
         user_id = str(current_user.get("_id") or current_user.get("id"))
@@ -1091,13 +1091,13 @@ async def delete_chat_session(
         )
 
         if result.deleted_count == 0:
-            logger.warning(f"⚠️ Session not found or unauthorized: {session_id}")
+            logger.warning(f"------Session not found or unauthorized: {session_id}")
             raise HTTPException(
                 status_code=404,
                 detail="Session not found or you don't have permission to delete it",
             )
 
-        logger.info(f"✅ Session deleted successfully: {session_id}")
+        logger.info(f" Session deleted successfully: {session_id}")
 
         # Optional: Clean up related files (PDFs, summaries, etc.)
         try:
@@ -1110,7 +1110,7 @@ async def delete_chat_session(
                         os.remove(file_path)
                         logger.info(f"🧹 Cleaned up temp file: {filename}")
         except Exception as e:
-            logger.warning(f"⚠️ Cleanup warning (non-critical): {str(e)}")
+            logger.warning(f"------Cleanup warning (non-critical): {str(e)}")
 
         return {
             "success": True,
@@ -1121,7 +1121,7 @@ async def delete_chat_session(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Error deleting session: {str(e)}")
+        logger.error(f" Error deleting session: {str(e)}")
         logger.exception("Full traceback:")
         raise HTTPException(
             status_code=500, detail=f"Failed to delete session: {str(e)}"
@@ -1164,7 +1164,7 @@ async def generate_session_summary(
         })
         
         if not session:
-            logger.warning(f"⚠️ Session not found: {session_id}")
+            logger.warning(f"------Session not found: {session_id}")
             raise HTTPException(status_code=404, detail="Session not found")
         
         messages = session.get("messages", [])
@@ -1174,7 +1174,7 @@ async def generate_session_summary(
                 detail="Not enough messages to generate summary (minimum 2 required)"
             )
         
-        logger.info(f"📊 Analyzing {len(messages)} messages")
+        logger.info(f"Analyzing {len(messages)} messages")
         
         # Generate summary using Groq AI
         summary_generator = get_summary_generator()
@@ -1196,7 +1196,7 @@ async def generate_session_summary(
             }
         )
         
-        logger.info(f"✅ Summary generated and saved for session: {session_id}")
+        logger.info(f" Summary generated and saved for session: {session_id}")
         
         return {
             "success": True,
@@ -1207,7 +1207,7 @@ async def generate_session_summary(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Summary generation error: {str(e)}")
+        logger.error(f" Summary generation error: {str(e)}")
         logger.exception("Full traceback:")
         raise HTTPException(status_code=500, detail=f"Summary generation failed: {str(e)}")
 
@@ -1249,7 +1249,7 @@ async def get_session_summary(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Error fetching summary: {str(e)}")
+        logger.error(f" Error fetching summary: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 
@@ -1265,7 +1265,7 @@ async def download_summary_pdf(
         if not current_user:
             raise HTTPException(status_code=401, detail="Authentication required")
         
-        logger.info(f"📥 Downloading summary PDF for session: {session_id}")
+        logger.info(f"Downloading summary PDF for session: {session_id}")
         
         db = get_database()
         user_id = str(current_user.get("_id") or current_user.get("id"))
@@ -1295,7 +1295,7 @@ async def download_summary_pdf(
         filename = f"Summary_{safe_title}_{session_id[:8]}.pdf"
         filepath = os.path.join(temp_dir, filename)
         
-        logger.info(f"📄 Generating summary PDF: {filepath}")
+        logger.info(f"------Generating summary PDF: {filepath}")
         
         # Generate PDF
         pdf_generated = SummaryPDFGenerator.create_summary_pdf(
@@ -1306,7 +1306,7 @@ async def download_summary_pdf(
         if not pdf_generated:
             raise HTTPException(status_code=500, detail="PDF generation failed")
         
-        logger.info(f"✅ Summary PDF ready: {filepath}")
+        logger.info(f" Summary PDF ready: {filepath}")
         
         # Return file
         return FileResponse(
@@ -1319,7 +1319,7 @@ async def download_summary_pdf(
     except HTTPException:
         raise
     except Exception as e:
-        logger.error(f"❌ Summary PDF download error: {str(e)}")
+        logger.error(f" Summary PDF download error: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

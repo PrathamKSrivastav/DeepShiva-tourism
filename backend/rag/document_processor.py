@@ -136,14 +136,14 @@ class DocumentProcessor:
         
         # Return general if no clear match
         if max_score == 0:
-            logger.warning(f"⚠️ No classification match for: {source_file} - defaulting to 'general'")
+            logger.warning(f" No classification match for: {source_file} - defaulting to 'general'")
             return 'general'
         
         # Warn if classification is ambiguous (scores are close)
         sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
         if len(sorted_scores) > 1 and sorted_scores[0][1] - sorted_scores[1][1] <= 2:
             logger.warning(
-                f"⚠️ Ambiguous classification for {source_file}: "
+                f" Ambiguous classification for {source_file}: "
                 f"Top 2 scores: {sorted_scores[0]} vs {sorted_scores[1]}"
             )
         
@@ -172,7 +172,7 @@ class DocumentProcessor:
                 # Direct list of entities
                 entities = data
             elif isinstance(data, dict):
-                # ✅ UPDATED: Check for regional structure (handles both formats)
+                #  UPDATED: Check for regional structure (handles both formats)
                 region_keys = [
                     # Standard format
                     'north', 'south', 'east', 'west', 'central', 
@@ -279,8 +279,8 @@ class DocumentProcessor:
                 coll = meta.get('content_type', 'unknown')
                 collections_used[coll] = collections_used.get(coll, 0) + 1
             
-            logger.info(f"✅ Processed {file_path.name}: {len(entities)} entities → {len(all_chunks)} chunks")
-            logger.info(f"   📊 Classification: {collections_used}")
+            logger.info(f" Processed {file_path.name}: {len(entities)} entities → {len(all_chunks)} chunks")
+            logger.info(f"    Classification: {collections_used}")
             
             return all_chunks, all_metadata
             

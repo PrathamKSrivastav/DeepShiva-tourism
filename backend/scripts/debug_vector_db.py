@@ -37,7 +37,7 @@ vector_store = VectorStoreManager(
 )
 
 # Check 1: Collection counts
-print("\n📊 COLLECTION DOCUMENT COUNTS:")
+print("\nCOLLECTION DOCUMENT COUNTS:")
 print("-" * 80)
 collections = ['cultural', 'general', 'trekking', 'government']
 for coll in collections:
@@ -46,9 +46,9 @@ for coll in collections:
         if vector_store.qdrant_client:
             info = vector_store.qdrant_client.get_collection(full_name)
             count = info.points_count
-            print(f"✅ {full_name:25s}: {count:6d} documents")
+            print(f" {full_name:25s}: {count:6d} documents")
     except Exception as e:
-        print(f"❌ {full_name:25s}: Error - {e}")
+        print(f" {full_name:25s}: Error - {e}")
 
 # Check 2: Search for "Gayatri" specifically
 print("\n" + "="*80)
@@ -57,14 +57,14 @@ print("="*80)
 
 try:
     # Test 1: Direct keyword search
-    print("\n📍 Test 1: Searching with 'gayatri mantra'...")
+    print("\n----TOOL----Test 1: Searching with 'gayatri mantra'...")
     results = vector_store.query(
         query_text="gayatri mantra",
         collection_name="cultural",
         n_results=5
     )
 
-    print(f"\n✅ Found {len(results.get('documents', [[]])[0])} results")
+    print(f"\n Found {len(results.get('documents', [[]])[0])} results")
 
     if results.get('documents') and results['documents'][0]:
         for i, (doc, meta, dist) in enumerate(zip(
@@ -79,18 +79,18 @@ try:
             print(f"Content Type: {meta.get('content_type', 'N/A')}")
             print(f"Preview: {doc[:200]}...")
     else:
-        print("❌ No results found!")
+        print(" No results found!")
 
     # Test 2: Search for "shloka"
     print("\n" + "-"*80)
-    print("📍 Test 2: Searching with 'shloka'...")
+    print("----TOOL----Test 2: Searching with 'shloka'...")
     results = vector_store.query(
         query_text="shloka vedic mantra",
         collection_name="cultural",
         n_results=5
     )
 
-    print(f"\n✅ Found {len(results.get('documents', [[]])[0])} results")
+    print(f"\n Found {len(results.get('documents', [[]])[0])} results")
     if results.get('documents') and results['documents'][0]:
         for i, (doc, meta, dist) in enumerate(zip(
             results['documents'][0],
@@ -105,7 +105,7 @@ try:
 
     # Test 3: Get ALL shlokas.json entries
     print("\n" + "="*80)
-    print("📍 Test 3: Getting ALL shlokas.json entries from cultural collection...")
+    print("----TOOL----Test 3: Getting ALL shlokas.json entries from cultural collection...")
     print("="*80)
 
     # We need to use scroll to get all documents
@@ -126,7 +126,7 @@ try:
         )
 
         points = scroll_result[0]
-        print(f"\n✅ Found {len(points)} shloka entries")
+        print(f"\n Found {len(points)} shloka entries")
 
         for point in points:
             entity_id = point.payload.get('entity_id', 'N/A')
@@ -136,17 +136,17 @@ try:
 
             # Check if this is the Gayatri Mantra
             if 'gayatri' in content_preview.lower():
-                print("   ⭐ FOUND GAYATRI MANTRA!")
+                print("   ------FOUND GAYATRI MANTRA!")
                 print(f"   Full content: {point.payload.get('_node_content', '')}")
 
 except Exception as e:
-    print(f"\n❌ Error during search: {e}")
+    print(f"\n Error during search: {e}")
     import traceback
     traceback.print_exc()
 
 # Check 3: Test embedding similarity
 print("\n" + "="*80)
-print("🧪 EMBEDDING SIMILARITY TEST")
+print("------------EMBEDDING SIMILARITY TEST")
 print("="*80)
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -174,5 +174,5 @@ for query in test_queries:
         print(f"   vs '{shloka[:50]}...': {similarity:.4f}")
 
 print("\n" + "="*80)
-print("✅ DEBUG COMPLETE")
+print(" DEBUG COMPLETE")
 print("="*80)

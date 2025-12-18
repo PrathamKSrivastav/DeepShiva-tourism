@@ -60,9 +60,9 @@ class GroqService:
             
             # Log Qdrant status
             if self.vector_store._cloud_available():
-                logger.info("✅ RAG components initialized with Qdrant Cloud")
+                logger.info(" RAG components initialized with Qdrant Cloud")
             else:
-                logger.warning("⚠️ RAG components initialized with ChromaDB fallback only")
+                logger.warning(" RAG components initialized with ChromaDB fallback only")
                 
         except Exception as e:
             logger.error(f"Failed to initialize RAG components: {str(e)}")
@@ -139,7 +139,7 @@ class GroqService:
             logger.info("🔍 Fetching RAG context (not pre-cached)")
             rag_context = await self._get_rag_context(message, persona, intent, context)
         elif rag_context:
-            logger.info("✅ Using pre-cached RAG context (no duplicate retrieval)")
+            logger.info(" Using pre-cached RAG context (no duplicate retrieval)")
         elif skip_rag:
             logger.info("⏭️ RAG retrieval skipped (offline mode)")
             rag_context = {"has_rag_context": False}
@@ -222,13 +222,13 @@ class GroqService:
             
             # 🔥 DETECT MALFORMED FUNCTION CALL ERROR
             if "tool_use_failed" in error_str or "Failed to call a function" in error_str:
-                logger.warning("⚠️ Detected malformed function call, attempting to parse...")
+                logger.warning(" Detected malformed function call, attempting to parse...")
                 
                 # Extract the malformed function call
                 parsed_call = self._parse_malformed_function_call(error_str)
                 
                 if parsed_call:
-                    logger.info(f"✅ Successfully parsed malformed call: {parsed_call['function_name']}")
+                    logger.info(f" Successfully parsed malformed call: {parsed_call['function_name']}")
                     return {
                         "type": "tool_call_malformed",
                         "parsed_call": parsed_call,
@@ -262,7 +262,7 @@ class GroqService:
                 match = re.search(r'"failed_generation":\s*"([^"]+)"', error_message)
             
             if not match:
-                # logger.warning("❌ Could not find failed_generation in error")
+                # logger.warning(" Could not find failed_generation in error")
                 return None
             
             failed_gen = match.group(1)
@@ -279,7 +279,7 @@ class GroqService:
                 inner_args = nested_match.group(3)
                 
                 logger.warning(f"🔄 NESTED CALL DETECTED: {outer_func} contains {inner_func}")
-                logger.info(f"✅ Extracting INNER function to call first: {inner_func}")
+                logger.info(f" Extracting INNER function to call first: {inner_func}")
                 
                 try:
                     arguments = json.loads(inner_args)
@@ -291,7 +291,7 @@ class GroqService:
                         "outer_function": outer_func
                     }
                 except json.JSONDecodeError as je:
-                    logger.error(f"❌ Failed to parse nested JSON: {je}")
+                    logger.error(f" Failed to parse nested JSON: {je}")
                     # Don't return None yet, try other patterns
             
             # PRIORITY 2: Handle Open-Ended XML style (Missing closing tag)
@@ -303,7 +303,7 @@ class GroqService:
             if xml_match:
                 function_name = xml_match.group(1)
                 json_args = xml_match.group(2)
-                logger.info(f"✅ Extracted XML-style function (open): {function_name}")
+                logger.info(f" Extracted XML-style function (open): {function_name}")
                 try:
                     arguments = json.loads(json_args)
                     return {
@@ -320,18 +320,18 @@ class GroqService:
             func_match = re.search(func_pattern, failed_gen)
             
             if not func_match:
-                logger.warning(f"❌ Could not match any function pattern in: {failed_gen}")
+                logger.warning(f" Could not match any function pattern in: {failed_gen}")
                 return None
             
             function_name = func_match.group(1)
             json_args = func_match.group(2)
             
-            logger.info(f"✅ Extracted function: {function_name}, args: {json_args}")
+            logger.info(f" Extracted function: {function_name}, args: {json_args}")
             
             try:
                 arguments = json.loads(json_args)
             except json.JSONDecodeError as je:
-                logger.error(f"❌ JSON decode error: {je}")
+                logger.error(f" JSON decode error: {je}")
                 logger.error(f"Failed to parse: {json_args}")
                 return None
             
@@ -342,7 +342,7 @@ class GroqService:
             }
         
         except Exception as e:
-            logger.error(f"❌ Error parsing malformed call: {str(e)}")
+            logger.error(f" Error parsing malformed call: {str(e)}")
             return None
 
 
@@ -366,7 +366,7 @@ class GroqService:
                 context=context
             )
             
-            # ✅ TRUNCATE RAG CONTEXT TO SAVE TOKENS
+            #  TRUNCATE RAG CONTEXT TO SAVE TOKENS
             if rag_context.get("formatted_context"):
                 original_length = len(rag_context["formatted_context"])
                 rag_context["formatted_context"] = rag_context["formatted_context"][:2000]  # Max 1200 chars ----- 1200 -> 1000 -> 2000
@@ -466,7 +466,7 @@ class GroqService:
         """
         base_prompt = f"You are a {persona} guide for India (Intent: {intent}). You're AGENTIC - call tools to get real-time data.\n"
         
-        # ✅ CORRECTED: Intent-Based Tool Enforcement (EXACT function names from your tools)
+        #  CORRECTED: Intent-Based Tool Enforcement (EXACT function names from your tools)
         REQUIRED_TOOLS = {
             "itinerary": ["get_holidays", "get_weather", "get_hotel_rates", "geocode_location"],
             "accommodation": ["get_hotel_rates", "geocode_location"],
@@ -485,7 +485,7 @@ class GroqService:
             context_text = rag_context.get("formatted_context", "")[:5000]
             base_prompt += f"\n### KNOWLEDGE BASE:\n{context_text}\n"
             if rag_context.get('query_location'):
-                base_prompt += f"⚠️ LOCATION FILTER: Only info about {rag_context['query_location']} - reject others.\n"
+                base_prompt += f" LOCATION FILTER: Only info about {rag_context['query_location']} - reject others.\n"
         
         # Tool Results
         if tool_context:
@@ -494,7 +494,7 @@ class GroqService:
             if "treks" in clean_ctx:
                 trek_data = clean_ctx["treks"]
                 clean_ctx["treks"] = {"count": trek_data.get("trek_count"), "region": trek_data.get("region"), "top_treks": trek_data.get("treks", [])[:5]}
-            base_prompt += f"\n### LIVE TOOL DATA:\n{json.dumps(clean_ctx, indent=2)}\n✅ Use these real-time results.\n"
+            base_prompt += f"\n### LIVE TOOL DATA:\n{json.dumps(clean_ctx, indent=2)}\n Use these real-time results.\n"
         
         # Critical Rules (condensed)
         base_prompt += """
@@ -538,11 +538,11 @@ class GroqService:
         # Anti-Hallucination (compressed)
         base_prompt += """
     ### NO HALLUCINATIONS:
-    ❌ Never invent: names, prices, addresses, dates
-    ❌ Never extrapolate across locations
-    ✅ Only answer from Knowledge Base OR Tool Results
-    ⚠️ No info? Say: "No verified info for [query]"
-    📏 Keep concise (3-4 sentences unless asked)
+     Never invent: names, prices, addresses, dates
+     Never extrapolate across locations
+     Only answer from Knowledge Base OR Tool Results
+     No info? Say: "No verified info for [query]"
+    Keep concise (3-4 sentences unless asked)
     """
         
         return base_prompt
@@ -557,12 +557,12 @@ class GroqService:
         if intent in ["weather", "crowd", "festival", "emergency"]:
             context_info = f"\n\nUser's query seems related to {intent}. Use current information for India."
         
-        # ✅ ADD THIS: Include extracted trek info
+        #  ADD THIS: Include extracted trek info
         if intent == "trekking":
             if context.get('extracted_region'):
-                context_info += f"\n\n🏔️ IMPORTANT: User is asking about treks near/in {context['extracted_region']}. Use this region in your search_treks tool call."
+                context_info += f"\n\n IMPORTANT: User is asking about treks near/in {context['extracted_region']}. Use this region in your search_treks tool call."
             if context.get('extracted_trek_name'):
-                context_info += f"\n🎯 Specific trek mentioned: {context['extracted_trek_name']}"
+                context_info += f"\n Specific trek mentioned: {context['extracted_trek_name']}"
         
         user_message = f"""
         User Query: {message}
@@ -583,7 +583,7 @@ class GroqService:
         
         # Add a subtle indicator that verified sources were used
         if rag_context.get("source_count", 0) > 0:
-            citation_note = f"\n\n📚 *Response enhanced with information from {rag_context['source_count']} verified sources*"
+            citation_note = f"\n\n *Response enhanced with information from {rag_context['source_count']} verified sources*"
             return response_text + citation_note
         
         return response_text
@@ -643,7 +643,7 @@ class GroqService:
             if verification_result.startswith("HALLUCINATION:"):
                 # Extract just the brief explanation
                 explanation = verification_result.replace("HALLUCINATION:", "").strip()
-                logger.warning(f"🚫 Hallucination: {explanation[:200]}")  # Limit log length
+                logger.warning(f"Hallucination: {explanation[:200]}")  # Limit log length
                 return False, explanation
             
             return True, "VALID"
