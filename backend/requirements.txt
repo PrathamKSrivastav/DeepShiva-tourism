@@ -56,7 +56,7 @@
     qdrant-client==1.7.3
 
     # For audio input feature (yash)
-    faster-whisper==1.0.3
+    faster-whisper==1.0.3 (#for small whisper model)
     pydub==0.25.1
     langdetect==1.0.9
 
@@ -64,3 +64,8 @@
     kokoro>=0.3.0
 
     # build = Alpha --version 2.0.0 
+
+#note when using large whisper model use these below :
+
+faster-whisper>=1.1.0
+ctranslate2>=4.4.0
