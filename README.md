@@ -1,127 +1,75 @@
 # Deep Shiva
 
 ## Overview
-Deep Shiva is a full-stack system with a **FastAPI backend** and **React (Vite) frontend** that combines:
 
-- Retrieval-Augmented Generation (RAG) using **ChromaDB (local)** with optional **Qdrant Cloud**
-- LLM generation via **Groq API**, with a **local GGUF fallback**
-- **Google OAuth** authentication
+Deep Shiva is a full-stack system with a FastAPI backend and React (Vite) frontend that combines:
+
+- **Retrieval-Augmented Generation (RAG)** using ChromaDB (local) with optional Qdrant Cloud
+- **LLM generation** via Groq API, with a local GGUF fallback
+- **Google OAuth authentication**
 - **Text-to-Speech** using Kokoro
 - **Yoga pose detection and validation** using MediaPipe over WebSockets
 
-This README documents how to set up, run, and inspect the system using **only what exists in the repository**.
+This README documents how to set up, run, and inspect the system using only what exists in the repository.
 
 ---
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
 - Python 3.10 (or compatible)
 - Node.js + npm
 - Recommended: Docker & docker-compose (optional)
 
 ---
 
+## Getting Started
+
 ### Backend (Local)
 
-```bash
-# create and activate virtual environment (Windows example)
+Create and activate virtual environment (Windows example)
 python -m venv .venv
 .venv\Scripts\activate
 
-# install dependencies
+Install dependencies
 pip install -r backend/requirements.txt
 
-# run backend (from repo root or backend/)
+Run backend (from repo root or backend/)
 cd backend
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
-# OR
+
+OR
 python main.py
-Frontend (Local)
-bash
-Copy code
+
+
+### Frontend (Local)
+
 cd frontend
 npm install
 npm run dev
-Frontend runs on Vite (default port 5173) and expects the backend at VITE_API_BASE_URL.
 
-Docker (Backend + Frontend)
-bash
-Copy code
+
+Frontend runs on Vite (default port 5173) and expects the backend at `VITE_API_BASE_URL`.
+
+### Docker (Backend + Frontend)
+
 cd docker
 docker compose up --build
-Exposed ports:
 
-Backend: 8000
 
-Frontend: 5173
+**Exposed ports:**
+- Backend: `8000`
+- Frontend: `5173`
 
-Data Ingestion / RAG
-bash
-Copy code
-cd backend
-python scripts/ingest_all_data.py
-python scripts/ingest_all_data_local_only.py
-python scripts/csv_ingest.py
-python scripts/ingest_special_jsons.py
-Tests
-bash
-Copy code
-python backend/tests/test_llm_with_tool.py
-python backend/tests/test_hotel_api.py
-Note: Several tests require external API keys. Missing keys will cause tests to exit early.
+---
 
-API Access
-After starting the backend:
+## Configuration
 
-Swagger UI: http://localhost:8000/docs
+### Environment Variables
 
-Health check: http://localhost:8000/health
+Create a `.env` file manually (not included in repo).
 
-Repository Structure (Key Paths)
-backend/ — FastAPI application
+#### Core Settings
 
-frontend/ — React + Vite SPA
-
-vector_db/ — Local ChromaDB persistence
-
-json_content/, spiritual/, rag_content/ — RAG data sources
-
-main.py — FastAPI app entry point
-
-routers/ — API routers (auth.py, chat.py, rag_admin.py, yoga.py, tts.py)
-
-scripts/ — Ingestion, debug, maintenance scripts
-
-docker-compose.yml — Docker orchestration
-
-backend.Dockerfile — Backend container build
-
-Llama-3.2-1B-Instruct-Q4_K_M.gguf — Local fallback LLM (present in repo)
-
-API Overview (Selected Endpoints)
-GET / — Root (basic feature listing)
-
-GET /docs — Swagger UI
-
-GET /health — Service health
-
-POST /api/auth/google — Google OAuth login
-
-GET /api/tts/kokoro — Kokoro TTS
-
-WS /api/yoga/ws — Real-time yoga pose analysis
-
-POST /api/chat/* — Chat & RAG endpoints
-
-POST /api/rag/* — RAG admin and ingestion APIs
-
-Environment Variables
-Create a .env file manually (not included in repo).
-
-Core
-makefile
-Copy code
 MONGODB_URI=mongodb://localhost:27017/deepshiva_tourism
 JWT_SECRET_KEY=your-super-secret-key-change-in-production-min-32-chars
 JWT_ALGORITHM=HS256
@@ -130,10 +78,11 @@ ADMIN_EMAILS=comma,separated,emails
 FRONTEND_URL=http://localhost:5173
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-Groq / RAG / Vector DB
-makefile
-Copy code
-GROQ_API_KEY=            # optional (offline fallback if missing)
+
+
+#### Groq / RAG / Vector DB
+
+GROQ_API_KEY= # optional (offline fallback if missing)
 GROQ_MODEL=moonshotai/kimi-k2-instruct-0905
 GROQ_TEMPERATURE=0.7
 GROQ_MAX_TOKENS=800
@@ -142,78 +91,153 @@ API_TIMEOUT_SECONDS=120
 QDRANT_HOST=
 QDRANT_API_KEY=
 QDRANT_DIM=384
-Third-party Tools / Tests
-makefile
-Copy code
+
+
+#### Third-party Tools / Tests
+
 LITEAPI_KEY=
 CALLENDRIFIC_API_KEY=
 KAGGLE_USERNAME=
 KAGGLE_KEY=
-Frontend (Vite)
-bash
-Copy code
+
+
+
+#### Frontend (Vite)
+
 VITE_API_BASE_URL=http://localhost:8000/api
 VITE_GOOGLE_CLIENT_ID=
-Architecture
+
+
+---
+
+## Usage
+
+### Data Ingestion / RAG
+
+cd backend
+python scripts/ingest_all_data.py
+python scripts/ingest_all_data_local_only.py
+python scripts/csv_ingest.py
+python scripts/ingest_special_jsons.py
+
+
+### API Access
+
+After starting the backend:
+
+- **Swagger UI:** http://localhost:8000/docs
+- **Health check:** http://localhost:8000/health
+
+### Tests
+
+python backend/tests/test_llm_with_tool.py
+python backend/tests/test_hotel_api.py
+
+
+**Note:** Several tests require external API keys. Missing keys will cause tests to exit early.
+
+---
+
+## Repository Structure
+
+### Key Paths
+
+backend/ FastAPI application
+frontend/ React + Vite SPA
+vector_db/ Local ChromaDB persistence
+json_content/ RAG data sources
+spiritual/ RAG data sources
+rag_content/ RAG data sources
+main.py FastAPI app entry point
+routers/ API routers
+├── auth.py Google OAuth, JWT handling
+├── chat.py Chat endpoints (RAG + LLM)
+├── rag_admin.py RAG ingestion and admin APIs
+├── yoga.py Pose detection & WebSocket streaming
+└── tts.py Kokoro TTS pipeline
+scripts/ Ingestion, debug, maintenance scripts
+docker-compose.yml Docker orchestration
+backend.Dockerfile Backend container build
+Llama-3.2-1B-Instruct-Q4_K_M.gguf Local fallback LLM (present in repo)
+
+
+
+---
+
+## Architecture
+
+### Frontend
+
+- React + Vite SPA
+- Handles Google OAuth client-side
+- Communicates with backend via `VITE_API_BASE_URL`
+
+### Backend
+
+- `main.py` — App initialization and router mounting
+- `auth.py` — Google OAuth verification, JWT handling
+- `chat.py` — Chat endpoints (RAG + LLM)
+- `rag_admin.py` — RAG ingestion and admin APIs
+- `yoga.py` — Pose detection & WebSocket streaming
+- `tts.py` — Kokoro TTS pipeline
+
+### RAG
+
+- `vector_store.py` — ChromaDB (local) with optional Qdrant Cloud
+- `rag/content_manager.py` — JSON/PDF ingestion
+- `rag/persona_rag.py` — Persona-aware retrieval
+
+### LLM / Generation
+
+- `groq_service.py` — Groq API wrapper + RAG integration
+- `local_llm_service.py`, `llm_engine.py` — Local GGUF fallback via llama_cpp
+
+### Data Flow (High-Level)
+
 Frontend
-React + Vite SPA
+→ Backend API
+→ RAG Retrieval (Chroma/Qdrant)
+→ Groq API OR Local LLM
+→ Response
+→ Optional TTS
+→ Audio served via /audio or streaming response
 
-Handles Google OAuth client-side
 
-Communicates with backend via VITE_API_BASE_URL
 
-Backend
-main.py — App initialization and router mounting
+---
 
-auth.py — Google OAuth verification, JWT handling
+## API Overview
 
-chat.py — Chat endpoints (RAG + LLM)
+### Selected Endpoints
 
-rag_admin.py — RAG ingestion and admin APIs
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/` | GET | Root (basic feature listing) |
+| `/docs` | GET | Swagger UI |
+| `/health` | GET | Service health |
+| `/api/auth/google` | POST | Google OAuth login |
+| `/api/tts/kokoro` | GET | Kokoro TTS |
+| `/api/yoga/ws` | WS | Real-time yoga pose analysis |
+| `/api/chat/*` | POST | Chat & RAG endpoints |
+| `/api/rag/*` | POST | RAG admin and ingestion APIs |
 
-yoga.py — Pose detection & WebSocket streaming
+---
 
-tts.py — Kokoro TTS pipeline
+## Limitations & Known Gaps
 
-RAG
-vector_store.py — ChromaDB (local) with optional Qdrant Cloud
+- No LICENSE file present
+- No `.env.example` file; environment variables must be created manually
+- Groq health-check internals appear incomplete/commented in `groq_service.py`
+- Local LLM fallback requires llama_cpp and sufficient system resources
+- Tests and tools depend on external API keys
+- No CI/CD pipeline or deployment scripts included
+- Docker setup is Linux-based; Windows users may prefer Docker or require additional setup
+- Static media paths (`/audio`, `/images`) are expected; missing files are logged at runtime
 
-rag/content_manager.py — JSON/PDF ingestion
+---
 
-rag/persona_rag.py — Persona-aware retrieval
+## Notes
 
-LLM / Generation
-groq_service.py — Groq API wrapper + RAG integration
+This README reflects only what is currently implemented in the repository. No future features or assumptions are documented.
 
-local_llm_service.py, llm_engine.py — Local GGUF fallback via llama_cpp
 
-Data Flow (High-Level)
-css
-Copy code
-Frontend
-  → Backend API
-    → RAG Retrieval (Chroma/Qdrant)
-      → Groq API OR Local LLM
-        → Response
-          → Optional TTS
-            → Audio served via /audio or streaming response
-Limitations & Known Gaps
-No LICENSE file present.
-
-No .env.example file; environment variables must be created manually.
-
-Groq health-check internals appear incomplete/commented in groq_service.py.
-
-Local LLM fallback requires llama_cpp and sufficient system resources.
-
-Tests and tools depend on external API keys.
-
-No CI/CD pipeline or deployment scripts included.
-
-Docker setup is Linux-based; Windows users may prefer Docker or require additional setup.
-
-Static media paths (/audio, /images) are expected; missing files are logged at runtime.
-
-Notes
-This README reflects only what is currently implemented in the repository.
-No future features or assumptions are documented.
