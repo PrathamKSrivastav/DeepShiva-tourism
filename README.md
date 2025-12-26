@@ -147,39 +147,73 @@ python backend/tests/test_hotel_api.py
 
 ---
 
-## Repository Structure
+Project Structure (Explained)
 
-### Key Paths
+This repository is organized by responsibility: backend services, frontend UI, retrieval data, and infrastructure.
 
-backend/                         # FastAPI backend application
-├── routers/                     # API route definitions
-│   ├── auth.py                  # Google OAuth + JWT authentication
-│   ├── chat.py                  # Chat endpoints (RAG + LLM)
-│   ├── rag_admin.py             # RAG ingestion & admin APIs
-│   ├── yoga.py                  # Yoga pose detection + WebSocket streaming
-│   └── tts.py                   # Kokoro Text-to-Speech pipeline
-├── scripts/                     # Ingestion, debugging, maintenance scripts
-├── main.py                      # FastAPI app entry point
-└── requirements.txt             # Backend dependencies
+Backend — FastAPI Services (backend/)
 
-frontend/                        # React + Vite single-page application
-├── src/
-├── index.html
-├── package.json
-└── vite.config.js
+The backend is a FastAPI application responsible for authentication, RAG-based chat, yoga pose streaming, and text-to-speech.
 
-vector_db/                       # Local ChromaDB persistence
-json_content/                    # RAG JSON data sources
-spiritual/                       # Spiritual / domain-specific RAG content
-rag_content/                     # Additional RAG documents
+Core entry
 
-docker-compose.yml               # Docker orchestration
-backend.Dockerfile               # Backend container build
+main.py — FastAPI application entry point
 
-Llama-3.2-1B-Instruct-Q4_K_M.gguf # Local fallback LLM (offline inference)
-README.md                        # Project documentation
+requirements.txt — Python dependencies
 
+API routers (backend/routers/)
 
+auth.py — Google OAuth login and JWT-based authentication
+
+chat.py — Chat endpoints combining RAG retrieval with LLM generation
+
+rag_admin.py — RAG ingestion, indexing, and admin operations
+
+yoga.py — Yoga pose detection and validation via WebSocket streaming
+
+tts.py — Kokoro text-to-speech pipeline
+
+Support utilities
+
+scripts/ — Data ingestion, debugging, and maintenance scripts
+
+Frontend — React + Vite SPA (frontend/)
+
+The frontend is a single-page application built with React and Vite.
+
+src/ — React components and application logic
+
+index.html — HTML entry file
+
+package.json — Frontend dependencies and scripts
+
+vite.config.js — Vite build configuration
+
+Retrieval-Augmented Generation (RAG) Data
+
+These directories contain structured and unstructured data used for retrieval.
+
+vector_db/ — Local ChromaDB persistence (embeddings storage)
+
+json_content/ — Structured JSON knowledge sources
+
+spiritual/ — Domain-specific spiritual content
+
+rag_content/ — Additional documents for RAG ingestion
+
+Infrastructure & Deployment
+
+docker-compose.yml — Multi-service Docker orchestration
+
+backend.Dockerfile — Backend container build instructions
+
+Local LLM Fallback
+
+Llama-3.2-1B-Instruct-Q4_K_M.gguf — Quantized local LLM for offline inference when external APIs are unavailable
+
+Documentation
+
+README.md — Project overview, setup, and usage instructions
 
 ---
 
