@@ -90,7 +90,9 @@ GOOGLE_CLIENT_SECRET=
 #### Groq / RAG / Vector DB
 
 GROQ_API_KEY= # optional (offline fallback if missing)
+
 GROQ_MODEL=moonshotai/kimi-k2-instruct-0905
+
 GROQ_TEMPERATURE=0.7
 GROQ_MAX_TOKENS=800
 API_TIMEOUT_SECONDS=120
@@ -149,23 +151,33 @@ python backend/tests/test_hotel_api.py
 
 ### Key Paths
 
-backend/ FastAPI application
-frontend/ React + Vite SPA
-vector_db/ Local ChromaDB persistence
-json_content/ RAG data sources
-spiritual/ RAG data sources
-rag_content/ RAG data sources
-main.py FastAPI app entry point
-routers/ API routers
-├── auth.py Google OAuth, JWT handling
-├── chat.py Chat endpoints (RAG + LLM)
-├── rag_admin.py RAG ingestion and admin APIs
-├── yoga.py Pose detection & WebSocket streaming
-└── tts.py Kokoro TTS pipeline
-scripts/ Ingestion, debug, maintenance scripts
-docker-compose.yml Docker orchestration
-backend.Dockerfile Backend container build
-Llama-3.2-1B-Instruct-Q4_K_M.gguf Local fallback LLM (present in repo)
+├── backend/                      # FastAPI backend application
+│   ├── routers/                  # API route definitions
+│   │   ├── auth.py               # Google OAuth + JWT authentication
+│   │   ├── chat.py               # Chat endpoints (RAG + LLM)
+│   │   ├── rag_admin.py          # RAG ingestion & admin APIs
+│   │   ├── yoga.py               # Yoga pose detection + WebSocket streaming
+│   │   └── tts.py                # Kokoro Text-to-Speech pipeline
+│   ├── scripts/                  # Ingestion, debugging, maintenance scripts
+│   ├── main.py                   # FastAPI app entry point
+│   └── requirements.txt          # Backend dependencies
+│
+├── frontend/                     # React + Vite single-page application
+│   ├── src/
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
+│
+├── vector_db/                    # Local ChromaDB persistence
+├── json_content/                 # RAG JSON data sources
+├── spiritual/                    # Spiritual / domain-specific RAG content
+├── rag_content/                  # Additional RAG documents
+│
+├── docker-compose.yml             # Docker orchestration
+├── backend.Dockerfile             # Backend container build
+│
+├── Llama-3.2-1B-Instruct-Q4_K_M.gguf  # Local fallback LLM (offline inference)
+└── README.md                      # Project documentation
 
 
 
