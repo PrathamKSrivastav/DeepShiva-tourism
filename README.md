@@ -151,33 +151,33 @@ python backend/tests/test_hotel_api.py
 
 ### Key Paths
 
-├── backend/                      # FastAPI backend application
-│   ├── routers/                  # API route definitions
-│   │   ├── auth.py               # Google OAuth + JWT authentication
-│   │   ├── chat.py               # Chat endpoints (RAG + LLM)
-│   │   ├── rag_admin.py          # RAG ingestion & admin APIs
-│   │   ├── yoga.py               # Yoga pose detection + WebSocket streaming
-│   │   └── tts.py                # Kokoro Text-to-Speech pipeline
-│   ├── scripts/                  # Ingestion, debugging, maintenance scripts
-│   ├── main.py                   # FastAPI app entry point
-│   └── requirements.txt          # Backend dependencies
-│
-├── frontend/                     # React + Vite single-page application
-│   ├── src/
-│   ├── index.html
-│   ├── package.json
-│   └── vite.config.js
-│
-├── vector_db/                    # Local ChromaDB persistence
-├── json_content/                 # RAG JSON data sources
-├── spiritual/                    # Spiritual / domain-specific RAG content
-├── rag_content/                  # Additional RAG documents
-│
-├── docker-compose.yml             # Docker orchestration
-├── backend.Dockerfile             # Backend container build
-│
-├── Llama-3.2-1B-Instruct-Q4_K_M.gguf  # Local fallback LLM (offline inference)
-└── README.md                      # Project documentation
+backend/                         # FastAPI backend application
+├── routers/                     # API route definitions
+│   ├── auth.py                  # Google OAuth + JWT authentication
+│   ├── chat.py                  # Chat endpoints (RAG + LLM)
+│   ├── rag_admin.py             # RAG ingestion & admin APIs
+│   ├── yoga.py                  # Yoga pose detection + WebSocket streaming
+│   └── tts.py                   # Kokoro Text-to-Speech pipeline
+├── scripts/                     # Ingestion, debugging, maintenance scripts
+├── main.py                      # FastAPI app entry point
+└── requirements.txt             # Backend dependencies
+
+frontend/                        # React + Vite single-page application
+├── src/
+├── index.html
+├── package.json
+└── vite.config.js
+
+vector_db/                       # Local ChromaDB persistence
+json_content/                    # RAG JSON data sources
+spiritual/                       # Spiritual / domain-specific RAG content
+rag_content/                     # Additional RAG documents
+
+docker-compose.yml               # Docker orchestration
+backend.Dockerfile               # Backend container build
+
+Llama-3.2-1B-Instruct-Q4_K_M.gguf # Local fallback LLM (offline inference)
+README.md                        # Project documentation
 
 
 
