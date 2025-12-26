@@ -71,12 +71,19 @@ Create a `.env` file manually (not included in repo).
 #### Core Settings
 
 MONGODB_URI=mongodb://localhost:27017/deepshiva_tourism
+
 JWT_SECRET_KEY=your-super-secret-key-change-in-production-min-32-chars
+
 JWT_ALGORITHM=HS256
+
 JWT_EXPIRY_HOURS=168
+
 ADMIN_EMAILS=comma,separated,emails
+
 FRONTEND_URL=http://localhost:5173
+
 GOOGLE_CLIENT_ID=
+
 GOOGLE_CLIENT_SECRET=
 
 
