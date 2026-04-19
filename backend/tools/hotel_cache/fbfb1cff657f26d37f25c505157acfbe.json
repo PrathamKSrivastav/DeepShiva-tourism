@@ -1,0 +1,43 @@
+{
+  "found": 34,
+  "city": "Agra",
+  "dates": "2026-04-20 to 2026-04-21",
+  "hotels": [
+    {
+      "name": "ITC Mughal, A Luxury Collection Resort & Spa, Agra",
+      "price": "INR 11441.47",
+      "rating": "8.4/10",
+      "image": "https://static.cupid.travel/hotels/ex_a8456c18_z.jpg",
+      "address": "Taj Ganj Uttar Pradesh, Agra, Uttar Pradesh, 282001"
+    },
+    {
+      "name": "Trident, Agra",
+      "price": "INR 6594.72",
+      "rating": "9.4/10",
+      "image": "https://static.cupid.travel/hotels/ex_e3ff17cb_z.jpg",
+      "address": "Tajnagri Scheme, Fatehabad Road, Agra, Uttar Pradesh, 28 2001"
+    },
+    {
+      "name": "Howard Plaza The Fern, Agra",
+      "price": "INR 3387.14",
+      "rating": "8.6/10",
+      "image": "https://static.cupid.travel/hotels/593946606.jpg",
+      "address": "Fatehabad Road"
+    },
+    {
+      "name": "Jaypee Palace Hotel",
+      "price": "INR 9125.39",
+      "rating": "8.7/10",
+      "image": "https://static.cupid.travel/hotels/146011893.jpg",
+      "address": "Fatehbad Road"
+    },
+    {
+      "name": "The Oberoi Amarvilas Agra",
+      "price": "INR 37438.6",
+      "rating": "9.7/10",
+      "image": "https://static.cupid.travel/hotels/47406124.jpg",
+      "address": "Taj East Gate Road"
+    }
+  ],
+  "cached_at": "2026-04-19T14:39:55.111835"
+}

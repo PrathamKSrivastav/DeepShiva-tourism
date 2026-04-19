@@ -80,24 +80,24 @@ def get_tools_schema():
             "type": "function",
             "function": {
                 "name": "get_holidays",  #  FIX 1: Name must match the import
-                "description": "Get public holidays for India. To see the whole year, fetch by QUARTERS (Q1, Q2, Q3, Q4) to avoid data truncation.",
+                "description": "CRITICAL: You MUST call this tool to fetch current and upcoming public holidays or festivals for India. Do NOT rely on RAG or internal knowledge for holidays without calling this tool first.",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "year": {
-                            "type": "integer", 
-                            "description": "Year (e.g. 2025). Required."
+                            "type": "string", 
+                            "description": f"Year (e.g. '{datetime.now().year}'). Optional, defaults to current year."
                         },
                         "quarter": {
-                            "type": "integer", 
-                            "description": "Quarter of the year (1=Jan-Mar, 2=Apr-Jun, 3=Jul-Sep, 4=Oct-Dec). Recommended for better visibility."
+                            "type": "string", 
+                            "description": "Quarter of the year ('1'=Jan-Mar, '2'=Apr-Jun, '3'=Jul-Sep, '4'=Oct-Dec). Recommended for better visibility."
                         },
                         "month": {
-                            "type": "integer", 
-                            "description": "Specific month (1-12). Use only for narrow searches."
+                            "type": "string", 
+                            "description": "Specific month ('1'-'12'). Use only for narrow searches."
                         }
                     },
-                    "required": ["year"]
+                    "required": []
                 }
             }
         },
@@ -706,9 +706,16 @@ async def chat(
                                     tool_context["hotels"] = tool_result
 
                             elif func_name == "get_holidays":
-                                year = args.get('year')
-                                month = args.get('month')
-                                quarter = args.get('quarter')
+                                import re
+                                def _extract_int(v):
+                                    if not v: return None
+                                    digits = re.sub(r'\D', '', str(v))
+                                    return int(digits) if digits else None
+
+                                year = _extract_int(args.get('year'))
+                                month = _extract_int(args.get('month'))
+                                quarter = _extract_int(args.get('quarter'))
+                                    
                                 logger.info(f"🎉 Calling Holidays for: {year} (Q{quarter}/M{month})")
                                 
                                 holidays_data = await get_holidays(year=year, month=month, quarter=quarter)
@@ -718,7 +725,9 @@ async def chat(
                                 today_str = datetime.now().strftime("%Y-%m-%d")
                                 current_year = datetime.now().year
                                 
-                                if year == current_year:
+                                effective_year = year if year is not None else current_year
+                                
+                                if effective_year == current_year:
                                     holidays_data = [
                                         h for h in holidays_data 
                                         if h.get('date', {}).get('iso', '9999-99-99') >= today_str

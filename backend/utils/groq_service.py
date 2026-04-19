@@ -17,7 +17,7 @@ class GroqService:
         load_dotenv()
         
         self.api_key = os.getenv("GROQ_API_KEY")
-        self.model_name = os.getenv("GROQ_MODEL", "moonshotai/kimi-k2-instruct-0905")
+        self.model_name = os.getenv("GROQ_MODEL", "meta-llama/llama-4-scout-17b-16e-instruct")#hehe
         self.temperature = float(os.getenv("GROQ_TEMPERATURE", "0.7")) # 0.7 -> 0.3 -> 0.5
         self.max_tokens = int(os.getenv("GROQ_MAX_TOKENS", "800")) #1000 -> 800
         self.timeout = int(os.getenv("API_TIMEOUT_SECONDS", "120")) #10-> 30 -> 60 -> 90 ->120
@@ -465,6 +465,8 @@ class GroqService:
         Optimized system prompt for RAG + Agents (token-efficient) with CORRECT tool names.
         """
         base_prompt = f"You are a {persona} guide for India (Intent: {intent}). You're AGENTIC - call tools to get real-time data.\n"
+        from datetime import datetime
+        base_prompt += f"CURRENT DATE: {datetime.now().strftime('%Y-%m-%d')}. Do not provide information for past dates unless explicitly asked about history.\n"
         
         #  CORRECTED: Intent-Based Tool Enforcement (EXACT function names from your tools)
         REQUIRED_TOOLS = {
