@@ -102,7 +102,7 @@ srsly==2.4.8
 cymem==2.0.8
 murmurhash==1.0.10
 preshed==3.0.9
-blis==0.7.11
+blis==1.3.3
 catalogue==2.0.10
 confection==0.1.5
 wasabi==1.1.3
