@@ -95,4 +95,15 @@ for i in "${!ENVS[@]}"; do
   printf "    %q%s\n" "${ENVS[$i]}" "$sep"
 done
 echo
-echo "echo '✅ Secrets and env vars applied. A new revision will roll automatically.'"
+echo
+echo "# 3) Strip the startup probe (killed past revisions after ~6s on wrong port)"
+echo "az containerapp update \\"
+echo "  -n \"\$APP\" -g \"\$RG\" \\"
+echo "  --set properties.template.containers[0].probes=[]"
+echo
+echo "echo '✅ Secrets, env vars, and probe config applied. A new revision will roll automatically.'"
+echo "echo"
+echo "FQDN=\$(az containerapp show -n \"\$APP\" -g \"\$RG\" --query 'properties.configuration.ingress.fqdn' -o tsv)"
+echo "echo \"Waiting ~60s for new revision to start, then testing /health...\""
+echo "sleep 60"
+echo "curl -sf \"https://\$FQDN/health\" && echo '' && echo '🎉 Backend is live at https://'\$FQDN || echo '❌ Health check failed — run: az containerapp logs show -n '\$APP' -g '\$RG' --tail 50'"
