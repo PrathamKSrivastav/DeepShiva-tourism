@@ -77,17 +77,15 @@ app = FastAPI(
 )
 
 # CORS middleware
+_allowed_origins = list({*settings.ALLOWED_ORIGINS, settings.FRONTEND_URL})
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        settings.FRONTEND_URL,
-    ],
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+logger.info(f"CORS allowed origins: {_allowed_origins}")
 
 public_dir = Path(__file__).parent / "public"
 if public_dir.exists():
@@ -195,6 +193,7 @@ async def get_yoga_static(file_path: str):
 async def startup_event():
     """Initialize services on startup"""
     logger.info("🚀 Starting Deep Shiva Tourism API...")
+    settings.validate_production()
     try:
         await connect_to_mongo()
         logger.info("✅ MongoDB connected")

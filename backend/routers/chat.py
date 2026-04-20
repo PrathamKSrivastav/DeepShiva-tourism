@@ -20,9 +20,6 @@ from tools.holiday_tool import get_holidays
 from tools.trek_tool import search_treks
 from tools.hotel_tool import get_hotel_rates
 
-# from localmodel.llm_engine import LLMEngine  # local model disabled on cloud
-
-
 from utils.pdf_generator import ChatPDFGenerator
 import os
 from fastapi.responses import FileResponse
@@ -264,7 +261,6 @@ class UpdateSessionRequest(BaseModel):
 
 # Initialize Groq service
 groq_service = GroqService()
-# llm_engine = LLMEngine()  # local model disabled on cloud
 
 # ============= Chat Session Management =============
 

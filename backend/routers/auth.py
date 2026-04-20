@@ -212,6 +212,16 @@ async def logout(current_user: dict = Depends(get_current_user)):
     logger.info(f"👋 User logged out: {current_user.get('email')}")
     return {"message": "Logged out successfully"}
 
+async def require_admin(current_user: dict = Depends(get_current_user)):
+    """
+    Dependency: ensure the current user is an admin.
+    """
+    if current_user.get("role") != "admin":
+        logger.warning(f"⚠️ Non-admin access attempt: {current_user.get('email')}")
+        raise HTTPException(status_code=403, detail="Admin access required")
+    return current_user
+
+
 @router.get("/auth/admin-check")
 async def check_admin(current_user: dict = Depends(get_current_user)):
     """

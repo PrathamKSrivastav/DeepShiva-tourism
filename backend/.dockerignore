@@ -1,0 +1,49 @@
+# VCS
+.git
+.gitignore
+
+# Local secrets / env
+.env
+.env.*
+!.env.example
+
+# Python artefacts
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.egg-info
+.venv
+venv
+env
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Local LLM weights (huge, not used in prod)
+localmodel/
+
+# Local JSON caches (migrated to MongoDB)
+cache/
+tools/hotel_cache/
+
+# Dev-only
+tests/
+scripts/
+notebooks/
+data/vector_db/
+*.log
+
+# OS / IDE
+.DS_Store
+.vscode
+.idea
+
+# Requirements variants not used by the image
+requirements.txt
+requirements.base.txt
+requirements.ml.txt
+requirements.rag.txt
+requirements.audio.txt
+requirements.cv.txt
+requirements.lock
