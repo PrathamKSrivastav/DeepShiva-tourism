@@ -5,8 +5,11 @@ import { useYoga } from "../hooks/useYoga";
 
 // MediaPipe Pose is loaded from CDN to avoid Vite/WASM bundling issues.
 // The library attaches itself to window.Pose after the script loads.
-const MEDIAPIPE_POSE_CDN =
-  "https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js";
+// IMPORTANT: pin the version — `@latest` on jsDelivr has shipped builds with
+// a bug in pose_solution_packed_assets_loader.js that throws
+// "Cannot read properties of undefined" on xhr.onprogress and breaks model load.
+const MEDIAPIPE_POSE_VERSION = "0.5.1675469404";
+const MEDIAPIPE_POSE_CDN = `https://cdn.jsdelivr.net/npm/@mediapipe/pose@${MEDIAPIPE_POSE_VERSION}/pose.js`;
 
 function useBrowserPose(onResults) {
   const poseRef = useRef(null);
@@ -36,7 +39,7 @@ function useBrowserPose(onResults) {
 
       const pose = new Pose({
         locateFile: (file) =>
-          `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+          `https://cdn.jsdelivr.net/npm/@mediapipe/pose@${MEDIAPIPE_POSE_VERSION}/${file}`,
       });
 
       pose.setOptions({

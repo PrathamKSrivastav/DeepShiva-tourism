@@ -27,7 +27,6 @@ function ChatWindow({
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
-  const personaMenuRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
   const recordingTimerRef = useRef(null);
@@ -42,20 +41,21 @@ function ChatWindow({
     };
   }, []);
 
-  // Close persona selector when clicking outside
+  // Close persona selector when clicking outside.
+  // Two wrappers (mobile + desktop) both want to be treated as "inside".
+  // Using a data-attribute selector instead of a shared ref avoids the bug
+  // where a single ref only points at the last-rendered wrapper — on mobile
+  // the tap-outside check otherwise closes the menu before the button click
+  // can fire, preventing persona selection.
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        personaSelectorOpen &&
-        personaMenuRef.current &&
-        !personaMenuRef.current.contains(e.target)
-      ) {
+    if (!personaSelectorOpen) return;
+    const handleOutside = (e) => {
+      if (!e.target.closest("[data-persona-menu]")) {
         setPersonaSelectorOpen(false);
       }
     };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("pointerdown", handleOutside);
+    return () => document.removeEventListener("pointerdown", handleOutside);
   }, [personaSelectorOpen]);
 
   useEffect(() => {
@@ -416,7 +416,7 @@ function ChatWindow({
       >
         {/* Persona Selector - Mobile: Full width button */}
         <div className="mb-2 sm:mb-3 md:hidden">
-          <div className="relative" ref={personaMenuRef}>
+          <div className="relative" data-persona-menu>
             <button
               type="button"
               onClick={() => setPersonaSelectorOpen(!personaSelectorOpen)}
@@ -557,7 +557,7 @@ function ChatWindow({
           className="flex items-center gap-2 max-w-4xl mx-auto"
         >
           {/* Desktop Persona Selector */}
-          <div className="hidden md:block relative" ref={personaMenuRef}>
+          <div className="hidden md:block relative" data-persona-menu>
             <button
               type="button"
               onClick={() => setPersonaSelectorOpen(!personaSelectorOpen)}

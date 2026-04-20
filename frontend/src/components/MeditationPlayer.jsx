@@ -180,9 +180,15 @@ const MeditationPlayer = ({
     };
   }, [chapter?.id, script, isTTSEnabled]);
 
-  // Drive progression:
-  // - If TTS is enabled: advance on TTS ended + extra pause
-  // - If TTS is disabled: use pause-only timer
+  // Fixed-cadence scheduler.
+  // Segments are spaced EVENLY across the chapter's total duration, regardless
+  // of individual TTS audio length. Each segment gets `slotMs = duration / N`.
+  // If the TTS finishes before the slot ends → silence (breathing gap).
+  // If the TTS runs longer than the slot → it's cut off when the next slot fires.
+  const slotMs =
+    Math.max(1, (chapter?.duration || 5) * 60 * 1000) /
+    Math.max(1, script.length);
+
   useEffect(() => {
     if (!isPlaying || isPaused) {
       if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
@@ -193,30 +199,30 @@ const MeditationPlayer = ({
     if (!seg) {
       setIsPlaying(false);
       setIsComplete(true);
-      // audioRef pause handled by music effect now
       return;
     }
 
+    // Start playing this segment's TTS (if enabled) — don't block on it.
     if (isTTSEnabled && seg.text) {
       playSegmentFromPrefetch(currentSegmentIndex, seg.text);
-      // No timer here; we advance on onended + extra pause
-    } else {
-      // No TTS: wait for pause then advance
-      const pauseMs = (seg.pause || 2) * 1000;
-      segmentTimerRef.current = setTimeout(() => {
-        advanceOrComplete();
-      }, pauseMs);
     }
+
+    // Always schedule the next advance at the slot boundary.
+    segmentTimerRef.current = setTimeout(() => {
+      if (ttsAudioRef.current) ttsAudioRef.current.pause();
+      setIsSpeaking(false);
+      advanceOrComplete();
+    }, slotMs);
 
     return () => {
       if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
     };
-  }, [isPlaying, isPaused, currentSegmentIndex, script, isTTSEnabled]);
+  }, [isPlaying, isPaused, currentSegmentIndex, script, isTTSEnabled, slotMs]);
 
-  // Play from prefetch (or fallback on-demand)
+  // Play from prefetch (or fallback on-demand). Does NOT schedule the next
+  // advance — that's driven by the fixed-cadence scheduler above.
   const playSegmentFromPrefetch = async (index, text) => {
     try {
-      // Stop previous
       if (ttsAudioRef.current) {
         ttsAudioRef.current.pause();
         ttsAudioRef.current.src = "";
@@ -226,7 +232,6 @@ const MeditationPlayer = ({
       const key = `${lang}|${voice}|${speed}|${text}`;
       let data = prefetched[index] || ttsURLCache.get(key);
 
-      // Fallback: on-demand fetch if not prefetched
       if (!data) {
         const params = new URLSearchParams({ text, voice, lang, speed });
         const res = await fetch(`${API_BASE_URL}/tts/kokoro?${params}`);
@@ -236,26 +241,12 @@ const MeditationPlayer = ({
         data = { url, durationMs: 0 };
       }
 
-      // Set up onended to add extra pause then advance
-      const extraPauseMs = (script[index]?.pause || 2) * 1000;
-      ttsAudioRef.current.onended = () => {
-        setIsSpeaking(false);
-        if (segmentTimerRef.current) clearTimeout(segmentTimerRef.current);
-        segmentTimerRef.current = setTimeout(() => {
-          advanceOrComplete();
-        }, extraPauseMs);
-      };
-
+      ttsAudioRef.current.onended = () => setIsSpeaking(false);
       ttsAudioRef.current.src = data.url;
       await ttsAudioRef.current.play();
     } catch (e) {
       console.warn("TTS play error:", e);
       setIsSpeaking(false);
-      // If TTS fails, just wait pause then advance
-      const pauseMs = (script[index]?.pause || 2) * 1000;
-      segmentTimerRef.current = setTimeout(() => {
-        advanceOrComplete();
-      }, pauseMs);
     }
   };
 
