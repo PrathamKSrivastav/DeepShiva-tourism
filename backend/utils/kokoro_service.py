@@ -1,18 +1,26 @@
 """
 Kokoro TTS Service
 CPU/GPU-safe, Windows-compatible, backend-friendly
+Lazy imports so the server starts even when torch/kokoro are not installed.
 """
 
 import logging
-import torch
 import tempfile
+import hashlib
 from pathlib import Path
 from typing import Optional
-import soundfile as sf
-import hashlib
-from kokoro import KPipeline
 
 logger = logging.getLogger(__name__)
+
+# Check once at module load whether the heavy deps are present
+try:
+    import torch
+    from kokoro import KPipeline
+    import soundfile as sf
+    KOKORO_AVAILABLE = True
+except ImportError:
+    KOKORO_AVAILABLE = False
+    logger.warning("⚠️ Kokoro TTS unavailable (torch/kokoro not installed)")
 
 
 class KokoroTTSService:
@@ -23,12 +31,17 @@ class KokoroTTSService:
         'b' => British English
         'h' => Hindi
         """
+        if not KOKORO_AVAILABLE:
+            self.available = False
+            logger.warning("⚠️ KokoroTTSService created but kokoro is not installed")
+            return
+
+        self.available = True
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         logger.info(f"🎙️ Initializing Kokoro on {self.device}")
-        self.lang_code = lang_code  # cache key component
+        self.lang_code = lang_code
 
         self.pipeline = KPipeline(lang_code=lang_code)
-        # Cache dir (persist across runs)
         self.cache_dir = Path(__file__).parent.parent / "cache" / "tts"
         self.cache_dir.mkdir(parents=True, exist_ok=True)
 
@@ -38,11 +51,11 @@ class KokoroTTSService:
         voice: str = "af_heart",
         speed: float = 1.0,
     ) -> Optional[bytes]:
-        """
-        Generate speech and return WAV bytes
-        """
+        """Generate speech and return WAV bytes. Returns None if unavailable."""
+        if not getattr(self, "available", False):
+            return None
+
         try:
-            # ---------- Disk cache ----------
             key = f"{self.lang_code}|{voice}|{speed}|{text}"
             key_hash = hashlib.sha1(key.encode("utf-8")).hexdigest()
             cache_path = self.cache_dir / f"{key_hash}.wav"
@@ -52,7 +65,6 @@ class KokoroTTSService:
                 return cache_path.read_bytes()
             logger.debug(f"🆕 TTS cache miss: {key_hash}")
 
-            # ---------- Synthesize ----------
             generator = self.pipeline(
                 text,
                 voice=voice,
@@ -78,7 +90,6 @@ class KokoroTTSService:
             data = Path(wav_path).read_bytes()
             Path(wav_path).unlink()
 
-            # ---------- Save to cache ----------
             try:
                 cache_path.write_bytes(data)
             except Exception as ce:
@@ -86,7 +97,7 @@ class KokoroTTSService:
 
             return data
 
-        except Exception as e:
+        except Exception:
             logger.exception("❌ Kokoro TTS failed")
             return None
 
@@ -94,7 +105,7 @@ class KokoroTTSService:
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
-    tts = KokoroTTSService(lang_code="h")  # Hindi
+    tts = KokoroTTSService(lang_code="h")
     audio = tts.synthesize(
         "Hey this is a test for text to speech",
         voice="hf_alpha",

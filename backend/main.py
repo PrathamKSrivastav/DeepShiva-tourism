@@ -1,3 +1,11 @@
+import numpy as np
+if not hasattr(np, 'float_'):
+    np.float_ = np.float64
+if not hasattr(np, 'int_'):
+    np.int_ = np.int64
+if not hasattr(np, 'uint'):
+    np.uint = np.uint64
+
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -189,14 +197,24 @@ async def startup_event():
     logger.info("🚀 Starting Deep Shiva Tourism API...")
     try:
         await connect_to_mongo()
-        en = KokoroTTSService(lang_code="a")
-        hi = KokoroTTSService(lang_code="h")
-        en.synthesize("Ready", voice="af_heart", speed=1.0)
-        hi.synthesize("तैयार", voice="hf_alpha", speed=1.0)
-        logger.info("✅ Kokoro TTS prewarmed")
-        logger.info("✅ All services initialized successfully")
+        logger.info("✅ MongoDB connected")
     except Exception as e:
-        logger.warning(f"⚠️ Startup warning: {e}")
+        logger.warning(f"⚠️ MongoDB connection warning: {e}")
+
+    from utils.kokoro_service import KOKORO_AVAILABLE
+    if KOKORO_AVAILABLE:
+        try:
+            en = KokoroTTSService(lang_code="a")
+            hi = KokoroTTSService(lang_code="h")
+            en.synthesize("Ready", voice="af_heart", speed=1.0)
+            hi.synthesize("तैयार", voice="hf_alpha", speed=1.0)
+            logger.info("✅ Kokoro TTS prewarmed")
+        except Exception as e:
+            logger.warning(f"⚠️ Kokoro prewarm failed: {e}")
+    else:
+        logger.info("ℹ️ Kokoro TTS not available on this deployment — skipping prewarm")
+
+    logger.info("✅ All services initialized")
 
 
 @app.on_event("shutdown")

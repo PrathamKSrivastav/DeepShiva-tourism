@@ -3,14 +3,78 @@ import { motion, AnimatePresence } from "framer-motion";
 import Webcam from "react-webcam";
 import { useYoga } from "../hooks/useYoga";
 
+// MediaPipe Pose is loaded from CDN to avoid Vite/WASM bundling issues.
+// The library attaches itself to window.Pose after the script loads.
+const MEDIAPIPE_POSE_CDN =
+  "https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js";
+
+function useBrowserPose(onResults) {
+  const poseRef = useRef(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const init = async () => {
+      // Inject CDN script if not already present
+      if (!document.getElementById("mediapipe-pose-script")) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.id = "mediapipe-pose-script";
+          script.src = MEDIAPIPE_POSE_CDN;
+          script.crossOrigin = "anonymous";
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      if (!mounted) return;
+
+      const { Pose } = window;
+      if (!Pose) return;
+
+      const pose = new Pose({
+        locateFile: (file) =>
+          `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+      });
+
+      pose.setOptions({
+        modelComplexity: 1,
+        smoothLandmarks: true,
+        enableSegmentation: false,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5,
+      });
+
+      pose.onResults((results) => {
+        if (results.poseLandmarks) {
+          onResults(results.poseLandmarks);
+        }
+      });
+
+      poseRef.current = pose;
+      if (mounted) setReady(true);
+    };
+
+    init().catch((e) => console.error("MediaPipe Pose init failed:", e));
+
+    return () => {
+      mounted = false;
+      poseRef.current?.close?.();
+    };
+  }, [onResults]);
+
+  return { pose: poseRef, ready };
+}
+
 const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
-  const [capturedImage, setCapturedImage] = useState(null);
   const [analysisResult, setAnalysisResult] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [useWebcam, setUseWebcam] = useState(false);
+  const [capturedImage, setCapturedImage] = useState(null);
   const [isRealtimeMode, setIsRealtimeMode] = useState(false);
   const [realtimeFeedback, setRealtimeFeedback] = useState(null);
-  const [landmarks, setLandmarks] = useState([]);
   const [frameCount, setFrameCount] = useState(0);
   const [webcamReady, setWebcamReady] = useState(false);
   const [pendingStart, setPendingStart] = useState(false);
@@ -18,224 +82,199 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
   const webcamRef = useRef(null);
   const fileInputRef = useRef(null);
   const frameIntervalRef = useRef(null);
+  const offscreenCanvasRef = useRef(null);
 
   const {
-    analyzePose,
+    analyzeLandmarks,
     connectWebSocket,
     disconnectWebSocket,
     onWebSocketMessage,
     startRealtimeAnalysis,
     stopRealtimeAnalysis,
-    sendFrame,
+    sendLandmarks,
     isConnected,
     isLoading,
     error,
   } = useYoga();
 
-  // Log state changes for debugging
-  useEffect(() => {
-    console.log("[STATE] useWebcam:", useWebcam, "| isRealtimeMode:", isRealtimeMode, "| webcamReady:", webcamReady, "| isConnected:", isConnected);
-  }, [useWebcam, isRealtimeMode, webcamReady, isConnected]);
+  // ── landmark callback (stable reference so useBrowserPose doesn't re-init)
+  const lastLandmarksRef = useRef(null);
+  const handlePoseResults = useCallback((landmarks) => {
+    // Normalise to plain objects for JSON serialisation
+    lastLandmarksRef.current = landmarks.map((lm) => ({
+      x: lm.x,
+      y: lm.y,
+      z: lm.z ?? 0,
+      visibility: lm.visibility ?? 1,
+    }));
+  }, []);
 
-  // Cleanup WebSocket when component unmounts or real-time mode ends
-  useEffect(() => {
-    return () => {
-      if (isRealtimeMode) {
-        console.log("🔌 [WEBSOCKET] Cleanup - disconnecting");
-        stopRealtimeAnalysis();
-        disconnectWebSocket();
-      }
-    };
-  }, [isRealtimeMode, stopRealtimeAnalysis, disconnectWebSocket]);
+  const { pose: poseRef, ready: poseReady } = useBrowserPose(handlePoseResults);
 
-  // Start analysis when WebSocket connects (if pending)
+  // ── feed webcam frames into MediaPipe
+  const sendFrameToMediaPipe = useCallback(async () => {
+    if (!poseRef.current || !webcamRef.current) return;
+    const video = webcamRef.current.video;
+    if (!video || video.readyState < 2) return;
+
+    // Draw video frame onto offscreen canvas for MediaPipe
+    if (!offscreenCanvasRef.current) {
+      offscreenCanvasRef.current = document.createElement("canvas");
+    }
+    const canvas = offscreenCanvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d").drawImage(video, 0, 0);
+
+    await poseRef.current.send({ image: canvas });
+  }, [poseRef]);
+
+  // ── auto-start analysis once WS connects
   useEffect(() => {
     if (isConnected && pendingStart && isRealtimeMode) {
-      console.log("[AUTO START] WebSocket connected, starting analysis for:", poseName);
       setPendingStart(false);
       startRealtimeAnalysis(poseName);
     }
   }, [isConnected, pendingStart, isRealtimeMode, poseName, startRealtimeAnalysis]);
 
-  // Setup WebSocket message listeners
+  // ── WS message listeners
   useEffect(() => {
-    // Listen for connection confirmation
-    const unsubConnected = onWebSocketMessage("connected", (data) => {
-      console.log("WebSocket connected:", data);
-    });
-
-    // Listen for analysis started
-    const unsubStarted = onWebSocketMessage("analysis_started", (data) => {
-      console.log("Analysis started:", data);
-      setIsAnalyzing(true);
-    });
-
-    // Listen for landmarks
-    const unsubLandmarks = onWebSocketMessage("landmarks", (data) => {
-      setLandmarks(data.landmarks || []);
-    });
-
-    // Listen for feedback
-    const unsubFeedback = onWebSocketMessage("feedback", (data) => {
-      setRealtimeFeedback(data.data);
-      setFrameCount((prev) => prev + 1);
-    });
-
-    // Listen for analysis stopped
-    const unsubStopped = onWebSocketMessage("analysis_stopped", () => {
-      console.log("Analysis stopped");
-      setIsAnalyzing(false);
-    });
-
-    // Listen for errors
-    const unsubError = onWebSocketMessage("error", (data) => {
-      console.error(" WebSocket error:", data.message);
-      alert(`Error: ${data.message}`);
-    });
-
-    // Cleanup listeners
-    return () => {
-      unsubConnected();
-      unsubStarted();
-      unsubLandmarks();
-      unsubFeedback();
-      unsubStopped();
-      unsubError();
-    };
+    const unsubs = [
+      onWebSocketMessage("analysis_started", () => setIsAnalyzing(true)),
+      onWebSocketMessage("feedback", (data) => {
+        setRealtimeFeedback(data.data);
+        setFrameCount((n) => n + 1);
+      }),
+      onWebSocketMessage("analysis_stopped", () => setIsAnalyzing(false)),
+      onWebSocketMessage("error", (data) => console.error("WS error:", data.message)),
+    ];
+    return () => unsubs.forEach((u) => u());
   }, [onWebSocketMessage]);
 
-  // Real-time frame capture and send
+  // ── realtime frame loop: run MediaPipe → send landmarks to backend
   useEffect(() => {
-    console.log("[FRAME EFFECT] Conditions:", {
-      isRealtimeMode,
-      useWebcam,
-      webcamReady,
-      hasWebcamRef: !!webcamRef.current
-    });
+    if (!isRealtimeMode || !useWebcam || !webcamReady || !poseReady) return;
 
-    if (isRealtimeMode && useWebcam && webcamReady && webcamRef.current) {
-      console.log("[FRAME CAPTURE] Starting frame capture at 10 FPS");
-      
-      // Wait a moment for webcam to fully stabilize
-      const startDelay = setTimeout(() => {
-        console.log("[FRAME CAPTURE] Delay complete, setting up interval");
-        let framesSent = 0;
-        
-        frameIntervalRef.current = setInterval(() => {
-          const imageSrc = webcamRef.current?.getScreenshot();
-          if (imageSrc) {
-            framesSent++;
-            if (framesSent % 30 === 0) { // Log every 30 frames (3 seconds)
-              console.log("[FRAME CAPTURE] Frames sent:", framesSent);
-            }
-            sendFrame(imageSrc, poseName);
-          } else {
-            console.warn("[FRAME CAPTURE] Failed to get screenshot");
-          }
-        }, 100);
-      }, 500);
-
-      return () => {
-        console.log("[FRAME CAPTURE] Cleanup - stopping frame capture");
-        clearTimeout(startDelay);
-        if (frameIntervalRef.current) {
-          clearInterval(frameIntervalRef.current);
+    const delay = setTimeout(() => {
+      frameIntervalRef.current = setInterval(async () => {
+        await sendFrameToMediaPipe();
+        if (lastLandmarksRef.current) {
+          sendLandmarks(lastLandmarksRef.current, poseName);
         }
-      };
-    } else {
-      console.log("[FRAME CAPTURE] Conditions not met, not starting capture");
-    }
-  }, [isRealtimeMode, useWebcam, webcamReady, sendFrame, poseName]);
+      }, 100); // 10 FPS
+    }, 500);
 
-  // Start real-time analysis
+    return () => {
+      clearTimeout(delay);
+      clearInterval(frameIntervalRef.current);
+    };
+  }, [isRealtimeMode, useWebcam, webcamReady, poseReady, sendFrameToMediaPipe, sendLandmarks, poseName]);
+
+  // ── cleanup on unmount
+  useEffect(() => {
+    return () => {
+      clearInterval(frameIntervalRef.current);
+      if (isRealtimeMode) {
+        stopRealtimeAnalysis();
+        disconnectWebSocket();
+      }
+    };
+  }, []); // eslint-disable-line
+
   const handleStartRealtime = useCallback(() => {
-    console.log("[START REALTIME] Button clicked");
-    console.log("[START REALTIME] Current state:", {
-      isConnected,
-      useWebcam,
-      webcamReady,
-      hasWebcamRef: !!webcamRef.current
-    });
-    
-    console.log("[START REALTIME] Setting states for real-time mode");
     setIsRealtimeMode(true);
     setUseWebcam(true);
     setRealtimeFeedback(null);
     setFrameCount(0);
-    
     if (!isConnected) {
-      console.log("[START REALTIME] Not connected yet, will start after connection");
       setPendingStart(true);
       connectWebSocket();
     } else {
-      console.log("[START REALTIME] Already connected, starting analysis immediately");
       startRealtimeAnalysis(poseName);
     }
   }, [isConnected, connectWebSocket, startRealtimeAnalysis, poseName]);
 
-  // Stop real-time analysis
   const handleStopRealtime = useCallback(() => {
-    console.log("[STOP REALTIME] Button clicked");
-    console.log("[STOP REALTIME] Clearing states and stopping analysis");
-    
     setIsRealtimeMode(false);
     setUseWebcam(false);
     setIsAnalyzing(false);
-    setWebcamReady(false); // Reset webcam ready state
-    setPendingStart(false); // Clear pending start
+    setWebcamReady(false);
+    setPendingStart(false);
     stopRealtimeAnalysis();
-    
-    if (frameIntervalRef.current) {
-      console.log("[STOP REALTIME] Clearing frame interval");
-      clearInterval(frameIntervalRef.current);
-    }
+    clearInterval(frameIntervalRef.current);
   }, [stopRealtimeAnalysis]);
 
-  // Capture single photo from webcam
-  const capturePhoto = useCallback(() => {
-    const imageSrc = webcamRef.current?.getScreenshot();
-    if (imageSrc) {
-      console.log("Photo captured");
-
-      // Convert base64 to blob
-      fetch(imageSrc)
-        .then((res) => res.blob())
-        .then((blob) => {
-          setCapturedImage(blob);
-          analyzeImage(blob);
-          setUseWebcam(false);
-        });
-    }
-  }, []);
-
-  // Handle file upload
-  const handleFileUpload = useCallback((event) => {
-    const file = event.target.files[0];
-    if (file) {
-      console.log("File selected:", file.name);
-      setCapturedImage(file);
-      analyzeImage(file);
-    }
-  }, []);
-
-  // Analyze captured/uploaded image (REST API)
-  const analyzeImage = async (imageBlob) => {
+  // ── single-photo capture: run MediaPipe once then call REST
+  const captureAndAnalyze = useCallback(async () => {
+    if (!poseRef.current || !webcamRef.current) return;
     setIsAnalyzing(true);
-    console.log("Analyzing pose:", poseName);
 
     try {
-      const result = await analyzePose(imageBlob, poseName);
+      // Capture screenshot for display
+      const imageSrc = webcamRef.current.getScreenshot();
+      if (imageSrc) {
+        const res = await fetch(imageSrc);
+        setCapturedImage(await res.blob());
+      }
+      setUseWebcam(false);
+
+      // Run MediaPipe on the current frame
+      await sendFrameToMediaPipe();
+      await new Promise((r) => setTimeout(r, 100)); // let onResults fire
+
+      if (!lastLandmarksRef.current) {
+        alert("No pose detected. Ensure your full body is visible.");
+        return;
+      }
+
+      const result = await analyzeLandmarks(lastLandmarksRef.current, poseName);
       setAnalysisResult(result);
-      console.log("Analysis complete:", result);
     } catch (err) {
-      console.error(" Analysis failed:", err);
+      console.error("Analysis failed:", err);
       alert("Analysis failed. Please try again.");
     } finally {
       setIsAnalyzing(false);
     }
-  };
+  }, [poseRef, sendFrameToMediaPipe, analyzeLandmarks, poseName]);
 
-  // Reset and try again
+  // ── file upload: draw onto canvas → run MediaPipe → REST
+  const handleFileUpload = useCallback(
+    async (event) => {
+      const file = event.target.files[0];
+      if (!file || !poseRef.current) return;
+      setIsAnalyzing(true);
+      setCapturedImage(file);
+
+      try {
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        await new Promise((r) => { img.onload = r; });
+
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        canvas.getContext("2d").drawImage(img, 0, 0);
+
+        await poseRef.current.send({ image: canvas });
+        await new Promise((r) => setTimeout(r, 150));
+
+        if (!lastLandmarksRef.current) {
+          alert("No pose detected. Please use a clear full-body photo.");
+          return;
+        }
+
+        const result = await analyzeLandmarks(lastLandmarksRef.current, poseName);
+        setAnalysisResult(result);
+      } catch (err) {
+        console.error("File analysis failed:", err);
+        alert("Analysis failed. Please try again.");
+      } finally {
+        setIsAnalyzing(false);
+      }
+    },
+    [poseRef, analyzeLandmarks, poseName]
+  );
+
   const handleRetry = () => {
     setCapturedImage(null);
     setAnalysisResult(null);
@@ -243,41 +282,34 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
     setIsAnalyzing(false);
     setIsRealtimeMode(false);
     setFrameCount(0);
+    lastLandmarksRef.current = null;
   };
 
-  // Safe display of pose name
-  const displayPoseName = poseName
-    ? poseName.replace(/_/g, " ")
-    : "Unknown Pose";
+  const displayPoseName = poseName ? poseName.replace(/_/g, " ") : "Unknown Pose";
 
-  // Safe benefits handling
   const getBenefits = () => {
     if (!poseDetails?.benefits) return [];
     if (Array.isArray(poseDetails.benefits)) return poseDetails.benefits;
     if (typeof poseDetails.benefits === "string") {
-      return poseDetails.benefits
-        .split(/[,;•\n]/)
-        .map((b) => b.trim())
-        .filter((b) => b.length > 0);
+      return poseDetails.benefits.split(/[,;•\n]/).map((b) => b.trim()).filter(Boolean);
     }
     return [];
   };
 
   const benefits = getBenefits();
+  const currentFeedback = isRealtimeMode ? realtimeFeedback : analysisResult?.validation;
 
-  // Use real-time feedback if available, otherwise use REST analysis result
-  const currentFeedback = isRealtimeMode
-    ? realtimeFeedback
-    : analysisResult?.validation;
+  // shared class helpers
+  const card = `p-6 rounded-2xl ${darkMode ? "bg-dark-elev border border-dark-border" : "bg-white border border-gray-200"}`;
+  const muted = darkMode ? "text-dark-muted" : "text-gray-600";
+  const heading = `text-lg font-bold mb-4 ${darkMode ? "text-white" : "text-gray-900"}`;
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 ${
-        darkMode ? "bg-black/80" : "bg-black/70"
-      }`}
+      className={`fixed inset-0 z-[10000] flex items-center justify-center p-4 ${darkMode ? "bg-black/80" : "bg-black/70"}`}
       onClick={onClose}
     >
       <motion.div
@@ -291,151 +323,79 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Close */}
         <button
           onClick={onClose}
           className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
-            darkMode
-              ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
-              : "bg-white/80 hover:bg-white text-gray-700"
+            darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white/80 hover:bg-white text-gray-700"
           }`}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
         <div className="overflow-y-auto h-full no-scrollbar">
           <div className="p-6 sm:p-8">
-           { /* Header */}
-                  <div className="mb-6 pr-12">
-                    <div className="flex items-center justify-between mb-2">
-                    <h2
-                      className={`text-sm uppercase tracking-wider ${
-                      darkMode ? "text-emerald-400" : "text-emerald-600"
-                      }`}
-                    >
-                      🧘 Yoga Practice
-                    </h2>
-                    {isRealtimeMode && (
-                      <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                      <span
-                        className={`text-xs font-medium ${
-                        darkMode ? "text-red-400" : "text-red-600"
-                        }`}
-                      >
-                        LIVE • Frame {frameCount}
-                      </span>
-                      </div>
-                    )}
-                    </div>
-                    <h1
-                    className={`text-2xl sm:text-3xl font-bold capitalize ${
-                      darkMode ? "text-white" : "text-gray-900"
-                    }`}
-                    >
-                    {displayPoseName}
-                    </h1>
-                    {poseDetails?.difficulty && (
-                    <span
-                      className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium ${
-                      darkMode
-                        ? "bg-dark-elev text-emerald-400"
-                        : "bg-emerald-100 text-emerald-700"
-                      }`}
-                    >
-                      {poseDetails.difficulty.toUpperCase()}
+            {/* Header */}
+            <div className="mb-6 pr-12">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className={`text-sm uppercase tracking-wider ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>
+                  🧘 Yoga Practice
+                </h2>
+                {isRealtimeMode && (
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                    <span className={`text-xs font-medium ${darkMode ? "text-red-400" : "text-red-600"}`}>
+                      LIVE • Frame {frameCount}
                     </span>
-                    )}
                   </div>
+                )}
+              </div>
+              <h1 className={`text-2xl sm:text-3xl font-bold capitalize ${darkMode ? "text-white" : "text-gray-900"}`}>
+                {displayPoseName}
+              </h1>
+              {poseDetails?.difficulty && (
+                <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium ${
+                  darkMode ? "bg-dark-elev text-emerald-400" : "bg-emerald-100 text-emerald-700"
+                }`}>
+                  {poseDetails.difficulty.toUpperCase()}
+                </span>
+              )}
 
-                  {/* Main Content Grid */}
+              {/* MediaPipe loading indicator */}
+              {!poseReady && (
+                <div className={`mt-2 text-xs ${muted}`}>
+                  ⏳ Loading pose detection model…
+                </div>
+              )}
+            </div>
+
+            {/* Main grid */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Left Column: Camera/Upload Section */}
+              {/* Left: Camera/Upload */}
               <div className="space-y-4">
-                {/* Camera/Upload Area */}
-                <div
-                  className={`relative aspect-video rounded-2xl overflow-hidden ${
-                    darkMode
-                      ? "bg-dark-elev border border-dark-border"
-                      : "bg-gray-100 border border-gray-200"
-                  }`}
-                >
+                <div className={`relative aspect-video rounded-2xl overflow-hidden ${
+                  darkMode ? "bg-dark-elev border border-dark-border" : "bg-gray-100 border border-gray-200"
+                }`}>
                   {useWebcam && !capturedImage ? (
-                    <>
-                      <Webcam
-                        ref={webcamRef}
-                        audio={false}
-                        screenshotFormat="image/jpeg"
-                        videoConstraints={{
-                          width: 1280,
-                          height: 720,
-                          facingMode: "user",
-                        }}
-                        mirrored={true}
-                        className="w-full h-full object-cover"
-                        onUserMedia={() => {
-                          console.log("[WEBCAM] onUserMedia - Webcam is ready!");
-                          setWebcamReady(true);
-                        }}
-                        onUserMediaError={(error) => {
-                          console.error(" [WEBCAM] onUserMediaError:", error);
-                          setWebcamReady(false);
-                        }}
-                      />
-                      {/* Real-time overlay indicators */}
-                      {isRealtimeMode && landmarks.length > 0 && (
-                        <div className="absolute inset-0 pointer-events-none">
-                          {/* You can add pose landmark visualizations here */}
-                          <div className="absolute bottom-4 left-4 right-4">
-                            <div
-                              className={`px-3 py-2 rounded-lg backdrop-blur-md ${
-                                darkMode
-                                  ? "bg-black/60 text-white"
-                                  : "bg-white/60 text-gray-900"
-                              }`}
-                            >
-                              <div className="flex items-center justify-between text-xs">
-                                <span>Landmarks: {landmarks.length}</span>
-                                <span>
-                                  {currentFeedback?.accuracy
-                                    ? `${Math.round(currentFeedback.accuracy)}%`
-                                    : "Analyzing..."}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </>
-                  ) : capturedImage ? (
-                    <img
-                      src={URL.createObjectURL(capturedImage)}
-                      alt="Captured pose"
+                    <Webcam
+                      ref={webcamRef}
+                      audio={false}
+                      screenshotFormat="image/jpeg"
+                      videoConstraints={{ width: 1280, height: 720, facingMode: "user" }}
+                      mirrored
                       className="w-full h-full object-cover"
+                      onUserMedia={() => setWebcamReady(true)}
+                      onUserMediaError={() => setWebcamReady(false)}
                     />
+                  ) : capturedImage ? (
+                    <img src={URL.createObjectURL(capturedImage)} alt="Captured pose" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <div className="text-center space-y-4">
                         <span className="text-6xl">📸</span>
-                        <p
-                          className={`text-sm ${
-                            darkMode ? "text-dark-muted" : "text-gray-600"
-                          }`}
-                        >
-                          Choose your practice mode
-                        </p>
+                        <p className={`text-sm ${muted}`}>Choose your practice mode</p>
                       </div>
                     </div>
                   )}
@@ -445,73 +405,51 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                 <div className="space-y-3">
                   {!useWebcam && !capturedImage && (
                     <>
-                      {/* Real-time Mode Button */}
                       <button
                         onClick={handleStartRealtime}
-                        disabled={isLoading}
+                        disabled={isLoading || !poseReady}
                         className="w-full px-4 py-3 rounded-xl font-medium transition-all bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                       >
                         <span>🔴</span>
-                        <span>Real-Time Analysis (Live)</span>
+                        <span>{poseReady ? "Real-Time Analysis (Live)" : "Loading model…"}</span>
                       </button>
-
-                      {/* Single Photo Mode */}
                       <div className="grid grid-cols-2 gap-3">
                         <button
-                          onClick={() => {
-                            console.log("[BUTTON] Take Photo clicked");
-                            setUseWebcam(true);
-                            setWebcamReady(false); // Reset ready state when opening webcam
-                          }}
-                          disabled={isLoading}
-                          className={`px-4 py-3 rounded-xl font-medium transition-all ${
-                            darkMode
-                              ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
-                              : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
-                          } disabled:opacity-50 disabled:cursor-not-allowed`}
+                          onClick={() => { setUseWebcam(true); setWebcamReady(false); }}
+                          disabled={isLoading || !poseReady}
+                          className={`px-4 py-3 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                            darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
+                          }`}
                         >
                           Take Photo
                         </button>
                         <button
                           onClick={() => fileInputRef.current?.click()}
-                          disabled={isLoading}
-                          className={`px-4 py-3 rounded-xl font-medium transition-all ${
-                            darkMode
-                              ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
-                              : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
-                          } disabled:opacity-50 disabled:cursor-not-allowed`}
+                          disabled={isLoading || !poseReady}
+                          className={`px-4 py-3 rounded-xl font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed ${
+                            darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
+                          }`}
                         >
                           Upload
                         </button>
                       </div>
-                      <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileUpload}
-                        className="hidden"
-                      />
+                      <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
                     </>
                   )}
 
                   {useWebcam && !capturedImage && !isRealtimeMode && (
                     <div className="grid grid-cols-2 gap-3">
                       <button
-                        onClick={capturePhoto}
-                        className="px-4 py-3 rounded-xl font-medium transition-all bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg"
+                        onClick={captureAndAnalyze}
+                        disabled={!webcamReady || !poseReady}
+                        className="px-4 py-3 rounded-xl font-medium transition-all bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white shadow-lg disabled:opacity-50"
                       >
                         Capture
                       </button>
                       <button
-                        onClick={() => {
-                          console.log("✕ [BUTTON] Cancel clicked, closing webcam");
-                          setUseWebcam(false);
-                          setWebcamReady(false);
-                        }}
+                        onClick={() => { setUseWebcam(false); setWebcamReady(false); }}
                         className={`px-4 py-3 rounded-xl font-medium transition-all ${
-                          darkMode
-                            ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
-                            : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
+                          darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
                         }`}
                       >
                         ✕ Cancel
@@ -524,7 +462,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                       onClick={handleStopRealtime}
                       className="w-full px-4 py-3 rounded-xl font-medium transition-all bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-lg"
                     >
-                      ⏹️ Stop Real-Time Analysis
+                      ⏹️ Stop
                     </button>
                   )}
 
@@ -532,9 +470,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                     <button
                       onClick={handleRetry}
                       className={`w-full px-4 py-3 rounded-xl font-medium transition-all ${
-                        darkMode
-                          ? "bg-dark-elev hover:bg-dark-elev/80 text-white"
-                          : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
+                        darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200"
                       }`}
                     >
                       🔄 Try Again
@@ -542,122 +478,50 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                   )}
                 </div>
 
-                {/* Connection Status */}
                 {isRealtimeMode && (
-                  <div
-                    className={`p-3 rounded-lg text-center text-xs ${
-                      isConnected
-                        ? darkMode
-                          ? "bg-emerald-500/10 text-emerald-400"
-                          : "bg-emerald-100 text-emerald-700"
-                        : darkMode
-                        ? "bg-red-500/10 text-red-400"
-                        : "bg-red-100 text-red-700"
-                    }`}
-                  >
-                    {isConnected
-                      ? "Connected to WebSocket"
-                      : "Connecting..."}
+                  <div className={`p-3 rounded-lg text-center text-xs ${
+                    isConnected
+                      ? darkMode ? "bg-emerald-500/10 text-emerald-400" : "bg-emerald-100 text-emerald-700"
+                      : darkMode ? "bg-red-500/10 text-red-400" : "bg-red-100 text-red-700"
+                  }`}>
+                    {isConnected ? "Connected" : "Connecting…"}
                   </div>
                 )}
 
-                {/* Pose Information */}
-                <div
-                  className={`p-6 rounded-2xl ${
-                    darkMode
-                      ? "bg-dark-elev border border-dark-border"
-                      : "bg-white border border-gray-200"
-                  }`}
-                >
-                  <h3
-                    className={`text-lg font-bold mb-4 ${
-                      darkMode ? "text-white" : "text-gray-900"
-                    }`}
-                  >
-                    ℹ️ About This Pose
-                  </h3>
-
-                  {poseDetails?.description && (
-                    <p
-                      className={`text-sm mb-4 ${
-                        darkMode ? "text-dark-muted" : "text-gray-600"
-                      }`}
-                    >
-                      {poseDetails.description}
-                    </p>
-                  )}
-
+                {/* About pose */}
+                <div className={card}>
+                  <h3 className={heading}>ℹ️ About This Pose</h3>
+                  {poseDetails?.description && <p className={`text-sm mb-4 ${muted}`}>{poseDetails.description}</p>}
                   {benefits.length > 0 && (
-                    <div>
-                      <p
-                        className={`text-sm font-semibold mb-2 ${
-                          darkMode ? "text-white" : "text-gray-900"
-                        }`}
-                      >
-                        💪 Benefits:
-                      </p>
+                    <>
+                      <p className={`text-sm font-semibold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>💪 Benefits:</p>
                       <ul className="text-sm space-y-1">
-                        {benefits.map((benefit, idx) => (
-                          <li
-                            key={idx}
-                            className={
-                              darkMode ? "text-dark-muted" : "text-gray-600"
-                            }
-                          >
-                            • {benefit}
-                          </li>
+                        {benefits.map((b, i) => (
+                          <li key={i} className={muted}>• {b}</li>
                         ))}
                       </ul>
-                    </div>
+                    </>
                   )}
                 </div>
               </div>
 
-              {/* Right Column: Analysis Results */}
+              {/* Right: Results */}
               <div className="space-y-4">
                 {isAnalyzing && !isRealtimeMode ? (
-                  <div
-                    className={`p-8 rounded-2xl text-center ${
-                      darkMode
-                        ? "bg-dark-elev border border-dark-border"
-                        : "bg-white border border-gray-200"
-                    }`}
-                  >
+                  <div className={`p-8 rounded-2xl text-center ${darkMode ? "bg-dark-elev border border-dark-border" : "bg-white border border-gray-200"}`}>
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-emerald-500 mx-auto mb-4" />
-                    <p
-                      className={`text-sm ${
-                        darkMode ? "text-dark-muted" : "text-gray-600"
-                      }`}
-                    >
-                      Analyzing your pose with AI...
-                    </p>
+                    <p className={`text-sm ${muted}`}>Analysing your pose…</p>
                   </div>
                 ) : currentFeedback ? (
                   <>
-                    {/* Accuracy Score */}
-                    <div
-                      className={`p-6 rounded-2xl ${
-                        darkMode
-                          ? "bg-dark-elev border border-dark-border"
-                          : "bg-white border border-gray-200"
-                      }`}
-                    >
-                      <h3
-                        className={`text-lg font-bold mb-4 ${
-                          darkMode ? "text-white" : "text-gray-900"
-                        }`}
-                      >
-                         Accuracy Score
-                      </h3>
+                    {/* Accuracy */}
+                    <div className={card}>
+                      <h3 className={heading}>🎯 Accuracy Score</h3>
                       <div className="flex items-center gap-4 mb-3">
                         <div className="flex-1">
-                          <div
-                            className={`h-4 rounded-full overflow-hidden ${
-                              darkMode ? "bg-dark-surface" : "bg-gray-200"
-                            }`}
-                          >
+                          <div className={`h-4 rounded-full overflow-hidden ${darkMode ? "bg-dark-surface" : "bg-gray-200"}`}>
                             <motion.div
-                              className={`h-full transition-all duration-300 ${
+                              className={`h-full ${
                                 currentFeedback.accuracy >= 80
                                   ? "bg-gradient-to-r from-emerald-500 to-emerald-600"
                                   : currentFeedback.accuracy >= 60
@@ -665,145 +529,68 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                                   : "bg-gradient-to-r from-red-500 to-red-600"
                               }`}
                               initial={{ width: 0 }}
-                              animate={{
-                                width: `${currentFeedback.accuracy || 0}%`,
-                              }}
+                              animate={{ width: `${currentFeedback.accuracy || 0}%` }}
                             />
                           </div>
                         </div>
-                        <span
-                          className={`text-3xl font-bold ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
+                        <span className={`text-3xl font-bold ${darkMode ? "text-white" : "text-gray-900"}`}>
                           {Math.round(currentFeedback.accuracy || 0)}%
                         </span>
                       </div>
-                      <p
-                        className={`text-xs ${
-                          darkMode ? "text-dark-muted" : "text-gray-500"
-                        }`}
-                      >
+                      <p className={`text-xs ${muted}`}>
                         {currentFeedback.accuracy >= 80
                           ? "Excellent form! 🌟"
                           : currentFeedback.accuracy >= 60
-                          ? "Good effort! Keep practicing 💪"
-                          : "Needs improvement - check feedback below "}
+                          ? "Good effort! Keep practising 💪"
+                          : "Needs improvement — check feedback below"}
                       </p>
                     </div>
 
-                    {/* Detected Angles (only for REST analysis with full data) */}
+                    {/* Detected angles (REST only) */}
                     {analysisResult?.detected_angles && !isRealtimeMode && (
-                      <div
-                        className={`p-6 rounded-2xl ${
-                          darkMode
-                            ? "bg-dark-elev border border-dark-border"
-                            : "bg-white border border-gray-200"
-                        }`}
-                      >
-                        <h3
-                          className={`text-lg font-bold mb-4 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          📐 Detected Angles
-                        </h3>
+                      <div className={card}>
+                        <h3 className={heading}>📐 Detected Angles</h3>
                         <div className="grid grid-cols-2 gap-3">
-                          {Object.entries(analysisResult.detected_angles).map(
-                            ([joint, angle]) => (
-                              <div
-                                key={joint}
-                                className={`p-3 rounded-lg ${
-                                  darkMode ? "bg-dark-surface" : "bg-gray-50"
-                                }`}
-                              >
-                                <p
-                                  className={`text-xs font-medium mb-1 capitalize ${
-                                    darkMode ? "text-white" : "text-gray-900"
-                                  }`}
-                                >
-                                  {joint.replace(/_/g, " ")}
-                                </p>
-                                <p
-                                  className={`text-lg font-bold ${
-                                    darkMode
-                                      ? "text-emerald-400"
-                                      : "text-emerald-600"
-                                  }`}
-                                >
-                                  {Math.round(angle)}°
-                                </p>
-                              </div>
-                            )
-                          )}
+                          {Object.entries(analysisResult.detected_angles).map(([joint, angle]) => (
+                            <div key={joint} className={`p-3 rounded-lg ${darkMode ? "bg-dark-surface" : "bg-gray-50"}`}>
+                              <p className={`text-xs font-medium mb-1 capitalize ${darkMode ? "text-white" : "text-gray-900"}`}>
+                                {joint.replace(/_/g, " ")}
+                              </p>
+                              <p className={`text-lg font-bold ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>
+                                {Math.round(angle)}°
+                              </p>
+                            </div>
+                          ))}
                         </div>
                       </div>
                     )}
 
                     {/* Feedback */}
                     {currentFeedback.feedback?.length > 0 && (
-                      <div
-                        className={`p-6 rounded-2xl ${
-                          darkMode
-                            ? "bg-dark-elev border border-dark-border"
-                            : "bg-white border border-gray-200"
-                        }`}
-                      >
-                        <h3
-                          className={`text-lg font-bold mb-4 ${
-                            darkMode ? "text-white" : "text-gray-900"
-                          }`}
-                        >
-                          💡 Corrections
-                        </h3>
+                      <div className={card}>
+                        <h3 className={heading}>💡 Corrections</h3>
                         <div className="space-y-3 max-h-64 overflow-y-auto">
-                          {currentFeedback.feedback.map((item, idx) => (
+                          {currentFeedback.feedback.map((item, i) => (
                             <motion.div
-                              key={idx}
+                              key={i}
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.1 }}
-                              className={`p-4 rounded-lg border-l-4 ${
-                                darkMode
-                                  ? "bg-dark-surface border-orange-500"
-                                  : "bg-orange-50 border-orange-500"
-                              }`}
+                              transition={{ delay: i * 0.05 }}
+                              className={`p-4 rounded-lg border-l-4 ${darkMode ? "bg-dark-surface border-orange-500" : "bg-orange-50 border-orange-500"}`}
                             >
-                              <p
-                                className={`text-sm font-medium mb-1 ${
-                                  darkMode ? "text-white" : "text-gray-900"
-                                }`}
-                              >
-                                {item.joint}
-                              </p>
+                              <p className={`text-sm font-medium mb-1 ${darkMode ? "text-white" : "text-gray-900"}`}>{item.joint}</p>
                               {item.expected > 0 && (
-                                <p
-                                  className={`text-xs mb-2 ${
-                                    darkMode
-                                      ? "text-dark-muted"
-                                      : "text-gray-600"
-                                  }`}
-                                >
-                                  Expected: {Math.round(item.expected)}° |
-                                  Detected: {Math.round(item.detected)}°
+                                <p className={`text-xs mb-1 ${muted}`}>
+                                  Expected: {Math.round(item.expected)}° | Detected: {Math.round(item.detected)}°
                                 </p>
                               )}
-                              <p
-                                className={`text-xs ${
-                                  darkMode
-                                    ? "text-orange-400"
-                                    : "text-orange-700"
-                                }`}
-                              >
-                                {item.correction}
-                              </p>
+                              <p className={`text-xs ${darkMode ? "text-orange-400" : "text-orange-700"}`}>{item.correction}</p>
                             </motion.div>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {/* Success Message */}
                     {currentFeedback.valid && (
                       <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
@@ -814,85 +601,25 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                           animate={{ rotate: [0, 10, -10, 0] }}
                           transition={{ duration: 0.5, repeat: Infinity }}
                           className="text-5xl mb-3 block"
-                        >
-                          🎉
-                        </motion.span>
-                        <p
-                          className={`font-semibold mb-1 ${
-                            darkMode ? "text-emerald-400" : "text-emerald-600"
-                          }`}
-                        >
-                          Perfect Pose!
-                        </p>
-                        <p className="text-sm text-emerald-600 dark:text-emerald-400">
-                          You've mastered this asana! 🧘‍♀️
-                        </p>
+                        >🎉</motion.span>
+                        <p className={`font-semibold mb-1 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>Perfect Pose!</p>
+                        <p className="text-sm text-emerald-600">You've mastered this asana! 🧘‍♀️</p>
                       </motion.div>
                     )}
                   </>
                 ) : (
-                  <div
-                    className={`p-8 rounded-2xl text-center ${
-                      darkMode
-                        ? "bg-dark-elev border border-dark-border"
-                        : "bg-white border border-gray-200"
-                    }`}
-                  >
+                  <div className={`p-8 rounded-2xl text-center ${darkMode ? "bg-dark-elev border border-dark-border" : "bg-white border border-gray-200"}`}>
                     <span className="text-6xl mb-4 block">🧘</span>
-                    <h3
-                      className={`text-lg font-bold mb-2 ${
-                        darkMode ? "text-white" : "text-gray-900"
-                      }`}
-                    >
-                      Ready to Practice?
-                    </h3>
-                    <p
-                      className={`text-sm mb-4 ${
-                        darkMode ? "text-dark-muted" : "text-gray-600"
-                      }`}
-                    >
-                      Choose your practice mode:
-                    </p>
+                    <h3 className={`text-lg font-bold mb-2 ${darkMode ? "text-white" : "text-gray-900"}`}>Ready to Practice?</h3>
+                    <p className={`text-sm mb-4 ${muted}`}>Choose your practice mode:</p>
                     <div className="space-y-2 text-left">
-                      <div
-                        className={`p-3 rounded-lg ${
-                          darkMode ? "bg-dark-surface" : "bg-gray-50"
-                        }`}
-                      >
-                        <p
-                          className={`text-xs font-semibold mb-1 ${
-                            darkMode ? "text-red-400" : "text-red-600"
-                          }`}
-                        >
-                          🔴 Real-Time Mode
-                        </p>
-                        <p
-                          className={`text-xs ${
-                            darkMode ? "text-dark-muted" : "text-gray-600"
-                          }`}
-                        >
-                          Live feedback as you practice (WebSocket)
-                        </p>
+                      <div className={`p-3 rounded-lg ${darkMode ? "bg-dark-surface" : "bg-gray-50"}`}>
+                        <p className={`text-xs font-semibold mb-1 ${darkMode ? "text-red-400" : "text-red-600"}`}>🔴 Real-Time Mode</p>
+                        <p className={`text-xs ${muted}`}>Live feedback as you practise</p>
                       </div>
-                      <div
-                        className={`p-3 rounded-lg ${
-                          darkMode ? "bg-dark-surface" : "bg-gray-50"
-                        }`}
-                      >
-                        <p
-                          className={`text-xs font-semibold mb-1 ${
-                            darkMode ? "text-emerald-400" : "text-emerald-600"
-                          }`}
-                        >
-                          Single Photo Mode
-                        </p>
-                        <p
-                          className={`text-xs ${
-                            darkMode ? "text-dark-muted" : "text-gray-600"
-                          }`}
-                        >
-                          Capture or upload for detailed analysis
-                        </p>
+                      <div className={`p-3 rounded-lg ${darkMode ? "bg-dark-surface" : "bg-gray-50"}`}>
+                        <p className={`text-xs font-semibold mb-1 ${darkMode ? "text-emerald-400" : "text-emerald-600"}`}>Single Photo Mode</p>
+                        <p className={`text-xs ${muted}`}>Capture or upload for detailed analysis</p>
                       </div>
                     </div>
                   </div>
