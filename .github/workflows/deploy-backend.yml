@@ -59,7 +59,7 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     # Gated on AZURE_CREDENTIALS being set — skip silently if not configured yet
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Check Azure secrets
         id: check
