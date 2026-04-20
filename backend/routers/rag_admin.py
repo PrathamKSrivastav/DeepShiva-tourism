@@ -183,7 +183,7 @@ async def get_content_statistics():
 async def get_collections():
     """Get vector store collection information"""
     try:
-        collection_stats = vector_store.get_collection_stats()
+        collection_stats = vector_store.get_all_stats()
         
         return JSONResponse(
             status_code=200,
@@ -271,8 +271,8 @@ async def rag_health_check():
     """Check RAG system health"""
     try:
         # Check vector store
-        collection_stats = vector_store.get_collection_stats()
-        total_docs = sum(stats.get('document_count', 0) for stats in collection_stats.values())
+        collection_stats = vector_store.get_all_stats()
+        total_docs = sum(stats.get('document_count', 0) for stats in collection_stats.values() if isinstance(stats, dict))
         
         # Check content manager
         content_stats = content_manager.get_content_statistics()
