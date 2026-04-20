@@ -14,8 +14,8 @@
 *.env
 
 # API Keys and secrets
-backend/.env
-backend/config/secrets.py
+.env
+config/secrets.py
 secrets/
 api-keys.txt
 groq-key.txt
@@ -26,17 +26,17 @@ gemini-key.txt
 # ============================================================================
 
 # Vector database storage (ChromaDB)
-backend/data/vector_db/
-backend/data/rag_content/
+data/vector_db/
+data/rag_content/
 **/vector_db/
 **/chroma_data/
 
 # Document storage
-backend/data/rag_content/pdfs/
-backend/data/rag_content/web_pages/
-backend/data/rag_content/texts/
-backend/data/rag_content/processed/
-backend/data/rag_content/metadata/
+data/rag_content/pdfs/
+data/rag_content/web_pages/
+data/rag_content/texts/
+data/rag_content/processed/
+data/rag_content/metadata/
 
 # Embeddings cache
 embeddings_cache/
@@ -81,9 +81,9 @@ share/python-wheels/
 MANIFEST
 
 # Virtual environments
-backend/venv/
-backend/env/
-backend/.venv/
+venv/
+env/
+.venv/
 venv/
 env/
 ENV/
@@ -381,8 +381,8 @@ local_settings.py
 # !package.json
 # !README.md
 
-backend/localmodel/*.gguf
+localmodel/*.gguf
 
-backend/cache/tts/*
+cache/tts/*
 
-backend/data/spiritual/*
+data/spiritual/*
