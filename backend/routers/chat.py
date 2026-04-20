@@ -20,7 +20,7 @@ from tools.holiday_tool import get_holidays
 from tools.trek_tool import search_treks
 from tools.hotel_tool import get_hotel_rates
 
-from localmodel.llm_engine import LLMEngine
+# from localmodel.llm_engine import LLMEngine  # local model disabled on cloud
 
 
 from utils.pdf_generator import ChatPDFGenerator
@@ -264,7 +264,7 @@ class UpdateSessionRequest(BaseModel):
 
 # Initialize Groq service
 groq_service = GroqService()
-llm_engine = LLMEngine()
+# llm_engine = LLMEngine()  # local model disabled on cloud
 
 # ============= Chat Session Management =============
 
@@ -847,12 +847,7 @@ async def chat(
                 rag_context=rag_context
             )
             
-            final_response_text, response_source = await llm_engine.generate(
-                system_prompt=system_prompt,
-                user_prompt=request.message,
-                conversation_history=[],  # Local model doesn't handle history well
-                force_offline=True
-            )
+            raise RuntimeError("Local LLM not available on cloud deployment")
             
             final_suggestions = []
             response_source = "local"
@@ -1348,7 +1343,7 @@ async def connection_status():
             logger.error(f"Error getting RAG status: {str(e)}")
     
     # Check if local model is loaded
-    local_model_status = llm_engine.is_model_loaded()
+    local_model_status = False  # local model disabled on cloud
     
     return {
         "internet_connected": internet_status,
