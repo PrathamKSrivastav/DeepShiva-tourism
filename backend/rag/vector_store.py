@@ -1,9 +1,11 @@
 import logging
+import os
 import uuid
 import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+import httpx
 from sentence_transformers import SentenceTransformer
 
 from qdrant_client import QdrantClient
@@ -68,12 +70,30 @@ class VectorStoreManager:
     # Cloud availability
     # ------------------------------------------------------------------
     def _cloud_available(self) -> bool:
+        """Availability probe via raw HTTP.
+
+        Using `self.qdrant_client.get_collections()` triggers pydantic
+        schema validation on every response. Qdrant Cloud adds new fields
+        (e.g. strict_mode_config) ahead of the client's schema, which raises
+        ValidationError and makes the client look "down" even though the
+        cluster is reachable and search() works. A raw GET /collections
+        just needs a 200 — no pydantic parsing, no false negatives.
+        """
         if not self.qdrant_client:
             return False
+        host = os.getenv("QDRANT_HOST")
+        api_key = os.getenv("QDRANT_API_KEY")
+        if not (host and api_key):
+            return False
         try:
-            self.qdrant_client.get_collections()
-            return True
-        except Exception:
+            r = httpx.get(
+                f"{host.rstrip('/')}/collections",
+                headers={"api-key": api_key},
+                timeout=3.0,
+            )
+            return r.status_code == 200
+        except Exception as e:
+            logger.warning(f"Qdrant availability probe failed: {e}")
             return False
 
     # ------------------------------------------------------------------
