@@ -1,4 +1,10 @@
 # ============================
+# Build essentials
+# ============================
+setuptools>=68.0.0
+wheel>=0.41.0
+
+# ============================
 # Core backend
 # ============================
 fastapi==0.104.1
@@ -18,8 +24,8 @@ asgiref==3.11.0
 # Numerical core (LOCKED)
 # ============================
 numpy==1.26.4
-scipy==1.16.3
-pandas==2.3.3
+scipy==1.13.1
+pandas==2.2.2
 
 # ============================
 # ML / Transformers
@@ -32,7 +38,7 @@ sentence-transformers==2.2.2
 tiktoken==0.5.2
 huggingface-hub==0.17.3
 accelerate==0.30.1
-safetensors==0.7.0
+safetensors==0.4.3
 
 # ============================
 # RAG stack
@@ -45,8 +51,8 @@ langchain-community==0.0.10
 langsmith==0.0.87
 pypdf==3.17.4
 beautifulsoup4==4.12.2
-orjson==3.11.5
-mmh3==5.2.0
+orjson==3.10.7
+mmh3==4.1.0
 
 # ============================
 # Vector DB
@@ -58,7 +64,7 @@ qdrant-client==1.7.3
 # ============================
 opencv-python==4.9.0.80
 pillow==10.4.0
-matplotlib==3.10.8
+matplotlib==3.9.2
 
 # ============================
 # Audio / Speech
@@ -92,55 +98,55 @@ spacy==3.8.11
 spacy-legacy==3.0.12
 spacy-loggers==1.0.5
 thinc==8.3.10
-srsly==2.5.2
-cymem==2.0.13
-murmurhash==1.0.15
-preshed==3.0.12
-blis==1.3.3
+srsly==2.4.8
+cymem==2.0.8
+murmurhash==1.0.10
+preshed==3.0.9
+blis==0.7.11
 catalogue==2.0.10
 confection==0.1.5
 wasabi==1.1.3
 weasel==0.4.3
-cloudpathlib==0.23.0
-smart_open==7.5.0
+cloudpathlib==0.20.0
+smart_open==7.0.4
 en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 
 # ============================
 # Databases & Auth
 # ============================
-motor==3.7.1
-pymongo==4.15.5
-SQLAlchemy==2.0.45
-python-jose==3.5.0
+motor==3.6.0
+pymongo==4.8.0
+SQLAlchemy==2.0.35
+python-jose==3.3.0
 passlib==1.7.4
-bcrypt==5.0.0
+bcrypt==4.2.0
 
 # ============================
 # Google / OAuth
 # ============================
-google-auth==2.41.1
-google-auth-oauthlib==1.2.3
-google-auth-httplib2==0.2.1
-httplib2==0.31.0
-cachetools==6.2.3
-rsa==4.9.1
+google-auth==2.35.0
+google-auth-oauthlib==1.2.1
+google-auth-httplib2==0.2.0
+httplib2==0.22.0
+cachetools==5.5.0
+rsa==4.9
 pyasn1==0.6.1
-pyasn1-modules==0.4.2
+pyasn1-modules==0.4.1
 
 # ============================
 # Utilities
 # ============================
-groq==0.37.1
-loguru==0.7.3
-rich==14.2.0
+groq==0.9.0
+loguru==0.7.2
+rich==13.7.1
 tenacity==8.5.0
-joblib==1.5.3
-regex==2025.11.3
-tqdm==4.67.1
-filelock==3.20.0
+joblib==1.4.2
+regex==2024.9.11
+tqdm==4.66.5
+filelock==3.15.4
 packaging==23.2
-platformdirs==4.5.1
-psutil==7.1.3
+platformdirs==4.2.2
+psutil==6.0.0
 PyYAML==6.0.3
 
 # ============================
@@ -151,18 +157,18 @@ reportlab==4.0.9
 # ============================
 # Networking / HTTP internals
 # ============================
-urllib3==2.3.0
-certifi==2025.11.12
-charset-normalizer==3.4.4
-idna==3.11
+urllib3==2.2.3
+certifi==2024.8.30
+charset-normalizer==3.3.2
+idna==3.10
 h11==0.16.0
 httptools==0.7.1
 watchfiles==1.1.1
 websockets==12.0
 websocket-client==1.9.0
-multidict==6.7.0
-yarl==1.22.0
-frozenlist==1.8.0
-aiosignal==1.4.0
-attrs==25.4.0
+multidict==6.1.0
+yarl==1.11.1
+frozenlist==1.4.1
+aiosignal==1.3.1
+attrs==24.2.0
 mediapipe==0.10.9
