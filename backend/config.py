@@ -36,7 +36,7 @@ class Settings:
     ]
 
     # API
-    API_VERSION: str = "3.1.0"
+    API_VERSION: str = "3.1.1"
 
     def validate_production(self):
         """Fail fast if production is misconfigured."""

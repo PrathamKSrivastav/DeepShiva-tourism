@@ -385,4 +385,6 @@ backend/localmodel/*.gguf
 
 backend/cache/tts/*
 
-backend/data/spiritual/*
+backend/data/spiritual/*azure-commands.sh
+
+azure-commands.sh
