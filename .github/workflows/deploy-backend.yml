@@ -80,7 +80,12 @@ jobs:
       - name: Update Container App image
         if: steps.check.outputs.ready == 'true'
         run: |
-          IMAGE_LC=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" | tr '[:upper:]' '[:lower:]')
+          # Use the commit-SHA tag instead of :latest. Identical :latest refs
+          # are a no-op for Azure Container Apps (no new revision is created),
+          # so every commit must resolve to a unique image URL to force a roll.
+          SHORT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+          IMAGE_LC=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-$SHORT_SHA" | tr '[:upper:]' '[:lower:]')
+          echo "Deploying image: $IMAGE_LC"
           az containerapp update \
             --name ${{ secrets.AZURE_CONTAINER_APP }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
