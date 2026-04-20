@@ -1,35 +1,53 @@
 import os
-import json
 import httpx
+import logging
 from datetime import datetime
 from typing import Optional, List, Dict
 
-# --- CONFIGURATION ---
+from utils.database import get_database
+
+logger = logging.getLogger(__name__)
+
 API_KEY = os.getenv("CALLENDRIFIC_API_KEY")
 COUNTRY = "IN"
-CACHE_DIR = "cache"
-os.makedirs(CACHE_DIR, exist_ok=True)
+CACHE_COLLECTION = "holiday_cache"
+
+
+async def _read_from_cache(country: str, year: int) -> Optional[List[Dict]]:
+    try:
+        db = get_database()
+        doc = await db[CACHE_COLLECTION].find_one({"_id": f"{country}_{year}"})
+        if doc:
+            return doc.get("holidays", [])
+    except Exception as e:
+        logger.warning(f"Holiday cache read error: {e}")
+    return None
+
+
+async def _save_to_cache(country: str, year: int, holidays: List[Dict]):
+    try:
+        db = get_database()
+        await db[CACHE_COLLECTION].update_one(
+            {"_id": f"{country}_{year}"},
+            {"$set": {"holidays": holidays, "cached_at": datetime.utcnow()}},
+            upsert=True,
+        )
+    except Exception as e:
+        logger.error(f"Holiday cache write error: {e}")
 
 
 async def _fetch_year_data(year: int) -> List[Dict]:
     """
-    Internal: Fetches full year data (1 API call per year) and caches it.
+    Internal: Fetches full year data (1 API call per year) and caches it in MongoDB.
     """
-    cache_file = os.path.join(CACHE_DIR, f"holidays_{COUNTRY}_{year}.json")
+    cached = await _read_from_cache(COUNTRY, year)
+    if cached:
+        return cached
 
-    # 1. Check Cache
-    if os.path.exists(cache_file):
-        try:
-            with open(cache_file, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            print(f"Cache read error: {e}")
-
-    # 2. Fetch from API
     url = "https://calendarific.com/api/v2/holidays"
     params = {"api_key": API_KEY, "country": COUNTRY, "year": year}
 
-    print(f" Fetching holidays for {year} from Calendarific API...")
+    logger.info(f"Fetching holidays for {year} from Calendarific API...")
     async with httpx.AsyncClient(timeout=10) as client:
         try:
             response = await client.get(url, params=params)
@@ -39,11 +57,10 @@ async def _fetch_year_data(year: int) -> List[Dict]:
             holidays = data.get("response", {}).get("holidays", [])
 
             if holidays:
-                with open(cache_file, "w", encoding="utf-8") as f:
-                    json.dump(holidays, f, indent=4)
+                await _save_to_cache(COUNTRY, year, holidays)
                 return holidays
         except Exception as e:
-            print(f"API Error: {e}")
+            logger.error(f"Calendarific API Error: {e}")
 
     return []
 
@@ -59,7 +76,6 @@ async def get_holidays(
     if year is None:
         year = datetime.now().year
 
-    # Always fetch the full year (efficient caching)
     all_holidays = await _fetch_year_data(year)
 
     if not all_holidays:
@@ -67,20 +83,16 @@ async def get_holidays(
 
     filtered = []
 
-    # Define Month Ranges
     target_months = []
     if month:
         target_months = [month]
     elif quarter:
-        # Q1: 1-3, Q2: 4-6, Q3: 7-9, Q4: 10-12
         start_m = (quarter - 1) * 3 + 1
         target_months = [start_m, start_m + 1, start_m + 2]
 
-    # Filter Logic
     if target_months:
         for h in all_holidays:
             try:
-                # Calendarific date is YYYY-MM-DD
                 h_month = int(h["date"]["datetime"]["month"])
                 if h_month in target_months:
                     filtered.append(h)
@@ -94,41 +106,26 @@ async def get_holidays(
 async def get_next_holidays(limit: int = 3) -> List[Dict]:
     """
     Get the next N upcoming holidays from today's date.
-
-    Args:
-        limit: Number of upcoming holidays to return (default: 3)
-
-    Returns:
-        List of holiday dictionaries with name, date, type, and description
     """
     today = datetime.now()
     today_str = today.strftime("%Y-%m-%d")
     current_year = today.year
 
-    # Fetch current year holidays
     holidays_this_year = await _fetch_year_data(current_year)
-
-    # Fetch next year holidays (in case we're near year-end)
     holidays_next_year = await _fetch_year_data(current_year + 1)
 
-    # Combine all holidays
     all_holidays = holidays_this_year + holidays_next_year
 
-    # Filter upcoming holidays
     upcoming = []
     for h in all_holidays:
         try:
             holiday_date = h.get("date", {}).get("iso", "9999-99-99")
-
-            # Only include holidays from today onwards
             if holiday_date >= today_str:
                 upcoming.append(h)
         except Exception as e:
-            print(f"Error processing holiday: {e}")
+            logger.warning(f"Error processing holiday: {e}")
             continue
 
-    # Sort by date
     upcoming.sort(key=lambda x: x.get("date", {}).get("iso", "9999-99-99"))
 
-    # Return only the requested number
     return upcoming[:limit]
