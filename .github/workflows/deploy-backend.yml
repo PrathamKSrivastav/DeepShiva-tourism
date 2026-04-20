@@ -80,7 +80,8 @@ jobs:
       - name: Update Container App image
         if: steps.check.outputs.ready == 'true'
         run: |
+          IMAGE_LC=$(echo "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" | tr '[:upper:]' '[:lower:]')
           az containerapp update \
             --name ${{ secrets.AZURE_CONTAINER_APP }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --image ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            --image "$IMAGE_LC"
