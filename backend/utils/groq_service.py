@@ -6,7 +6,7 @@ from typing import Tuple, List, Optional, Dict, Any
 from sklearn import base
 from groq import Groq
 from rag.persona_rag import PersonaRAG
-from rag.vector_store import VectorStoreManager
+from rag.vector_store import get_vector_store
 from datetime import date
 
 logger = logging.getLogger(__name__)
@@ -40,30 +40,16 @@ class GroqService:
             logger.warning("GROQ_API_KEY not found - only offline mode available")
     
     def _init_rag_components(self):
-        """Initialize RAG components with Qdrant support"""
+        """Initialize RAG components with Qdrant support (shared singleton)"""
         try:
-            # Get Qdrant credentials from environment
-            qdrant_host = os.getenv("QDRANT_HOST")
-            qdrant_api_key = os.getenv("QDRANT_API_KEY")
-            qdrant_dim = int(os.getenv("QDRANT_DIM", 384))
-            
-            # Initialize VectorStoreManager with Qdrant support
-            self.vector_store = VectorStoreManager(
-                persist_directory="data/vector_db",
-                embedding_model_name="all-MiniLM-L6-v2",
-                qdrant_host=qdrant_host,
-                qdrant_api_key=qdrant_api_key,
-                qdrant_dim=qdrant_dim
-            )
-            
+            self.vector_store = get_vector_store()
             self.persona_rag = PersonaRAG(self.vector_store)
-            
-            # Log Qdrant status
+
             if self.vector_store._cloud_available():
-                logger.info(" RAG components initialized with Qdrant Cloud")
+                logger.info("RAG components initialized with Qdrant Cloud")
             else:
-                logger.warning(" RAG components initialized with ChromaDB fallback only")
-                
+                logger.warning("RAG components initialized with ChromaDB fallback only")
+
         except Exception as e:
             logger.error(f"Failed to initialize RAG components: {str(e)}")
             self.vector_store = None

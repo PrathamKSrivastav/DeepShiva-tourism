@@ -6,15 +6,17 @@ import tempfile
 from pathlib import Path
 import logging
 from rag.content_manager import ContentManager
-from rag.vector_store import VectorStoreManager
+from rag.vector_store import get_vector_store
 from routers.auth import require_admin
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
-# Initialize RAG components
-vector_store = VectorStoreManager()
+# Shared singleton — same instance as main.py and groq_service.
+# Previously this module instantiated VectorStoreManager() with no args,
+# which dropped Qdrant creds and forced admin endpoints to an empty Chroma.
+vector_store = get_vector_store()
 content_manager = ContentManager(vector_store)
 
 class WebPageRequest(BaseModel):

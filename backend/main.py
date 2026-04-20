@@ -1,3 +1,8 @@
+import os
+# Silence tqdm progress bars (sentence-transformers) in container logs.
+# Must be set before any import that may instantiate a tqdm bar.
+os.environ.setdefault("TQDM_DISABLE", "1")
+
 import numpy as np
 if not hasattr(np, 'float_'):
     np.float_ = np.float64
@@ -22,11 +27,11 @@ from routers import (
     yoga,  
     holiday
 )
-import os
 from utils.kokoro_service import KokoroTTSService
 from dotenv import load_dotenv
 from utils.database import connect_to_mongo, close_mongo_connection
 from config import settings
+from rag.vector_store import get_vector_store
 import logging
 from pathlib import Path
 
@@ -37,38 +42,10 @@ logger = logging.getLogger(__name__)
 # Load environment variables
 load_dotenv()
 
-# ============= SINGLETON PATTERN FOR VECTOR STORE =============
-_vector_store_instance = None
-
-
-def get_vector_store_manager():
-    """
-    Singleton pattern to ensure only ONE VectorStoreManager instance
-    """
-    global _vector_store_instance
-
-    if _vector_store_instance is None:
-        from rag.vector_store import VectorStoreManager
-
-        logger.info("🔧 Initializing VectorStoreManager (SINGLETON)")
-        _vector_store_instance = VectorStoreManager(
-            persist_directory="data/vector_db",
-            embedding_model_name="all-MiniLM-L6-v2",
-            qdrant_host=os.getenv("QDRANT_HOST"),
-            qdrant_api_key=os.getenv("QDRANT_API_KEY"),
-            qdrant_dim=int(os.getenv("QDRANT_DIM", 384)),
-        )
-
-        if _vector_store_instance._cloud_available():
-            logger.info("✅ Qdrant is reachable")
-        else:
-            logger.info("⚠️ Qdrant not reachable, falling back to Chroma")
-
-    return _vector_store_instance
-
-
-# Initialize once at module load
-vector_store = get_vector_store_manager()
+# Initialize the shared VectorStoreManager once at module load.
+# Every other module (groq_service, rag_admin) must call get_vector_store()
+# so we keep a single embedding model + single Qdrant client per process.
+vector_store = get_vector_store()
 
 app = FastAPI(
     title="Deep Shiva - RAG-Enhanced AI Tourism Chatbot",
