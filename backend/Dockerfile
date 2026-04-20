@@ -19,10 +19,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         gcc \
     && rm -rf /var/lib/apt/lists/*
 
-# CPU-only torch first — much smaller than the default CUDA wheels
+# CPU-only torch — explicit +cpu tag + PyTorch index to avoid the 2GB CUDA wheel
 RUN pip install --prefix=/install --no-cache-dir \
     --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch==2.1.2
+    torch==2.1.2+cpu
 
 COPY requirements.prod.txt ./
 RUN pip install --prefix=/install --no-cache-dir -r requirements.prod.txt

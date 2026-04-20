@@ -41,8 +41,9 @@ langchain-community==0.0.10
 pypdf==3.17.4
 beautifulsoup4==4.12.2
 
-# Vector DB (Qdrant Cloud only)
+# Vector DB — Qdrant Cloud primary, Chroma only to satisfy module-level imports
 qdrant-client==1.7.3
+chromadb==0.5.3
 
 # Databases & auth
 motor==3.6.0
