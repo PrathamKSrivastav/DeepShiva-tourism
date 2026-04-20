@@ -2,7 +2,7 @@ export const seasons = {
   winter: {
     name: "Winter",
     image:
-      "/public/winter.jpeg",
+      "/winter.jpeg",
     gradient: {
       base: "from-slate-200 via-blue-100 to-slate-300",
       mesh1: "rgba(147, 197, 253, 0.3)", // Light blue
@@ -12,7 +12,7 @@ export const seasons = {
   },
   spring: {
     name: "Spring",
-    image: "/public/spring.jpg",
+    image: "/spring.jpg",
     gradient: {
       base: "from-purple-200 via-pink-200 to-orange-100", // ✅ UPDATED - Purple mountains, pink flowers, warm sunset
       mesh1: "rgba(232, 121, 249, 0.28)", // ✅ Magenta/pink (flowers)
@@ -22,7 +22,7 @@ export const seasons = {
   },
   summer: {
     name: "Summer",
-    image: "/public/summer.jpg",
+    image: "/summer.jpg",
     gradient: {
       base: "from-yellow-100 via-orange-50 to-yellow-200",
       mesh1: "rgba(253, 224, 71, 0.3)", // Yellow
@@ -32,7 +32,7 @@ export const seasons = {
   },
   autumn: {
     name: "Autumn",
-    image: "/public/autumn.jpg",
+    image: "/autumn.jpg",
     gradient: {
       base: "from-orange-100 via-red-50 to-amber-200",
       mesh1: "rgba(251, 146, 60, 0.28)", // Orange

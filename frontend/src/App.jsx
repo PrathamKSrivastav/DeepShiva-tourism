@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ChatWindow from "./components/ChatWindow";
 import LoginButton from "./components/LoginButton";
@@ -8,8 +7,6 @@ import ChatHistorySidebar from "./components/ChatHistorySidebar";
 import FeaturesSidebar from "./components/FeaturesSidebar";
 import { fetchPersonas } from "./api";
 import { useNavigate } from "react-router-dom";
-
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function AppContent() {
   const [personas, setPersonas] = useState([]);
