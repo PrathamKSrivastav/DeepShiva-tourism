@@ -113,7 +113,7 @@ KAGGLE_KEY=
 
 #### Frontend (Vite)
 
-VITE_API_BASE_URL=http://localhost:8000/api
+VITE_API_BASE_URL=https://deep-back.whitesmoke-d7a24d1e.southeastasia.azurecontainerapps.io/api
 VITE_GOOGLE_CLIENT_ID=
 
 

@@ -3,6 +3,8 @@ import ContentUpload from './ContentUpload'
 import ContentStats from './ContentStats'
 import SearchTest from './SearchTest'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
+
 function RAGAdmin() {
   const [activeTab, setActiveTab] = useState('upload')
   const [ragHealth, setRagHealth] = useState(null)
@@ -14,7 +16,7 @@ function RAGAdmin() {
 
   const checkRagHealth = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/rag/health')
+      const response = await fetch(`${API_BASE}/rag/health`)
       const health = await response.json()
       setRagHealth(health)
     } catch (error) {

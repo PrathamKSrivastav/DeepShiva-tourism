@@ -1,5 +1,7 @@
 import { useState, useRef } from 'react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
+
 function ContentUpload({ onUploadSuccess }) {
   const [uploadType, setUploadType] = useState('pdf')
   const [isUploading, setIsUploading] = useState(false)
@@ -34,7 +36,7 @@ function ContentUpload({ onUploadSuccess }) {
       formData.append('file', pdfFile)
       formData.append('content_type', contentType)
 
-      const response = await fetch('http://localhost:8000/api/rag/upload-pdf', {
+      const response = await fetch(`${API_BASE}/rag/upload-pdf`, {
         method: 'POST',
         body: formData,
       })
@@ -64,7 +66,7 @@ function ContentUpload({ onUploadSuccess }) {
     setUploadResult(null)
 
     try {
-      const response = await fetch('http://localhost:8000/api/rag/add-webpage', {
+      const response = await fetch(`${API_BASE}/rag/add-webpage`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,7 +101,7 @@ function ContentUpload({ onUploadSuccess }) {
     setUploadResult(null)
 
     try {
-      const response = await fetch('http://localhost:8000/api/rag/add-text-content', {
+      const response = await fetch(`${API_BASE}/rag/add-text-content`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +138,7 @@ function ContentUpload({ onUploadSuccess }) {
     setUploadResult(null)
 
     try {
-      const response = await fetch('http://localhost:8000/api/rag/batch-process', {
+      const response = await fetch(`${API_BASE}/rag/batch-process`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

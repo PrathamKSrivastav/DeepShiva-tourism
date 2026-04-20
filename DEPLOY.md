@@ -1,6 +1,6 @@
 # Deploying DeepShiva Backend to Azure Container Apps
 
-The backend runs as a single container on **Azure Container Apps** (consumption plan, scale-to-zero) in **Central India**. The frontend stays on Vercel and points at the Container Apps URL via `VITE_API_BASE_URL`.
+The backend runs as a single container on **Azure Container Apps** (consumption plan, scale-to-zero) in **Southeast Asia**. The frontend stays on Vercel and points at the Container Apps URL via `VITE_API_BASE_URL`.
 
 ## Prerequisites
 
@@ -20,8 +20,8 @@ az login
 # Pick your subscription
 az account set --subscription "<your-subscription-id>"
 
-# Create resource group in Central India
-az group create --name deepshiva-rg --location centralindia
+# Create resource group in Southeast Asia
+az group create --name deepshiva-rg --location southeastasia
 
 # Register providers (first time only)
 az provider register --namespace Microsoft.App
@@ -31,7 +31,7 @@ az provider register --namespace Microsoft.OperationalInsights
 az containerapp env create \
   --name deepshiva-env \
   --resource-group deepshiva-rg \
-  --location centralindia
+  --location southeastasia
 ```
 
 ## 2. Build & push the image (first time, manually)
@@ -54,7 +54,7 @@ Make the package public in GitHub → Packages → settings, or configure Contai
 
 ```bash
 az containerapp create \
-  --name deepshiva-backend \
+  --name deep-back \
   --resource-group deepshiva-rg \
   --environment deepshiva-env \
   --image ghcr.io/<github-user>/deepshiva-tourism-backend:latest \
@@ -89,14 +89,14 @@ az containerapp create \
       ADMIN_EMAILS=yash@voicehelden.com
 ```
 
-Note the FQDN returned, e.g. `deepshiva-backend.<hash>.centralindia.azurecontainerapps.io`.
+Note the FQDN returned, e.g. `deep-back.<hash>.southeastasia.azurecontainerapps.io`.
 
 ## 4. Point the Vercel frontend at it
 
 In Vercel → project → Settings → Environment Variables:
 
 ```
-VITE_API_BASE_URL = https://deepshiva-backend.<hash>.centralindia.azurecontainerapps.io/api
+VITE_API_BASE_URL = https://deep-back.<hash>.southeastasia.azurecontainerapps.io/api
 ```
 
 Redeploy the Vercel project.
@@ -119,7 +119,7 @@ Copy the JSON output. In GitHub → repo → Settings → Secrets and variables 
 |---|---|
 | `AZURE_CREDENTIALS` | the JSON blob from the command above |
 | `AZURE_RESOURCE_GROUP` | `deepshiva-rg` |
-| `AZURE_CONTAINER_APP` | `deepshiva-backend` |
+| `AZURE_CONTAINER_APP` | `deep-back` |
 
 From now on every push to `master` that touches `backend/` rebuilds and rolls the Container App.
 
@@ -129,7 +129,7 @@ If you prefer to keep the image private:
 
 ```bash
 az containerapp registry set \
-  --name deepshiva-backend \
+  --name deep-back \
   --resource-group deepshiva-rg \
   --server ghcr.io \
   --username <github-user> \
@@ -159,12 +159,12 @@ Then open `https://deep-shiva-tourism.vercel.app` and sign in.
 
 ```bash
 az containerapp secret set \
-  --name deepshiva-backend \
+  --name deep-back \
   --resource-group deepshiva-rg \
   --secrets groq-api-key=<new-value>
 
 az containerapp update \
-  --name deepshiva-backend \
+  --name deep-back \
   --resource-group deepshiva-rg
 ```
 

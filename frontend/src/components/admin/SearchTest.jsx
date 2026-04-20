@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
+
 function SearchTest() {
   const [query, setQuery] = useState('')
   const [results, setResults] = useState(null)
@@ -32,7 +34,7 @@ function SearchTest() {
         })
       }
 
-      const response = await fetch(`http://localhost:8000/api/rag/test-search?${params}`)
+      const response = await fetch(`${API_BASE}/rag/test-search?${params}`)
       const data = await response.json()
       setResults(data)
     } catch (error) {

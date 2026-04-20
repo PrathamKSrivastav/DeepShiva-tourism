@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api'
+
 function ContentStats({ ragHealth }) {
   const [stats, setStats] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -10,7 +12,7 @@ function ContentStats({ ragHealth }) {
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/rag/content-stats')
+      const response = await fetch(`${API_BASE}/rag/content-stats`)
       const data = await response.json()
       setStats(data)
     } catch (error) {
