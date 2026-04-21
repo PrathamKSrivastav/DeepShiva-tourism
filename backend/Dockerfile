@@ -63,7 +63,9 @@ COPY --chown=app:app . /app
 
 # Strip files that should never land in the image even if .dockerignore misses them
 RUN rm -rf /app/localmodel /app/cache /app/tools/hotel_cache /app/tests \
-    && chown -R app:app /opt/hf_cache
+    && chown -R app:app /opt/hf_cache \
+    && mkdir -p /app/.local /app/.cache \
+    && chown -R app:app /app/.local /app/.cache
 
 USER app
 

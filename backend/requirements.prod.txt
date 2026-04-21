@@ -91,3 +91,9 @@ audioread==3.1.0
 phonemizer-fork==3.3.2
 espeakng-loader==0.2.4
 kokoro==0.9.4
+
+# spaCy English model required by misaki (kokoro's G2P backend). Pre-install
+# here so misaki doesn't try to run `pip install en-core-web-sm` at runtime as
+# the non-root `app` user — that hits /app/.local permission-denied and kills
+# the container before uvicorn can bind.
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
