@@ -402,6 +402,34 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
                       </div>
                     </div>
                   )}
+
+                  {/* Always-visible accuracy overlay in real-time mode.
+                      Mobile layout stacks camera above results; without this
+                      pill the user has to scroll to see the score. */}
+                  {isRealtimeMode && currentFeedback && typeof currentFeedback.accuracy === "number" && (
+                    <div className="absolute top-3 left-3 right-3 sm:right-auto sm:w-64 bg-black/70 backdrop-blur-md rounded-xl px-4 py-2.5 flex items-center gap-3 shadow-lg">
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-xs font-medium text-white/80 uppercase tracking-wider">Accuracy</span>
+                          <span className="text-lg font-bold text-white">{Math.round(currentFeedback.accuracy)}%</span>
+                        </div>
+                        <div className="h-1.5 rounded-full bg-white/20 overflow-hidden">
+                          <motion.div
+                            className={`h-full ${
+                              currentFeedback.accuracy >= 80
+                                ? "bg-emerald-500"
+                                : currentFeedback.accuracy >= 60
+                                ? "bg-yellow-500"
+                                : "bg-red-500"
+                            }`}
+                            initial={{ width: 0 }}
+                            animate={{ width: `${currentFeedback.accuracy}%` }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Controls */}

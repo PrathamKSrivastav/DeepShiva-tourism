@@ -198,7 +198,7 @@ const YogaSelector = ({ darkMode, onClose }) => {
                             <img
                               src={`${API_URL}/yoga-static/img/${pose.image}`}
                               alt={pose.display_name}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-contain p-2"
                               style={{
                                 mixBlendMode: darkMode ? "screen" : "multiply",
                                 filter: "contrast(1.1) brightness(1.05)",
