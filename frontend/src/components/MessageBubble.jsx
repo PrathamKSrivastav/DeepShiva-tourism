@@ -69,8 +69,8 @@ const handleSpeak = () => {
   // Create speech utterance
   const utterance = new SpeechSynthesisUtterance(cleanText);
 
-  // Configure voice settings - faster and more natural
-  utterance.rate = 1.0; // Slightly faster (was 1.0)
+  // Configure voice settings — user requested faster playback for chat TTS
+  utterance.rate = 1.25; // 25% faster than default, still natural
   utterance.pitch = 0.7; // Natural pitch
   utterance.volume = 1.0; // Full volume
 

@@ -319,7 +319,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
         initial={{ scale: 0.9, opacity: 0, y: 20 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
         exit={{ scale: 0.9, opacity: 0, y: 20 }}
-        className={`relative w-full max-w-6xl max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl ${
+        className={`relative w-full max-w-6xl max-h-[90vh] rounded-3xl shadow-2xl flex flex-col ${
           darkMode
             ? "bg-gradient-to-br from-dark-surface to-dark-elev border border-dark-border"
             : "bg-gradient-to-br from-white to-blue-50 border border-white/20"
@@ -329,7 +329,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
         {/* Close */}
         <button
           onClick={onClose}
-          className={`absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
+          className={`absolute top-4 right-4 z-20 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110 ${
             darkMode ? "bg-dark-elev hover:bg-dark-elev/80 text-white" : "bg-white/80 hover:bg-white text-gray-700"
           }`}
         >
@@ -338,7 +338,7 @@ const YogaPractice = ({ poseName, poseDetails, onClose, darkMode }) => {
           </svg>
         </button>
 
-        <div className="overflow-y-auto h-full no-scrollbar">
+        <div className="flex-1 overflow-y-auto overscroll-contain">
           <div className="p-6 sm:p-8">
             {/* Header */}
             <div className="mb-6 pr-12">
