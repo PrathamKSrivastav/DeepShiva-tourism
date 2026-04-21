@@ -42,28 +42,35 @@ class AudioProcessor:
     """Process audio files and transcribe to text"""
 
     def __init__(self):
-        """Initialize faster-whisper model"""
+        """Construct without loading the model.
+
+        `WhisperModel(...)` downloads ~75 MB (tiny) from HuggingFace Hub
+        on first call. Running that at module import time blocked uvicorn
+        from binding port 8000 and crashed the revision, so we defer
+        until the first transcription call instead.
+        """
         self.model = None
+        self._model_loaded = False
 
-        if not WHISPER_AVAILABLE:
-            logger.error(
-                "❌ faster-whisper not installed. Run: pip install faster-whisper"
-            )
+    def _ensure_model(self):
+        """Load the tiny Whisper model on first use. Idempotent."""
+        if self._model_loaded:
             return
-
+        self._model_loaded = True  # set early so we don't retry-storm on failures
+        if not WHISPER_AVAILABLE:
+            logger.error("❌ faster-whisper not installed.")
+            return
         try:
-            # Use tiny model first (faster download, good for testing)
-            logger.info("🎤 Loading faster-whisper model (tiny)...")
+            logger.info("🎤 Loading faster-whisper model (tiny) on first request...")
             self.model = WhisperModel(
-                "small",  # Changed from "small" to "tiny" for faster init
+                "tiny",
                 device="cpu",
                 compute_type="int8",
-                download_root=None,  # Use default cache location
+                download_root=None,
             )
-            logger.info("✅ Audio model loaded successfully (tiny)")
+            logger.info("✅ Whisper tiny loaded")
         except Exception as e:
-            logger.error(f"❌ Failed to load audio model: {str(e)}")
-            logger.error("   Try running: pip install faster-whisper --upgrade")
+            logger.error(f"❌ Failed to load Whisper model: {str(e)}")
             self.model = None
 
     async def transcribe_audio(
@@ -83,6 +90,7 @@ class AudioProcessor:
                 "confidence": 0.95
             }
         """
+        self._ensure_model()
         if not self.model:
             raise Exception(
                 "Audio model not initialized. Please install: pip install faster-whisper pydub"

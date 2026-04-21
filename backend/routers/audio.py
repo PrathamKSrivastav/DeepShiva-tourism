@@ -238,7 +238,10 @@ from routers.chat import chat, ChatRequest
 
 logger = logging.getLogger(__name__)
 router = APIRouter()
-audio_processor = get_audio_processor()
+# NOTE: audio_processor is loaded lazily inside the endpoint.
+# Eager init here used to trigger a ~500 MB Whisper download at
+# container startup, which overran the startup probe and crashed
+# the revision. First /chat/audio request now pays the warm-up cost.
 
 class AudioChatResponse(BaseModel):
     transcription: str
@@ -266,8 +269,8 @@ async def chat_with_audio(
             content = await audio.read()
             temp_file.write(content)
             
-        # Transcribe
-        transcription_result = await audio_processor.transcribe_audio(temp_audio_path, detect_language=True)
+        # Transcribe (lazy model load on first call)
+        transcription_result = await get_audio_processor().transcribe_audio(temp_audio_path, detect_language=True)
         text = transcription_result["transcription"]
         lang = transcription_result["detected_language"]
         

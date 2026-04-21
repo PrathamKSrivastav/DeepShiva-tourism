@@ -177,18 +177,20 @@ async def startup_event():
     except Exception as e:
         logger.warning(f"⚠️ MongoDB connection warning: {e}")
 
-    from utils.kokoro_service import KOKORO_AVAILABLE
-    if KOKORO_AVAILABLE:
-        try:
-            en = KokoroTTSService(lang_code="a")
-            hi = KokoroTTSService(lang_code="h")
-            en.synthesize("Ready", voice="af_heart", speed=1.0)
-            hi.synthesize("तैयार", voice="hf_alpha", speed=1.0)
-            logger.info("✅ Kokoro TTS prewarmed")
-        except Exception as e:
-            logger.warning(f"⚠️ Kokoro prewarm failed: {e}")
-    else:
-        logger.info("ℹ️ Kokoro TTS not available on this deployment — skipping prewarm")
+    # Kokoro TTS — skip synchronous prewarm on startup. The synthesize()
+    # test calls previously here triggered HF Hub downloads of voice files
+    # that could stall or fail and block the event loop. First /api/tts/kokoro
+    # request warms the model lazily (1–30 s for that one user). Still
+    # wrapped in a broad try/except so a flaky kokoro import can never
+    # crash container startup.
+    try:
+        from utils.kokoro_service import KOKORO_AVAILABLE
+        if KOKORO_AVAILABLE:
+            logger.info("✅ Kokoro TTS available (lazy-load on first request)")
+        else:
+            logger.info("ℹ️ Kokoro TTS not available on this deployment")
+    except Exception as e:
+        logger.warning(f"⚠️ Kokoro availability probe failed: {e}")
 
     logger.info("✅ All services initialized")
 
