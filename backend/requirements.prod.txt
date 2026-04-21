@@ -1,8 +1,12 @@
 # ============================
 # Production runtime dependencies
 # ============================
-# Excludes: chromadb, kokoro, faster-whisper, llama-cpp-python, opencv,
-#           mediapipe, spacy, webrtc stack, matplotlib.
+# Excludes: chromadb, llama-cpp-python, opencv, mediapipe, spacy,
+#           webrtc stack, matplotlib.
+# Kokoro TTS and faster-whisper STT are included so meditation narration
+# and voice-message input work. They pull torch + phonemizer + ctranslate2
+# (~2 GB), which is what makes the production image ~7 GB. Cold starts are
+# kept warm by the cron-job.org ping so users don't notice.
 # CPU-only torch is installed separately in the Dockerfile from
 # https://download.pytorch.org/whl/cpu to keep the image small.
 
@@ -76,3 +80,14 @@ charset-normalizer==3.3.2
 idna==3.10
 h11==0.16.0
 websockets==12.0
+
+# Audio / Speech — TTS (Kokoro) + STT (faster-whisper)
+faster-whisper==1.0.3
+ctranslate2==4.6.2
+soundfile==0.13.1
+pydub==0.25.1
+librosa==0.11.0
+audioread==3.1.0
+phonemizer-fork==3.3.2
+espeakng-loader==0.2.4
+kokoro==0.9.4
