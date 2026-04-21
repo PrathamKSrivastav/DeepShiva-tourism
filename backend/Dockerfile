@@ -61,11 +61,13 @@ COPY --from=builder /install/hf_cache /opt/hf_cache
 # App code (context is backend/)
 COPY --chown=app:app . /app
 
-# Strip files that should never land in the image even if .dockerignore misses them
+# Strip files that should never land in the image even if .dockerignore misses them.
+# Then recreate runtime-writable cache directories for kokoro TTS, spacy/nltk,
+# pip user installs, and HF hub downloads, all owned by the non-root app user.
 RUN rm -rf /app/localmodel /app/cache /app/tools/hotel_cache /app/tests \
     && chown -R app:app /opt/hf_cache \
-    && mkdir -p /app/.local /app/.cache \
-    && chown -R app:app /app/.local /app/.cache
+    && mkdir -p /app/.local /app/.cache /app/cache/tts /app/tools/hotel_cache \
+    && chown -R app:app /app/.local /app/.cache /app/cache /app/tools
 
 USER app
 
