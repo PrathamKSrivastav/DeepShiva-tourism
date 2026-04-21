@@ -463,7 +463,7 @@ async def export_session_as_pdf(
         logger.info(f" Session found with {len(session.get('messages', []))} messages")
         
         # Create temp directory if it doesn't exist
-        temp_dir = "temp_pdfs"
+        temp_dir = "/tmp/temp_pdfs"  # /tmp is always writable; /app/temp_pdfs hit app-user perm issues
         os.makedirs(temp_dir, exist_ok=True)
         
         # Generate filename
@@ -1101,7 +1101,7 @@ async def delete_chat_session(
 
         # Optional: Clean up related files (PDFs, summaries, etc.)
         try:
-            temp_dir = "temp_pdfs"
+            temp_dir = "/tmp/temp_pdfs"  # /tmp is always writable; /app/temp_pdfs hit app-user perm issues
             if os.path.exists(temp_dir):
                 # Remove any PDFs associated with this session
                 for filename in os.listdir(temp_dir):
@@ -1287,7 +1287,7 @@ async def download_summary_pdf(
             )
         
         # Create temp directory
-        temp_dir = "temp_pdfs"
+        temp_dir = "/tmp/temp_pdfs"  # /tmp is always writable; /app/temp_pdfs hit app-user perm issues
         os.makedirs(temp_dir, exist_ok=True)
         
         # Generate filename
