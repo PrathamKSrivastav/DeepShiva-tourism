@@ -1,6 +1,6 @@
-# Deep Shiva
+# Deep Shiva (1st Place - All-India Hackathon)
 
-Deep Shiva is a full-stack, AI-powered interactive tourism platform designed to provide spiritually and culturally rich travel guidance for India. It is built with a FastAPI backend and a React (Vite) frontend.
+Deep Shiva is a full-stack, AI-powered interactive tourism platform designed to provide spiritually and culturally rich travel guidance for India. This project won **1st Place in an All-India Hackathon** and showcases advanced integrations of RAG, computer vision, and agentic workflows.
 
 It utilizes Retrieval-Augmented Generation (RAG) to serve domain-specific knowledge, features multi-persona AI conversations, integrates real-time yoga pose validation via WebSockets, and offers Text-to-Speech (TTS) capabilities.
 
@@ -16,6 +16,7 @@ It utilizes Retrieval-Augmented Generation (RAG) to serve domain-specific knowle
 - **Authentication**: Google OAuth 2.0 with JWT.
 - **TTS**: Kokoro.
 - **Tools / Agentic Workflows**: Integrated functions for live data fetching (Weather, Hotels, Geocoding, Treks, Holidays).
+- **ML Engineering**: Real-time Pose Estimation (MediaPipe) and custom RAG retrieval logic.
 
 ### Frontend
 - **Framework**: React 18 + Vite.
